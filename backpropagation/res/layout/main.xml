@@ -1,6 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
-</RelativeLayout>
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+    <TableLayout
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	<TableRow>
+    	    <TextView
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"
+    			android:text="@string/iteration" />
+       	    <TextView
+       	        android:id="@+id/main_iteration"
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"/>
+    	</TableRow>
+    </TableLayout>
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_start_stop"
+    	android:text="@string/start"
+        />
+</LinearLayout>

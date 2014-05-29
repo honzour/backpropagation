@@ -1,2 +1,3 @@
 <resources>
+    <dimen name="commonMargin">10dp</dimen>
 </resources>
