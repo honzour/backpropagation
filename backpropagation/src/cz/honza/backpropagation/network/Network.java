@@ -41,6 +41,8 @@ public class Network {
 
 	void initTraining(double[][] inputs, double[][] outputs) {
 		sumError = -1;
+		this.inputs = inputs;
+		this.outputs = outputs;
 	}
 
 	double trainingStep() {
@@ -56,11 +58,11 @@ public class Network {
 		        }
 		      }
 		    }
-		    double[] output;
+		    double[] output = new double[layers[layers.length - 1].neurons.length];
 		    for (i = 0; i < inputs.length; i++) {
-		      vypocet(t[i][0], vystup);
-		      for (j = 0; j < vystup.size(); j++) {
-		        sumChyba += ((vystup[j] - t[i][1][j]) * (vystup[j] - t[i][1][j]));
+		      calculate(inputs[i], output);
+		      for (j = 0; j < output.length; j++) {
+		        sumError += ((output[j] - t[i][1][j]) * (vystup[j] - t[i][1][j]));
 		      }
 		      for (j = size() - 1; j >= 0; j--) { // backpropagation
 		        for (k = 0; k < (*this)[j].size(); k++) {
