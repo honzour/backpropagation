@@ -26,7 +26,8 @@ public class Network {
 				Neuron n = l.neurons[j];
 				double potential = 0;
 				for (k = 1; k < n.weights.length; k++) {
-					potential += (i == 0 ? input[k] : layers[i - 1].neurons[k].output) * n.weights[k];
+					potential += (i == 0 ? input[k]
+							: layers[i - 1].neurons[k].output) * n.weights[k];
 				}
 				potential += n.weights[0];
 				n.potential = potential;
@@ -46,59 +47,60 @@ public class Network {
 	}
 
 	double trainingStep() {
-		 int i, j, k, l;
-		  
-	    sumError = 0;
-		    for (i = 0; i < layers.length; i++) {
-		      for (j = 0; j < layers[i].neurons.length; j++) {
-		    	  Neuron n = layers[i].neurons[j];
-		        for (k = 0; k < n.weights.length; k++) {
-		          n.weightsDerivation[k] = 0;
-		          n.moment = 0;
-		        }
-		      }
-		    }
-		    double[] output = new double[layers[layers.length - 1].neurons.length];
-		    for (i = 0; i < inputs.length; i++) {
-		      calculate(inputs[i], output);
-		      for (j = 0; j < output.length; j++) {
-		        sumError += ((output[j] - t[i][1][j]) * (vystup[j] - t[i][1][j]));
-		      }
-		      for (j = size() - 1; j >= 0; j--) { // backpropagation
-		        for (k = 0; k < (*this)[j].size(); k++) {
-		          if (j == size() - 1) {
-		            (*this)[j][k].derivace = (*this)[j][k].vystup - t[i][1][k];
-		          } else {
-		            (*this)[j][k].derivace = 0;
-		            for (l = 0; l < (*this)[j + 1].size(); l++) {
-		              (*this)[j][k].derivace += 
-		               (*this)[j + 1][l].derivace *
-		               (*this)[j + 1][l].vystup *
-		               (1 - (*this)[j + 1][l].vystup) *
-		               (*this)[j + 1][l][k];
-		            }
-		          }
-		          for (l = 0; l < (*this)[j][k].size(); l++) {
-		            (*this)[j][k].derivaceVah[l] +=
-		              (*this)[j][k].derivace *
-		              (*this)[j][k].vystup *
-		              (1 - (*this)[j][k].vystup) *
-		              ((l == (*this)[j][k].size() - 1) ? -1 : 
-		                (j == 0 ? t[i][0][l] : (*this)[j - 1][l].vystup));
-		          }
-		        }
-		      }
-		    }
-		    for (i = 0; i < size(); i++) {
-		      for (j = 0; j < (*this)[i].size(); j++) {
-		        for (k = 0; k < (*this)[i][j].size(); k++) {
-		          (*this)[i][j].moment = 
-		            0.01 * (*this)[i][j].derivaceVah[k] + 0.0 * (*this)[i][j].moment;
-		          (*this)[i][j][k] -= (*this)[i][j].moment;
-		        }
-		      }
-		    }
-		    sumError /= 2;
-		  return sumError;
+		int i, j, k, l;
+
+		sumError = 0;
+		for (i = 0; i < layers.length; i++) {
+			for (j = 0; j < layers[i].neurons.length; j++) {
+				Neuron n = layers[i].neurons[j];
+				for (k = 0; k < n.weights.length; k++) {
+					n.weightsDerivation[k] = 0;
+					n.moment = 0;
+				}
+			}
+		}
+		double[] output = new double[layers[layers.length - 1].neurons.length];
+		for (i = 0; i < inputs.length; i++) {
+			calculate(inputs[i], output);
+			for (j = 0; j < output.length; j++) {
+				final double diff = output[j] - outputs[i][j];
+				sumError += diff * diff;
+			}
+			for (j = layers.length - 1; j >= 0; j--) { // backpropagation
+				for (k = 0; k < layers[j].neurons.length; k++) {
+					Neuron n = layers[j].neurons[k];
+					if (j == layers.length - 1) {
+						n.derivation = n.output - outputs[i][k];
+					} else {
+						layers[j].neurons[k].derivation = 0;
+						for (l = 0; l < layers[j + 1].neurons.length; l++) {
+							Neuron n2 = layers[j + 1].neurons[l];
+							n.derivation += n2.derivation * n2.output
+									* (1 - n2.output) * n.weights[k];
+						}
+					}
+					for (l = 0; l < n.weights.length; l++) {
+						n.weightsDerivation[l] += n.derivation
+								* n.output
+								* (1 - n.output)
+								* ((l == n.weights.length - 1) ? -1
+										: (j == 0 ? inputs[i][l]
+												: layers[j - 1].neurons[l].output));
+					}
+				}
+			}
+		}
+		for (i = 0; i < layers.length; i++) {
+			for (j = 0; j < layers[i].neurons.length; j++) {
+				for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
+					layers[i].neurons[j].moment = 0.01
+							* layers[i].neurons[j].weightsDerivation[k] + 0.0
+							* layers[i].neurons[j].moment;
+					layers[i].neurons[j].weights[k] -= layers[i].neurons[j].moment;
+				}
+			}
+		}
+		sumError *= 0.5;
+		return sumError;
 	}
 }
