@@ -36,12 +36,12 @@ public class LearningThread extends Thread {
 			{
 				if (mEnding) 
 				{
-					MainActivity.sInstance.update(-1);
+					MainActivity.sInstance.update(-1, -1);
 					return;
 				}
 			}
 			mIteration++;
-			MainActivity.sInstance.update(mIteration);
+			MainActivity.sInstance.update(mIteration, mError);
 		}
 	}
 }
