@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		}
 	};
 	
-	public void update(long iteration)
+	public void update(long iteration, double error)
 	{
 		if (isFinishing() || !mIsCreated)
 			return;
