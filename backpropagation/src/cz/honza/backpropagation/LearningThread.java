@@ -1,5 +1,7 @@
 package cz.honza.backpropagation;
 
+import cz.honza.backpropagation.network.Network;
+
 public class LearningThread extends Thread {
 
 	private volatile boolean mEnding = false;
@@ -11,11 +13,17 @@ public class LearningThread extends Thread {
 	}
 	
 
+	public void start(Network network, double[][] inputs, double outputs[][])
+	{
+		
+	}
 	
 	@Override
 	public void run() {
+		
 		while (true)
 		{
+			
 			synchronized(this)
 			{
 				if (mEnding) 
