@@ -26,4 +26,18 @@ public class Neuron {
 			weightsDerivation[i] = 0;
 		}
 	}
+	
+	public String toString()
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append('[');
+		for (int i = 0; i < weights.length; i++)
+		{				
+			sb.append(weights[i]);
+			if (i < weights.length - 1)
+				sb.append(", ");
+		}
+		sb.append(']');
+		return sb.toString();
+	}
 }
