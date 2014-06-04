@@ -50,9 +50,18 @@ public class MainActivity extends Activity {
 		mStart.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int[] anatomy = {2, 2, 1};
+				/*
+				// XOR
+				int[] anatomy = {2, 2, 2, 1};
 				double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 				double[][] outputs = {{0}, {1}, {1}, {0}};
+				*/
+				
+				// single neuron, x > 0.5
+				int[] anatomy = {2, 1};
+				double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+				double[][] outputs = {{0}, {0}, {1}, {1}};
+				
 				if (sThread == null)
 				{
 					sThread = new LearningThread();
