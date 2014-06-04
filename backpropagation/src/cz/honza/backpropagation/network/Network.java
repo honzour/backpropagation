@@ -26,8 +26,8 @@ public class Network {
 				Neuron n = l.neurons[j];
 				double potential = 0;
 				for (k = 1; k < n.weights.length; k++) {
-					potential += (i == 0 ? input[k]
-							: layers[i - 1].neurons[k].output) * n.weights[k];
+					potential += (i == 0 ? input[k - 1]
+							: layers[i - 1].neurons[k - 1].output) * n.weights[k];
 				}
 				potential += n.weights[0];
 				n.potential = potential;

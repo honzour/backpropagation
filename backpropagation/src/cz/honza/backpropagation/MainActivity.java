@@ -45,10 +45,13 @@ public class MainActivity extends Activity {
 		mStart.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				int[] anatomy = {2, 2, 1};
+				double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+				double[][] outputs = {{0}, {1}, {1}, {0}};
 				if (sThread == null)
 				{
 					sThread = new LearningThread();
-					sThread.start();
+					sThread.start(anatomy, inputs, outputs);
 					mStart.setText(R.string.stop);
 				}
 				else
