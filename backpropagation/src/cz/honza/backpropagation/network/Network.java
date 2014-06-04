@@ -1,7 +1,7 @@
 package cz.honza.backpropagation.network;
 
 public class Network {
-	private Layer[] layers;
+	public Layer[] layers;
 	private double sumError;
 	private double[][] inputs;
 	private double[][] outputs;
