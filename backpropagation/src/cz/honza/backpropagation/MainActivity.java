@@ -58,9 +58,9 @@ public class MainActivity extends Activity {
 				*/
 				
 				// single neuron, x > 0.5
-				int[] anatomy = {2, 1};
-				double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-				double[][] outputs = {{0}, {0}, {1}, {1}};
+				int[] anatomy = {1, 1};
+				double[][] inputs = {{0}, {1}};
+				double[][] outputs = {{0}, {1}};
 				
 				if (sThread == null)
 				{
