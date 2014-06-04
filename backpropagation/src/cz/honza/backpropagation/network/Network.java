@@ -81,11 +81,8 @@ public class Network {
 					}
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
-								* n.output
-								* (1 - n.output)
-								* ((l == n.weights.length - 1) ? -1
-										: (j == 0 ? inputs[i][l]
-												: layers[j - 1].neurons[l].output));
+								* n.output * (1 - n.output)
+								* ((l == 0) ? 1 : (j == 0 ? inputs[i][l - 1] : layers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
