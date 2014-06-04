@@ -20,6 +20,18 @@
     			android:layout_height="wrap_content"
     			android:textColor="@color/text"/>
     	</TableRow>
+    	<TableRow>
+    	    <TextView
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"
+    			android:text="@string/error" />
+       	    <TextView
+       	        android:id="@+id/main_error"
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"/>
+    	</TableRow>
     </TableLayout>
     <Button
         android:layout_marginTop="@dimen/commonMargin"

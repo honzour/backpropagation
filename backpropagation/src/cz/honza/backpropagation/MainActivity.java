@@ -13,8 +13,10 @@ public class MainActivity extends Activity {
 	private static LearningThread sThread;
 	private Handler mHandler;
 	private TextView mIteratonView;
+	private TextView mErrorView;
 	private Button mStart;
 	private volatile long mIteration;
+	private volatile double mError;
 	private volatile boolean mIsCreated = false;
 	
 	private Runnable mIterationRunnable = new Runnable() {
@@ -22,6 +24,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 			mIteratonView.setText(mIteration < 0 ? "" : String.valueOf(mIteration));
+			mErrorView.setText(mIteration < 0 ? "" : String.valueOf(mError));
 		}
 	};
 	
@@ -30,6 +33,7 @@ public class MainActivity extends Activity {
 		if (isFinishing() || !mIsCreated)
 			return;
 		mIteration = iteration;
+		mError = error;
 		mHandler.post(mIterationRunnable);
 	}
 
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
+		mErrorView = (TextView)findViewById(R.id.main_error);
 		mStart = (Button)findViewById(R.id.main_start_stop);
 		mStart.setText(sThread == null ? R.string.start : R.string.stop);
 		mStart.setOnClickListener(new View.OnClickListener() {
