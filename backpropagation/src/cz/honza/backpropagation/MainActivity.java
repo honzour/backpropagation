@@ -62,8 +62,7 @@ public class MainActivity extends Activity {
 
 			sNetwork = new Network(anatomy, inputs, outputs);
 		}
-		
-		
+				
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
@@ -88,5 +87,8 @@ public class MainActivity extends Activity {
 			}
 		});
 		mIsCreated = true;
+		
+		if (sThread == null)
+			update();
 	}
 }
