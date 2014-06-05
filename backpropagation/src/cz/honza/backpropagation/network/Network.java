@@ -70,7 +70,6 @@ public class Network {
 				Neuron n = layers[i].neurons[j];
 				for (k = 0; k < n.weights.length; k++) {
 					n.weightsDerivation[k] = 0;
-					n.moment = 0;
 				}
 			}
 		}
@@ -105,10 +104,7 @@ public class Network {
 		for (i = 0; i < layers.length; i++) {
 			for (j = 0; j < layers[i].neurons.length; j++) {
 				for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
-					layers[i].neurons[j].moment = 0.01
-							* layers[i].neurons[j].weightsDerivation[k] + 0.0
-							* layers[i].neurons[j].moment;
-					layers[i].neurons[j].weights[k] -= layers[i].neurons[j].moment;
+					layers[i].neurons[j].weights[k] -= 0.01	* layers[i].neurons[j].weightsDerivation[k];
 				}
 			}
 		}
