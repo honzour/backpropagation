@@ -10,11 +10,12 @@ public class Network {
 		return 1.0 / (1.0 + Math.exp(-x));
 	}
 
-	public Network(int[] layersDimensions) {
+	public Network(int[] layersDimensions, double[][] inputs, double[][] outputs) {
 		layers = new Layer[layersDimensions.length - 1];
 		for (int i = 0; i < layersDimensions.length - 1; i++) {
 			layers[i] = new Layer(layersDimensions[i + 1], layersDimensions[i]);
 		}
+		initTraining(inputs, outputs);
 	}
 
 	public void calculate(double[] input, double output[]) {
@@ -40,8 +41,7 @@ public class Network {
 		}
 	}
 
-	public void initTraining(double[][] inputs, double[][] outputs) {
-		sumError = -1;
+	private void initTraining(double[][] inputs, double[][] outputs) {
 		this.inputs = inputs;
 		this.outputs = outputs;
 	}

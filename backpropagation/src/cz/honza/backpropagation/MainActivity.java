@@ -1,5 +1,6 @@
 package cz.honza.backpropagation;
 
+import cz.honza.backpropagation.network.Network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.app.Activity;
 public class MainActivity extends Activity {
 	
 	public static MainActivity sInstance;
+	
 	private static LearningThread sThread;
+	private volatile static Network sNetwork = null;
+	
 	private Handler mHandler;
 	private TextView mIteratonView;
 	private TextView mErrorView;
@@ -18,7 +22,7 @@ public class MainActivity extends Activity {
 	private volatile long mIteration;
 	private volatile double mError;
 	private volatile boolean mIsCreated = false;
-	
+		
 	private Runnable mIterationRunnable = new Runnable() {
 		
 		@Override
@@ -42,6 +46,23 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		sInstance = this;
 		setContentView(R.layout.main);
+		if (sNetwork == null)
+		{
+			// XOR
+			int[] anatomy = {2, 2, 2, 1};
+			double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+			double[][] outputs = {{0}, {1}, {1}, {0}};
+							
+			/*
+			// single neuron, x > 0.5
+			int[] anatomy = {1, 1};
+			double[][] inputs = {{0}, {1}};
+			double[][] outputs = {{0}, {1}};
+			*/
+
+			sNetwork = new Network(anatomy, inputs, outputs);
+			
+		}
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
@@ -51,21 +72,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				// XOR
-				int[] anatomy = {2, 2, 2, 1};
-				double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-				double[][] outputs = {{0}, {1}, {1}, {0}};
-								
-				/*
-				// single neuron, x > 0.5
-				int[] anatomy = {1, 1};
-				double[][] inputs = {{0}, {1}};
-				double[][] outputs = {{0}, {1}};
-				*/
 				if (sThread == null)
 				{
 					sThread = new LearningThread();
-					sThread.start(anatomy, inputs, outputs);
+					sThread.start(sNetwork);
 					mStart.setText(R.string.stop);
 				}
 				else

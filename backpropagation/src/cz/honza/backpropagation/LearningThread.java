@@ -7,8 +7,6 @@ public class LearningThread extends Thread {
 	private volatile boolean mEnding = false;
 	private volatile long mIteration = 0;
 	private Network mNetwork;
-	private double[][] mTrainingInputs;
-	private double mTrainingOutputs[][];
 	private double mError;
 	
 	public synchronized void end()
@@ -17,31 +15,29 @@ public class LearningThread extends Thread {
 	}
 	
 
-	public void start(int[] networkAnatomy, double[][] trainingInputs, double trainingOutputs[][])
+	public void start(Network network)
 	{
-		mNetwork = new Network(networkAnatomy);
-		mTrainingInputs = trainingInputs;
-		mTrainingOutputs = trainingOutputs;
+		mNetwork = network;
 		start();
 	}
 	
 	@Override
 	public void run() {
 	
-		mNetwork.initTraining(mTrainingInputs, mTrainingOutputs);
 		while (true)
 		{
-			mError = mNetwork.trainingStep();
 			synchronized(this)
 			{
 				if (mEnding) 
 				{
-					MainActivity.sInstance.update(-1, -1);
+					MainActivity.sInstance.update(mIteration, mError);
 					return;
 				}
 			}
+			mError = mNetwork.trainingStep();
 			mIteration++;
-			MainActivity.sInstance.update(mIteration, mError);
+			if (mIteration % 4096 == 0)
+				MainActivity.sInstance.update(mIteration, mError);
 		}
 	}
 }
