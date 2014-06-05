@@ -2,9 +2,9 @@ package cz.honza.backpropagation.network;
 
 public class Network {
 	public Layer[] layers;
-	private double sumError;
 	private double[][] inputs;
 	private double[][] outputs;
+	private long mIteration;
 
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));
@@ -44,12 +44,27 @@ public class Network {
 	private void initTraining(double[][] inputs, double[][] outputs) {
 		this.inputs = inputs;
 		this.outputs = outputs;
+		mIteration = 0;
 	}
 
+	public double getError()
+	{
+		double sumError = 0;
+		double[] output = new double[layers[layers.length - 1].neurons.length];
+		for (int i = 0; i < inputs.length; i++) {
+			calculate(inputs[i], output);
+			for (int j = 0; j < output.length; j++) {
+				final double diff = output[j] - outputs[i][j];
+				sumError += diff * diff;
+			}
+		}
+		return sumError * 0.5;
+	}
+	
 	public double trainingStep() {
 		int i, j, k, l;
 
-		sumError = 0;
+		double sumError = 0;
 		for (i = 0; i < layers.length; i++) {
 			for (j = 0; j < layers[i].neurons.length; j++) {
 				Neuron n = layers[i].neurons[j];
@@ -98,6 +113,12 @@ public class Network {
 			}
 		}
 		sumError *= 0.5;
+		mIteration++;
 		return sumError;
+	}
+	
+	public long getItration()
+	{
+		return mIteration;
 	}
 }

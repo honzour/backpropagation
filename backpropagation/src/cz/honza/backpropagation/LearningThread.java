@@ -5,7 +5,6 @@ import cz.honza.backpropagation.network.Network;
 public class LearningThread extends Thread {
 
 	private volatile boolean mEnding = false;
-	private volatile long mIteration = 0;
 	private Network mNetwork;
 	private double mError;
 	
@@ -30,14 +29,14 @@ public class LearningThread extends Thread {
 			{
 				if (mEnding) 
 				{
-					MainActivity.sInstance.update(mIteration, mError);
+					MainActivity.sInstance.update(mNetwork.getItration(), mError);
 					return;
 				}
 			}
 			mError = mNetwork.trainingStep();
-			mIteration++;
-			if (mIteration % 4096 == 0)
-				MainActivity.sInstance.update(mIteration, mError);
+			
+			if (mNetwork.getItration() % 4096 == 0)
+				MainActivity.sInstance.update(mNetwork.getItration(), mError);
 		}
 	}
 }
