@@ -5,6 +5,7 @@ public class Network {
 	private double[][] inputs;
 	private double[][] outputs;
 	private long mIteration;
+	private double alpha = 0.01;
 
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));
@@ -104,7 +105,7 @@ public class Network {
 		for (i = 0; i < layers.length; i++) {
 			for (j = 0; j < layers[i].neurons.length; j++) {
 				for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
-					layers[i].neurons[j].weights[k] -= 0.01	* layers[i].neurons[j].weightsDerivation[k];
+					layers[i].neurons[j].weights[k] -= alpha * layers[i].neurons[j].weightsDerivation[k];
 				}
 			}
 		}
