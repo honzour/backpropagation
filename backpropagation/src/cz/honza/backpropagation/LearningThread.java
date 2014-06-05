@@ -6,7 +6,6 @@ public class LearningThread extends Thread {
 
 	private volatile boolean mEnding = false;
 	private Network mNetwork;
-	private double mError;
 	
 	public synchronized void end()
 	{
@@ -29,14 +28,13 @@ public class LearningThread extends Thread {
 			{
 				if (mEnding) 
 				{
-					MainActivity.sInstance.update(mNetwork.getItration(), mError);
+					MainActivity.sInstance.update();
 					return;
 				}
 			}
-			mError = mNetwork.trainingStep();
-			
+			mNetwork.trainingStep();
 			if (mNetwork.getItration() % 4096 == 0)
-				MainActivity.sInstance.update(mNetwork.getItration(), mError);
+				MainActivity.sInstance.update();
 		}
 	}
 }

@@ -32,12 +32,12 @@ public class MainActivity extends Activity {
 		}
 	};
 	
-	public void update(long iteration, double error)
+	public void update()
 	{
 		if (isFinishing() || !mIsCreated)
 			return;
-		mIteration = iteration;
-		mError = error;
+		mIteration = sNetwork.getItration();
+		mError = sNetwork.getError();
 		mHandler.post(mIterationRunnable);
 	}
 
@@ -61,8 +61,9 @@ public class MainActivity extends Activity {
 			*/
 
 			sNetwork = new Network(anatomy, inputs, outputs);
-			
 		}
+		
+		
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
