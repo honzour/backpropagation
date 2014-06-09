@@ -2,14 +2,14 @@ package cz.honza.backpropagation.learning;
 
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.util.NetworkActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.app.Activity;
 
-public class LearningActivity extends Activity {
+public class LearningActivity extends NetworkActivity {
 	
 	public static LearningActivity sInstance;
 	

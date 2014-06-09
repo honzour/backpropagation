@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name="cz.honza.backpropagation.learning.LearningActivity"
-            android:label="@string/app_name" >
+            android:label="@string/learning" >
         </activity>
     </application>
 
