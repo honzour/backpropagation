@@ -1,5 +1,6 @@
-package cz.honza.backpropagation;
+package cz.honza.backpropagation.learning;
 
+import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
 
-public class MainActivity extends Activity {
+public class LearningActivity extends Activity {
 	
-	public static MainActivity sInstance;
+	public static LearningActivity sInstance;
 	
 	private static LearningThread sThread;
 	private volatile static Network sNetwork = null;

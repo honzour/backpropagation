@@ -1,4 +1,4 @@
-package cz.honza.backpropagation;
+package cz.honza.backpropagation.learning;
 
 import cz.honza.backpropagation.network.Network;
 
@@ -28,13 +28,13 @@ public class LearningThread extends Thread {
 			{
 				if (mEnding) 
 				{
-					MainActivity.sInstance.update();
+					LearningActivity.sInstance.update();
 					return;
 				}
 			}
 			mNetwork.trainingStep();
 			if (mNetwork.getItration() % 4096 == 0)
-				MainActivity.sInstance.update();
+				LearningActivity.sInstance.update();
 		}
 	}
 }
