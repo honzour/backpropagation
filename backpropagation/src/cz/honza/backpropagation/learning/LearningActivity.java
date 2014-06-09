@@ -46,7 +46,7 @@ public class LearningActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		sInstance = this;
-		setContentView(R.layout.main);
+		setContentView(R.layout.learning);
 		if (sNetwork == null)
 		{
 			// XOR
