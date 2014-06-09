@@ -2,6 +2,7 @@ package cz.honza.backpropagation.main;
 
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.learning.LearningActivity;
+import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.util.NetworkActivity;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ public class MainActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		setStartActivity(R.id.main_learning, LearningActivity.class);
+		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 	}
 	
 
