@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Backpropagation</string>
+    
+    <!-- main -->
+    <string name="anatomy">Anatomy</string>
+    <string name="training_set">Training set</string>
+    <string name="testing_set">Testing set</string>
+    <string name="learning">Learning</string>
+    <string name="network_visualisation">Network visualisation</string>
+    <string name="result_visualisation">Result visualisation</string>
+    
+    <!-- learning -->
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="iteration">Iteration:</string>
