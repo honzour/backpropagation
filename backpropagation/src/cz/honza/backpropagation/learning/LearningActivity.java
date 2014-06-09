@@ -14,7 +14,7 @@ public class LearningActivity extends NetworkActivity {
 	public static LearningActivity sInstance;
 	
 	private static LearningThread sThread;
-	private volatile static Network sNetwork = null;
+	public volatile static Network sNetwork = null;
 	
 	private Handler mHandler;
 	private TextView mIteratonView;
