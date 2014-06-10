@@ -33,11 +33,17 @@ public class NetworkView extends View {
  	{
  		return (getHeight() * (layer + 1)) / (n.layers.length + 1);
  	}
+ 	
+ 	protected static String weight2String(Network n, int layer, int neuron, int weight)
+ 	{
+ 		return String.valueOf(n.layers[layer].neurons[neuron].weights[weight]).substring(0, 5);
+ 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		final int width = getWidth();
 		final int height = getHeight();
+		final int radius = (width + height) >> 6;
 		
 		final Network n = NetworkApplication.sNetwork;
 		
@@ -47,6 +53,7 @@ public class NetworkView extends View {
 		int layers = n.layers.length;
 		
 		Paint paint = new Paint();
+		paint.setTextSize(radius);
 		
 		final int maxLayer = n.layers.length - 1;
 		// output
@@ -62,7 +69,10 @@ public class NetworkView extends View {
 			{
 				canvas.drawLine(getX(n, 0, j), getY(n, 0), getX(n, -1, l), 0, paint);
 			}
-			canvas.drawLine(getX(n, 0, j), getY(n, 0), getX(n, 0, j) + getWidth() / (2 * (n.layers[0].neurons.length + 1)) , getY(n, 0), paint);
+			final int tresholdX = getX(n, 0, j) + getWidth() / (2 * (n.layers[0].neurons.length + 1));
+			final int tresholdY = getY(n, 0);
+			canvas.drawLine(getX(n, 0, j), tresholdY, tresholdX, tresholdY, paint);
+			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, tresholdY, paint);
 		}
 		
 		// synapses
@@ -74,7 +84,10 @@ public class NetworkView extends View {
 				{
 					canvas.drawLine(getX(n, i, j), getY(n, i), getX(n, i - 1, l), getY(n,i - 1), paint);
 				}
-				canvas.drawLine(getX(n, i, j), getY(n, i), getX(n, i, j) + getWidth() / (2 * (n.layers[i].neurons.length + 1)) , getY(n, i), paint);
+				final int tresholdX = getX(n, i, j) + getWidth() / (2 * (n.layers[i].neurons.length + 1));
+				final int tresholdY = getY(n, i);
+				canvas.drawLine(getX(n, i, j), tresholdY, tresholdX, tresholdY, paint);
+				canvas.drawText(weight2String(n, i, j, 0), tresholdX, tresholdY, paint);
 			}	
 		}
 		
@@ -83,7 +96,7 @@ public class NetworkView extends View {
 			int neurons = n.layers[i].neurons.length;
 			for (int j = 0; j < neurons; j++)
 			{
-				canvas.drawCircle(getX(n, i, j), getY(n, i), (width + height) / 64, paint);
+				canvas.drawCircle(getX(n, i, j), getY(n, i), radius, paint);
 			}
 		}
 	}
