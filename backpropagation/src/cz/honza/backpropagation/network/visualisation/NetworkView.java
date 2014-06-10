@@ -65,14 +65,19 @@ public class NetworkView extends View {
 		// input
 		for (int j = 0; j < n.layers[0].neurons.length; j++)
 		{
+			final int x1 = getX(n, 0, j);
+			final int y1 = getY(n, 0);
+			final int y2 = 0;
+			
 			for (int l = 0; l < n.layers[0].neurons[0].weights.length - 1; l++)
 			{
-				canvas.drawLine(getX(n, 0, j), getY(n, 0), getX(n, -1, l), 0, paint);
+				final int x2 = getX(n, -1, l);
+				canvas.drawLine(x1, y1, x2, y2, paint);
 			}
-			final int tresholdX = getX(n, 0, j) + getWidth() / (2 * (n.layers[0].neurons.length + 1));
-			final int tresholdY = getY(n, 0);
-			canvas.drawLine(getX(n, 0, j), tresholdY, tresholdX, tresholdY, paint);
-			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, tresholdY, paint);
+			final int tresholdX = x1 + getWidth() / (2 * (n.layers[0].neurons.length + 1));
+			
+			canvas.drawLine(x1, y1, tresholdX, y1, paint);
+			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, y1, paint);
 		}
 		
 		// synapses
