@@ -1,7 +1,7 @@
 package cz.honza.backpropagation.learning;
 
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.util.NetworkActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,9 +12,6 @@ import android.widget.TextView;
 public class LearningActivity extends NetworkActivity {
 	
 	public static LearningActivity sInstance;
-	
-	private static LearningThread sThread;
-	public volatile static Network sNetwork = null;
 	
 	private Handler mHandler;
 	private TextView mIteratonView;
@@ -37,8 +34,8 @@ public class LearningActivity extends NetworkActivity {
 	{
 		if (isFinishing() || !mIsCreated)
 			return;
-		mIteration = sNetwork.getItration();
-		mError = sNetwork.getError();
+		mIteration = NetworkApplication.sNetwork.getItration();
+		mError = NetworkApplication.sNetwork.getError();
 		mHandler.post(mIterationRunnable);
 	}
 
@@ -47,49 +44,32 @@ public class LearningActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		sInstance = this;
 		setContentView(R.layout.learning);
-		if (sNetwork == null)
-		{
-			// XOR
-			int[] anatomy = {2, 2, 2, 1};
-			double[][] inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-			double[][] outputs = {{0}, {1}, {1}, {0}};
-							
-			/*
-			// single neuron, x > 0.5
-			int[] anatomy = {1, 1};
-			double[][] inputs = {{0}, {1}};
-			double[][] outputs = {{0}, {1}};
-			*/
-
-			sNetwork = new Network(anatomy, inputs, outputs);
-		}
-				
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
 		mStart = (Button)findViewById(R.id.main_start_stop);
-		mStart.setText(sThread == null ? R.string.start : R.string.stop);
+		mStart.setText(NetworkApplication.sThread == null ? R.string.start : R.string.stop);
 		mStart.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
-				if (sThread == null)
+				if (NetworkApplication.sThread == null)
 				{
-					sThread = new LearningThread();
-					sThread.start(sNetwork);
+					NetworkApplication.sThread = new LearningThread();
+					NetworkApplication.sThread.start(NetworkApplication.sNetwork);
 					mStart.setText(R.string.stop);
 				}
 				else
 				{
-					sThread.end();
-					sThread = null;
+					NetworkApplication.sThread.end();
+					NetworkApplication.sThread = null;
 					mStart.setText(R.string.start);
 				}
 			}
 		});
 		mIsCreated = true;
 		
-		if (sThread == null)
+		if (NetworkApplication.sThread == null)
 			update();
 	}
 }

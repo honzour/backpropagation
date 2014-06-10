@@ -1,6 +1,6 @@
 package cz.honza.backpropagation.network.visualisation;
 
-import cz.honza.backpropagation.learning.LearningActivity;
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -39,7 +39,7 @@ public class NetworkView extends View {
 		final int width = getWidth();
 		final int height = getHeight();
 		
-		final Network n = LearningActivity.sNetwork;
+		final Network n = NetworkApplication.sNetwork;
 		
 		if (n == null)
 			return;
