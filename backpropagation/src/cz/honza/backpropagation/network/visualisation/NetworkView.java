@@ -62,6 +62,7 @@ public class NetworkView extends View {
 			{
 				canvas.drawLine(getX(n, 0, j), getY(n, 0), getX(n, -1, l), 0, paint);
 			}
+			canvas.drawLine(getX(n, 0, j), getY(n, 0), getX(n, 0, j) + getWidth() / (2 * (n.layers[0].neurons.length + 1)) , getY(n, 0), paint);
 		}
 		
 		// synapses
@@ -73,6 +74,7 @@ public class NetworkView extends View {
 				{
 					canvas.drawLine(getX(n, i, j), getY(n, i), getX(n, i - 1, l), getY(n,i - 1), paint);
 				}
+				canvas.drawLine(getX(n, i, j), getY(n, i), getX(n, i, j) + getWidth() / (2 * (n.layers[i].neurons.length + 1)) , getY(n, i), paint);
 			}	
 		}
 		
