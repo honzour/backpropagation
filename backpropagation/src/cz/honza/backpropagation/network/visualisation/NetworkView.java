@@ -73,6 +73,7 @@ public class NetworkView extends View {
 			{
 				final int x2 = getX(n, -1, l);
 				canvas.drawLine(x1, y1, x2, y2, paint);
+				canvas.drawText(weight2String(n, 0, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, paint);
 			}
 			final int tresholdX = x1 + getWidth() / (2 * (n.layers[0].neurons.length + 1));
 			
@@ -85,14 +86,19 @@ public class NetworkView extends View {
 		{
 			for (int j = 0; j < n.layers[i].neurons.length; j++)
 			{
+				final int x1 = getX(n, i, j);
+				final int y1 = getY(n, i);
+				final int y2 = getY(n, i - 1);
 				for (int l = 0; l < n.layers[i - 1].neurons.length; l++)
 				{
-					canvas.drawLine(getX(n, i, j), getY(n, i), getX(n, i - 1, l), getY(n,i - 1), paint);
+					final int x2 = getX(n, i - 1, l);
+					canvas.drawLine(x1, y1, x2, y2, paint);
+					canvas.drawText(weight2String(n, i, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, paint);
 				}
-				final int tresholdX = getX(n, i, j) + getWidth() / (2 * (n.layers[i].neurons.length + 1));
-				final int tresholdY = getY(n, i);
-				canvas.drawLine(getX(n, i, j), tresholdY, tresholdX, tresholdY, paint);
-				canvas.drawText(weight2String(n, i, j, 0), tresholdX, tresholdY, paint);
+				final int tresholdX = x1 + getWidth() / (2 * (n.layers[i].neurons.length + 1));
+				
+				canvas.drawLine(x1, y1, tresholdX, y1, paint);
+				canvas.drawText(weight2String(n, i, j, 0), tresholdX, y1, paint);
 			}	
 		}
 		
