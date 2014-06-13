@@ -10,6 +10,14 @@
     <string name="network_visualisation">Network visualisation</string>
     <string name="result_visualisation">Result visualisation</string>
     
+    <string-array name="functions">
+        <item>Identity</item>
+        <item>NOT</item>
+        <item>AND</item>
+        <item>OR</item>
+        <item>XOR</item>
+    </string-array>
+    
     <!-- learning -->
     <string name="start">Start</string>
     <string name="stop">Stop</string>
