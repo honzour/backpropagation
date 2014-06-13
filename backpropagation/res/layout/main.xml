@@ -8,27 +8,6 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/main_anatomy"
-    	android:text="@string/anatomy"
-        />
-    <Button
-        android:layout_marginTop="@dimen/commonMargin"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:id="@+id/main_training_set"
-    	android:text="@string/training_set"
-        />
-    <Button
-        android:layout_marginTop="@dimen/commonMargin"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:id="@+id/main_testing_set"
-    	android:text="@string/testing_set"
-        />
-    <Button
-        android:layout_marginTop="@dimen/commonMargin"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
     	android:id="@+id/main_learning"
     	android:text="@string/learning"
         />
