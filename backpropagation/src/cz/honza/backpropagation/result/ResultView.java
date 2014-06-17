@@ -53,8 +53,14 @@ public class ResultView extends View {
 		canvas.drawBitmap(bmp, 0, 0, paint);
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
+		float x1 = width * 3 / 4;
+		float y1 = height / 4;
+		
 		canvas.drawLine(0, y0, width, y0, paint);
 		canvas.drawLine(x0, 0, x0, height, paint);
+		
+		canvas.drawLine(x1, y0, x1, y0 - 10, paint);
+		canvas.drawLine(x0, y1, x0 + 10, y1, paint);
 	}
  	
  	
