@@ -38,6 +38,26 @@ public class LearningActivity extends NetworkActivity {
 		mError = NetworkApplication.sNetwork.getError();
 		mHandler.post(mIterationRunnable);
 	}
+	
+	protected void startThread()
+	{
+		if (NetworkApplication.sThread == null)
+		{
+			NetworkApplication.sThread = new LearningThread();
+			NetworkApplication.sThread.start(NetworkApplication.sNetwork);
+		}
+		mStart.setText(R.string.stop);
+	}
+	
+	protected void stopThread()
+	{
+		if (NetworkApplication.sThread != null)
+		{
+			NetworkApplication.sThread.end();
+			NetworkApplication.sThread = null;
+		}
+		mStart.setText(R.string.start);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +75,11 @@ public class LearningActivity extends NetworkActivity {
 				
 				if (NetworkApplication.sThread == null)
 				{
-					NetworkApplication.sThread = new LearningThread();
-					NetworkApplication.sThread.start(NetworkApplication.sNetwork);
-					mStart.setText(R.string.stop);
+					startThread();
 				}
 				else
 				{
-					NetworkApplication.sThread.end();
-					NetworkApplication.sThread = null;
-					mStart.setText(R.string.start);
+					stopThread();
 				}
 			}
 		});
@@ -71,5 +87,11 @@ public class LearningActivity extends NetworkActivity {
 		
 		if (NetworkApplication.sThread == null)
 			update();
+	}
+	
+	protected void onPause ()
+	{
+		stopThread();
+		super.onPause();
 	}
 }
