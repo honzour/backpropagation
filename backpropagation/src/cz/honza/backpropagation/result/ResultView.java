@@ -45,7 +45,7 @@ public class ResultView extends View {
 			for (int j = 0; j < height; j++)
 			{
 				input[0] = -0.5 + 2 * i / (double) width;
-				input[1] = -0.5 + 2 * j / (double) height;
+				input[1] = 1.5 - 2 * j / (double) height;
 				n.calculate(input, output);
 				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
