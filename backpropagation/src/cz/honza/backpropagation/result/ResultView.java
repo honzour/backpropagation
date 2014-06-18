@@ -8,6 +8,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -61,6 +63,28 @@ public class ResultView extends View {
 		
 		canvas.drawLine(x1, y0, x1, y0 - 10, paint);
 		canvas.drawLine(x0, y1, x0 + 10, y1, paint);
+		
+		RectF r = new RectF();
+		for (int i = 0; i < n.inputs.length; i++)
+		{
+			double x = 0;
+			double y = 0;
+			
+			if (n.inputs[i].length > 0)
+			{
+				x = n.inputs[i][0];
+				if (n.inputs[i].length > 1)
+				{
+					y = n.inputs[i][1];
+				}
+			}
+			
+			x = width * (x + 0.5) / 2;
+			y = height - 1 -  height * (y + 0.5) / 2;
+			r.set((float)(x - 10), (float)(y - 10), (float)(x + 10), (float)(y + 10));
+			canvas.drawOval(r, paint);
+		}
+		
 	}
  	
  	

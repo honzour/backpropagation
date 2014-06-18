@@ -2,8 +2,8 @@ package cz.honza.backpropagation.network;
 
 public class Network {
 	public Layer[] layers;
-	private double[][] inputs;
-	private double[][] outputs;
+	public double[][] inputs;
+	public double[][] outputs;
 	private long mIteration;
 	private double alpha = 0.01;
 
