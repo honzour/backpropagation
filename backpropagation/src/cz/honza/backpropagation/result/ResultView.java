@@ -64,7 +64,6 @@ public class ResultView extends View {
 		canvas.drawLine(x1, y0, x1, y0 - 10, paint);
 		canvas.drawLine(x0, y1, x0 + 10, y1, paint);
 		
-		RectF r = new RectF();
 		for (int i = 0; i < n.inputs.length; i++)
 		{
 			double x = 0;
@@ -81,8 +80,8 @@ public class ResultView extends View {
 			
 			x = width * (x + 0.5) / 2;
 			y = height - 1 -  height * (y + 0.5) / 2;
-			r.set((float)(x - 10), (float)(y - 10), (float)(x + 10), (float)(y + 10));
-			canvas.drawOval(r, paint);
+			
+			canvas.drawCircle((float)x, (float)y, 10, paint);
 		}
 		
 	}
