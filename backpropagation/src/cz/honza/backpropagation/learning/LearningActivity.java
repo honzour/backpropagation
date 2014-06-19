@@ -17,6 +17,8 @@ public class LearningActivity extends NetworkActivity {
 	private TextView mIteratonView;
 	private TextView mErrorView;
 	private Button mStart;
+	private Button mRestartNetwork;
+	private Button mRestartNeuron;
 	private volatile long mIteration;
 	private volatile double mError;
 	private volatile boolean mIsCreated = false;
@@ -68,6 +70,10 @@ public class LearningActivity extends NetworkActivity {
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
 		mStart = (Button)findViewById(R.id.main_start_stop);
+		
+		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);
+		mRestartNeuron = (Button)findViewById(R.id.main_restart_neuron);
+		
 		mStart.setText(NetworkApplication.sThread == null ? R.string.start : R.string.stop);
 		mStart.setOnClickListener(new View.OnClickListener() {
 			@Override
