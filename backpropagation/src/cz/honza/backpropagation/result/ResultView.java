@@ -8,8 +8,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -80,7 +78,10 @@ public class ResultView extends View {
 			
 			x = width * (x + 0.5) / 2;
 			y = height - 1 -  height * (y + 0.5) / 2;
-			
+			if (Math.abs(n.outputs[i][0]) < 0.5)
+				paint.setStyle(Paint.Style.FILL_AND_STROKE);
+			else
+				paint.setStyle(Paint.Style.STROKE);
 			canvas.drawCircle((float)x, (float)y, 10, paint);
 		}
 		
