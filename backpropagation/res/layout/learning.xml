@@ -40,4 +40,22 @@
     	android:id="@+id/main_start_stop"
     	android:text="@string/start"
         />
+    <TextView
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/text"
+    	android:text="@string/no_progress" />
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_restart_all"
+    	android:text="@string/restart_learning" />
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_restart_neuron"
+    	android:text="@string/restart_neuron" />
+    
 </LinearLayout>

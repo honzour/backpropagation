@@ -23,4 +23,7 @@
     <string name="stop">Stop</string>
     <string name="iteration">Iteration:</string>
     <string name="error">Error:</string>
+    <string name="no_progress">No progress?</string>
+    <string name="restart_learning">Restart learning</string>
+    <string name="restart_neuron">Restart neuron</string>
 </resources>
