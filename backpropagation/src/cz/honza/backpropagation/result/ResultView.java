@@ -85,7 +85,7 @@ public class ResultView extends View {
 			else
 				paint.setStyle(Paint.Style.STROKE);
 			canvas.drawCircle((float)x, (float)y, radius, paint);
-			
+			paint.setStyle(Paint.Style.FILL_AND_STROKE);
 			canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, paint);
 		}
 		
