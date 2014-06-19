@@ -35,7 +35,9 @@ public class ResultView extends View {
 		
 		final int width = getWidth();
 		final int height = getHeight();
+		final int radius = (width + height) >> 6;
 		Paint paint = new Paint();
+		paint.setTextSize(radius);
 		Bitmap bmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		double[] input = {0, 0};
 		double[] output = {0, 0.5};
@@ -64,25 +66,27 @@ public class ResultView extends View {
 		
 		for (int i = 0; i < n.inputs.length; i++)
 		{
-			double x = 0;
-			double y = 0;
+			double ix = 0;
+			double iy = 0;
 			
 			if (n.inputs[i].length > 0)
 			{
-				x = n.inputs[i][0];
+				ix = n.inputs[i][0];
 				if (n.inputs[i].length > 1)
 				{
-					y = n.inputs[i][1];
+					iy = n.inputs[i][1];
 				}
 			}
 			
-			x = width * (x + 0.5) / 2;
-			y = height - 1 -  height * (y + 0.5) / 2;
+			double x = width * (ix + 0.5) / 2;
+			double y = height - 1 -  height * (iy + 0.5) / 2;
 			if (Math.abs(n.outputs[i][0]) < 0.5)
 				paint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
 				paint.setStyle(Paint.Style.STROKE);
-			canvas.drawCircle((float)x, (float)y, 10, paint);
+			canvas.drawCircle((float)x, (float)y, radius, paint);
+			
+			canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, paint);
 		}
 		
 	}
