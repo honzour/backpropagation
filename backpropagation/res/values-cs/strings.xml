@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Backprop</string>
+    
+    <!-- main -->
+    <string name="learning">Učení</string>
+    <string name="network_visualisation">Zobrazení sítě</string>
+    <string name="result_visualisation">Zobrazení výsledku</string>
+    
+    <string-array name="functions">
+        <item>Identita</item>
+        <item>Ne</item>
+        <item>A</item>
+        <item>Nebo</item>
+        <item>XOR</item>
+    </string-array>
+    
+    <!-- learning -->
+    <string name="start">Start</string>
+    <string name="stop">Konec</string>
+    <string name="iteration">Iterace:</string>
+    <string name="error">Chyba:</string>
+</resources>
