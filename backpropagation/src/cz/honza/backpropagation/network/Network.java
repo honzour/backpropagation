@@ -25,6 +25,15 @@ public class Network {
 			for (int j = 0; j < layers[i].neurons.length; j++)
 				layers[i].neurons[j].restart();
 	}
+	
+	public void restartNeuron()
+	{
+		int layer = ((int) (Math.random() * layers.length)) % layers.length;
+		int neuron = ((int) (Math.random() * layers[layer].neurons.length)) % layers[layer].neurons.length;
+		
+
+		layers[layer].neurons[neuron].restart();
+	}
 
 	public void calculate(double[] input, double output[]) {
 		int i, j, k;

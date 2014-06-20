@@ -17,7 +17,10 @@
     
     <!-- learning -->
     <string name="start">Start</string>
-    <string name="stop">Konec</string>
+    <string name="stop">Zastavit</string>
     <string name="iteration">Iterace:</string>
     <string name="error">Chyba:</string>
+    <string name="no_progress">Nepostupuje?</string>
+    <string name="restart_learning">Spustit znovu</string>
+    <string name="restart_neuron">Zmutovat neuron</string>
 </resources>
