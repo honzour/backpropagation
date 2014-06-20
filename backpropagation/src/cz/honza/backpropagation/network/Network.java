@@ -18,6 +18,13 @@ public class Network {
 		}
 		initTraining(inputs, outputs);
 	}
+	
+	public void restart()
+	{
+		for (int i = 0; i < layers.length; i++)
+			for (int j = 0; j < layers[i].neurons.length; j++)
+				layers[i].neurons[j].restart();
+	}
 
 	public void calculate(double[] input, double output[]) {
 		int i, j, k;

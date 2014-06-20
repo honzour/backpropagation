@@ -19,6 +19,12 @@ public class Neuron {
 		moment = 0;
 		weights = new double[inputCount];
 		weightsDerivation = new double[inputCount];
+		restart();
+	}
+	
+	public void restart()
+	{
+		int inputCount = weights.length;
 		final double mul = 1.0d / inputCount;
 		for (int i = 0; i < inputCount; i++)
 		{

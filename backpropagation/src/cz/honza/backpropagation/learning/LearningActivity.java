@@ -41,6 +41,13 @@ public class LearningActivity extends NetworkActivity {
 		mHandler.post(mIterationRunnable);
 	}
 	
+	protected void setButtons(boolean waiting)
+	{
+		mStart.setText(waiting ? R.string.start : R.string.stop);
+		mRestartNetwork.setEnabled(waiting);
+		mRestartNeuron.setEnabled(waiting);
+	}
+	
 	protected void startThread()
 	{
 		if (NetworkApplication.sThread == null)
@@ -48,7 +55,7 @@ public class LearningActivity extends NetworkActivity {
 			NetworkApplication.sThread = new LearningThread();
 			NetworkApplication.sThread.start(NetworkApplication.sNetwork);
 		}
-		mStart.setText(R.string.stop);
+		setButtons(false);
 	}
 	
 	protected void stopThread()
@@ -58,7 +65,7 @@ public class LearningActivity extends NetworkActivity {
 			NetworkApplication.sThread.end();
 			NetworkApplication.sThread = null;
 		}
-		mStart.setText(R.string.start);
+		setButtons(true);
 	}
 
 	@Override
@@ -74,7 +81,7 @@ public class LearningActivity extends NetworkActivity {
 		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);
 		mRestartNeuron = (Button)findViewById(R.id.main_restart_neuron);
 		
-		mStart.setText(NetworkApplication.sThread == null ? R.string.start : R.string.stop);
+		setButtons(NetworkApplication.sThread == null);
 		mStart.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -89,6 +96,14 @@ public class LearningActivity extends NetworkActivity {
 				}
 			}
 		});
+		
+		mRestartNetwork.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				NetworkApplication.sNetwork.restart();
+			}
+		});
+		
 		mIsCreated = true;
 		
 		if (NetworkApplication.sThread == null)
