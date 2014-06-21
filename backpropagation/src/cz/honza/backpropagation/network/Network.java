@@ -112,7 +112,7 @@ public class Network {
 						for (l = 0; l < layers[j + 1].neurons.length; l++) {
 							Neuron n2 = layers[j + 1].neurons[l];
 							n.derivation += n2.derivation * n2.output
-									* (1 - n2.output) /* * n.weights[l + 1]*/; // there was weights[k] here 
+									* (1 - n2.output) * n2.weights[k + 1]; 
 						}
 					}
 					for (l = 0; l < n.weights.length; l++) {
