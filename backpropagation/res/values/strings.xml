@@ -13,6 +13,7 @@
         <item>AND</item>
         <item>OR</item>
         <item>XOR</item>
+        <item>Exception</item>
     </string-array>
     
     <!-- learning -->

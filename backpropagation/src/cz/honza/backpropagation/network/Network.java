@@ -97,17 +97,22 @@ public class Network {
 				final double diff = output[j] - outputs[i][j];
 				sumError += diff * diff;
 			}
-			for (j = layers.length - 1; j >= 0; j--) { // backpropagation
+			// from the last to the first layer 
+			for (j = layers.length - 1; j >= 0; j--) { // backpropagation - go back
+				// for each neuron in the layer
 				for (k = 0; k < layers[j].neurons.length; k++) {
 					Neuron n = layers[j].neurons[k];
 					if (j == layers.length - 1) {
+						// in the last layer calculate difference from the expected result
 						n.derivation = n.output - outputs[i][k];
 					} else {
+						// in the hidden layer calculate the derivation by this form
 						layers[j].neurons[k].derivation = 0;
+						// for each neuron in the next layer
 						for (l = 0; l < layers[j + 1].neurons.length; l++) {
 							Neuron n2 = layers[j + 1].neurons[l];
 							n.derivation += n2.derivation * n2.output
-									* (1 - n2.output) * n.weights[k];
+									* (1 - n2.output) /* * n.weights[l + 1]*/; // there was weights[k] here 
 						}
 					}
 					for (l = 0; l < n.weights.length; l++) {

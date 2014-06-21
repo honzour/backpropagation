@@ -53,6 +53,13 @@ public class MainActivity extends NetworkActivity {
 				double[][] xor_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 				double[][] xor_outputs = {{0}, {1}, {1}, {0}};
 				
+				// Exception
+				int[] ex_anatomy = {2, 4, 1};
+				double[][] ex_inputs =  {{0, 0}, {0, 1}, {1, 0}, {1, 1}, {0.5, 0}, {0.5, 1}, {0, 0.5}, {1, 0.5},
+										  {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5}, {0.5, 0.5} };
+				double[][] ex_outputs = {{0},    {0},    {0},    {0},    {0},      {0},      {0},      {0},
+										  {1}, {1}, {1}, {1}, {1}, {1}, {1}, {1} };
+				
 				
 				switch (item)
 				{
@@ -71,6 +78,10 @@ public class MainActivity extends NetworkActivity {
 				case 4:
 					NetworkApplication.sNetwork = new Network(xor_anatomy, xor_inputs, xor_outputs);
 					break;
+				case 5:
+					NetworkApplication.sNetwork = new Network(ex_anatomy, ex_inputs, ex_outputs);
+					break;
+
 				}
 			}
 
