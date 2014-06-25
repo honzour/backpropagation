@@ -60,6 +60,21 @@ public class MainActivity extends NetworkActivity {
 				double[][] ex_outputs = {{0},    {0},    {0},    {0},    {0},      {0},      {0},      {0},
 										  {1}, {1}, {1}, {1}, {1}, {1}, {1}, {1} };
 				
+				// Chess board
+				int[] chess_anatomy = {2, 2, 2, 1};
+				double[][] chess_inputs = 
+					{{0, 0}, {0, 0.4}, {0.4, 0}, {0.4, 0.4},
+					 {0.6, 0.6}, {0.6, 1}, {1, 0.6}, {1, 1},
+					 {0.6, 0}, {1, 0}, {1, 0.4}, {0.6, 0.4},
+					 {0, 0.6}, {0.4, 1}, {0.4, 0.6}, {0, 1}
+					};
+				double[][] chess_outputs =
+					{{0}, {0}, {0}, {0},
+					 {0}, {0}, {0}, {0},
+					 {1}, {1}, {1}, {1},
+					 {1}, {1}, {1}, {1}						
+					};
+				
 				
 				switch (item)
 				{
@@ -80,6 +95,9 @@ public class MainActivity extends NetworkActivity {
 					break;
 				case 5:
 					NetworkApplication.sNetwork = new Network(ex_anatomy, ex_inputs, ex_outputs);
+					break;
+				case 6:
+					NetworkApplication.sNetwork = new Network(chess_anatomy, chess_inputs, chess_outputs);
 					break;
 
 				}

@@ -14,6 +14,7 @@
         <item>OR</item>
         <item>XOR</item>
         <item>Exception</item>
+        <item>Chess board</item>
     </string-array>
     
     <!-- learning -->
