@@ -12,6 +12,11 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class ResultView extends View {
+	
+	private Bitmap mBmp = null;
+	private int mWidth;
+	private int mHeight;
+	Paint mPaint = null;
 
 	public ResultView(Context context) {
 		super(context);
@@ -35,10 +40,18 @@ public class ResultView extends View {
 		
 		final int width = getWidth();
 		final int height = getHeight();
+		
 		final int radius = (width + height) >> 6;
-		Paint paint = new Paint();
-		paint.setTextSize(radius);
-		Bitmap bmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+		if (mPaint == null)
+			mPaint = new Paint();
+		mPaint.setTextSize(radius);
+		
+		if (mBmp == null || mWidth != width || mHeight != height)
+		{
+			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+			mWidth = width;
+			mHeight = height;
+		}
 		double[] input = {0, 0};
 		double[] output = {0, 0.5};
 		
@@ -49,20 +62,20 @@ public class ResultView extends View {
 				input[0] = -0.5 + 2 * i / (double) width;
 				input[1] = 1.5 - 2 * j / (double) height;
 				n.calculate(input, output);
-				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
+				mBmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
 		}
-		canvas.drawBitmap(bmp, 0, 0, paint);
+		canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
 		float x1 = width * 3 / 4;
 		float y1 = height / 4;
 		
-		canvas.drawLine(0, y0, width, y0, paint);
-		canvas.drawLine(x0, 0, x0, height, paint);
+		canvas.drawLine(0, y0, width, y0, mPaint);
+		canvas.drawLine(x0, 0, x0, height, mPaint);
 		
-		canvas.drawLine(x1, y0, x1, y0 - 10, paint);
-		canvas.drawLine(x0, y1, x0 + 10, y1, paint);
+		canvas.drawLine(x1, y0, x1, y0 - 10, mPaint);
+		canvas.drawLine(x0, y1, x0 + 10, y1, mPaint);
 		
 		for (int i = 0; i < n.inputs.length; i++)
 		{
@@ -81,12 +94,12 @@ public class ResultView extends View {
 			double x = width * (ix + 0.5) / 2;
 			double y = height - 1 -  height * (iy + 0.5) / 2;
 			if (Math.abs(n.outputs[i][0]) < 0.5)
-				paint.setStyle(Paint.Style.FILL_AND_STROKE);
+				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
-				paint.setStyle(Paint.Style.STROKE);
-			canvas.drawCircle((float)x, (float)y, radius, paint);
-			paint.setStyle(Paint.Style.FILL_AND_STROKE);
-			canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, paint);
+				mPaint.setStyle(Paint.Style.STROKE);
+			canvas.drawCircle((float)x, (float)y, radius, mPaint);
+			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+			canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
 		}
 		
 	}
