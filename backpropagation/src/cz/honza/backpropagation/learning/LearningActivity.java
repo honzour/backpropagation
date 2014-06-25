@@ -108,7 +108,7 @@ public class LearningActivity extends NetworkActivity {
 		mRestartNeuron.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				NetworkApplication.sNetwork.restart();
+				NetworkApplication.sNetwork.restartNeuron();
 				update();
 			}
 		});
