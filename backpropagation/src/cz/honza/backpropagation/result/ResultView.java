@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.view.View;
 public class ResultView extends View {
 	
 	private Bitmap mBmp = null;
-	private int mWidth;
-	private int mHeight;
 	Paint mPaint = null;
 
 	public ResultView(Context context) {
@@ -29,26 +26,7 @@ public class ResultView extends View {
  	public ResultView(Context context, AttributeSet attrs, int defStyleAttr) {
  		super(context, attrs, defStyleAttr);
  	}
- 	
- 	public static void fillBitmap(Bitmap bmp)
- 	{
- 		double[] input = {0, 0};
-		double[] output = {0, 0.5};
-		int width = bmp.getWidth();
-		int height = bmp.getHeight();
-		
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
-				input[0] = -0.5 + 2 * i / (double) width;
-				input[1] = 1.5 - 2 * j / (double) height;
-				NetworkApplication.sNetwork.calculate(input, output);
-				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
-			}
-		}
- 	}
- 	 	 	
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
@@ -65,17 +43,16 @@ public class ResultView extends View {
 			mPaint = new Paint();
 		mPaint.setTextSize(radius);
 		
-		if (mBmp == null || mWidth != width || mHeight != height)
+		if (mBmp == null || mBmp.getWidth() != width || mBmp.getHeight() != height)
 		{
 			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-			mWidth = width;
-			mHeight = height;
+			DrawResultThread thread = new DrawResultThread();
+			thread.start(mBmp, this);
 		}
-		
-		if (mBmp != null)
-			fillBitmap(mBmp);
-		
-		canvas.drawBitmap(mBmp, 0, 0, mPaint);
+		else
+		{
+			canvas.drawBitmap(mBmp, 0, 0, mPaint);
+		}
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
 		float x1 = width * 3 / 4;
