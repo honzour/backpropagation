@@ -30,6 +30,25 @@ public class ResultView extends View {
  		super(context, attrs, defStyleAttr);
  	}
  	
+ 	public static void fillBitmap(Bitmap bmp)
+ 	{
+ 		double[] input = {0, 0};
+		double[] output = {0, 0.5};
+		int width = bmp.getWidth();
+		int height = bmp.getHeight();
+		
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				input[0] = -0.5 + 2 * i / (double) width;
+				input[1] = 1.5 - 2 * j / (double) height;
+				NetworkApplication.sNetwork.calculate(input, output);
+				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
+			}
+		}
+ 	}
+ 	 	 	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
@@ -52,19 +71,10 @@ public class ResultView extends View {
 			mWidth = width;
 			mHeight = height;
 		}
-		double[] input = {0, 0};
-		double[] output = {0, 0.5};
 		
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
-				input[0] = -0.5 + 2 * i / (double) width;
-				input[1] = 1.5 - 2 * j / (double) height;
-				n.calculate(input, output);
-				mBmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
-			}
-		}
+		if (mBmp != null)
+			fillBitmap(mBmp);
+		
 		canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
