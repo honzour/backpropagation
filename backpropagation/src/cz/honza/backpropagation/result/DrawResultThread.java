@@ -11,6 +11,18 @@ public class DrawResultThread extends Thread {
 	private Bitmap mBmp;
 	private View mView;
 	private Handler mHandler;
+	private volatile boolean mStop = false;
+	private Runnable mOnEnd;
+	
+	public DrawResultThread(Runnable onEnd)
+	{
+		mOnEnd = onEnd;
+	}
+	
+	public void canStop()
+	{
+		mStop = true;
+	}
 	
 	public void start(Bitmap bmp, View v)
 	{
@@ -20,7 +32,7 @@ public class DrawResultThread extends Thread {
 		start();
 	}
 	
- 	public static void fillBitmap(Bitmap bmp)
+ 	public void fillBitmap(Bitmap bmp)
  	{
  		double[] input = {0, 0};
 		double[] output = {0, 0.5};
@@ -31,6 +43,8 @@ public class DrawResultThread extends Thread {
 		{
 			for (int j = 0; j < height; j++)
 			{
+				if (mStop)
+					return;
 				input[0] = -0.5 + 2 * i / (double) width;
 				input[1] = 1.5 - 2 * j / (double) height;
 				NetworkApplication.sNetwork.calculate(input, output);
@@ -47,6 +61,9 @@ public class DrawResultThread extends Thread {
 			@Override
 			public void run() {
 				mView.invalidate();
+				((ResultView)mView).bitmapValid();
+				if (mOnEnd != null)
+					mOnEnd.run();
 			}
 		});
 		

@@ -13,7 +13,9 @@ import android.view.View;
 public class ResultView extends View {
 	
 	private Bitmap mBmp = null;
+	private boolean mDrawBitmap = true;
 	Paint mPaint = null;
+	DrawResultThread mThread;
 
 	public ResultView(Context context) {
 		super(context);
@@ -46,12 +48,14 @@ public class ResultView extends View {
 		if (mBmp == null || mBmp.getWidth() != width || mBmp.getHeight() != height)
 		{
 			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-			DrawResultThread thread = new DrawResultThread();
-			thread.start(mBmp, this);
+			mDrawBitmap = false;
+			
+			mThread.start(mBmp, this);
 		}
 		else
 		{
-			canvas.drawBitmap(mBmp, 0, 0, mPaint);
+			if (mDrawBitmap)
+				canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		}
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
@@ -90,6 +94,15 @@ public class ResultView extends View {
 		}
 		
 	}
+	
+	public void bitmapValid()
+	{
+		mDrawBitmap = true;
+	}
  	
+	public void setThread(DrawResultThread thread)
+	{
+		mThread = thread;
+	}
  	
 }
