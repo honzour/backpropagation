@@ -1,5 +1,8 @@
 package cz.honza.backpropagation.network;
 
+import java.io.IOException;
+import java.io.Writer;
+
 public class Neuron {
 	// weights[0] is -treshold
 	public double[] weights;
@@ -45,5 +48,27 @@ public class Neuron {
 		}
 		sb.append(']');
 		return sb.toString();
+	}
+	
+	public void save(Writer writer) throws IOException
+	{
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NEURON);
+		writer.write(Xml.TAG_END);
+		
+		for (int i = 0; i < weights.length; i++)
+		{
+			writer.write(Xml.TAG_START);
+			writer.write(Xml.WEIGHT);
+			writer.write(Xml.TAG_END);
+			writer.write(String.valueOf(weights[i]));
+			writer.write(Xml.TAG_START);
+			writer.write(Xml.WEIGHT);
+			writer.write(Xml.TAG_FULL_END);
+		}
+		
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NEURON);
+		writer.write(Xml.TAG_FULL_END);
 	}
 }

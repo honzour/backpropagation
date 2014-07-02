@@ -1,6 +1,11 @@
 package cz.honza.backpropagation.network;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+
 public class Network {
+	
 	public Layer[] layers;
 	public double[][] inputs;
 	public double[][] outputs;
@@ -141,5 +146,26 @@ public class Network {
 	public long getItration()
 	{
 		return mIteration;
+	}
+	
+	public void save(Writer writer) throws IOException
+	{
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NETWORK);
+		writer.write(Xml.TAG_END);
+		
+		for (int i = 0; i < layers.length; i++)
+			layers[i].save(writer);
+		
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NETWORK);
+		writer.write(Xml.TAG_FULL_END);
+	}
+	
+	public void save(String filename) throws IOException
+	{
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		save(writer);
+		writer.close();
 	}
 }
