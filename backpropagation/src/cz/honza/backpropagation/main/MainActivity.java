@@ -1,5 +1,7 @@
 package cz.honza.backpropagation.main;
 
+import java.io.IOException;
+
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.learning.LearningActivity;
@@ -110,4 +112,19 @@ public class MainActivity extends NetworkActivity {
 		});
 	
 	}
+
+	@Override
+	protected void onDestroy() {
+		try
+		{
+			NetworkApplication.sNetwork.save("/sdcard/net.xml");
+		}
+		catch (IOException e)
+		{
+			// ignore
+		}
+		super.onDestroy();
+	}
+	
+	
 }
