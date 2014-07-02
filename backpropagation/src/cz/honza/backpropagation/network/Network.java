@@ -150,6 +150,8 @@ public class Network {
 	
 	public void save(Writer writer) throws IOException
 	{
+		writer.write(Xml.HEADER);
+		writer.write('\n');
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.NETWORK);
 		writer.write(Xml.TAG_END);

@@ -1,6 +1,7 @@
 package cz.honza.backpropagation.network;
 
 public class Xml {
+	public static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 	public static final String TAG_START = "<";
 	public static final String TAG_END = ">";
 	public static final String TAG_TERMINATE_START = "</";
