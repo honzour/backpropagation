@@ -21,8 +21,8 @@ public class Layer {
 		for (int i = 0; i < neurons.length; i++)
 			neurons[i].save(writer);
 		
-		writer.write(Xml.TAG_START);
+		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.LAYER);
-		writer.write(Xml.TAG_FULL_END);
+		writer.write(Xml.TAG_END);
 	}
 }

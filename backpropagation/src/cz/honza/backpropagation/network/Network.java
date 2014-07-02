@@ -157,9 +157,9 @@ public class Network {
 		for (int i = 0; i < layers.length; i++)
 			layers[i].save(writer);
 		
-		writer.write(Xml.TAG_START);
+		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NETWORK);
-		writer.write(Xml.TAG_FULL_END);
+		writer.write(Xml.TAG_END);
 	}
 	
 	public void save(String filename) throws IOException

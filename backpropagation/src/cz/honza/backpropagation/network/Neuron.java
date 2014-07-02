@@ -62,13 +62,13 @@ public class Neuron {
 			writer.write(Xml.WEIGHT);
 			writer.write(Xml.TAG_END);
 			writer.write(String.valueOf(weights[i]));
-			writer.write(Xml.TAG_START);
+			writer.write(Xml.TAG_TERMINATE_START);
 			writer.write(Xml.WEIGHT);
-			writer.write(Xml.TAG_FULL_END);
+			writer.write(Xml.TAG_END);
 		}
 		
-		writer.write(Xml.TAG_START);
+		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NEURON);
-		writer.write(Xml.TAG_FULL_END);
+		writer.write(Xml.TAG_END);
 	}
 }
