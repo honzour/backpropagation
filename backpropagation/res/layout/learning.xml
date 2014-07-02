@@ -15,6 +15,7 @@
     			android:textColor="@color/text"
     			android:text="@string/iteration" />
        	    <TextView
+       	        android:layout_marginLeft="@dimen/commonMargin"
        	        android:id="@+id/main_iteration"
     	        android:layout_width="wrap_content"
     			android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
     			android:textColor="@color/text"
     			android:text="@string/error" />
        	    <TextView
+       	        android:layout_marginLeft="@dimen/commonMargin"
        	        android:id="@+id/main_error"
     	        android:layout_width="wrap_content"
     			android:layout_height="wrap_content"
@@ -41,6 +43,8 @@
     	android:text="@string/start"
         />
     <TextView
+        android:layout_marginLeft="@dimen/commonMargin"
+        android:layout_marginRight="@dimen/commonMargin"
         android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:textColor="@color/text"
