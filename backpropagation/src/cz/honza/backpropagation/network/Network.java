@@ -5,7 +5,7 @@ public class Network {
 	public double[][] inputs;
 	public double[][] outputs;
 	private long mIteration;
-	private double alpha = 1;
+	public double alpha = 1;
 
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));

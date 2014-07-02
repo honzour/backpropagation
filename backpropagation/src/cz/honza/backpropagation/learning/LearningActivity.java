@@ -16,6 +16,7 @@ public class LearningActivity extends NetworkActivity {
 	private Handler mHandler;
 	private TextView mIteratonView;
 	private TextView mErrorView;
+	private TextView mAlphaView;
 	private Button mStart;
 	private Button mRestartNetwork;
 	private Button mRestartNeuron;
@@ -29,6 +30,7 @@ public class LearningActivity extends NetworkActivity {
 		public void run() {
 			mIteratonView.setText(mIteration < 0 ? "" : String.valueOf(mIteration));
 			mErrorView.setText(mIteration < 0 ? "" : String.valueOf(mError));
+			mAlphaView.setText(String.valueOf(NetworkApplication.sNetwork.alpha));
 		}
 	};
 	
@@ -76,6 +78,7 @@ public class LearningActivity extends NetworkActivity {
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.main_iteration);
 		mErrorView = (TextView)findViewById(R.id.main_error);
+		mAlphaView = (TextView)findViewById(R.id.main_alpha);
 		mStart = (Button)findViewById(R.id.main_start_stop);
 		
 		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);

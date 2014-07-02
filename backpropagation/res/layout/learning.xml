@@ -34,6 +34,20 @@
     			android:layout_height="wrap_content"
     			android:textColor="@color/text"/>
     	</TableRow>
+    	<TableRow>
+    	    <TextView
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"
+    			android:text="@string/alpha" />
+       	    <TextView
+       	        android:layout_marginLeft="@dimen/commonMargin"
+       	        android:id="@+id/main_alpha"
+    	        android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:textColor="@color/text"/>
+    	</TableRow>
+    	
     </TableLayout>
     <Button
         android:layout_marginTop="@dimen/commonMargin"
