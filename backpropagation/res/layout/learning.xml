@@ -47,8 +47,14 @@
     			android:layout_height="wrap_content"
     			android:textColor="@color/text"/>
     	</TableRow>
-    	
     </TableLayout>
+    <SeekBar
+        android:layout_margin="@dimen/commonMargin"
+        android:id="@+id/main_alpha_seek"
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:max="500"
+        />
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"

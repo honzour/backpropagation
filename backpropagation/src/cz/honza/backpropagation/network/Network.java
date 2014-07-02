@@ -123,10 +123,13 @@ public class Network {
 				}
 			}
 		}
-		for (i = 0; i < layers.length; i++) {
-			for (j = 0; j < layers[i].neurons.length; j++) {
-				for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
-					layers[i].neurons[j].weights[k] -= alpha * layers[i].neurons[j].weightsDerivation[k];
+		
+		synchronized (this) {
+			for (i = 0; i < layers.length; i++) {
+				for (j = 0; j < layers[i].neurons.length; j++) {
+					for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
+						layers[i].neurons[j].weights[k] -= alpha * layers[i].neurons[j].weightsDerivation[k];
+					}
 				}
 			}
 		}

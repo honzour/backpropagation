@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class LearningActivity extends NetworkActivity {
@@ -20,10 +21,11 @@ public class LearningActivity extends NetworkActivity {
 	private Button mStart;
 	private Button mRestartNetwork;
 	private Button mRestartNeuron;
+	private SeekBar mSeekBar;
 	private volatile long mIteration;
 	private volatile double mError;
 	private volatile boolean mIsCreated = false;
-		
+			
 	private Runnable mIterationRunnable = new Runnable() {
 		
 		@Override
@@ -69,6 +71,25 @@ public class LearningActivity extends NetworkActivity {
 		}
 		setButtons(true);
 	}
+	
+	private void updateAlpha(int seekBarPosition)
+	{
+		double alpha = 0.001 * Math.pow(10, 5 * seekBarPosition / (double )mSeekBar.getMax());
+		mAlphaView.setText(String.valueOf(alpha));
+		synchronized(NetworkApplication.sNetwork)
+		{
+			NetworkApplication.sNetwork.alpha = alpha; 
+		}
+	}
+	
+	private void updateSeekBarPosition(double alpha)
+	{
+		final int max = mSeekBar.getMax();
+		int pos = (int) (max * (3 + Math.log10(alpha)) / 5.0 + 0.5);
+		if (pos < 0) pos = 0;
+		if (pos > max) pos = max;
+		mSeekBar.setProgress(pos);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +101,31 @@ public class LearningActivity extends NetworkActivity {
 		mErrorView = (TextView)findViewById(R.id.main_error);
 		mAlphaView = (TextView)findViewById(R.id.main_alpha);
 		mStart = (Button)findViewById(R.id.main_start_stop);
-		
+		mSeekBar = (SeekBar)findViewById(R.id.main_alpha_seek);
+		updateSeekBarPosition(NetworkApplication.sNetwork.alpha);
 		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);
 		mRestartNeuron = (Button)findViewById(R.id.main_restart_neuron);
+		
+		mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				if (fromUser)
+				{
+					updateAlpha(progress);
+				}
+			}
+		});
 		
 		setButtons(NetworkApplication.sThread == null);
 		mStart.setOnClickListener(new View.OnClickListener() {
