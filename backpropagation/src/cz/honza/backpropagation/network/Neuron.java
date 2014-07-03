@@ -50,14 +50,17 @@ public class Neuron {
 		return sb.toString();
 	}
 	
-	public void save(Writer writer) throws IOException
+	public void save(String tabs, Writer writer) throws IOException
 	{
+		writer.write(tabs);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.NEURON);
 		writer.write(Xml.TAG_END);
+		writer.write('\n');
 		
 		for (int i = 0; i < weights.length; i++)
 		{
+			writer.write(tabs + "\t");
 			writer.write(Xml.TAG_START);
 			writer.write(Xml.WEIGHT);
 			writer.write(Xml.TAG_END);
@@ -65,10 +68,13 @@ public class Neuron {
 			writer.write(Xml.TAG_TERMINATE_START);
 			writer.write(Xml.WEIGHT);
 			writer.write(Xml.TAG_END);
+			writer.write('\n');
 		}
 		
+		writer.write(tabs);
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NEURON);
 		writer.write(Xml.TAG_END);
+		writer.write('\n');
 	}
 }

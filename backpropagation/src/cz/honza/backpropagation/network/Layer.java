@@ -12,17 +12,21 @@ public class Layer {
 			neurons[i] = new Neuron(previousCount);
 	}
 	
-	public void save(Writer writer) throws IOException
+	public void save(String tabs, Writer writer) throws IOException
 	{
+		writer.write(tabs);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.LAYER);
 		writer.write(Xml.TAG_END);
+		writer.write('\n');
 		
 		for (int i = 0; i < neurons.length; i++)
-			neurons[i].save(writer);
+			neurons[i].save(tabs + "\t", writer);
 		
+		writer.write(tabs);
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.LAYER);
 		writer.write(Xml.TAG_END);
+		writer.write('\n');
 	}
 }
