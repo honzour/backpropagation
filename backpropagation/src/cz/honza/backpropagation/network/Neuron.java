@@ -56,11 +56,11 @@ public class Neuron {
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.NEURON);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 		
 		for (int i = 0; i < weights.length; i++)
 		{
-			writer.write(tabs + "\t");
+			writer.write(tabs + Xml.TAB);
 			writer.write(Xml.TAG_START);
 			writer.write(Xml.WEIGHT);
 			writer.write(Xml.TAG_END);
@@ -68,13 +68,13 @@ public class Neuron {
 			writer.write(Xml.TAG_TERMINATE_START);
 			writer.write(Xml.WEIGHT);
 			writer.write(Xml.TAG_END);
-			writer.write('\n');
+			writer.write(Xml.NEW_LINE);
 		}
 		
 		writer.write(tabs);
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NEURON);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 	}
 }

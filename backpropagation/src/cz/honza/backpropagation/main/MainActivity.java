@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.export.ExportActivity;
 import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
@@ -23,6 +24,7 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_learning, LearningActivity.class);
 		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 		setStartActivity(R.id.main_result_visualisation, ResultActivity.class);
+		setStartActivity(R.id.main_export_xml, ExportActivity.class);
 		Spinner problem = (Spinner) findViewById(R.id.main_problem);
 		problem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override

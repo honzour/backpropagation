@@ -151,19 +151,31 @@ public class Network {
 	public void save(Writer writer) throws IOException
 	{
 		writer.write(Xml.HEADER);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.NETWORK);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.LAYERS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
 		
 		for (int i = 0; i < layers.length; i++)
-			layers[i].save("\t", writer);
+			layers[i].save(Xml.TAB + Xml.TAB, writer);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.LAYERS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
 		
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NETWORK);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 	}
 	
 	public void save(String filename) throws IOException

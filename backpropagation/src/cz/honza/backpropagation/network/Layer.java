@@ -18,15 +18,15 @@ public class Layer {
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.LAYER);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 		
 		for (int i = 0; i < neurons.length; i++)
-			neurons[i].save(tabs + "\t", writer);
+			neurons[i].save(tabs + Xml.TAB, writer);
 		
 		writer.write(tabs);
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.LAYER);
 		writer.write(Xml.TAG_END);
-		writer.write('\n');
+		writer.write(Xml.NEW_LINE);
 	}
 }

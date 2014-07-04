@@ -31,7 +31,9 @@
         <activity
             android:name="cz.honza.backpropagation.result.ResultActivity"
             android:label="@string/result_visualisation" />
-        
+        <activity
+            android:name="cz.honza.backpropagation.export.ExportActivity"
+            android:label="@string/export_xml" />
         
     </application>
 
