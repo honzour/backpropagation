@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/background">
     <EditText
-        android:scrollHorizontally="true"
+        android:gravity="top"
         android:background="@null"
 		android:editable="false"
 		android:cursorVisible="false"
