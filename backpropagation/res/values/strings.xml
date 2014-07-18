@@ -28,4 +28,8 @@
     <string name="restart_learning">Restart learning</string>
     <string name="restart_neuron">Restart neuron</string>
     <string name="alpha">Alpha:</string>
+    
+    <!-- export -->
+    <string name="mail">E-mail</string>
+    <string name="save">Save</string>    
 </resources>

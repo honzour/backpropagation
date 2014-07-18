@@ -18,14 +18,16 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content" >
     	<Button
+    	    android:id="@+id/export_save"
     	    android:layout_width="0px"
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
-        	android:text="save" />
+        	android:text="@string/save" />
     	<Button
+    	    android:id="@+id/export_mail"
     	    android:layout_width="0px"
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
-        	android:text="e-mail" />
+        	android:text="@string/mail" />
     </LinearLayout>
 </LinearLayout>
