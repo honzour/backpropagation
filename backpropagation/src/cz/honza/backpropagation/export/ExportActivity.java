@@ -86,6 +86,7 @@ public class ExportActivity extends NetworkActivity {
 	        	try
 	        	{
 	        		NetworkApplication.sNetwork.save(filename);
+	        		Toast.makeText(ExportActivity.this, R.string.file_saved, Toast.LENGTH_LONG).show();
 	        	}
 	        	catch (IOException e)
 	        	{

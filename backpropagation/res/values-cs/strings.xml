@@ -32,5 +32,6 @@
     <string name="mail">E-mail</string>
     <string name="save">Ulož</string>
     <string name="save_to_public_memory">Exportovat neuronovou síť do xml souboru ve veřejné paměti (SD karta)?</string>
-    <string name="cannot_export">Nemohu uložit síť do</string>  
+    <string name="cannot_export">Nemohu uložit síť do</string>
+    <string name="file_saved">Soubor uložen</string>
 </resources>
