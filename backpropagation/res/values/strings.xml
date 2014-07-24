@@ -32,5 +32,6 @@
     <!-- export -->
     <string name="mail">E-mail</string>
     <string name="save">Save</string>
-    <string name="save_to_public_memory">Export neural network as xml file to public memory (sdcard)?</string>      
+    <string name="save_to_public_memory">Export neural network as xml file to public memory (sdcard)?</string>
+    <string name="cannot_export">Cannot export network to</string>      
 </resources>

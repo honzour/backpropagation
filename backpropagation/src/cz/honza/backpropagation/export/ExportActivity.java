@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.util.NetworkActivity;
@@ -80,8 +81,17 @@ public class ExportActivity extends NetworkActivity {
 	    .setMessage(R.string.save_to_public_memory)
 	    .setView(mFileName)
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-
+	        public void onClick(DialogInterface dialog, int which) {
+	        	String filename = mFileName.getText().toString();
+	        	try
+	        	{
+	        		NetworkApplication.sNetwork.save(filename);
+	        	}
+	        	catch (IOException e)
+	        	{
+	        		Toast.makeText(ExportActivity.this, getResources().getText(R.string.cannot_export) + " " + filename,
+	        				Toast.LENGTH_LONG).show();
+	        	}
 	        }
 	     })
 	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
