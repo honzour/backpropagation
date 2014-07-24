@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -58,7 +59,27 @@ public class ExportActivity extends NetworkActivity {
 		mMailButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
+				String xml = "";
+				try
+				{
+					xml = getXml();
+				}
+				catch (IOException e)
+				{
+					// should not happen
+				}
+				
+				
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
+				intent.putExtra(Intent.EXTRA_SUBJECT, "Neural network xml");
+				intent.putExtra(Intent.EXTRA_TEXT, xml);
+				Intent chooser = Intent.createChooser(intent, "Send email...");
+				
+				if (chooser != null)
+					startActivity(chooser);
 				
 			}
 		});
