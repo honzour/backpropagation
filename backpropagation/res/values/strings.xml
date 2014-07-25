@@ -35,4 +35,7 @@
     <string name="save_to_public_memory">Export neural network as xml file to public memory (sdcard)?</string>
     <string name="cannot_export">Cannot export network to</string>
     <string name="file_saved">File saved</string>
+    <string name="network_xml">network.xml</string>
+    <string name="send_mail">Send email...</string>
+    <string name="neural_network_xml">Neural network xml</string>
 </resources>

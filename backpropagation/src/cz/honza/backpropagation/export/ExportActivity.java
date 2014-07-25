@@ -74,9 +74,9 @@ public class ExportActivity extends NetworkActivity {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-				intent.putExtra(Intent.EXTRA_SUBJECT, "Neural network xml");
+				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.neural_network_xml));
 				intent.putExtra(Intent.EXTRA_TEXT, xml);
-				Intent chooser = Intent.createChooser(intent, "Send email...");
+				Intent chooser = Intent.createChooser(intent, getResources().getText(R.string.send_mail));
 				
 				if (chooser != null)
 					startActivity(chooser);
@@ -90,7 +90,7 @@ public class ExportActivity extends NetworkActivity {
 	protected Dialog onCreateDialog(int id) {
 		mFileName = new EditText(this);
 		final File dir = Environment.getExternalStorageDirectory();
-		String name = "network.xml";
+		String name = getResources().getText(R.string.neural_network_xml).toString();
 		if (dir != null)
 		{
 			name = dir.getAbsolutePath() + "/" + name;

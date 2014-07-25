@@ -34,4 +34,7 @@
     <string name="save_to_public_memory">Exportovat neuronovou síť do xml souboru ve veřejné paměti (SD karta)?</string>
     <string name="cannot_export">Nemohu uložit síť do</string>
     <string name="file_saved">Soubor uložen</string>
+    <string name="network_xml">sit.xml</string>
+    <string name="send_mail">Poslat email...</string>
+    <string name="neural_network_xml">Neuronová síť - XML</string>
 </resources>
