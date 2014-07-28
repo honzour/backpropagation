@@ -90,7 +90,7 @@ public class ExportActivity extends NetworkActivity {
 	protected Dialog onCreateDialog(int id) {
 		mFileName = new EditText(this);
 		final File dir = Environment.getExternalStorageDirectory();
-		String name = getResources().getText(R.string.neural_network_xml).toString();
+		String name = getResources().getText(R.string.network_xml).toString();
 		if (dir != null)
 		{
 			name = dir.getAbsolutePath() + "/" + name;
