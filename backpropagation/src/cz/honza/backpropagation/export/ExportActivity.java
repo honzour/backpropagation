@@ -121,7 +121,7 @@ public class ExportActivity extends NetworkActivity {
 
 	        }
 	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert).create();
+	    .create();
 	}
 	
 	
