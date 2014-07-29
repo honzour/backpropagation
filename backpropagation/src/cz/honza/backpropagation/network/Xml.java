@@ -13,4 +13,10 @@ public class Xml {
 	public static final String LAYER = "layer";
 	public static final String NEURON = "neuron";
 	public static final String WEIGHT = "weight";
+	public static final String TRAINING = "training";
+	public static final String INPUTS = "inputs";
+	public static final String OUTPUTS = "outputs";
+	public static final String INPUT = "input";
+	public static final String OUTPUT = "output";
+	public static final String NUMBER = "number";
 }

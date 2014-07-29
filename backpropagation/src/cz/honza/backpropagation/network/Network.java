@@ -148,15 +148,128 @@ public class Network {
 		return mIteration;
 	}
 	
-	public void save(Writer writer) throws IOException
+	protected void saveNumber(Writer writer, double number, int tabs) throws IOException
 	{
-		writer.write(Xml.HEADER);
-		writer.write(Xml.NEW_LINE);
+		for (int i = 0; i < tabs; i++)
+		{
+			writer.write(Xml.TAB);
+		}
 		writer.write(Xml.TAG_START);
-		writer.write(Xml.NETWORK);
+		writer.write(Xml.NUMBER);
+		writer.write(Xml.TAG_END);
+		
+		writer.write(String.valueOf(number));
+		
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.NUMBER);
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
+	}
+	
+	protected void saveInput(Writer writer, int i) throws IOException
+	{
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.INPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int j = 0; j < inputs[i].length; j++)
+		{
+			saveNumber(writer, inputs[i][j], 4);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.INPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void saveOutput(Writer writer, int i) throws IOException
+	{
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int j = 0; j < outputs[i].length; j++)
+		{
+			saveNumber(writer, outputs[i][j], 4);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void saveTraining(Writer writer) throws IOException
+	{
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.INPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < inputs.length; i++)
+		{
+			saveInput(writer, i);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.INPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < inputs.length; i++)
+		{
+			saveOutput(writer, i);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void saveLayers(Writer writer) throws IOException
+	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.LAYERS);
@@ -171,6 +284,20 @@ public class Network {
 		writer.write(Xml.LAYERS);
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
+	}
+	
+	
+	public void save(Writer writer) throws IOException
+	{
+		writer.write(Xml.HEADER);
+		writer.write(Xml.NEW_LINE);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NETWORK);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		saveLayers(writer);
+		saveTraining(writer);
 		
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NETWORK);
