@@ -8,6 +8,7 @@
     <string name="network_visualisation">Network visualisation</string>
     <string name="result_visualisation">Result visualisation</string>
     <string name="export_xml">Export to xml</string>
+    <string name="import_xml">Import from xml</string>
     
     <string-array name="functions">
         <item>Identity</item>

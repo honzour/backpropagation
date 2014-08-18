@@ -8,6 +8,7 @@
     <string name="network_visualisation">Zobrazení sítě</string>
     <string name="result_visualisation">Zobrazení výsledku</string>
     <string name="export_xml">Export do xml</string>
+    <string name="import_xml">Import ze xml</string>
     
     <string-array name="functions">
         <item>Identita</item>
