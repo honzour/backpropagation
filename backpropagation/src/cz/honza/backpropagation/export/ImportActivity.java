@@ -20,32 +20,20 @@ import cz.honza.backpropagation.util.NetworkActivity;
 
 public class ImportActivity extends NetworkActivity {
 	
-	private View mSaveButton;
-	private View mMailButton;
+	private View mFileButton;
+	private View mWebButton;
 	private EditText mFileName;
+	private EditText mUrl;
 
-	private String getXml() throws IOException
-	{
-		final StringWriter writer = new StringWriter();
-		NetworkApplication.sNetwork.save(writer);
-		return writer.getBuffer().toString();
-	}
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.export);
+		setContentView(R.layout.import_xml);
 		
-		TextView xml = (TextView) findViewById(R.id.export_text);
-		try
-		{
-			xml.setText(getXml());
-		}
-		catch (IOException e)
-		{
-			// should not happen
-		}
-		
+	
+		/*
 		mSaveButton = findViewById(R.id.export_save);
 		mMailButton = findViewById(R.id.export_mail);
 		
@@ -83,9 +71,10 @@ public class ImportActivity extends NetworkActivity {
 				
 			}
 		});
+		*/
 
 	}
-
+/*
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		mFileName = new EditText(this);
@@ -124,5 +113,5 @@ public class ImportActivity extends NetworkActivity {
 	    .create();
 	}
 	
-	
+	*/
 }
