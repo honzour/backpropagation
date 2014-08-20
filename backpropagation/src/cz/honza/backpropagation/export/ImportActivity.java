@@ -33,10 +33,12 @@ public class ImportActivity extends NetworkActivity {
 		setContentView(R.layout.import_xml);
 		
 	
-		/*
-		mSaveButton = findViewById(R.id.export_save);
-		mMailButton = findViewById(R.id.export_mail);
-		
+
+		mFileButton = findViewById(R.id.import_load);
+		mFileName = (EditText)findViewById(R.id.import_load_text);
+		mWebButton = findViewById(R.id.import_www);
+		mUrl = (EditText)findViewById(R.id.import_www_text);
+/*		
 		mSaveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
