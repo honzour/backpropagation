@@ -4,14 +4,22 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/background">
+    <EditText
+        android:id="@+id/import_load_text"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
    	<Button
-   	    android:id="@+id/export_save"
+   	    android:id="@+id/import_load"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content"
-       	android:text="@string/save" />
+       	android:text="@string/load_file" />
+    <EditText
+        android:id="@+id/import_www_text"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
    	<Button
-   	    android:id="@+id/export_mail"
+   	    android:id="@+id/import_www"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content"
-       	android:text="@string/mail" />
+       	android:text="@string/read_from_www" />
 </LinearLayout>

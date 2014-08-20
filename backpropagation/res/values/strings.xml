@@ -39,4 +39,8 @@
     <string name="network_xml">network.xml</string>
     <string name="send_mail">Send email...</string>
     <string name="neural_network_xml">Neural network xml</string>
+    
+    <!-- import -->
+    <string name="load_file">Load file</string>
+    <string name="read_from_www">Read from www</string>
 </resources>

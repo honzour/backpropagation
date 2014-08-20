@@ -29,7 +29,7 @@
     <string name="restart_learning">Spustit znovu</string>
     <string name="restart_neuron">Zmutovat neuron</string>
     
-        <!-- export -->
+    <!-- export -->
     <string name="mail">E-mail</string>
     <string name="save">Ulož</string>
     <string name="save_to_public_memory">Exportovat neuronovou síť do xml souboru ve veřejné paměti (SD karta)?</string>
@@ -38,4 +38,8 @@
     <string name="network_xml">sit.xml</string>
     <string name="send_mail">Poslat email...</string>
     <string name="neural_network_xml">Neuronová síť - XML</string>
+
+    <!-- import -->
+    <string name="load_file">Načti soubor</string>
+    <string name="read_from_www">Přečti z webu</string>
 </resources>
