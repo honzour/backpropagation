@@ -42,4 +42,6 @@
     <!-- import -->
     <string name="load_file">Načti soubor</string>
     <string name="read_from_www">Přečti z webu</string>
+    <string name="enter_filename_first">Nejprve zadejte jméno souboru</string>
+    <string name="enter_url_first">Nejprve zadejte url</string>
 </resources>

@@ -43,4 +43,6 @@
     <!-- import -->
     <string name="load_file">Load file</string>
     <string name="read_from_www">Read from www</string>
+    <string name="enter_filename_first">Enter file name first</string>
+    <string name="enter_url_first">Enter url name first</string>
 </resources>

@@ -4,6 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -31,89 +39,42 @@ public class ImportActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.import_xml);
-		
-	
 
 		mFileButton = findViewById(R.id.import_load);
 		mFileName = (EditText)findViewById(R.id.import_load_text);
 		mWebButton = findViewById(R.id.import_www);
 		mUrl = (EditText)findViewById(R.id.import_www_text);
-/*		
-		mSaveButton.setOnClickListener(new View.OnClickListener() {
+		
+		mWebButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				showDialog(0);				
+				final String url = mUrl.getText().toString();
+				if (url.length() == 0)
+					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
 			}
 		});
 		
-		mMailButton.setOnClickListener(new View.OnClickListener() {
+		mFileButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				final String filename = mFileName.getText().toString();
 				
-				String xml = "";
+				if (filename.length() == 0)
+					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+				
 				try
 				{
-					xml = getXml();
+					File fXmlFile = new File(filename);
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(fXmlFile);
+					doc.getDocumentElement().normalize();
 				}
-				catch (IOException e)
+				catch (Throwable e)
 				{
-					// should not happen
+					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 				}
-				
-				
-				Intent intent = new Intent(Intent.ACTION_SEND);
-				intent.setType("text/plain");
-				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.neural_network_xml));
-				intent.putExtra(Intent.EXTRA_TEXT, xml);
-				Intent chooser = Intent.createChooser(intent, getResources().getText(R.string.send_mail));
-				
-				if (chooser != null)
-					startActivity(chooser);
-				
 			}
 		});
-		*/
-
 	}
-/*
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		mFileName = new EditText(this);
-		final File dir = Environment.getExternalStorageDirectory();
-		String name = getResources().getText(R.string.network_xml).toString();
-		if (dir != null)
-		{
-			name = dir.getAbsolutePath() + "/" + name;
-		}
-		mFileName.setText(name);
-		
-		return new AlertDialog.Builder(this)
-	    .setTitle(R.string.save)
-	    .setMessage(R.string.save_to_public_memory)
-	    .setView(mFileName)
-	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) {
-	        	String filename = mFileName.getText().toString();
-	        	try
-	        	{
-	        		NetworkApplication.sNetwork.save(filename);
-	        		Toast.makeText(ImportActivity.this, R.string.file_saved, Toast.LENGTH_LONG).show();
-	        	}
-	        	catch (IOException e)
-	        	{
-	        		Toast.makeText(ImportActivity.this, getResources().getText(R.string.cannot_export) + " " + filename,
-	        				Toast.LENGTH_LONG).show();
-	        	}
-	        }
-	     })
-	    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-
-	        }
-	     })
-	    .create();
-	}
-	
-	*/
 }
