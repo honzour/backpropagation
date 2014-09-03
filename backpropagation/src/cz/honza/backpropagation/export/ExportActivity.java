@@ -85,17 +85,23 @@ public class ExportActivity extends NetworkActivity {
 		});
 
 	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		mFileName = new EditText(this);
+	
+	public static String getDefaultXmlName()
+	{
 		final File dir = Environment.getExternalStorageDirectory();
-		String name = getResources().getText(R.string.network_xml).toString();
+		String name = NetworkApplication.sInstance.getResources().getText(R.string.network_xml).toString();
 		if (dir != null)
 		{
 			name = dir.getAbsolutePath() + "/" + name;
 		}
-		mFileName.setText(name);
+		return name;
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		mFileName = new EditText(this);
+		
+		mFileName.setText(getDefaultXmlName());
 		
 		return new AlertDialog.Builder(this)
 	    .setTitle(R.string.save)

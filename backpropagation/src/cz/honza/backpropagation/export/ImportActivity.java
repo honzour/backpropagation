@@ -42,6 +42,9 @@ public class ImportActivity extends NetworkActivity {
 
 		mFileButton = findViewById(R.id.import_load);
 		mFileName = (EditText)findViewById(R.id.import_load_text);
+		
+		mFileName.setText(ExportActivity.getDefaultXmlName());
+		
 		mWebButton = findViewById(R.id.import_www);
 		mUrl = (EditText)findViewById(R.id.import_www_text);
 		
