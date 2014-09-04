@@ -1,28 +1,16 @@
 package cz.honza.backpropagation.export;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.util.NetworkActivity;
 
@@ -32,8 +20,6 @@ public class ImportActivity extends NetworkActivity {
 	private View mWebButton;
 	private EditText mFileName;
 	private EditText mUrl;
-
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
