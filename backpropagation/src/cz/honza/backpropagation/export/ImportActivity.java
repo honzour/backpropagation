@@ -6,12 +6,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.Xml;
 import cz.honza.backpropagation.util.NetworkActivity;
 
 public class ImportActivity extends NetworkActivity {
@@ -58,6 +61,16 @@ public class ImportActivity extends NetworkActivity {
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(fXmlFile);
 					doc.getDocumentElement().normalize();
+					NodeList nodes = doc.getChildNodes();
+					final int length = nodes.getLength();
+					Node network = null;
+					for (int i = 0; i < length; i++)
+					{
+						 network = nodes.item(i);
+						 break;
+					}
+					if (network == null)
+					throw new RuntimeException("No " + Xml.NETWORK + " tag");
 				}
 				catch (Throwable e)
 				{
