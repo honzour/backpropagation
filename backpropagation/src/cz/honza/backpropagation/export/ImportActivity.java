@@ -24,6 +24,26 @@ public class ImportActivity extends NetworkActivity {
 	private EditText mFileName;
 	private EditText mUrl;
 	
+	protected Node getFirstChildWithName(Node root, String name, boolean toastError)
+	{
+		NodeList nodes = root.getChildNodes();
+		final int length = nodes.getLength();
+		for (int i = 0; i < length; i++)
+		{
+			 final Node n = nodes.item(i);
+			 final String s = n.getNodeName();
+			 if (s != null && s.equals(name))
+			 {
+				 return n;
+			 }
+		}
+		if (toastError)
+		{
+			Toast.makeText(ImportActivity.this, "No " + name + " tag", Toast.LENGTH_LONG).show();
+		}
+		return null;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,40 +81,16 @@ public class ImportActivity extends NetworkActivity {
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(fXmlFile);
 					doc.getDocumentElement().normalize();
-					NodeList nodes = doc.getChildNodes();
-					final int length = nodes.getLength();
-					Node network = null;
-					for (int i = 0; i < length; i++)
-					{
-						 final Node n = nodes.item(i);
-						 final String s = n.getNodeName();
-						 if (s != null && s.equals(Xml.NETWORK))
-						 {
-							 network = n;
-							 break;
-						 }
-					}
+
+					final Node network = getFirstChildWithName(doc, Xml.NETWORK, true);
 					if (network == null)
 					{
-						Toast.makeText(ImportActivity.this, "No " + Xml.NETWORK + " tag", Toast.LENGTH_LONG).show();
 						return;
 					}
-					NodeList networkChildren = network.getChildNodes();
-					final int networkLength = networkChildren.getLength();
-					Node layers = null;
-					for (int i = 0; i < networkLength; i++)
-					{
-						 final Node n = networkChildren.item(i);
-						 final String s = n.getNodeName();
-						 if (s != null && s.equals(Xml.LAYERS))
-						 {
-							 layers = n;
-							 break;
-						 }
-					}
+					final Node layers = getFirstChildWithName(network, Xml.LAYERS, true);
+
 					if (layers == null)
 					{
-						Toast.makeText(ImportActivity.this, "No " + Xml.LAYERS + " tag", Toast.LENGTH_LONG).show();
 						return;
 					}
 				}
