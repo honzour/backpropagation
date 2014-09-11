@@ -66,11 +66,16 @@ public class ImportActivity extends NetworkActivity {
 					Node network = null;
 					for (int i = 0; i < length; i++)
 					{
-						 network = nodes.item(i);
-						 break;
+						 final Node n = nodes.item(i);
+						 final String s = n.getNodeName();
+						 if (s != null && s.equals(Xml.NETWORK))
+						 {
+							 network = n;
+							 break;
+						 }
 					}
 					if (network == null)
-					throw new RuntimeException("No " + Xml.NETWORK + " tag");
+						throw new RuntimeException("No " + Xml.NETWORK + " tag");
 				}
 				catch (Throwable e)
 				{
