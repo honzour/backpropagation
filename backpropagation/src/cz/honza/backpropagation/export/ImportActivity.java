@@ -75,7 +75,28 @@ public class ImportActivity extends NetworkActivity {
 						 }
 					}
 					if (network == null)
-						throw new RuntimeException("No " + Xml.NETWORK + " tag");
+					{
+						Toast.makeText(ImportActivity.this, "No " + Xml.NETWORK + " tag", Toast.LENGTH_LONG).show();
+						return;
+					}
+					NodeList networkChildren = network.getChildNodes();
+					final int networkLength = networkChildren.getLength();
+					Node layers = null;
+					for (int i = 0; i < networkLength; i++)
+					{
+						 final Node n = networkChildren.item(i);
+						 final String s = n.getNodeName();
+						 if (s != null && s.equals(Xml.LAYERS))
+						 {
+							 layers = n;
+							 break;
+						 }
+					}
+					if (layers == null)
+					{
+						Toast.makeText(ImportActivity.this, "No " + Xml.LAYERS + " tag", Toast.LENGTH_LONG).show();
+						return;
+					}
 				}
 				catch (Throwable e)
 				{
