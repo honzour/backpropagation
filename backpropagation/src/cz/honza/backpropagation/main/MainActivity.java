@@ -6,6 +6,7 @@ import cz.honza.backpropagation.export.ExportActivity;
 import cz.honza.backpropagation.export.ImportActivity;
 import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.network.TrainingSet;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
 import cz.honza.backpropagation.util.NetworkActivity;
@@ -83,25 +84,25 @@ public class MainActivity extends NetworkActivity {
 				switch (item)
 				{
 				case 0:
-					NetworkApplication.sNetwork = new Network(id_anatomy, id_inputs, id_outputs);
+					NetworkApplication.sNetwork = new Network(id_anatomy, new TrainingSet(id_inputs, id_outputs));
 					break;
 				case 1:
-					NetworkApplication.sNetwork = new Network(not_anatomy, not_inputs, not_outputs);
+					NetworkApplication.sNetwork = new Network(not_anatomy, new TrainingSet(not_inputs, not_outputs));
 					break;
 				case 2:
-					NetworkApplication.sNetwork = new Network(and_anatomy, and_inputs, and_outputs);
+					NetworkApplication.sNetwork = new Network(and_anatomy, new TrainingSet(and_inputs, and_outputs));
 					break;
 				case 3:
-					NetworkApplication.sNetwork = new Network(or_anatomy, or_inputs, or_outputs);
+					NetworkApplication.sNetwork = new Network(or_anatomy, new TrainingSet(or_inputs, or_outputs));
 					break;
 				case 4:
-					NetworkApplication.sNetwork = new Network(xor_anatomy, xor_inputs, xor_outputs);
+					NetworkApplication.sNetwork = new Network(xor_anatomy, new TrainingSet(xor_inputs, xor_outputs));
 					break;
 				case 5:
-					NetworkApplication.sNetwork = new Network(ex_anatomy, ex_inputs, ex_outputs);
+					NetworkApplication.sNetwork = new Network(ex_anatomy, new TrainingSet(ex_inputs, ex_outputs));
 					break;
 				case 6:
-					NetworkApplication.sNetwork = new Network(chess_anatomy, chess_inputs, chess_outputs);
+					NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSet(chess_inputs, chess_outputs));
 					break;
 
 				}

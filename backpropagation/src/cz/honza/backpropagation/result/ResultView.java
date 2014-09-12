@@ -68,23 +68,23 @@ public class ResultView extends View {
 		canvas.drawLine(x1, y0, x1, y0 - 10, mPaint);
 		canvas.drawLine(x0, y1, x0 + 10, y1, mPaint);
 		
-		for (int i = 0; i < n.inputs.length; i++)
+		for (int i = 0; i < n.trainingSet.inputs.length; i++)
 		{
 			double ix = 0;
 			double iy = 0;
 			
-			if (n.inputs[i].length > 0)
+			if (n.trainingSet.inputs[i].length > 0)
 			{
-				ix = n.inputs[i][0];
-				if (n.inputs[i].length > 1)
+				ix = n.trainingSet.inputs[i][0];
+				if (n.trainingSet.inputs[i].length > 1)
 				{
-					iy = n.inputs[i][1];
+					iy = n.trainingSet.inputs[i][1];
 				}
 			}
 			
 			double x = width * (ix + 0.5) / 2;
 			double y = height - 1 -  height * (iy + 0.5) / 2;
-			if (Math.abs(n.outputs[i][0]) < 0.5)
+			if (Math.abs(n.trainingSet.outputs[i][0]) < 0.5)
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
 				mPaint.setStyle(Paint.Style.STROKE);
