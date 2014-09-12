@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.Xml;
 import cz.honza.backpropagation.util.NetworkActivity;
 
@@ -98,7 +99,27 @@ public class ImportActivity extends NetworkActivity {
 					
 					NodeList layers = layersNode.getChildNodes();
 
-					List<List<List<Double>>> layersData = new ArrayList<List<List<Double>>>();
+					final List<List<List<Double>>> layersData = new ArrayList<List<List<Double>>>();
+					
+					final int layersCount = layers.getLength();
+					
+					for (int i = 0; i < layersCount; i++)
+					{
+						final Node layerNode = layers.item(i);
+						final String name = layerNode.getNodeName();
+						if (name == null || !name.equals(Xml.LAYER))
+							continue;
+						
+						final List<List<Double>> layerData = new ArrayList<List<Double>>();
+						
+						// TODO
+						
+						layersData.add(layerData);
+					}
+					
+					Network networkTmp = new Network(layersData);
+					
+					// TODO
 				}
 				catch (Throwable e)
 				{
