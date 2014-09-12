@@ -3,6 +3,7 @@ package cz.honza.backpropagation.network;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.List;
 
 public class Network {
 	
@@ -17,6 +18,18 @@ public class Network {
 		return 1.0 / (1.0 + Math.exp(-x));
 	}
 
+	/**
+	 * Parsing constructor
+	 * @param layersData
+	 */
+	public Network(List<List<List<Double>>> layersData) {
+		layers = new Layer[layersData.size()];
+		for (int i = 0; i < layers.length; i++)
+		{
+			layers[i] = new Layer(layersData.get(i));
+		}
+	}
+	
 	public Network(int[] layersDimensions, TrainingSet training) {
 		layers = new Layer[layersDimensions.length - 1];
 		for (int i = 0; i < layersDimensions.length - 1; i++) {

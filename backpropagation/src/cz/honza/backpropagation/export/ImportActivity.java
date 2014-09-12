@@ -1,6 +1,8 @@
 package cz.honza.backpropagation.export;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,12 +89,16 @@ public class ImportActivity extends NetworkActivity {
 					{
 						return;
 					}
-					final Node layers = getFirstChildWithName(network, Xml.LAYERS, true);
+					final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, true);
 
-					if (layers == null)
+					if (layersNode == null)
 					{
 						return;
 					}
+					
+					NodeList layers = layersNode.getChildNodes();
+
+					List<List<List<Double>>> layersData = new ArrayList<List<List<Double>>>();
 				}
 				catch (Throwable e)
 				{
