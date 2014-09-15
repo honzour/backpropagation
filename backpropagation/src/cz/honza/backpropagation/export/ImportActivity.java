@@ -123,7 +123,28 @@ public class ImportActivity extends NetworkActivity {
 							
 							final List<Double> neuronData = new ArrayList<Double>();
 							
-							// TODO
+							final NodeList weights = neuronNode.getChildNodes();
+							final int weightsCount = weights.getLength();
+							
+							for (int k = 0; k < weightsCount; k++)
+							{
+								final Node weightNode = weights.item(k);
+								name = weightNode.getNodeName();
+								if (name == null || !name.equals(Xml.WEIGHT))
+									continue;
+							
+								String value = weightNode.getNodeValue();
+								Double val = null;
+								
+								try {
+									val = Double.valueOf(value);
+								} catch (Exception e)
+								{
+									val = Double.valueOf(0);
+								}
+								
+								neuronData.add(val);
+							}
 							
 							layerData.add(neuronData);							
 						}
