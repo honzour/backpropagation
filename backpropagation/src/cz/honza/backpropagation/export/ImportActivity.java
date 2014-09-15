@@ -106,13 +106,27 @@ public class ImportActivity extends NetworkActivity {
 					for (int i = 0; i < layersCount; i++)
 					{
 						final Node layerNode = layers.item(i);
-						final String name = layerNode.getNodeName();
+						String name = layerNode.getNodeName();
 						if (name == null || !name.equals(Xml.LAYER))
 							continue;
 						
 						final List<List<Double>> layerData = new ArrayList<List<Double>>();
 						
-						// TODO
+						final NodeList neurons = layerNode.getChildNodes();
+						final int neuronsCount = neurons.getLength();
+						for (int j = 0; j < neuronsCount; j++)
+						{
+							final Node neuronNode = neurons.item(j);
+							name = neuronNode.getNodeName();
+							if (name == null || !name.equals(Xml.NEURON))
+								continue;
+							
+							final List<Double> neuronData = new ArrayList<Double>();
+							
+							// TODO
+							
+							layerData.add(neuronData);							
+						}
 						
 						layersData.add(layerData);
 					}
