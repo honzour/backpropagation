@@ -47,6 +47,73 @@ public class ImportActivity extends NetworkActivity {
 		return null;
 	}
 	
+	protected List<List<List<Double>>> parseLayers(Node network)
+	{
+		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, true);
+
+		if (layersNode == null)
+		{
+			return null;
+		}
+		
+		NodeList layers = layersNode.getChildNodes();
+
+		final List<List<List<Double>>> layersData = new ArrayList<List<List<Double>>>();
+		
+		final int layersCount = layers.getLength();
+		
+		for (int i = 0; i < layersCount; i++)
+		{
+			final Node layerNode = layers.item(i);
+			String name = layerNode.getNodeName();
+			if (name == null || !name.equals(Xml.LAYER))
+				continue;
+			
+			final List<List<Double>> layerData = new ArrayList<List<Double>>();
+			
+			final NodeList neurons = layerNode.getChildNodes();
+			final int neuronsCount = neurons.getLength();
+			for (int j = 0; j < neuronsCount; j++)
+			{
+				final Node neuronNode = neurons.item(j);
+				name = neuronNode.getNodeName();
+				if (name == null || !name.equals(Xml.NEURON))
+					continue;
+				
+				final List<Double> neuronData = new ArrayList<Double>();
+				
+				final NodeList weights = neuronNode.getChildNodes();
+				final int weightsCount = weights.getLength();
+				
+				for (int k = 0; k < weightsCount; k++)
+				{
+					final Node weightNode = weights.item(k);
+					name = weightNode.getNodeName();
+					if (name == null || !name.equals(Xml.WEIGHT))
+						continue;
+				
+					String value = weightNode.getNodeValue();
+					Double val = null;
+					
+					try {
+						val = Double.valueOf(value);
+					} catch (Exception e)
+					{
+						val = Double.valueOf(0);
+					}
+					
+					neuronData.add(val);
+				}
+				
+				layerData.add(neuronData);							
+			}
+			
+			layersData.add(layerData);
+		}
+		return layersData;
+	}
+	
+	
 	protected void parseFile()
 	{
 		final String filename = mFileName.getText().toString();
@@ -67,69 +134,8 @@ public class ImportActivity extends NetworkActivity {
 			{
 				return;
 			}
-			final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, true);
-
-			if (layersNode == null)
-			{
-				return;
-			}
 			
-			NodeList layers = layersNode.getChildNodes();
-
-			final List<List<List<Double>>> layersData = new ArrayList<List<List<Double>>>();
-			
-			final int layersCount = layers.getLength();
-			
-			for (int i = 0; i < layersCount; i++)
-			{
-				final Node layerNode = layers.item(i);
-				String name = layerNode.getNodeName();
-				if (name == null || !name.equals(Xml.LAYER))
-					continue;
-				
-				final List<List<Double>> layerData = new ArrayList<List<Double>>();
-				
-				final NodeList neurons = layerNode.getChildNodes();
-				final int neuronsCount = neurons.getLength();
-				for (int j = 0; j < neuronsCount; j++)
-				{
-					final Node neuronNode = neurons.item(j);
-					name = neuronNode.getNodeName();
-					if (name == null || !name.equals(Xml.NEURON))
-						continue;
-					
-					final List<Double> neuronData = new ArrayList<Double>();
-					
-					final NodeList weights = neuronNode.getChildNodes();
-					final int weightsCount = weights.getLength();
-					
-					for (int k = 0; k < weightsCount; k++)
-					{
-						final Node weightNode = weights.item(k);
-						name = weightNode.getNodeName();
-						if (name == null || !name.equals(Xml.WEIGHT))
-							continue;
-					
-						String value = weightNode.getNodeValue();
-						Double val = null;
-						
-						try {
-							val = Double.valueOf(value);
-						} catch (Exception e)
-						{
-							val = Double.valueOf(0);
-						}
-						
-						neuronData.add(val);
-					}
-					
-					layerData.add(neuronData);							
-				}
-				
-				layersData.add(layerData);
-			}
-			
-			Network networkTmp = new Network(layersData);
+			Network networkTmp = new Network(parseLayers(network));
 			
 			// TODO
 		}
