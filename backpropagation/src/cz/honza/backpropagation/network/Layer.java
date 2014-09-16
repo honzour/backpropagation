@@ -9,7 +9,11 @@ public class Layer {
 	
 	public Layer(List<List<Double>> layersData)
 	{
-		// TODO
+		final int count = layersData.size();
+		
+		neurons = new Neuron[count];
+		for (int i = 0; i < count; i++)
+			neurons[i] = new Neuron(layersData.get(i));
 	}
 	
 	public Layer(int count, int previousCount)

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.Xml;
@@ -136,8 +137,8 @@ public class ImportActivity extends NetworkActivity {
 			}
 			
 			Network networkTmp = new Network(parseLayers(network));
-			
-			// TODO
+			// TODO check
+			NetworkApplication.sNetwork = networkTmp;
 		}
 		catch (Throwable e)
 		{

@@ -2,6 +2,7 @@ package cz.honza.backpropagation.network;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 public class Neuron {
 	// weights[0] is -treshold
@@ -11,6 +12,21 @@ public class Neuron {
 	public double output;
 	public double derivation;
 	public double moment;
+	
+	
+	public Neuron(List<Double> weights)
+	{
+		int inputCount = weights.size();
+		moment = 0;
+		this.weights = new double[inputCount];
+		weightsDerivation = new double[inputCount];
+		
+		for (int i = 0; i < inputCount; i++)
+		{
+			this.weights[i] = weights.get(i);
+			weightsDerivation[i] = 0;
+		}
+	}
 	
 	/**
 	 * 
