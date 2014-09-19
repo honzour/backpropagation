@@ -50,6 +50,23 @@ public class ImportActivity extends NetworkActivity {
 	
 	
 	protected List<List<List<Double>>> parseTraining(Node network) {
+		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, true);
+		if (trainingNode == null)
+		{
+			return null;
+		}
+		final Node inputsNode = getFirstChildWithName(network, Xml.INPUTS, true);
+		if (inputsNode == null)
+			return null;
+		final NodeList inputs = inputsNode.getChildNodes();
+		final int inputsCount = inputs.getLength();
+		for (int i = 0; i < inputsCount; i++)
+		{
+			
+		}
+		
+		
+		
 		return null;
 	}
 	
@@ -140,7 +157,15 @@ public class ImportActivity extends NetworkActivity {
 				return;
 			}
 			
-			Network networkTmp = new Network(parseLayers(network), parseTraining(network));
+			final List<List<List<Double>>> layers = parseLayers(network);
+			if (layers == null)
+				return;
+			
+			final List<List<List<Double>>> training = parseTraining(network);
+			if (training == null)
+				return;
+			
+			Network networkTmp = new Network(layers, training);
 			// TODO check
 			NetworkApplication.sNetwork = networkTmp;
 		}
