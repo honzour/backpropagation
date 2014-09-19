@@ -22,7 +22,7 @@ public class Network {
 	 * Parsing constructor
 	 * @param layersData
 	 */
-	public Network(List<List<List<Double>>> layersData) {
+	public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData) {
 		layers = new Layer[layersData.size()];
 		for (int i = 0; i < layers.length; i++)
 		{

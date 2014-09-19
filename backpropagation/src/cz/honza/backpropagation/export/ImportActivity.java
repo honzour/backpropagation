@@ -48,8 +48,12 @@ public class ImportActivity extends NetworkActivity {
 		return null;
 	}
 	
-	protected List<List<List<Double>>> parseLayers(Node network)
-	{
+	
+	protected List<List<List<Double>>> parseTraining(Node network) {
+		return null;
+	}
+	
+	protected List<List<List<Double>>> parseLayers(Node network) {
 		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, true);
 
 		if (layersNode == null)
@@ -136,7 +140,7 @@ public class ImportActivity extends NetworkActivity {
 				return;
 			}
 			
-			Network networkTmp = new Network(parseLayers(network));
+			Network networkTmp = new Network(parseLayers(network), parseTraining(network));
 			// TODO check
 			NetworkApplication.sNetwork = networkTmp;
 		}
