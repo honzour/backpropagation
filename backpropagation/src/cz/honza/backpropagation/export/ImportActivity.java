@@ -69,10 +69,28 @@ public class ImportActivity extends NetworkActivity {
 			final int inputsCount = inputs.getLength();
 			for (int i = 0; i < inputsCount; i++)
 			{
-				final Node input = inputs.item(i);
-				if (!input.getNodeName().equals(Xml.INPUT))
+				final List<Double> singleInput = new ArrayList<Double>();
+				inputList.add(singleInput);
+				final Node inputNode = inputs.item(i);
+				if (!inputNode.getNodeName().equals(Xml.INPUT))
 					continue;
-				// TODO
+				final NodeList numbers = inputNode.getChildNodes();
+				final int numbersCount = numbers.getLength();
+				for (int j = 0; j < numbersCount; j++)
+				{
+					final Node number = numbers.item(j);
+					if (!number.getNodeName().equals(Xml.NUMBER))
+						continue;
+					Double value;
+					try {
+						value = Double.valueOf(number.getNodeValue());
+					} catch (Exception e)
+					{
+						value = null;
+					}
+					
+					singleInput.add(value);
+				}
 			}
 		}
 		
