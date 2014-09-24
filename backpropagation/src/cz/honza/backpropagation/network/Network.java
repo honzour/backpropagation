@@ -28,6 +28,7 @@ public class Network {
 		{
 			layers[i] = new Layer(layersData.get(i));
 		}
+		trainingSet = new TrainingSet(trainingData);
 	}
 	
 	public Network(int[] layersDimensions, TrainingSet training) {
