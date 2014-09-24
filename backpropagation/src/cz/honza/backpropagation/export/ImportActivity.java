@@ -84,7 +84,7 @@ public class ImportActivity extends NetworkActivity {
 		result.add(inputList);
 		result.add(outputList);
 		
-		final Node inputsNode = getFirstChildWithName(network, Xml.INPUTS, true);
+		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS, true);
 		if (inputsNode != null)
 		{
 			final NodeList inputs = inputsNode.getChildNodes();
@@ -98,7 +98,7 @@ public class ImportActivity extends NetworkActivity {
 			}
 		}
 		
-		final Node outputsNode = getFirstChildWithName(network, Xml.OUTPUTS, true);
+		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS, true);
 		if (outputsNode != null)
 		{
 			final NodeList outputs = outputsNode.getChildNodes();
