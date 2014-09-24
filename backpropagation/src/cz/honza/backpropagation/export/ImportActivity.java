@@ -48,6 +48,28 @@ public class ImportActivity extends NetworkActivity {
 		return null;
 	}
 	
+	protected List<Double> parseNumbers(Node node)
+	{
+		final List<Double> result = new ArrayList<Double>();
+		final NodeList numbers = node.getChildNodes();
+		final int numbersCount = numbers.getLength();
+		for (int j = 0; j < numbersCount; j++)
+		{
+			final Node number = numbers.item(j);
+			if (!number.getNodeName().equals(Xml.NUMBER))
+				continue;
+			Double value;
+			try {
+				value = Double.valueOf(number.getNodeValue());
+			} catch (Exception e)
+			{
+				value = null;
+			}
+			
+			result.add(value);
+		}
+		return result;
+	}
 	
 	protected List<List<List<Double>>> parseTraining(Node network) {
 		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, true);
@@ -69,34 +91,26 @@ public class ImportActivity extends NetworkActivity {
 			final int inputsCount = inputs.getLength();
 			for (int i = 0; i < inputsCount; i++)
 			{
-				final List<Double> singleInput = new ArrayList<Double>();
-				inputList.add(singleInput);
 				final Node inputNode = inputs.item(i);
 				if (!inputNode.getNodeName().equals(Xml.INPUT))
 					continue;
-				final NodeList numbers = inputNode.getChildNodes();
-				final int numbersCount = numbers.getLength();
-				for (int j = 0; j < numbersCount; j++)
-				{
-					final Node number = numbers.item(j);
-					if (!number.getNodeName().equals(Xml.NUMBER))
-						continue;
-					Double value;
-					try {
-						value = Double.valueOf(number.getNodeValue());
-					} catch (Exception e)
-					{
-						value = null;
-					}
-					
-					singleInput.add(value);
-				}
+				inputList.add(parseNumbers(inputNode));
 			}
 		}
 		
-		// TODO
-		
-		
+		final Node outputsNode = getFirstChildWithName(network, Xml.OUTPUTS, true);
+		if (outputsNode != null)
+		{
+			final NodeList outputs = outputsNode.getChildNodes();
+			final int outputsCount = outputs.getLength();
+			for (int i = 0; i < outputsCount; i++)
+			{
+				final Node outputNode = outputs.item(i);
+				if (!outputNode.getNodeName().equals(Xml.OUTPUT))
+					continue;
+				outputList.add(parseNumbers(outputNode));
+			}
+		}
 		
 		return result;
 	}
