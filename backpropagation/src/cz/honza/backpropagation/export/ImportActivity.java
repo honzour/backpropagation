@@ -55,19 +55,32 @@ public class ImportActivity extends NetworkActivity {
 		{
 			return null;
 		}
+		
+		final List<List<List<Double>>> result = new ArrayList<List<List<Double>>>();
+		final List<List<Double>> inputList = new ArrayList<List<Double>>();
+		final List<List<Double>> outputList = new ArrayList<List<Double>>();
+		result.add(inputList);
+		result.add(outputList);
+		
 		final Node inputsNode = getFirstChildWithName(network, Xml.INPUTS, true);
-		if (inputsNode == null)
-			return null;
-		final NodeList inputs = inputsNode.getChildNodes();
-		final int inputsCount = inputs.getLength();
-		for (int i = 0; i < inputsCount; i++)
+		if (inputsNode != null)
 		{
-			
+			final NodeList inputs = inputsNode.getChildNodes();
+			final int inputsCount = inputs.getLength();
+			for (int i = 0; i < inputsCount; i++)
+			{
+				final Node input = inputs.item(i);
+				if (!input.getNodeName().equals(Xml.INPUT))
+					continue;
+				// TODO
+			}
 		}
 		
+		// TODO
 		
 		
-		return null;
+		
+		return result;
 	}
 	
 	protected List<List<List<Double>>> parseLayers(Node network) {
