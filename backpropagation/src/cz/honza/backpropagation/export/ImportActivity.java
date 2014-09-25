@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import android.os.Bundle;
 import android.view.View;
@@ -60,8 +61,8 @@ public class ImportActivity extends NetworkActivity {
 				continue;
 			Double value;
 			try {
-				// TODO error
-				value = Double.valueOf(number.getNodeValue());
+				Node data = number.getChildNodes().item(0);
+				value = Double.valueOf(((Text)data).getData());
 			} catch (Exception e)
 			{
 				value = null;
@@ -160,15 +161,14 @@ public class ImportActivity extends NetworkActivity {
 					if (name == null || !name.equals(Xml.WEIGHT))
 						continue;
 				
-					// TODO error
-					String value = weightNode.getNodeValue();
+					
 					Double val = null;
 					
 					try {
-						val = Double.valueOf(value);
+						Node data = weightNode.getChildNodes().item(0);
+						val = Double.valueOf(((Text)data).getData());
 					} catch (Exception e)
 					{
-						val = Double.valueOf(0);
 					}
 					
 					neuronData.add(val);
