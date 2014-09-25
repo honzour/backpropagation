@@ -60,6 +60,7 @@ public class ImportActivity extends NetworkActivity {
 				continue;
 			Double value;
 			try {
+				// TODO error
 				value = Double.valueOf(number.getNodeValue());
 			} catch (Exception e)
 			{
@@ -159,6 +160,7 @@ public class ImportActivity extends NetworkActivity {
 					if (name == null || !name.equals(Xml.WEIGHT))
 						continue;
 				
+					// TODO error
 					String value = weightNode.getNodeValue();
 					Double val = null;
 					
