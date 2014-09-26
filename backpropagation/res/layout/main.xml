@@ -4,12 +4,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/background">
-    <Spinner
+    
+    <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:entries="@array/functions"
-    	android:id="@+id/main_problem"
+    	android:id="@+id/main_import_xml"
+    	android:text="@string/new_task"
         />
     <Button
         android:layout_marginTop="@dimen/commonMargin"
@@ -31,13 +32,6 @@
     	android:layout_height="wrap_content"
     	android:id="@+id/main_export_xml"
     	android:text="@string/export_xml"
-        />
-    <Button
-        android:layout_marginTop="@dimen/commonMargin"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:id="@+id/main_import_xml"
-    	android:text="@string/import_xml"
         />
     <Button
         android:layout_marginTop="@dimen/commonMargin"

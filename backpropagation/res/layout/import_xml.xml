@@ -4,6 +4,25 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/background">
+    <TextView 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/predefined_example"
+    	android:textColor="@color/text" />
+    <Spinner
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:entries="@array/functions"
+    	android:id="@+id/import_new_task"
+        />
+    <TextView
+        android:layout_margin="@dimen/commonMargin" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/load_xml_data"
+    	android:textColor="@color/text" />
     <EditText
         android:id="@+id/import_load_text"
    	    android:layout_width="fill_parent"

@@ -8,7 +8,7 @@
     <string name="network_visualisation">Zobrazení sítě</string>
     <string name="result_visualisation">Zobrazení výsledku</string>
     <string name="export_xml">Export do xml</string>
-    <string name="import_xml">Import ze xml</string>
+    <string name="new_task">Nový úkol</string>
     
     <string-array name="functions">
         <item>Identita</item>
@@ -36,7 +36,7 @@
     <string name="cannot_export">Nemohu uložit síť do</string>
     <string name="file_saved">Soubor uložen</string>
     <string name="network_xml">sit.xml</string>
-    <string name="send_mail">Poslat email...</string>
+    <string name="send_mail">Poslat email&#8230;</string>
     <string name="neural_network_xml">Neuronová síť - XML</string>
 
     <!-- import -->
@@ -44,4 +44,6 @@
     <string name="read_from_www">Přečti z webu</string>
     <string name="enter_filename_first">Nejprve zadejte jméno souboru</string>
     <string name="enter_url_first">Nejprve zadejte url</string>
+    <string name="predefined_example">Načti předdefinovaný příklad:</string>
+    <string name="load_xml_data">Nebo načti data z xml:</string>
 </resources>

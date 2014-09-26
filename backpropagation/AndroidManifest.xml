@@ -36,7 +36,7 @@
             android:label="@string/export_xml" />
         <activity
             android:name="cz.honza.backpropagation.export.ImportActivity"
-            android:label="@string/import_xml" />
+            android:label="@string/new_task" />
         
     </application>
 
