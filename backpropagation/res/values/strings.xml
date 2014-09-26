@@ -11,6 +11,7 @@
     <string name="new_task">New task</string>
     
     <string-array name="functions">
+        <item></item>
         <item>Identity</item>
         <item>NOT</item>
         <item>AND</item>

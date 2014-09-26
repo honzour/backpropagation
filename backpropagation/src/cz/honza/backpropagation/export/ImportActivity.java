@@ -238,6 +238,9 @@ public class ImportActivity extends NetworkActivity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int item, long arg3) {
 				
+				if (item == 0)
+					return;
+				
 				// Identity
 				int[] id_anatomy = {1, 1};
 				double[][] id_inputs = {{0}, {1}};
@@ -289,29 +292,30 @@ public class ImportActivity extends NetworkActivity {
 				
 				switch (item)
 				{
-				case 0:
+				case 1:
 					NetworkApplication.sNetwork = new Network(id_anatomy, new TrainingSet(id_inputs, id_outputs));
 					break;
-				case 1:
+				case 2:
 					NetworkApplication.sNetwork = new Network(not_anatomy, new TrainingSet(not_inputs, not_outputs));
 					break;
-				case 2:
+				case 3:
 					NetworkApplication.sNetwork = new Network(and_anatomy, new TrainingSet(and_inputs, and_outputs));
 					break;
-				case 3:
+				case 4:
 					NetworkApplication.sNetwork = new Network(or_anatomy, new TrainingSet(or_inputs, or_outputs));
 					break;
-				case 4:
+				case 5:
 					NetworkApplication.sNetwork = new Network(xor_anatomy, new TrainingSet(xor_inputs, xor_outputs));
 					break;
-				case 5:
+				case 6:
 					NetworkApplication.sNetwork = new Network(ex_anatomy, new TrainingSet(ex_inputs, ex_outputs));
 					break;
-				case 6:
+				case 7:
 					NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSet(chess_inputs, chess_outputs));
 					break;
 
 				}
+				finish();
 			}
 
 			@Override
