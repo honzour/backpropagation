@@ -223,6 +223,7 @@ public class ImportActivity extends NetworkActivity {
 		{
 			Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 		}
+		finish();
 
 	}
 	
