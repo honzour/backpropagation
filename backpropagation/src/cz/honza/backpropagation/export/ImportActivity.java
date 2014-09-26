@@ -1,6 +1,7 @@
 package cz.honza.backpropagation.export;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -187,43 +188,33 @@ public class ImportActivity extends NetworkActivity {
 	}
 	
 	
-	protected void parseFile()
+	protected void parseXml(InputStream is) throws Exception
 	{
-		final String filename = mFileName.getText().toString();
 		
-		if (filename.length() == 0)
-			Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		
-		try
-		{
-			File fXmlFile = new File(filename);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
+		Document doc = dBuilder.parse(is);
+		doc.getDocumentElement().normalize();
 
-			final Node network = getFirstChildWithName(doc, Xml.NETWORK, true);
-			if (network == null)
-			{
-				return;
-			}
-			
-			final List<List<List<Double>>> layers = parseLayers(network);
-			if (layers == null)
-				return;
-			
-			final List<List<List<Double>>> training = parseTraining(network);
-			if (training == null)
-				return;
-			
-			Network networkTmp = new Network(layers, training);
-			// TODO check
-			NetworkApplication.sNetwork = networkTmp;
-		}
-		catch (Throwable e)
+		final Node network = getFirstChildWithName(doc, Xml.NETWORK, true);
+		if (network == null)
 		{
-			Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+			return;
 		}
+			
+		final List<List<List<Double>>> layers = parseLayers(network);
+		if (layers == null)
+			return;
+			
+		final List<List<List<Double>>> training = parseTraining(network);
+		if (training == null)
+			return;
+			
+		Network networkTmp = new Network(layers, training);
+		// TODO check
+		NetworkApplication.sNetwork = networkTmp;
+
 		finish();
 
 	}
@@ -345,7 +336,19 @@ public class ImportActivity extends NetworkActivity {
 		mFileButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				parseFile();
+				final String filename = mFileName.getText().toString();
+				
+				if (filename.length() == 0)
+					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+				try
+				{
+					final InputStream inputStream = new FileInputStream(filename);
+					parseXml(inputStream);
+				}
+				catch (Throwable e)
+				{
+					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}
