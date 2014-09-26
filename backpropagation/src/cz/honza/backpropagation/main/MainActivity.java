@@ -1,5 +1,6 @@
 package cz.honza.backpropagation.main;
 
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.export.ExportActivity;
 import cz.honza.backpropagation.export.ImportActivity;
@@ -21,5 +22,17 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_export_xml, ExportActivity.class);
 		setStartActivity(R.id.main_import_xml, ImportActivity.class);
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		boolean enabled = (NetworkApplication.sNetwork != null);
+		findViewById(R.id.main_network_visualisation).setEnabled(enabled);
+		findViewById(R.id.main_result_visualisation).setEnabled(enabled);
+		findViewById(R.id.main_learning).setEnabled(enabled);
+		findViewById(R.id.main_export_xml).setEnabled(enabled);
+	}
+	
+	
 	
 }

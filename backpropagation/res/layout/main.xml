@@ -36,15 +36,15 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/main_export_xml"
-    	android:text="@string/export_xml"
+    	android:id="@+id/main_result_visualisation"
+    	android:text="@string/result_visualisation"
         />
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/main_result_visualisation"
-    	android:text="@string/result_visualisation"
+    	android:id="@+id/main_export_xml"
+    	android:text="@string/export_xml"
         />
 </LinearLayout>
 </ScrollView>
