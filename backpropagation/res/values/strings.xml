@@ -11,7 +11,6 @@
     <string name="new_task">New task</string>
     
     <string-array name="functions">
-        <item></item>
         <item>Identity</item>
         <item>NOT</item>
         <item>AND</item>
@@ -42,11 +41,13 @@
     <string name="neural_network_xml">Neural network xml</string>
     
     <!-- import -->
+    <string name="load_example">Load example</string>
     <string name="load_file">Load file</string>
     <string name="read_from_www">Read from www</string>
     <string name="enter_filename_first">Enter file name first</string>
     <string name="enter_url_first">Enter url name first</string>
     <string name="predefined_example">Choose predefined example:</string>
-    <string name="load_xml_data">Or load data from xml:</string>
+    <string name="load_xml_data">Or load xml data from a file:</string>
+    <string name="load_xml_www">Or load xml data from www:</string>
     <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
 </resources>

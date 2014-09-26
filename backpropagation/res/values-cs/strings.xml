@@ -11,7 +11,6 @@
     <string name="new_task">Nový úkol</string>
     
     <string-array name="functions">
-        <item></item>
         <item>Identita</item>
         <item>Ne</item>
         <item>A</item>
@@ -41,11 +40,13 @@
     <string name="neural_network_xml">Neuronová síť - XML</string>
 
     <!-- import -->
+    <string name="load_example">Načti příklad</string>
     <string name="load_file">Načti soubor</string>
-    <string name="read_from_www">Přečti z webu</string>
+    <string name="read_from_www">Načti z webu</string>
     <string name="enter_filename_first">Nejprve zadejte jméno souboru</string>
     <string name="enter_url_first">Nejprve zadejte url</string>
     <string name="predefined_example">Načti předdefinovaný příklad:</string>
-    <string name="load_xml_data">Nebo načti data z xml:</string>
+    <string name="load_xml_data">Nebo načti xml data ze souboru:</string>
+    <string name="load_xml_www">Nebo načti xml data z webu:</string>
     <string name="www_hint">http://some.server.com/network.xml</string>
 </resources>
