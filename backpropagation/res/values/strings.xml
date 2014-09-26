@@ -47,4 +47,5 @@
     <string name="enter_url_first">Enter url name first</string>
     <string name="predefined_example">Choose predefined example:</string>
     <string name="load_xml_data">Or load data from xml:</string>
+    <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
 </resources>

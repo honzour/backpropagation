@@ -46,4 +46,5 @@
     <string name="enter_url_first">Nejprve zadejte url</string>
     <string name="predefined_example">Načti předdefinovaný příklad:</string>
     <string name="load_xml_data">Nebo načti data z xml:</string>
+    <string name="www_hint">http://some.server.com/network.xml</string>
 </resources>

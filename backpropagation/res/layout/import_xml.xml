@@ -33,6 +33,7 @@
        	android:layout_height="wrap_content"
        	android:text="@string/load_file" />
     <EditText
+        android:hint="@string/www_hint"
         android:id="@+id/import_www_text"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content" />
