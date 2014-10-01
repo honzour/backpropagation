@@ -2,6 +2,7 @@ package cz.honza.backpropagation.export;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,7 +36,7 @@ public class ImportActivity extends NetworkActivity {
 	private EditText mUrl;
 	private Spinner mExample;
 	
-	protected Node getFirstChildWithName(Node root, String name, boolean toastError)
+	protected Node getFirstChildWithName(Node root, String name /*, boolean toastError*/)
 	{
 		NodeList nodes = root.getChildNodes();
 		final int length = nodes.getLength();
@@ -47,10 +49,12 @@ public class ImportActivity extends NetworkActivity {
 				 return n;
 			 }
 		}
+		/*
 		if (toastError)
 		{
 			Toast.makeText(ImportActivity.this, "No " + name + " tag", Toast.LENGTH_LONG).show();
 		}
+		*/
 		return null;
 	}
 	
@@ -79,7 +83,7 @@ public class ImportActivity extends NetworkActivity {
 	}
 	
 	protected List<List<List<Double>>> parseTraining(Node network) {
-		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, true);
+		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING /*, true*/);
 		if (trainingNode == null)
 		{
 			return null;
@@ -91,7 +95,7 @@ public class ImportActivity extends NetworkActivity {
 		result.add(inputList);
 		result.add(outputList);
 		
-		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS, true);
+		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS /*, true */);
 		if (inputsNode != null)
 		{
 			final NodeList inputs = inputsNode.getChildNodes();
@@ -105,7 +109,7 @@ public class ImportActivity extends NetworkActivity {
 			}
 		}
 		
-		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS, true);
+		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS /*, true*/);
 		if (outputsNode != null)
 		{
 			final NodeList outputs = outputsNode.getChildNodes();
@@ -123,7 +127,7 @@ public class ImportActivity extends NetworkActivity {
 	}
 	
 	protected List<List<List<Double>>> parseLayers(Node network) {
-		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, true);
+		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS /*, true*/);
 
 		if (layersNode == null)
 		{
@@ -188,7 +192,7 @@ public class ImportActivity extends NetworkActivity {
 	}
 	
 	
-	protected void parseXml(InputStream is) throws Exception
+	protected void parseXml(InputStream is, Handler h) throws Exception
 	{
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -197,7 +201,7 @@ public class ImportActivity extends NetworkActivity {
 		Document doc = dBuilder.parse(is);
 		doc.getDocumentElement().normalize();
 
-		final Node network = getFirstChildWithName(doc, Xml.NETWORK, true);
+		final Node network = getFirstChildWithName(doc, Xml.NETWORK /*, true*/);
 		if (network == null)
 		{
 			return;
@@ -215,7 +219,12 @@ public class ImportActivity extends NetworkActivity {
 		// TODO check
 		NetworkApplication.sNetwork = networkTmp;
 
-		finish();
+		h.post(new Runnable() {
+			@Override
+			public void run() {
+				finish();
+			}
+		});
 
 	}
 	
@@ -329,7 +338,32 @@ public class ImportActivity extends NetworkActivity {
 			public void onClick(View v) {
 				final String url = mUrl.getText().toString();
 				if (url.length() == 0)
+				{
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+					return;
+				}
+				final Handler h = new Handler();
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try
+						{
+							URL u = new URL(url);
+							final InputStream inputStream = u.openStream();
+							parseXml(inputStream, h);
+						}
+						catch (final Throwable e)
+						{
+							h.post(new Runnable() {
+								public void run() {
+									Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+								}
+							});
+							
+						}
+					}
+				});
+				t.start();
 			}
 		});
 		
@@ -339,11 +373,15 @@ public class ImportActivity extends NetworkActivity {
 				final String filename = mFileName.getText().toString();
 				
 				if (filename.length() == 0)
+				{
 					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					return;
+				}
 				try
 				{
+					final Handler h = new Handler();
 					final InputStream inputStream = new FileInputStream(filename);
-					parseXml(inputStream);
+					parseXml(inputStream, h);
 				}
 				catch (Throwable e)
 				{
