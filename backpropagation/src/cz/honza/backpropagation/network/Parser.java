@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 public class Parser {
-	public static Network parseXml(InputStream is) throws Exception
+	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
 	{
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -22,27 +22,26 @@ public class Parser {
 		Document doc = dBuilder.parse(is);
 		doc.getDocumentElement().normalize();
 
-		final Node network = getFirstChildWithName(doc, Xml.NETWORK /*, true*/);
+		final Node network = getFirstChildWithName(doc, Xml.NETWORK, handler);
 		if (network == null)
 		{
-			return null;
+			return;
 		}
 			
-		final List<List<List<Double>>> layers = parseLayers(network);
+		final List<List<List<Double>>> layers = parseLayers(network, handler);
 		if (layers == null)
-			return null;
+			return;
 			
-		final List<List<List<Double>>> training = parseTraining(network);
+		final List<List<List<Double>>> training = parseTraining(network, handler);
 		if (training == null)
-			return null;
+			return;
 			
-		Network networkTmp = new Network(layers, training);
+		final Network networkTmp = new Network(layers, training);
 		// TODO check
-		return networkTmp;
-
+		handler.onFinished(networkTmp);
 	}
 	
-	protected static Node getFirstChildWithName(Node root, String name /*, boolean toastError*/)
+	protected static Node getFirstChildWithName(Node root, String name, ParserResultHandler handler)
 	{
 		NodeList nodes = root.getChildNodes();
 		final int length = nodes.getLength();
@@ -55,17 +54,12 @@ public class Parser {
 				 return n;
 			 }
 		}
-		/*
-		if (toastError)
-		{
-			Toast.makeText(ImportActivity.this, "No " + name + " tag", Toast.LENGTH_LONG).show();
-		}
-		*/
+		handler.onError("No " + name + " tag");
 		return null;
 	}
 
-	protected static List<List<List<Double>>> parseTraining(Node network) {
-		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING /*, true*/);
+	protected static List<List<List<Double>>> parseTraining(Node network, ParserResultHandler handler) {
+		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, handler);
 		if (trainingNode == null)
 		{
 			return null;
@@ -77,7 +71,7 @@ public class Parser {
 		result.add(inputList);
 		result.add(outputList);
 		
-		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS /*, true */);
+		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS, handler);
 		if (inputsNode != null)
 		{
 			final NodeList inputs = inputsNode.getChildNodes();
@@ -91,7 +85,7 @@ public class Parser {
 			}
 		}
 		
-		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS /*, true*/);
+		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS, handler);
 		if (outputsNode != null)
 		{
 			final NodeList outputs = outputsNode.getChildNodes();
@@ -108,8 +102,8 @@ public class Parser {
 		return result;
 	}
 	
-	protected static List<List<List<Double>>> parseLayers(Node network) {
-		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS /*, true*/);
+	protected static List<List<List<Double>>> parseLayers(Node network, ParserResultHandler handler) {
+		final Node layersNode = getFirstChildWithName(network, Xml.LAYERS, handler);
 
 		if (layersNode == null)
 		{

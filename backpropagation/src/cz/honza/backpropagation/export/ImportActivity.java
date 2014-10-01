@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,6 +14,7 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.Parser;
+import cz.honza.backpropagation.network.ParserResultHandler;
 import cz.honza.backpropagation.network.TrainingSet;
 import cz.honza.backpropagation.util.NetworkActivity;
 
@@ -139,24 +141,45 @@ public class ImportActivity extends NetworkActivity {
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 					return;
 				}
-				Thread t = new Thread(new Runnable() {
+				final Handler h = new Handler();
+				final Thread t = new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try
 						{
 							URL u = new URL(url);
 							final InputStream inputStream = u.openStream();
-							NetworkApplication.sNetwork = Parser.parseXml(inputStream);
+							Parser.parseXml(inputStream, new ParserResultHandler() {
+								
+								@Override
+								public void onFinished(final Network network) {
+									h.post(new Runnable() {
+										@Override
+										public void run() {
+											NetworkApplication.sNetwork = network;
+										}
+									});
+								}
+								
+								@Override
+								public void onError(final String error) {
+									h.post(new Runnable() {
+										
+										@Override
+										public void run() {
+											Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
+										}
+									});
+								}
+							});
 						}
 						catch (final Throwable e)
 						{
-							/*
 							h.post(new Runnable() {
 								public void run() {
-									Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+									Toast.makeText(NetworkApplication.sInstance, e.toString(), Toast.LENGTH_LONG).show();
 								}
 							});
-							*/
 						}
 					}
 				});
@@ -177,7 +200,19 @@ public class ImportActivity extends NetworkActivity {
 				try
 				{
 					final InputStream inputStream = new FileInputStream(filename);
-					NetworkApplication.sNetwork = Parser.parseXml(inputStream);
+					Parser.parseXml(inputStream, new ParserResultHandler() {
+						
+						@Override
+						public void onFinished(Network network) {
+							NetworkApplication.sNetwork = network;
+							finish();
+						}
+						
+						@Override
+						public void onError(String error) {
+							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
+						}
+					});
 				}
 				catch (Throwable e)
 				{
