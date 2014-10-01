@@ -329,7 +329,7 @@ public class ImportActivity extends NetworkActivity {
 			public void onClick(View v) {
 				final String url = mUrl.getText().toString();
 				if (url.length() == 0)
-					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 			}
 		});
 		

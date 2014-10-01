@@ -48,5 +48,5 @@
     <string name="predefined_example">Načti předdefinovaný příklad:</string>
     <string name="load_xml_data">Nebo načti xml data ze souboru:</string>
     <string name="load_xml_www">Nebo načti xml data z webu:</string>
-    <string name="www_hint">http://some.server.com/network.xml</string>
+    <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
 </resources>
