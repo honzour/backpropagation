@@ -2,10 +2,8 @@ package cz.honza.backpropagation.export;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +24,7 @@ public class ImportActivity extends NetworkActivity {
 	private EditText mFileName;
 	private EditText mUrl;
 	private Spinner mExample;
+	private FromWebThread mThread = null;
 
 	protected void loadExample()
 	{
@@ -111,6 +110,9 @@ public class ImportActivity extends NetworkActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		mThread = (FromWebThread) getLastNonConfigurationInstance(); 
+		
 		setContentView(R.layout.import_xml);
 
 		mExample = (Spinner) findViewById(R.id.import_new_task);
@@ -141,49 +143,9 @@ public class ImportActivity extends NetworkActivity {
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 					return;
 				}
-				final Handler h = new Handler();
-				final Thread t = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try
-						{
-							URL u = new URL(url);
-							final InputStream inputStream = u.openStream();
-							Parser.parseXml(inputStream, new ParserResultHandler() {
-								
-								@Override
-								public void onFinished(final Network network) {
-									h.post(new Runnable() {
-										@Override
-										public void run() {
-											NetworkApplication.sNetwork = network;
-										}
-									});
-								}
-								
-								@Override
-								public void onError(final String error) {
-									h.post(new Runnable() {
-										
-										@Override
-										public void run() {
-											Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
-										}
-									});
-								}
-							});
-						}
-						catch (final Throwable e)
-						{
-							h.post(new Runnable() {
-								public void run() {
-									Toast.makeText(NetworkApplication.sInstance, e.toString(), Toast.LENGTH_LONG).show();
-								}
-							});
-						}
-					}
-				});
-				t.start();
+				mThread = new FromWebThread(ImportActivity.this, url);
+				mWebButton.setEnabled(false);
+				mThread.start();
 			}
 		});
 		
@@ -221,4 +183,20 @@ public class ImportActivity extends NetworkActivity {
 			}
 		});
 	}
+	
+	@Override
+	public Object onRetainNonConfigurationInstance () {
+		return mThread;
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (mThread != null)
+		{
+			mThread.setContext(null);
+		}
+		super.onDestroy();
+	}
+	
+	
 }
