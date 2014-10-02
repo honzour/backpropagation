@@ -111,7 +111,7 @@ public class ImportActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		mThread = (FromWebThread) getLastNonConfigurationInstance(); 
+		
 		
 		setContentView(R.layout.import_xml);
 
@@ -132,6 +132,14 @@ public class ImportActivity extends NetworkActivity {
 		mFileName.setHint(defaultHint);
 		
 		mWebButton = findViewById(R.id.import_www);
+		
+		mThread = (FromWebThread) getLastNonConfigurationInstance();
+		if (mThread != null)
+		{
+			mThread.setContext(this);
+			mWebButton.setEnabled(false);
+		}
+		
 		mUrl = (EditText)findViewById(R.id.import_www_text);
 		
 		mWebButton.setOnClickListener(new View.OnClickListener() {
