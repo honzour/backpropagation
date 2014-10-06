@@ -50,4 +50,5 @@
     <string name="load_xml_data">Or load xml data from a file:</string>
     <string name="load_xml_www">Or load xml data from www:</string>
     <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
+    <string name="missing_tag">Missing %1 tag</string>
 </resources>

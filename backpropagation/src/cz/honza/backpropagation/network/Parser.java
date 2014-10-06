@@ -12,6 +12,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import cz.honza.backpropagation.NetworkApplication;
+import cz.honza.backpropagation.R;
+
 public class Parser {
 	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
 	{
@@ -54,7 +57,7 @@ public class Parser {
 				 return n;
 			 }
 		}
-		handler.onError("No " + name + " tag");
+		handler.onError(missingTag(Xml.LAYERS));
 		return null;
 	}
 
@@ -72,34 +75,46 @@ public class Parser {
 		result.add(outputList);
 		
 		final Node inputsNode = getFirstChildWithName(trainingNode, Xml.INPUTS, handler);
-		if (inputsNode != null)
+		if (inputsNode == null)
+			return null;
+
+		final NodeList inputs = inputsNode.getChildNodes();
+		final int inputsCount = inputs.getLength();
+		for (int i = 0; i < inputsCount; i++)
 		{
-			final NodeList inputs = inputsNode.getChildNodes();
-			final int inputsCount = inputs.getLength();
-			for (int i = 0; i < inputsCount; i++)
-			{
-				final Node inputNode = inputs.item(i);
-				if (!inputNode.getNodeName().equals(Xml.INPUT))
-					continue;
-				inputList.add(parseNumbers(inputNode));
-			}
+			final Node inputNode = inputs.item(i);
+			if (!inputNode.getNodeName().equals(Xml.INPUT))
+				continue;
+			List<Double> n = parseNumbers(inputNode, handler);
+			if (n == null)
+				return null;
+			inputList.add(n);
 		}
+
 		
 		final Node outputsNode = getFirstChildWithName(trainingNode, Xml.OUTPUTS, handler);
-		if (outputsNode != null)
+		if (outputsNode == null)
+			return null;
+
+		final NodeList outputs = outputsNode.getChildNodes();
+		final int outputsCount = outputs.getLength();
+		for (int i = 0; i < outputsCount; i++)
 		{
-			final NodeList outputs = outputsNode.getChildNodes();
-			final int outputsCount = outputs.getLength();
-			for (int i = 0; i < outputsCount; i++)
-			{
-				final Node outputNode = outputs.item(i);
-				if (!outputNode.getNodeName().equals(Xml.OUTPUT))
-					continue;
-				outputList.add(parseNumbers(outputNode));
-			}
+			final Node outputNode = outputs.item(i);
+			if (!outputNode.getNodeName().equals(Xml.OUTPUT))
+				continue;
+			List<Double> n = parseNumbers(outputNode, handler);
+			if (n == null)
+				return null;
+			outputList.add(n);
 		}
 		
 		return result;
+	}
+	
+	protected static String missingTag(String tag)
+	{
+		return String.format(NetworkApplication.sInstance.getResources().getString(R.string.missing_tag), tag);
 	}
 	
 	protected static List<List<List<Double>>> parseLayers(Node network, ParserResultHandler handler) {
@@ -153,7 +168,8 @@ public class Parser {
 						val = Double.valueOf(((Text)data).getData());
 					} catch (Exception e)
 					{
-						// TODO
+						handler.onError(e.toString());
+						return null;
 					}
 					
 					neuronData.add(val);
@@ -167,7 +183,7 @@ public class Parser {
 		return layersData;
 	}
 
-	protected static List<Double> parseNumbers(Node node)
+	protected static List<Double> parseNumbers(Node node, ParserResultHandler handler)
 	{
 		final List<Double> result = new ArrayList<Double>();
 		final NodeList numbers = node.getChildNodes();
@@ -183,8 +199,8 @@ public class Parser {
 				value = Double.valueOf(((Text)data).getData());
 			} catch (Exception e)
 			{
-				// TODO
-				value = null;
+				handler.onError(e.toString());
+				return null;
 			}
 			
 			result.add(value);
