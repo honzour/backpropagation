@@ -28,6 +28,7 @@
     <string name="no_progress">Nepostupuje?</string>
     <string name="restart_learning">Spustit znovu</string>
     <string name="restart_neuron">Zmutovat neuron</string>
+    <string name="alpha">Alfa:</string>
     
     <!-- export -->
     <string name="mail">E-mail</string>
