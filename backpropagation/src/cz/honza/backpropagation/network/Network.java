@@ -3,25 +3,124 @@ package cz.honza.backpropagation.network;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.List;
+
+import cz.honza.backpropagation.R;
+
+
 
 public class Network {
 	
 	public Layer[] layers;
-	public double[][] inputs;
-	public double[][] outputs;
-	private long mIteration;
 	public double alpha = 1;
+	
+	public TrainingSet trainingSet;
+	
+	private long mIteration;
 
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));
 	}
+	
+	/**
+	 * Is everything ok?
+	 * @param handler runs onError if not ok
+	 * @return
+	 */
+	public boolean check(ParserResultHandler handler)
+	{
+		if (layers == null || trainingSet == null || trainingSet.inputs == null || trainingSet.inputs == null)
+		{
+			handler.onError(R.string.null_elements);
+			return false;
+		}
+		if (layers.length < 1)
+		{
+			handler.onError(R.string.layers_missing);
+			return false;
+		}
+		for (int i = 0; i < layers.length; i++)
+		{
+			if (layers[i].neurons.length < 1)
+			{
+				handler.onError(R.string.neurons_missing);
+				return false;
+			}
+		}
+		
+		for (int i = 1; i < layers.length; i++)
+		{
+			if ((layers[i].neurons[0].weights.length - 1) != layers[i - 1].neurons.length)
+			{
+				handler.onError(R.string.weights_count);
+				return false;
+			}
+		}
+		
+		for (int i = 0; i < layers.length; i++)
+		{
+			for (int j = 1; j < layers[i].neurons.length; j++)
+			{
+				if (layers[i].neurons[0].weights.length != layers[i].neurons[j].weights.length)
+				{
+					handler.onError(R.string.weights_count);
+					return false;
+				}
+			}
+		}
+		
+		if (trainingSet.inputs.length != trainingSet.outputs.length)
+		{
+			handler.onError(R.string.input_output_count);
+			return false;
+		}
+		
+		if (trainingSet.inputs.length == 0)
+		{
+			handler.onError(R.string.empty_training_set);
+			return false;
+		}
+		
+		for (int i = 0; i < trainingSet.inputs.length; i++)
+		{
+			if (trainingSet.inputs[i].length != layers[0].neurons[0].weights.length - 1)
+			{
+				handler.onError(R.string.input_example_dimension);
+				return false;
+			}
+		}
+		
+		for (int i = 0; i < trainingSet.outputs.length; i++)
+		{
+			if (trainingSet.outputs[i].length != layers[layers.length - 1].neurons.length)
+			{
+				handler.onError(R.string.output_example_dimension);
+				return false;
+			}
+		}
+			
+		return true;
+	}
 
-	public Network(int[] layersDimensions, double[][] inputs, double[][] outputs) {
+	/**
+	 * Parsing constructor
+	 * @param layersData
+	 */
+	public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData) {
+		layers = new Layer[layersData.size()];
+		for (int i = 0; i < layers.length; i++)
+		{
+			layers[i] = new Layer(layersData.get(i));
+		}
+		trainingSet = new TrainingSet(trainingData);
+	}
+	
+	public Network(int[] layersDimensions, TrainingSet training) {
 		layers = new Layer[layersDimensions.length - 1];
 		for (int i = 0; i < layersDimensions.length - 1; i++) {
 			layers[i] = new Layer(layersDimensions[i + 1], layersDimensions[i]);
 		}
-		initTraining(inputs, outputs);
+		initTraining(training);
 	}
 	
 	public void restart()
@@ -63,9 +162,8 @@ public class Network {
 		}
 	}
 
-	private void initTraining(double[][] inputs, double[][] outputs) {
-		this.inputs = inputs;
-		this.outputs = outputs;
+	private void initTraining(TrainingSet training) {
+		trainingSet = training;
 		mIteration = 0;
 	}
 
@@ -73,10 +171,10 @@ public class Network {
 	{
 		double sumError = 0;
 		double[] output = new double[layers[layers.length - 1].neurons.length];
-		for (int i = 0; i < inputs.length; i++) {
-			calculate(inputs[i], output);
+		for (int i = 0; i < trainingSet.inputs.length; i++) {
+			calculate(trainingSet.inputs[i], output);
 			for (int j = 0; j < output.length; j++) {
-				final double diff = output[j] - outputs[i][j];
+				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 		}
@@ -96,10 +194,10 @@ public class Network {
 			}
 		}
 		double[] output = new double[layers[layers.length - 1].neurons.length];
-		for (i = 0; i < inputs.length; i++) {
-			calculate(inputs[i], output);
+		for (i = 0; i < trainingSet.inputs.length; i++) {
+			calculate(trainingSet.inputs[i], output);
 			for (j = 0; j < output.length; j++) {
-				final double diff = output[j] - outputs[i][j];
+				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 			// from the last to the first layer 
@@ -109,7 +207,7 @@ public class Network {
 					Neuron n = layers[j].neurons[k];
 					if (j == layers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - outputs[i][k];
+						n.derivation = n.output - trainingSet.outputs[i][k];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						layers[j].neurons[k].derivation = 0;
@@ -123,7 +221,7 @@ public class Network {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? inputs[i][l - 1] : layers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? trainingSet.inputs[i][l - 1] : layers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
@@ -175,9 +273,9 @@ public class Network {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < inputs[i].length; j++)
+		for (int j = 0; j < trainingSet.inputs[i].length; j++)
 		{
-			saveNumber(writer, inputs[i][j], 4);
+			saveNumber(writer, trainingSet.inputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -195,9 +293,9 @@ public class Network {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < outputs[i].length; j++)
+		for (int j = 0; j < trainingSet.outputs[i].length; j++)
 		{
-			saveNumber(writer, outputs[i][j], 4);
+			saveNumber(writer, trainingSet.outputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -221,7 +319,7 @@ public class Network {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < inputs.length; i++)
+		for (int i = 0; i < trainingSet.inputs.length; i++)
 		{
 			saveInput(writer, i);
 		}
@@ -238,7 +336,7 @@ public class Network {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < inputs.length; i++)
+		for (int i = 0; i < trainingSet.inputs.length; i++)
 		{
 			saveOutput(writer, i);
 		}

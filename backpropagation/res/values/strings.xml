@@ -8,6 +8,7 @@
     <string name="network_visualisation">Network visualisation</string>
     <string name="result_visualisation">Result visualisation</string>
     <string name="export_xml">Export to xml</string>
+    <string name="new_task">New task</string>
     
     <string-array name="functions">
         <item>Identity</item>
@@ -36,6 +37,26 @@
     <string name="cannot_export">Cannot export network to</string>
     <string name="file_saved">File saved</string>
     <string name="network_xml">network.xml</string>
-    <string name="send_mail">Send email...</string>
+    <string name="send_mail">Send email&#8230;</string>
     <string name="neural_network_xml">Neural network xml</string>
+    
+    <!-- import -->
+    <string name="load_example">Load example</string>
+    <string name="load_file">Load file</string>
+    <string name="read_from_www">Read from www</string>
+    <string name="enter_filename_first">Enter file name first</string>
+    <string name="enter_url_first">Enter url name first</string>
+    <string name="predefined_example">Choose predefined example:</string>
+    <string name="load_xml_data">Or load xml data from a file:</string>
+    <string name="load_xml_www">Or load xml data from www:</string>
+    <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
+    <string name="missing_tag">Missing %1 tag</string>
+    <string name="null_elements">Eneter layers and training set with inputs and outputs</string>
+    <string name="layers_missing">Enter at least one layer</string>
+    <string name="neurons_missing">No neuron in a layer</string>
+    <string name="weights_count">Bad weights count</string>
+    <string name="input_output_count">Training set: inputs.length != outputs.length</string>
+    <string name="empty_training_set">Empty training set</string>
+    <string name="input_example_dimension">Bad training set input example dimension</string>
+    <string name="output_example_dimension">Bad training set ouput example dimension></string>
 </resources>

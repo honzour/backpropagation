@@ -9,6 +9,7 @@
         android:targetSdkVersion="4" />
     
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="cz.honza.backpropagation.NetworkApplication"
@@ -34,6 +35,9 @@
         <activity
             android:name="cz.honza.backpropagation.export.ExportActivity"
             android:label="@string/export_xml" />
+        <activity
+            android:name="cz.honza.backpropagation.export.ImportActivity"
+            android:label="@string/new_task" />
         
     </application>
 

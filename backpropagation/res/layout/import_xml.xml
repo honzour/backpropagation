@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <TextView 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/predefined_example"
+    	android:textColor="@color/text" />
+    <Spinner
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:entries="@array/functions"
+    	android:id="@+id/import_new_task"
+        />
+   	<Button
+   	    android:id="@+id/import_examle"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/load_example" />
+    <TextView
+        android:layout_margin="@dimen/commonMargin" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/load_xml_data"
+    	android:textColor="@color/text" />
+    <EditText
+        android:id="@+id/import_load_text"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
+   	<Button
+   	    android:id="@+id/import_load"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/load_file" />
+    <TextView
+        android:layout_margin="@dimen/commonMargin" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/load_xml_www"
+    	android:textColor="@color/text" />
+    <EditText
+        android:hint="@string/www_hint"
+        android:id="@+id/import_www_text"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
+   	<Button
+   	    android:id="@+id/import_www"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/read_from_www" />
+</LinearLayout>
+</ScrollView>

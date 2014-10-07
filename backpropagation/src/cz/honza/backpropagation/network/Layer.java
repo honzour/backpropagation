@@ -2,9 +2,20 @@ package cz.honza.backpropagation.network;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 public class Layer {
 	public Neuron[] neurons;
+	
+	public Layer(List<List<Double>> layersData)
+	{
+		final int count = layersData.size();
+		
+		neurons = new Neuron[count];
+		for (int i = 0; i < count; i++)
+			neurons[i] = new Neuron(layersData.get(i));
+	}
+	
 	public Layer(int count, int previousCount)
 	{
 		neurons = new Neuron[count];

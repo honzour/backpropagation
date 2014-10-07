@@ -8,4 +8,14 @@ public class NetworkApplication extends Application {
 
 	public static LearningThread sThread;
 	public volatile static Network sNetwork = null;
+	public static NetworkApplication sInstance = null;
+	
+	
+	@Override
+	public void onCreate()
+	{
+		super.onCreate();
+		sInstance = this;
+	}
+	
 }
