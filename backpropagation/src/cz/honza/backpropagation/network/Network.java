@@ -68,7 +68,36 @@ public class Network {
 				}
 			}
 		}
-
+		
+		if (trainingSet.inputs.length != trainingSet.outputs.length)
+		{
+			handler.onError(R.string.input_output_count);
+			return false;
+		}
+		
+		if (trainingSet.inputs.length == 0)
+		{
+			handler.onError(R.string.empty_training_set);
+			return false;
+		}
+		
+		for (int i = 0; i < trainingSet.inputs.length; i++)
+		{
+			if (trainingSet.inputs[i].length != layers[0].neurons[0].weights.length - 1)
+			{
+				handler.onError(R.string.input_example_dimension);
+				return false;
+			}
+		}
+		
+		for (int i = 0; i < trainingSet.outputs.length; i++)
+		{
+			if (trainingSet.outputs[i].length != layers[layers.length - 1].neurons.length)
+			{
+				handler.onError(R.string.output_example_dimension);
+				return false;
+			}
+		}
 			
 		return true;
 	}

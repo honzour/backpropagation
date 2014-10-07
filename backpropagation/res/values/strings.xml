@@ -55,4 +55,8 @@
     <string name="layers_missing">Enter at least one layer</string>
     <string name="neurons_missing">No neuron in a layer</string>
     <string name="weights_count">Bad weights count</string>
+    <string name="input_output_count">Training set: inputs.length != outputs.length</string>
+    <string name="empty_training_set">Empty training set</string>
+    <string name="input_example_dimension">Bad training set input example dimension</string>
+    <string name="output_example_dimension">Bad training set ouput example dimension></string>
 </resources>

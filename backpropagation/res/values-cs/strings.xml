@@ -54,4 +54,9 @@
     <string name="layers_missing">Zadejte aspoň jednu vrstvu</string>
     <string name="neurons_missing">V každé vrstvě musí být aspoň jeden neuron</string>
     <string name="weights_count">Špatný počet vah</string>
+    <string name="input_output_count">Tréninková musí mít stejně vstupů jako výstupů</string>
+    <string name="empty_training_set">Prázdná tréninková množina</string>
+    <string name="input_example_dimension">Špatná dimenze vstupu v tréninkové množině</string>
+    <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
+    
 </resources>
