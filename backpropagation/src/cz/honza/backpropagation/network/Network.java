@@ -17,6 +17,16 @@ public class Network {
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));
 	}
+	
+	/**
+	 * Is everything ok?
+	 * @param handler runs onError if not ok
+	 * @return
+	 */
+	public boolean check(ParserResultHandler handler)
+	{
+		return true;
+	}
 
 	/**
 	 * Parsing constructor

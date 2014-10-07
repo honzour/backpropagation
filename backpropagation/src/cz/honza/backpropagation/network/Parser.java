@@ -18,7 +18,6 @@ import cz.honza.backpropagation.R;
 public class Parser {
 	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
 	{
-		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		
@@ -40,7 +39,8 @@ public class Parser {
 			return;
 			
 		final Network networkTmp = new Network(layers, training);
-		// TODO check
+		if (!networkTmp.check(handler))
+			return;
 		handler.onFinished(networkTmp);
 	}
 	
