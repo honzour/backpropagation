@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
+import cz.honza.backpropagation.R;
+
+
+
 public class Network {
 	
 	public Layer[] layers;
@@ -25,6 +29,47 @@ public class Network {
 	 */
 	public boolean check(ParserResultHandler handler)
 	{
+		if (layers == null || trainingSet == null || trainingSet.inputs == null || trainingSet.inputs == null)
+		{
+			handler.onError(R.string.null_elements);
+			return false;
+		}
+		if (layers.length < 1)
+		{
+			handler.onError(R.string.layers_missing);
+			return false;
+		}
+		for (int i = 0; i < layers.length; i++)
+		{
+			if (layers[i].neurons.length < 1)
+			{
+				handler.onError(R.string.neurons_missing);
+				return false;
+			}
+		}
+		
+		for (int i = 1; i < layers.length; i++)
+		{
+			if (layers[i].neurons[0].weights.length != layers[i - 1].neurons.length)
+			{
+				handler.onError(R.string.weights_count);
+				return false;
+			}
+		}
+		
+		for (int i = 0; i < layers.length; i++)
+		{
+			for (int j = 1; j < layers[i].neurons.length; j++)
+			{
+				if (layers[i].neurons[0].weights.length != layers[i].neurons[j].weights.length)
+				{
+					handler.onError(R.string.weights_count);
+					return false;
+				}
+			}
+		}
+
+			
 		return true;
 	}
 

@@ -50,4 +50,8 @@
     <string name="load_xml_www">Nebo načti xml data z webu:</string>
     <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
     <string name="missing_tag">Chybí %1 tag</string>
+    <string name="null_elements">Zadejte vrstvy a tréninkovou množinu se vstupy a výstupy</string>
+    <string name="layers_missing">Zadejte aspoň jednu vrstvu</string>
+    <string name="neurons_missing">V každé vrstvě musí být aspoň jeden neuron</string>
+    <string name="weights_count">Špatný počet vah</string>
 </resources>

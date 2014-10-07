@@ -51,4 +51,8 @@
     <string name="load_xml_www">Or load xml data from www:</string>
     <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
     <string name="missing_tag">Missing %1 tag</string>
+    <string name="null_elements">Eneter layers and training set with inputs and outputs</string>
+    <string name="layers_missing">Enter at least one layer</string>
+    <string name="neurons_missing">No neuron in a layer</string>
+    <string name="weights_count">Bad weights count</string>
 </resources>
