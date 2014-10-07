@@ -50,7 +50,7 @@ public class Network {
 		
 		for (int i = 1; i < layers.length; i++)
 		{
-			if (layers[i].neurons[0].weights.length != layers[i - 1].neurons.length)
+			if ((layers[i].neurons[0].weights.length - 1) != layers[i - 1].neurons.length)
 			{
 				handler.onError(R.string.weights_count);
 				return false;
