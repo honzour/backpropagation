@@ -37,7 +37,8 @@
             android:label="@string/export_xml" />
         <activity
             android:name="cz.honza.backpropagation.export.ImportActivity"
-            android:label="@string/new_task" />
+            android:label="@string/new_task"
+            android:windowSoftInputMode="stateHidden" />
         
     </application>
 
