@@ -111,8 +111,6 @@ public class ImportActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
-		
 		setContentView(R.layout.import_xml);
 
 		mExample = (Spinner) findViewById(R.id.import_new_task);
@@ -123,8 +121,6 @@ public class ImportActivity extends NetworkActivity {
 				loadExample();
 			}
 		});
-		
-		
 		
 		
 		mFileButton = findViewById(R.id.import_load);
@@ -145,11 +141,13 @@ public class ImportActivity extends NetworkActivity {
 		}
 		
 		mUrl = (EditText)findViewById(R.id.import_www_text);
+		mUrl.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
 		
 		mWebButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				final String url = mUrl.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
 				if (url.length() == 0)
 				{
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
