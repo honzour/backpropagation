@@ -10,6 +10,11 @@ public class NetworkApplication extends Application {
 	public volatile static Network sNetwork = null;
 	public static NetworkApplication sInstance = null;
 	
+	public static final String PREFS = "PREFS";
+	
+	public static final String PREFS_DEFAULT_EXPORT_XML_FILE = "PREFS_DEFAULT_EXPORT_XML_FILE";
+	public static final String PREFS_DEFAULT_IMPORT_XML_URL = "PREFS_DEFAULT_IMPORT_XML_URL";
+	
 	
 	@Override
 	public void onCreate()

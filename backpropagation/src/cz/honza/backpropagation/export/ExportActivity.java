@@ -100,8 +100,9 @@ public class ExportActivity extends NetworkActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		mFileName = new EditText(this);
-		
-		mFileName.setText(getDefaultXmlName());
+		final String hint = getDefaultXmlName();
+		mFileName.setHint(hint);
+		mFileName.setText(loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, hint));
 		
 		return new AlertDialog.Builder(this)
 	    .setTitle(R.string.save)
@@ -110,6 +111,7 @@ public class ExportActivity extends NetworkActivity {
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) {
 	        	String filename = mFileName.getText().toString();
+	        	savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 	        	try
 	        	{
 	        		NetworkApplication.sNetwork.save(filename);

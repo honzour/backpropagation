@@ -125,11 +125,15 @@ public class ImportActivity extends NetworkActivity {
 		});
 		
 		
+		
+		
 		mFileButton = findViewById(R.id.import_load);
 		mFileName = (EditText)findViewById(R.id.import_load_text);
 		final String defaultHint = ExportActivity.getDefaultXmlName();
-		mFileName.setText(defaultHint);
+		
 		mFileName.setHint(defaultHint);
+		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
+		mFileName.setText(defaultFile);
 		
 		mWebButton = findViewById(R.id.import_www);
 		
@@ -161,6 +165,7 @@ public class ImportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				final String filename = mFileName.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 				
 				if (filename.length() == 0)
 				{
