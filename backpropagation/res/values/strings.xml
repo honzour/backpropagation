@@ -47,7 +47,7 @@
     <string name="enter_filename_first">Enter file name first</string>
     <string name="enter_url_first">Enter url name first</string>
     <string name="predefined_example">Choose predefined example:</string>
-    <string name="load_xml_data">Or load xml data from a file:</string>
+    <string name="load_xml_data">Load xml data from a file:</string>
     <string name="load_xml_www">Or load xml data from www:</string>
     <string name="www_hint">http://some.server.net/network.xml</string>
     <string name="missing_tag">Missing %1 tag</string>
@@ -59,4 +59,6 @@
     <string name="empty_training_set">Empty training set</string>
     <string name="input_example_dimension">Bad training set input example dimension</string>
     <string name="output_example_dimension">Bad training set ouput example dimension></string>
+    <string name="beginners">For beginners:</string>
+    <string name="experts">For experts:</string>
 </resources>

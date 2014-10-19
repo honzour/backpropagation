@@ -10,6 +10,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     >
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/beginners"
+    	android:textColor="@color/text" />
     <TextView 
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
@@ -28,6 +35,13 @@
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content"
        	android:text="@string/load_example" />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/experts"
+    	android:textColor="@color/text" />
     <TextView
         android:layout_margin="@dimen/commonMargin" 
         android:layout_width="fill_parent"

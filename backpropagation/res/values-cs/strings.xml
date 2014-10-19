@@ -47,7 +47,7 @@
     <string name="enter_filename_first">Nejprve zadejte jméno souboru</string>
     <string name="enter_url_first">Nejprve zadejte url</string>
     <string name="predefined_example">Načti předdefinovaný příklad:</string>
-    <string name="load_xml_data">Nebo načti xml data ze souboru:</string>
+    <string name="load_xml_data">Načti xml data ze souboru:</string>
     <string name="load_xml_www">Nebo načti xml data z webu:</string>
     <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
     <string name="missing_tag">Chybí %1 tag</string>
@@ -59,5 +59,6 @@
     <string name="empty_training_set">Prázdná tréninková množina</string>
     <string name="input_example_dimension">Špatná dimenze vstupu v tréninkové množině</string>
     <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
-    
+    <string name="beginners">Pro začátečníky:</string>
+    <string name="experts">Pro experty:</string>
 </resources>
