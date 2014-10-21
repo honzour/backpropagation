@@ -70,7 +70,25 @@ public class ResultView extends View {
 			}
 		}
 		
+		if (minX == maxX)
+		{
+			minX -= delta / 2;
+			maxX += delta / 2;
+		}
 		
+		if (minY == maxY)
+		{
+			minY -= delta / 2;
+			maxY += delta / 2;
+		}
+		
+		final double deltaX2 = (maxX - minX) / 2;
+		minX -= deltaX2;
+		maxX += deltaX2;
+		
+		final double deltaY2 = (maxY - minY) / 2;
+		minY -= deltaY2;
+		maxY += deltaY2;
 		
 		final int width = getWidth();
 		final int height = getHeight();

@@ -13,6 +13,10 @@ public class DrawResultThread extends Thread {
 	private Handler mHandler;
 	private volatile boolean mStop = false;
 	private Runnable mOnEnd;
+	private double mMinX;
+	private double mMinY;
+	private double mMaxX;
+	private double mMaxY;
 	
 	public DrawResultThread(Runnable onEnd)
 	{
@@ -26,7 +30,10 @@ public class DrawResultThread extends Thread {
 	
 	public void start(Bitmap bmp, View v, double minX, double minY, double maxX, double maxY)
 	{
-		// TODO
+		mMaxX = minX;
+		mMaxY = minY;
+		mMinX = minX;
+		mMinY = minY;
 		mBmp = bmp;
 		mView = v;
 		mHandler = new Handler();
