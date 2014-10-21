@@ -24,8 +24,9 @@ public class DrawResultThread extends Thread {
 		mStop = true;
 	}
 	
-	public void start(Bitmap bmp, View v)
+	public void start(Bitmap bmp, View v, double minX, double minY, double maxX, double maxY)
 	{
+		// TODO
 		mBmp = bmp;
 		mView = v;
 		mHandler = new Handler();
