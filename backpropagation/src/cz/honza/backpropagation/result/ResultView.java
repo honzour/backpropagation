@@ -37,6 +37,41 @@ public class ResultView extends View {
 		if (n == null)
 			return;
 		
+		final double delta = 0.01;
+		double minX = - delta / 2;
+		double minY = minX;
+		double maxX = delta / 2;
+		double maxY = maxX;
+		
+		double[][] inputs = n.trainingSet.inputs; 
+		if (n.trainingSet.inputs.length > 0)
+		{
+			if (inputs[0].length > 0)
+				minX = maxX = inputs[0][0];
+			if (inputs[0].length > 1)
+				minY = maxY = inputs[0][1];
+			
+			for (int i = 1; i < inputs.length; i++)
+			{
+				if (inputs[i].length > 0)
+				{
+					if (minX > inputs[i][0])
+						minX = inputs[i][0];
+					if (maxX < inputs[i][0])
+						maxX = inputs[i][0];
+				}
+				if (inputs[i].length > 1)
+				{
+					if (minY > inputs[i][1])
+						minY = inputs[i][1];
+					if (maxY < inputs[i][1])
+						maxY = inputs[i][1];
+				}
+			}
+		}
+		
+		
+		
 		final int width = getWidth();
 		final int height = getHeight();
 		
