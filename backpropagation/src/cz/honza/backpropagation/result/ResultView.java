@@ -115,7 +115,10 @@ public class ResultView extends View {
 			if (mDrawBitmap)
 				canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		}
+		
+		// screen x of real 0
 		float x0 = width / 4;
+		// screen y of real 0
 		float y0 = height * 3 / 4;
 		
 		canvas.drawLine(0, y0, width, y0, mPaint);
