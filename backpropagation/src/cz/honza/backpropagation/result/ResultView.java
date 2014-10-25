@@ -38,9 +38,14 @@ public class ResultView extends View {
 			return;
 		
 		final double delta = 0.01;
+		
+		// will be real x of left of the screen
 		double minX = - delta / 2;
+		// will be real y of bottom of the screen
 		double minY = minX;
+		// will be real x of right of the screen
 		double maxX = delta / 2;
+		// will be real y of top of the screen
 		double maxY = maxX;
 		
 		double[][] inputs = n.trainingSet.inputs; 
@@ -112,14 +117,10 @@ public class ResultView extends View {
 		}
 		float x0 = width / 4;
 		float y0 = height * 3 / 4;
-		float x1 = width * 3 / 4;
-		float y1 = height / 4;
 		
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
-		
-		canvas.drawLine(x1, y0, x1, y0 - 10, mPaint);
-		canvas.drawLine(x0, y1, x0 + 10, y1, mPaint);
+
 		
 		for (int i = 0; i < n.trainingSet.inputs.length; i++)
 		{
