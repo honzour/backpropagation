@@ -116,10 +116,13 @@ public class ResultView extends View {
 				canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		}
 		
+		double ax = (maxX - minX) / width;
+		double ay = (maxY - minY) / height;
+		
 		// screen x of real 0
-		float x0 = width / 4;
+		float x0 = (float)(width - maxX / ax);
 		// screen y of real 0
-		float y0 = height * 3 / 4;
+		float y0 = (float)(0 + maxY / ay);
 		
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
@@ -139,8 +142,8 @@ public class ResultView extends View {
 				}
 			}
 			
-			double x = width * (ix + 0.5) / 2;
-			double y = height - 1 -  height * (iy + 0.5) / 2;
+			double x = width * (ix - minX) / (maxX - minX);
+			double y = height - 1 -  height * (iy - minY) / (maxY - minY);
 			if (Math.abs(n.trainingSet.outputs[i][0]) < 0.5)
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
