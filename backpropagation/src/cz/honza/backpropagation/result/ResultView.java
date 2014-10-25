@@ -108,7 +108,7 @@ public class ResultView extends View {
 			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 			mDrawBitmap = false;
 			
-			mThread.start(mBmp, this, minY, minY, maxX, maxY);
+			mThread.start(mBmp, this, minX, minY, maxX, maxY);
 		}
 		else
 		{

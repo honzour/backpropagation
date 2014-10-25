@@ -30,8 +30,8 @@ public class DrawResultThread extends Thread {
 	
 	public void start(Bitmap bmp, View v, double minX, double minY, double maxX, double maxY)
 	{
-		mMaxX = minX;
-		mMaxY = minY;
+		mMaxX = maxX;
+		mMaxY = maxY;
 		mMinX = minX;
 		mMinY = minY;
 		mBmp = bmp;
@@ -53,8 +53,9 @@ public class DrawResultThread extends Thread {
 			{
 				if (mStop)
 					return;
-				input[0] = -0.5 + 2 * i / (double) width;
-				input[1] = 1.5 - 2 * j / (double) height;
+				
+				input[0] = mMinX + i * (mMaxX - mMinX) / (double) width;
+				input[1] = mMinY + (height - j - 1) * (mMaxY - mMinY) / height;
 				NetworkApplication.sNetwork.calculate(input, output);
 				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
