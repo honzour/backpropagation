@@ -62,4 +62,9 @@
     <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
     <string name="beginners">Pro začátečníky:</string>
     <string name="experts">Pro experty:</string>
+    
+    <!-- result input -->
+    <string name="input">Vstup:</string>
+    <string name="output">Výstup:</string>
+    <string name="input_error">Chyba vstupu</string>
 </resources>
