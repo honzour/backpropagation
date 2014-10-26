@@ -9,6 +9,7 @@
     <string name="result_visualisation">Zobrazení výsledku</string>
     <string name="export_xml">Export do xml</string>
     <string name="new_task">Nový úkol</string>
+    <string name="result_for_input">Výsledek pro vstup</string>
     
     <string-array name="functions">
         <item>Identita</item>
