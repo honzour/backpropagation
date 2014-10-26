@@ -6,10 +6,39 @@
     android:layout_height="fill_parent"
     android:background="@color/background">
 
-<LinearLayout 
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
+    
+    <TextView
+        android:textColor="@color/text"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textAppearance="?android:attr/textAppearanceLarge"
+    	android:text="@string/input" 
+        />
+    
+	<LinearLayout
+    	android:id="@+id/result_input_layout"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" />
+	
+	<TextView
+        android:textColor="@color/text"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textAppearance="?android:attr/textAppearanceLarge"
+    	android:text="@string/output" 
+        />
+	
+	<TextView
+	    android:textColor="@color/text"
+	    android:id="@+id/result_input_result"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+	    />
 
 </LinearLayout>
 </ScrollView>
