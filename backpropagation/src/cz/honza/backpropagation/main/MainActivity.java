@@ -1,5 +1,8 @@
 package cz.honza.backpropagation.main;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.export.ExportActivity;
@@ -34,6 +37,22 @@ public class MainActivity extends NetworkActivity {
 		findViewById(R.id.main_result_input).setEnabled(enabled);
 		findViewById(R.id.main_learning).setEnabled(enabled);
 		findViewById(R.id.main_export_xml).setEnabled(enabled);
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (NetworkApplication.sNetwork != null)
+		{
+			StringWriter writer = new StringWriter();
+			try {
+				NetworkApplication.sNetwork.save(writer);
+				savePref(NetworkApplication.PREFS_STORED_NET, writer.toString());
+			} catch (IOException e)
+			{
+				// ignore
+			}
+		}
+		super.onDestroy();
 	}
 	
 	
