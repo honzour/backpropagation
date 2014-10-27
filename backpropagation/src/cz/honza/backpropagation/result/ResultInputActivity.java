@@ -1,7 +1,9 @@
 package cz.honza.backpropagation.result;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -66,6 +68,24 @@ public class ResultInputActivity extends NetworkActivity {
 					return false;
 				}
 			});
+			
+			mInputs[i].addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+						int after) {
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					refresh();
+				}
+			});
+			
 			ll.addView(mInputs[i]);
 		}
 		refresh();
