@@ -14,6 +14,8 @@ import cz.honza.backpropagation.util.NetworkActivity;
 
 public class ResultInputActivity extends NetworkActivity {
 	
+	public static final String INPUT = "INPUT";
+	
 	protected EditText[] mInputs;
 	protected TextView mOutputView;
 	
@@ -45,6 +47,8 @@ public class ResultInputActivity extends NetworkActivity {
 		sb.append("]");
 		mOutputView.setText(sb.toString());
 	}
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +58,29 @@ public class ResultInputActivity extends NetworkActivity {
 		final LinearLayout ll = (LinearLayout)findViewById(R.id.result_input_layout);
 		final int inputsLength = NetworkApplication.sNetwork.layers[0].neurons[0].weights.length - 1;
 		mInputs = new EditText[inputsLength];
-		mInput = new double[inputsLength];
-		mOutput = new double[NetworkApplication.sNetwork.layers[NetworkApplication.sNetwork.layers.length - 1].neurons.length];
+		
 		for (int i = 0; i < inputsLength; i++)
 		{
 			mInputs[i] = new EditText(this);
 			mInputs[i].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+		}
+		
+		if (savedInstanceState != null)
+			mInput = savedInstanceState.getDoubleArray(INPUT);
+		if (mInput == null)
+		{
+			mInput = new double[inputsLength];
+		}
+		else
+		{
+			for (int i = 0; i < mInput.length; i++)
+			{
+				mInputs[i].setText(String.valueOf(mInput[i]));
+			}
+		}
+		mOutput = new double[NetworkApplication.sNetwork.layers[NetworkApplication.sNetwork.layers.length - 1].neurons.length];
+		for (int i = 0; i < inputsLength; i++)
+		{
 			mInputs[i].setOnEditorActionListener(new TextView.OnEditorActionListener() {
 				
 				@Override
@@ -89,5 +110,13 @@ public class ResultInputActivity extends NetworkActivity {
 			ll.addView(mInputs[i]);
 		}
 		refresh();
+	}
+
+
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putDoubleArray(INPUT, mInput);
+		super.onSaveInstanceState(outState);
 	}
 }
