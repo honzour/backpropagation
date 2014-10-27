@@ -2,9 +2,7 @@ package cz.honza.backpropagation.util;
 
 import cz.honza.backpropagation.NetworkApplication;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.View;
 
 public class NetworkActivity extends Activity {
@@ -24,16 +22,12 @@ public class NetworkActivity extends Activity {
 	
 	protected void savePref(String key, String value)
 	{
-		SharedPreferences prefs = getSharedPreferences(NetworkApplication.PREFS, Context.MODE_PRIVATE);
-		SharedPreferences.Editor e = prefs.edit();
-		e.putString(key, value);
-		e.commit();
+		NetworkApplication.sInstance.savePref(key, value);
 	}
 	
 	
 	protected String loadPref(String key, String defaultVaule)
 	{
-		final SharedPreferences prefs = getSharedPreferences(NetworkApplication.PREFS, Context.MODE_PRIVATE);
-		return prefs.getString(key, defaultVaule);
+		return NetworkApplication.sInstance.loadPref(key, defaultVaule);
 	}
 }
