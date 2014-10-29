@@ -42,7 +42,10 @@
             android:name="cz.honza.backpropagation.export.ImportActivity"
             android:label="@string/new_task"
             android:windowSoftInputMode="stateHidden" />
-        
+        <activity
+            android:name="cz.honza.backpropagation.export.EditorActivity"
+            android:label="@string/network_editor"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

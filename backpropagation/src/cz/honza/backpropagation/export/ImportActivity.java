@@ -3,6 +3,7 @@ package cz.honza.backpropagation.export;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ public class ImportActivity extends NetworkActivity {
 	private View mFileButton;
 	private View mWebButton;
 	private View mExampleButton;
+	private View mEditorButton;
 	private EditText mFileName;
 	private EditText mUrl;
 	private Spinner mExample;
@@ -198,6 +200,15 @@ public class ImportActivity extends NetworkActivity {
 				{
 					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 				}
+			}
+		});
+		
+		mEditorButton = findViewById(R.id.import_run_editor);
+		mEditorButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(ImportActivity.this, EditorActivity.class);
+				startActivityForResult(i, 0);
 			}
 		});
 	}

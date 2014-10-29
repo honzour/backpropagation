@@ -62,9 +62,16 @@
     <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
     <string name="beginners">Pro začátečníky:</string>
     <string name="experts">Pro experty:</string>
+    <string name="advanced">Pro pokročilé:</string>
+    <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu</string>
+    <string name="run_editor">Spustit editor</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>
     <string name="output">Výstup:</string>
     <string name="input_error">Chyba vstupu</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Editor sítě</string>
+    <string name="cancel">Zrušit</string>
 </resources>
