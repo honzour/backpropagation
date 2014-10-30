@@ -30,4 +30,15 @@ public class NetworkActivity extends Activity {
 	{
 		return NetworkApplication.sInstance.loadPref(key, defaultVaule);
 	}
+	protected void setCancelButton(int resource)
+	{
+		View v = findViewById(resource);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+	}
+	
 }

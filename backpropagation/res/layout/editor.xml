@@ -10,6 +10,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/editor_data"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" />
+    
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"

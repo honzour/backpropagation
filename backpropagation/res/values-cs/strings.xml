@@ -74,4 +74,7 @@
     <!-- editor -->
     <string name="network_editor">Editor sítě</string>
     <string name="cancel">Zrušit</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="deletex">x</string>
 </resources>
