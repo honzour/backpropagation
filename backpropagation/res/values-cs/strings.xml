@@ -81,6 +81,6 @@
     <string name="training_set">Tréninková množina</string>
     <string name="network_anatomy">Anatomie sítě</string>
     <string name="input_dimension">Dimenze vstupu</string>
-    <string name="hidden_layers">Skryté vrstvy</string>
-    <string name="output_layer">Výstupní vrstva</string>
+    <string name="hidden_layers">Počty neuronů ve skrytých vrstvách</string>
+    <string name="output_layer">Počet neuronů ve výstupní vrstvě</string>
 </resources>

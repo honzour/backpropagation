@@ -35,6 +35,11 @@ public class EditorActivity extends NetworkActivity {
 				
 		for (int i = 0; i < mLayers.size(); i++)
 		{
+			if (i == mLayers.size() - 1)
+				addCaption(R.string.output_layer);
+			else
+				if (i == 1)
+					addCaption(R.string.hidden_layers);
 			final View item = mInflater.inflate(R.layout.editor_item, mData, false);
 			final TextView tv = (TextView)item.findViewById(R.id.editor_item_text);
 			final int val = mLayers.get(i);
