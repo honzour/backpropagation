@@ -78,6 +78,6 @@
     <string name="training_set">Training set</string>
     <string name="network_anatomy">Network anatomy</string>
     <string name="input_dimension">Input dimension</string>
-    <string name="hidden_layers">Hidden layers</string>
-    <string name="output_layer">Output layer</string>
+    <string name="hidden_layers">Neuron count in hidden layers</string>
+    <string name="output_layer">Neuron count in output layer</string>
 </resources>
