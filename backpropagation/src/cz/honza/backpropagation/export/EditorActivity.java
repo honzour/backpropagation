@@ -15,14 +15,27 @@ public class EditorActivity extends NetworkActivity {
 	
 	protected LinearLayout mData;
 	protected List<Integer> mLayers;
+	LayoutInflater mInflater;
+	
+	protected void addCaption(int res)
+	{
+		View captionLayout = mInflater.inflate(R.layout.editor_item_text, mData, false);
+		TextView caption = (TextView)captionLayout.findViewById(R.id.editor_item_text_text);
+		caption.setText(res);
+		mData.addView(caption);
+	}
 	
 	protected void refresh()
 	{
 		mData.removeAllViews();
-		final LayoutInflater li = LayoutInflater.from(this);
+		
+		mInflater = LayoutInflater.from(this);
+		
+		addCaption(R.string.input_dimension);
+				
 		for (int i = 0; i < mLayers.size(); i++)
 		{
-			final View item = li.inflate(R.layout.editor_item, mData, false);
+			final View item = mInflater.inflate(R.layout.editor_item, mData, false);
 			final TextView tv = (TextView)item.findViewById(R.id.editor_item_text);
 			final int val = mLayers.get(i);
 			tv.setText(String.valueOf(val));

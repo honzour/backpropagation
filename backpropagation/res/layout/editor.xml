@@ -11,6 +11,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
     
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/network_anatomy"
+    	android:textColor="@color/text" />
+    
     <LinearLayout 
         android:id="@+id/editor_data"
     	android:layout_width="fill_parent"
@@ -24,6 +32,14 @@
     	android:id="@+id/editor_add"
     	android:text="@string/add_layer"
         />
+    
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/training_set"
+    	android:textColor="@color/text" />
     
     <Button
         android:layout_marginTop="@dimen/commonMargin"

@@ -78,4 +78,9 @@
     <string name="minus">-</string>
     <string name="deletex">x</string>
     <string name="add_layer">Přidat vrstvu</string>
+    <string name="training_set">Tréninková množina</string>
+    <string name="network_anatomy">Anatomie sítě</string>
+    <string name="input_dimension">Dimenze vstupu</string>
+    <string name="hidden_layers">Skryté vrstvy</string>
+    <string name="output_layer">Výstupní vrstva</string>
 </resources>
