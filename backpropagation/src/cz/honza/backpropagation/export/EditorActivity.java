@@ -77,5 +77,13 @@ public class EditorActivity extends NetworkActivity {
 		mLayers.add(1);
 		mLayers.add(1);
 		refresh();
+		findViewById(R.id.editor_add).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mLayers.add(1);
+				refresh();
+			}
+		});
 	}
 }

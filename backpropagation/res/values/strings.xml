@@ -74,4 +74,5 @@
     <!-- editor -->
     <string name="network_editor">Network editor</string>
     <string name="cancel">Cancel</string>
+    <string name="add_layer">Add a layer</string>
 </resources>

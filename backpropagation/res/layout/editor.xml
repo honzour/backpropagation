@@ -21,6 +21,14 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
+    	android:id="@+id/editor_add"
+    	android:text="@string/add_layer"
+        />
+    
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
     	android:id="@+id/editor_cancel"
     	android:text="@string/cancel"
         />
