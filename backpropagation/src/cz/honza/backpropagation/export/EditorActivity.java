@@ -85,15 +85,20 @@ public class EditorActivity extends NetworkActivity {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.editor);
 		setCancelButton(R.id.editor_cancel);
 		mData = (LinearLayout)findViewById(R.id.editor_data);
-		mLayers = new ArrayList<Integer>();
-		mLayers.add(1);
-		mLayers.add(1);
+		mLayers = (List<Integer>)getLastNonConfigurationInstance();
+		if (mLayers == null)
+		{
+			mLayers = new ArrayList<Integer>();
+			mLayers.add(1);
+			mLayers.add(1);
+		}
 		refresh();
 		findViewById(R.id.editor_add).setOnClickListener(new View.OnClickListener() {
 			
@@ -103,5 +108,11 @@ public class EditorActivity extends NetworkActivity {
 				refresh();
 			}
 		});
+	}
+	
+	@Override
+	public Object onRetainNonConfigurationInstance()
+	{
+		return mLayers;
 	}
 }
