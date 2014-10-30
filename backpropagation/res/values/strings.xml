@@ -74,6 +74,9 @@
     <!-- editor -->
     <string name="network_editor">Network editor</string>
     <string name="cancel">Cancel</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="deletex">x</string>
     <string name="add_layer">Add a layer</string>
     <string name="training_set">Training set</string>
     <string name="network_anatomy">Network anatomy</string>
