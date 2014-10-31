@@ -116,9 +116,14 @@ public class EditorActivity extends NetworkActivity {
 		List<Double> outputItem = new ArrayList<Double>();
 		for (int i = 0; i < mLayers.get(0); i++)
 		{
-			inputItem
+			inputItem.add(0.0);
 		}
-		// TODO		
+		for (int i = 0; i < mLayers.get(mLayers.size() - 1); i++)
+		{
+			outputItem.add(0.0);
+		}
+		item.add(inputItem);
+		item.add(outputItem);
 		mTraining.add(item);
 		refreshTraining();
 	}
