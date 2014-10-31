@@ -6,6 +6,8 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
@@ -104,6 +106,18 @@ public class EditorActivity extends NetworkActivity {
 					refreshTraining();
 				}
 			});
+			
+			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
+			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
+			
+			final List<List<Double>> element = mTraining.get(i);
+			final List<Double> elementInput = element.get(0);
+			final List<Double> elementOutput = element.get(1);
+			
+			for (int j = 0; j < elementInput.size(); j++)
+				inputLayout.addView(new EditText(this));
+			for (int j = 0; j < elementOutput.size(); j++)
+				outputLayout.addView(new CheckBox(this));
 			
 			mTrainingLayout.addView(item);
 		}
