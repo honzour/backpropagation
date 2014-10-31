@@ -13,34 +13,35 @@ import cz.honza.backpropagation.util.NetworkActivity;
 
 public class EditorActivity extends NetworkActivity {
 	
-	protected LinearLayout mData;
+	protected LinearLayout mLayersLayout;
 	protected List<Integer> mLayers;
+	protected LinearLayout mTrainingLayout;
+	protected List<List<List<Double>>> mTraining;
 	LayoutInflater mInflater;
 	
-	protected void addCaption(int res)
+	protected void addLayersCaption(int res)
 	{
-		View captionLayout = mInflater.inflate(R.layout.editor_item_text, mData, false);
+		View captionLayout = mInflater.inflate(R.layout.editor_item_text, mLayersLayout, false);
 		TextView caption = (TextView)captionLayout.findViewById(R.id.editor_item_text_text);
 		caption.setText(res);
-		mData.addView(caption);
+		mLayersLayout.addView(caption);
 	}
+
 	
-	protected void refresh()
+	protected void refreshLayers()
 	{
-		mData.removeAllViews();
+		mLayersLayout.removeAllViews();
 		
-		mInflater = LayoutInflater.from(this);
-		
-		addCaption(R.string.input_dimension);
+		addLayersCaption(R.string.input_dimension);
 				
 		for (int i = 0; i < mLayers.size(); i++)
 		{
 			if (i == mLayers.size() - 1)
-				addCaption(R.string.output_layer);
+				addLayersCaption(R.string.output_layer);
 			else
 				if (i == 1)
-					addCaption(R.string.hidden_layers);
-			final View item = mInflater.inflate(R.layout.editor_item, mData, false);
+					addLayersCaption(R.string.hidden_layers);
+			final View item = mInflater.inflate(R.layout.editor_layer_item, mLayersLayout, false);
 			final TextView tv = (TextView)item.findViewById(R.id.editor_item_text);
 			final int val = mLayers.get(i);
 			tv.setText(String.valueOf(val));
@@ -59,7 +60,7 @@ public class EditorActivity extends NetworkActivity {
 				@Override
 				public void onClick(View v) {
 					mLayers.set(finali, val + 1);
-					refresh();
+					refreshLayers();
 				}
 			});
 			
@@ -68,7 +69,7 @@ public class EditorActivity extends NetworkActivity {
 				@Override
 				public void onClick(View v) {
 					mLayers.set(finali, val - 1);
-					refresh();
+					refreshLayers();
 				}
 			});
 			
@@ -77,42 +78,104 @@ public class EditorActivity extends NetworkActivity {
 				@Override
 				public void onClick(View v) {
 					mLayers.remove(finali);
-					refresh();
+					refreshLayers();
 				}
 			});
 			
-			mData.addView(item);
+			mLayersLayout.addView(item);
 		}
+	}
+	
+	
+	protected void refreshTraining()
+	{
+		mTrainingLayout.removeAllViews();
+				
+		for (int i = 0; i < mTraining.size(); i++)
+		{
+			final View item = mInflater.inflate(R.layout.editor_training_item, mTrainingLayout, false);
+			final View delete = item.findViewById(R.id.editor_training_item_delete);
+			final int finali = i;
+			
+			delete.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mTraining.remove(finali);
+					refreshTraining();
+				}
+			});
+			
+			mTrainingLayout.addView(item);
+		}
+	}
+	
+	protected void addTraining()
+	{
+		List<List<Double>> item = new ArrayList<List<Double>>();
+		List<Double> inputItem = new ArrayList<Double>();
+		List<Double> outputItem = new ArrayList<Double>();
+		for (int i = 0; i < mLayers.get(0); i++)
+		{
+			inputItem
+		}
+		// TODO		
+		mTraining.add(item);
+		refreshTraining();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mInflater = LayoutInflater.from(this);
 		setContentView(R.layout.editor);
 		setCancelButton(R.id.editor_cancel);
-		mData = (LinearLayout)findViewById(R.id.editor_data);
-		mLayers = (List<Integer>)getLastNonConfigurationInstance();
+		mLayersLayout = (LinearLayout)findViewById(R.id.editor_data);
+		mTrainingLayout = (LinearLayout)findViewById(R.id.editor_training);
+		List<Object> l = (List<Object>)getLastNonConfigurationInstance();
+		if (l != null)
+		{
+			mLayers = (List<Integer>)l.get(0);
+			mTraining = (List<List<List<Double>>>)l.get(1);
+		}
 		if (mLayers == null)
 		{
 			mLayers = new ArrayList<Integer>();
 			mLayers.add(1);
 			mLayers.add(1);
 		}
-		refresh();
-		findViewById(R.id.editor_add).setOnClickListener(new View.OnClickListener() {
-			
+		
+		if (mTraining == null)
+		{
+			mTraining = new ArrayList<List<List<Double>>>();
+			addTraining();
+		}
+		refreshLayers();
+		refreshTraining();
+		findViewById(R.id.editor_add_layer).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mLayers.add(1);
-				refresh();
+				refreshLayers();
 			}
 		});
+		
+		findViewById(R.id.editor_add_training).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				addTraining();
+				refreshLayers();
+			}
+		});
+
 	}
 	
 	@Override
 	public Object onRetainNonConfigurationInstance()
 	{
-		return mLayers;
+		final List<Object> l = new ArrayList<Object>();
+		l.add(mLayers);
+		l.add(mTraining);
+		return l;
 	}
 }

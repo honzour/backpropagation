@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/editor_add"
+    	android:id="@+id/editor_add_layer"
     	android:text="@string/add_layer"
         />
     
@@ -40,6 +40,20 @@
     	android:layout_height="wrap_content"
     	android:text="@string/training_set"
     	android:textColor="@color/text" />
+    
+    <LinearLayout 
+        android:id="@+id/editor_training"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" />
+    
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/editor_add_training"
+    	android:text="@string/add_training"
+        />
     
     <Button
         android:layout_marginTop="@dimen/commonMargin"

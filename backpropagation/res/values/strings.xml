@@ -78,6 +78,7 @@
     <string name="minus">-</string>
     <string name="deletex">x</string>
     <string name="add_layer">Add a layer</string>
+    <string name="add_training">Add an elementk</string>
     <string name="training_set">Training set</string>
     <string name="network_anatomy">Network anatomy</string>
     <string name="input_dimension">Input dimension</string>
