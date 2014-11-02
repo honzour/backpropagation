@@ -84,4 +84,5 @@
     <string name="input_dimension">Dimenze vstupu</string>
     <string name="hidden_layers">Počty neuronů ve skrytých vrstvách</string>
     <string name="output_layer">Počet neuronů ve výstupní vrstvě</string>
+    <string name="edit_anatomy">Edituj anatomii</string>
 </resources>

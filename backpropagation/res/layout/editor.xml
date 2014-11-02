@@ -19,19 +19,20 @@
     	android:text="@string/network_anatomy"
     	android:textColor="@color/text" />
     
-    <LinearLayout 
-        android:id="@+id/editor_data"
-    	android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/editor_anatomy"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:orientation="vertical" />
+    	android:textColor="@color/text" />
     
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/editor_add_layer"
-    	android:text="@string/add_layer"
-        />
+    	android:id="@+id/edit_anatomy"
+    	android:text="@string/edit_anatomy"   />
     
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge" 
