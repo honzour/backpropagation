@@ -12,7 +12,7 @@
     android:orientation="vertical" >
     
     <LinearLayout 
-        android:id="@+id/anatomy_data"
+        android:id="@+id/training_training"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical" />
@@ -21,7 +21,8 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/anatomy_add_layer"
-    	android:text="@string/add_layer" />
+    	android:id="@+id/training_add_training"
+    	android:text="@string/add_training"
+        />
 </LinearLayout>
 </ScrollView>

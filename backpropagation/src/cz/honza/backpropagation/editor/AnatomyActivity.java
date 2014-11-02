@@ -90,7 +90,7 @@ public class AnatomyActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.anatomy);
 		mInflater = LayoutInflater.from(this);
-		mLayersLayout = (LinearLayout)findViewById(R.id.editor_data);
+		mLayersLayout = (LinearLayout)findViewById(R.id.anatomy_data);
 		
 		mLayers = (ArrayList<Integer>)getLastNonConfigurationInstance();
 		if (mLayers == null)
@@ -98,7 +98,7 @@ public class AnatomyActivity extends NetworkActivity {
 			mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		}
 		refreshLayers();
-		findViewById(R.id.editor_add_layer).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.anatomy_add_layer).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mLayers.add(1);

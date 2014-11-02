@@ -85,4 +85,5 @@
     <string name="hidden_layers">Neuron count in hidden layers</string>
     <string name="output_layer">Neuron count in output layer</string>
     <string name="edit_anatomy">Edit anatomy</string>
+    <string name="edit_training">Edit training set</string>
 </resources>
