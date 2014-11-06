@@ -67,10 +67,12 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training);
+		mTraining = (List<List<List<Double>>>)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
 		mInflater = LayoutInflater.from(this);
 		mTrainingLayout = (LinearLayout)findViewById(R.id.training_training);
 		findViewById(R.id.training_add_training).setOnClickListener(new View.OnClickListener() {
