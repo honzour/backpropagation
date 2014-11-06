@@ -1,7 +1,6 @@
 package cz.honza.backpropagation.editor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,22 +13,22 @@ public class EditorActivity extends NetworkActivity {
 	
 	public static final int ANATOMY_REQUEST_CODE = 1;
 	public static final int TRAINING_REQUEST_CODE = 2;
-	public static final String INTENT_EXTRA_ANATOMY = "INTENT_EXTRA_ANATOMY"; 
+	public static final String INTENT_EXTRA_ANATOMY = "INTENT_EXTRA_ANATOMY";
+	public static final String INTENT_EXTRA_TRAINING = "INTENT_EXTRA_TRAINING";
 
-	protected List<List<List<Double>>> mTraining;
+	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
 	protected ArrayList<Integer> mLayers;
 	
 	protected void addTraining()
 	{
 		// TODO split with TrainingSetActivity implementation
-		List<List<Double>> item = new ArrayList<List<Double>>();
-		List<Double> inputItem = new ArrayList<Double>();
-		List<Double> outputItem = new ArrayList<Double>();
+		ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> inputItem = new ArrayList<Double>();
+		ArrayList<Double> outputItem = new ArrayList<Double>();
 		
 		item.add(inputItem);
 		item.add(outputItem);
 		mTraining.add(item);
-		refreshTraining();
 	}
 	
 	protected void refreshTraining()
@@ -41,6 +40,10 @@ public class EditorActivity extends NetworkActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.editor);
+
+		// init anatomy
 		mLayers = (ArrayList<Integer>)getLastNonConfigurationInstance();
 		if (mLayers == null)
 		{
@@ -48,23 +51,15 @@ public class EditorActivity extends NetworkActivity {
 			mLayers.add(1);
 			mLayers.add(1);
 		}
-
-		setContentView(R.layout.editor);
-		
 		refreshAnatomy();
-		
-		setCancelButton(R.id.editor_cancel);
-		
+
+		// inint training
 		if (mTraining == null)
 		{
-			mTraining = new ArrayList<List<List<Double>>>();
+			mTraining = new ArrayList<ArrayList<ArrayList<Double>>>();
 			addTraining();
 		}
-		
 		refreshTraining();
-		
-		
-	
 		
 		findViewById(R.id.edit_anatomy).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -74,6 +69,18 @@ public class EditorActivity extends NetworkActivity {
 				startActivityForResult(intent, ANATOMY_REQUEST_CODE);
 			}
 		});
+	
+		
+		findViewById(R.id.edit_training).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(EditorActivity.this, TrainingSetActivity.class);
+				intent.putExtra(INTENT_EXTRA_TRAINING, mTraining);
+				startActivityForResult(intent, TRAINING_REQUEST_CODE);
+			}
+		});
+		
+		setCancelButton(R.id.editor_cancel);
 
 	}
 	
