@@ -1,6 +1,7 @@
 package cz.honza.backpropagation.editor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,21 @@ import cz.honza.backpropagation.util.NetworkActivity;
 
 public class EditorActivity extends NetworkActivity {
 	
-	public static final int ANATOMY_REQUEST_CODE = 1;
-	public static final int TRAINING_REQUEST_CODE = 2;
+	
+	public static class SavedState
+	{
+		public ArrayList<ArrayList<ArrayList<Double>>> mTraining;
+		public ArrayList<Integer> mLayers;
+		
+		public SavedState(ArrayList<ArrayList<ArrayList<Double>>> training,
+				ArrayList<Integer> layers) {
+			mTraining = training;
+			mLayers = layers;
+		}
+	}
+	
+	public static final int REQUEST_CODE_ANATOMY = 1;
+	public static final int REQUEST_CODE_TRAINING = 2;
 	public static final String INTENT_EXTRA_ANATOMY = "INTENT_EXTRA_ANATOMY";
 	public static final String INTENT_EXTRA_TRAINING = "INTENT_EXTRA_TRAINING";
 
@@ -36,29 +50,34 @@ public class EditorActivity extends NetworkActivity {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.editor);
 
+		SavedState saved = (SavedState)getLastNonConfigurationInstance();
+		if (saved != null)
+		{
+			mLayers = saved.mLayers;
+			mTraining = saved.mTraining;
+		}
+		
 		// init anatomy
-		mLayers = (ArrayList<Integer>)getLastNonConfigurationInstance();
+		
 		if (mLayers == null)
 		{
 			mLayers = new ArrayList<Integer>();
 			mLayers.add(1);
 			mLayers.add(1);
 		}
-		refreshAnatomy();
-
 		// inint training
 		if (mTraining == null)
 		{
 			mTraining = new ArrayList<ArrayList<ArrayList<Double>>>();
 			addTraining();
 		}
+		refreshAnatomy();
 		refreshTraining();
 		
 		findViewById(R.id.edit_anatomy).setOnClickListener(new View.OnClickListener() {
@@ -66,7 +85,7 @@ public class EditorActivity extends NetworkActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(EditorActivity.this, AnatomyActivity.class);
 				intent.putExtra(INTENT_EXTRA_ANATOMY, mLayers);
-				startActivityForResult(intent, ANATOMY_REQUEST_CODE);
+				startActivityForResult(intent, REQUEST_CODE_ANATOMY);
 			}
 		});
 	
@@ -76,7 +95,7 @@ public class EditorActivity extends NetworkActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(EditorActivity.this, TrainingSetActivity.class);
 				intent.putExtra(INTENT_EXTRA_TRAINING, mTraining);
-				startActivityForResult(intent, TRAINING_REQUEST_CODE);
+				startActivityForResult(intent, REQUEST_CODE_TRAINING);
 			}
 		});
 		
@@ -87,7 +106,19 @@ public class EditorActivity extends NetworkActivity {
 	@Override
 	public Object onRetainNonConfigurationInstance()
 	{
-		return mLayers;
+		return new SavedState(mTraining, mLayers);
+	}
+	
+	protected void setToSize(List<Double> list, int requestedSize)
+	{
+		while (list.size() < requestedSize)
+		{
+			list.add(0d);
+		}
+		while (list.size() > requestedSize)
+		{
+			list.remove(list.size() - 1);
+		}
 	}
 	
 	protected void refreshAnatomy()
@@ -101,6 +132,20 @@ public class EditorActivity extends NetworkActivity {
 				sb.append('-');
 		}
 		anatomy.setText(sb.toString());
+		if (mTraining != null)
+		{
+			final int inputDimension = mLayers.get(0);
+			final int outputDimension = mLayers.get(mLayers.size() - 1);
+			final ArrayList<ArrayList<Double>> input = mTraining.get(0);
+			final ArrayList<ArrayList<Double>> output = mTraining.get(1);
+			
+			for (int i = 0; i < input.size(); i++)
+			{
+				setToSize(input.get(i), inputDimension);
+				
+				
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,9 +153,14 @@ public class EditorActivity extends NetworkActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK)
 		{
-			if (requestCode == ANATOMY_REQUEST_CODE)
+			if (requestCode == REQUEST_CODE_ANATOMY)
 			{
 				mLayers = (ArrayList<Integer>)data.getSerializableExtra(INTENT_EXTRA_ANATOMY);
+				refreshAnatomy();
+			}
+			if (requestCode == REQUEST_CODE_TRAINING)
+			{
+				mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)data.getSerializableExtra(INTENT_EXTRA_TRAINING);
 				refreshAnatomy();
 			}
 		}
