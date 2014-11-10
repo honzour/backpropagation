@@ -136,14 +136,12 @@ public class EditorActivity extends NetworkActivity {
 		{
 			final int inputDimension = mLayers.get(0);
 			final int outputDimension = mLayers.get(mLayers.size() - 1);
-			final ArrayList<ArrayList<Double>> input = mTraining.get(0);
-			final ArrayList<ArrayList<Double>> output = mTraining.get(1);
 			
-			for (int i = 0; i < input.size(); i++)
+			for (int i = 0; i < mTraining.size(); i++)
 			{
-				setToSize(input.get(i), inputDimension);
-				
-				
+				final ArrayList<ArrayList<Double>> item = mTraining.get(i);
+				setToSize(item.get(0), inputDimension);
+				setToSize(item.get(1), outputDimension);
 			}
 		}
 	}
