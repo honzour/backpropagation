@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -69,6 +70,7 @@ public class TrainingSetActivity extends NetworkActivity {
 			for (int j = 0; j < elementInput.size(); j++)
 			{
 				final EditText e = new EditText(this);
+				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 				e.setText(String.valueOf(elementInput.get(j)));
 				inputLayout.addView(e);
 			}
@@ -83,7 +85,11 @@ public class TrainingSetActivity extends NetworkActivity {
 		}
 	}
 	
-	
+	protected void save()
+	{
+		mTrainingLayout.getChildCount();
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
