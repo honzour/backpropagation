@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.util.NetworkActivity;
 
@@ -77,7 +78,7 @@ public class TrainingSetActivity extends NetworkActivity {
 			for (int j = 0; j < elementOutput.size(); j++)
 			{
 				final CheckBox cb = new CheckBox(this);
-				cb.setChecked(elementInput.get(j) >= 0.5);
+				cb.setChecked(elementOutput.get(j) >= 0.5);
 				outputLayout.addView(cb);
 			}
 			
@@ -87,7 +88,32 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void save()
 	{
-		mTrainingLayout.getChildCount();
+		final int count = mTrainingLayout.getChildCount();
+		for (int i = 0; i < count; i++)
+		{
+			final View item = mTrainingLayout.getChildAt(i);
+			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
+			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
+			final int inputCount = inputLayout.getChildCount();
+			for (int j = 0; j < inputCount; j++)
+			{
+				final TextView input = (TextView)inputLayout.getChildAt(j);
+				double d = 0;
+				try
+				{
+					d = Double.valueOf(input.getText().toString());
+				}
+				catch (Exception e) {}
+				mTraining.get(i).get(0).set(j, d);
+			}
+			final int outputCount = outputLayout.getChildCount();
+			for (int j = 0; j < outputCount; j++)
+			{
+				final CheckBox output = (CheckBox)outputLayout.getChildAt(j);
+				final double d = output.isChecked() ? 1d : 0d;
+				mTraining.get(i).get(1).set(j, d);
+			}
+		}
 		
 	}
 
@@ -111,6 +137,7 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	@Override
 	public void finish() {
+		save();
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mTraining);
 		setResult(RESULT_OK, resultIntent);
