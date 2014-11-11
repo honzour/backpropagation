@@ -32,10 +32,9 @@ public class EditorActivity extends NetworkActivity {
 
 	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
 	protected ArrayList<Integer> mLayers;
-	
+
 	protected void addTraining()
 	{
-		// TODO split with TrainingSetActivity implementation
 		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
 		final ArrayList<Double> inputItem = new ArrayList<Double>();
 		final ArrayList<Double> outputItem = new ArrayList<Double>();
@@ -44,7 +43,7 @@ public class EditorActivity extends NetworkActivity {
 		item.add(outputItem);
 		mTraining.add(item);
 	}
-	
+
 	protected void addVector(List<Double> list, StringBuffer sb)
 	{
 		sb.append('(');
@@ -122,6 +121,7 @@ public class EditorActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(EditorActivity.this, TrainingSetActivity.class);
+				intent.putExtra(INTENT_EXTRA_ANATOMY, mLayers);
 				intent.putExtra(INTENT_EXTRA_TRAINING, mTraining);
 				startActivityForResult(intent, REQUEST_CODE_TRAINING);
 			}

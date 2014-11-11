@@ -15,15 +15,24 @@ import cz.honza.backpropagation.util.NetworkActivity;
 public class TrainingSetActivity extends NetworkActivity {
 	
 	protected LinearLayout mTrainingLayout;
-	protected List<List<List<Double>>> mTraining;
+	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
+	protected ArrayList<Integer> mLayers;
 	
 	LayoutInflater mInflater;
 	
 	protected void addTraining()
 	{
-		List<List<Double>> item = new ArrayList<List<Double>>();
-		List<Double> inputItem = new ArrayList<Double>();
-		List<Double> outputItem = new ArrayList<Double>();
+		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+		final ArrayList<Double> inputItem = new ArrayList<Double>();
+		final ArrayList<Double> outputItem = new ArrayList<Double>();
+		
+		final int inputDim = mLayers.get(0);
+		final int outputDim = mLayers.get(mLayers.size() - 1);
+		
+		for (int i = 0; i < inputDim; i++)
+			inputItem.add(0d);
+		for (int i = 0; i < outputDim; i++)
+			outputItem.add(0d);
 		
 		item.add(inputItem);
 		item.add(outputItem);
@@ -52,7 +61,7 @@ public class TrainingSetActivity extends NetworkActivity {
 			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
 			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
 			
-			final List<List<Double>> element = mTraining.get(i);
+			final ArrayList<ArrayList<Double>> element = mTraining.get(i);
 			final List<Double> elementInput = element.get(0);
 			final List<Double> elementOutput = element.get(1);
 			
@@ -72,7 +81,8 @@ public class TrainingSetActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training);
-		mTraining = (List<List<List<Double>>>)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		mInflater = LayoutInflater.from(this);
 		mTrainingLayout = (LinearLayout)findViewById(R.id.training_training);
 		findViewById(R.id.training_add_training).setOnClickListener(new View.OnClickListener() {
@@ -81,6 +91,7 @@ public class TrainingSetActivity extends NetworkActivity {
 				addTraining();
 			}
 		});
+		refreshTraining();
 	}
 
 }
