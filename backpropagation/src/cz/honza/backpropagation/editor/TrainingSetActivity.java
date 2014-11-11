@@ -3,6 +3,7 @@ package cz.honza.backpropagation.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,9 +67,17 @@ public class TrainingSetActivity extends NetworkActivity {
 			final List<Double> elementOutput = element.get(1);
 			
 			for (int j = 0; j < elementInput.size(); j++)
-				inputLayout.addView(new EditText(this));
+			{
+				final EditText e = new EditText(this);
+				e.setText(String.valueOf(elementInput.get(j)));
+				inputLayout.addView(e);
+			}
 			for (int j = 0; j < elementOutput.size(); j++)
-				outputLayout.addView(new CheckBox(this));
+			{
+				final CheckBox cb = new CheckBox(this);
+				cb.setChecked(elementInput.get(j) >= 0.5);
+				outputLayout.addView(cb);
+			}
 			
 			mTrainingLayout.addView(item);
 		}
@@ -92,6 +101,14 @@ public class TrainingSetActivity extends NetworkActivity {
 			}
 		});
 		refreshTraining();
+	}
+	
+	@Override
+	public void finish() {
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mTraining);
+		setResult(RESULT_OK, resultIntent);
+		super.finish();
 	}
 
 }
