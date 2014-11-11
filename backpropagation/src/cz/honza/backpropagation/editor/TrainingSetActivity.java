@@ -123,7 +123,11 @@ public class TrainingSetActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training);
-		mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)getLastNonConfigurationInstance();
+		if (mTraining == null)
+		{
+			mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		}
 		mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		mInflater = LayoutInflater.from(this);
 		mTrainingLayout = (LinearLayout)findViewById(R.id.training_training);
@@ -145,4 +149,10 @@ public class TrainingSetActivity extends NetworkActivity {
 		super.finish();
 	}
 
+	@Override
+	public Object onRetainNonConfigurationInstance()
+	{
+		save();
+		return mTraining;
+	}
 }
