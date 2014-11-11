@@ -36,18 +36,46 @@ public class EditorActivity extends NetworkActivity {
 	protected void addTraining()
 	{
 		// TODO split with TrainingSetActivity implementation
-		ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> inputItem = new ArrayList<Double>();
-		ArrayList<Double> outputItem = new ArrayList<Double>();
+		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+		final ArrayList<Double> inputItem = new ArrayList<Double>();
+		final ArrayList<Double> outputItem = new ArrayList<Double>();
 		
 		item.add(inputItem);
 		item.add(outputItem);
 		mTraining.add(item);
 	}
 	
+	protected void addVector(List<Double> list, StringBuffer sb)
+	{
+		sb.append('(');
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (i > 0)
+			{
+				sb.append(", ");
+			}
+			sb.append(String.valueOf(list.get(i)));
+		}
+		sb.append(')');
+	}
+	
 	protected void refreshTraining()
 	{
-		
+		final TextView training = (TextView)findViewById(R.id.edit_training_set);
+		final StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < mTraining.size(); i++)
+		{
+			if (i > 0)
+				sb.append('\n');
+			final ArrayList<ArrayList<Double>> item = mTraining.get(i);
+			final ArrayList<Double> inputItem = item.get(0);
+			final ArrayList<Double> outputItem = item.get(1);
+			addVector(inputItem, sb);
+			sb.append("->");
+			addVector(outputItem, sb);
+			
+		}
+		training.setText(sb.toString());
 	}
 	
 	@Override
@@ -155,11 +183,12 @@ public class EditorActivity extends NetworkActivity {
 			{
 				mLayers = (ArrayList<Integer>)data.getSerializableExtra(INTENT_EXTRA_ANATOMY);
 				refreshAnatomy();
+				refreshTraining();
 			}
 			if (requestCode == REQUEST_CODE_TRAINING)
 			{
 				mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)data.getSerializableExtra(INTENT_EXTRA_TRAINING);
-				refreshAnatomy();
+				refreshTraining();
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);

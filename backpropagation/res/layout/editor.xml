@@ -42,6 +42,13 @@
     	android:text="@string/training_set"
     	android:textColor="@color/text" />
     
+    <TextView
+        android:id="@+id/edit_training_set"
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/text" />
+    
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
