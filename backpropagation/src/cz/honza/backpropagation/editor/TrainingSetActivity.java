@@ -25,6 +25,7 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void addTraining()
 	{
+		save();
 		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
 		final ArrayList<Double> inputItem = new ArrayList<Double>();
 		final ArrayList<Double> outputItem = new ArrayList<Double>();
