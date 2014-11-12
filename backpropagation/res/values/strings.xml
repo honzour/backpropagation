@@ -73,6 +73,7 @@
     
     <!-- editor -->
     <string name="network_editor">Network editor</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="plus">+</string>
     <string name="minus">-</string>

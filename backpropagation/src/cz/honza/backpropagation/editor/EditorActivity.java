@@ -5,9 +5,13 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.network.TrainingSet;
 import cz.honza.backpropagation.util.NetworkActivity;
 
 public class EditorActivity extends NetworkActivity {
@@ -81,6 +85,7 @@ public class EditorActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setResult(RESULT_CANCELED);
 		setContentView(R.layout.editor);
 
 		SavedState saved = (SavedState)getLastNonConfigurationInstance();
@@ -128,8 +133,65 @@ public class EditorActivity extends NetworkActivity {
 		});
 		
 		setCancelButton(R.id.editor_cancel);
+		findViewById(R.id.editor_ok).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				saveAndExit();
+			}
+		});
 
 	}
+	
+	@Override
+	public boolean onKeyDown (int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			saveAndExit();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	protected void saveAndExit()
+	{
+		final int[] layers = new int[mLayers.size()];
+		for (int i = 0; i < layers.length; i++)
+			layers[i] = mLayers.get(i);
+		
+		final int trainingSize = mTraining.size();
+		
+		final double[][] inputs = new double[trainingSize][];
+		final double[][] outputs = new double[trainingSize][];
+		
+		if (trainingSize > 0)
+		{
+			final int inputDim = mTraining.get(0).get(0).size();
+			final int outputDim = mTraining.get(0).get(1).size();
+			for (int i = 0; i < trainingSize; i++)
+			{
+				final ArrayList<ArrayList<Double>> item = mTraining.get(i);
+				inputs[i] = new double[inputDim];
+				outputs[i] = new double[outputDim];
+				for (int j = 0; j < inputDim; j++)
+				{
+					inputs[i][j] = item.get(0).get(j);
+				}
+				for (int j = 0; j < outputDim; j++)
+				{
+					outputs[i][j] = item.get(1).get(j);
+				}
+			}
+		}
+		
+		TrainingSet training = new TrainingSet(inputs, outputs);
+		
+		
+		NetworkApplication.sNetwork = new Network(layers, training);
+		setResult(RESULT_OK);
+		finish();
+	}
+	
 	
 	@Override
 	public Object onRetainNonConfigurationInstance()

@@ -56,12 +56,24 @@
     	android:id="@+id/edit_training"
     	android:text="@string/edit_training" />
     
-    <Button
-        android:layout_marginTop="@dimen/commonMargin"
+    <LinearLayout
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/editor_cancel"
-    	android:text="@string/cancel"
-        />
+    	android:orientation="horizontal" >
+    	<Button
+        	android:layout_marginTop="@dimen/commonMargin"
+        	android:layout_width="0px"
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:id="@+id/editor_ok"
+    		android:text="@string/ok" />
+    	<Button
+        	android:layout_marginTop="@dimen/commonMargin"
+        	android:layout_width="0px"
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:id="@+id/editor_cancel"
+    		android:text="@string/cancel" />
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

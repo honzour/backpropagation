@@ -73,6 +73,7 @@
     
     <!-- editor -->
     <string name="network_editor">Editor sítě</string>
+    <string name="ok">Budiž</string>
     <string name="cancel">Zrušit</string>
     <string name="plus">+</string>
     <string name="minus">-</string>

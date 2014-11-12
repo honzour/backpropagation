@@ -28,6 +28,7 @@ public class ImportActivity extends NetworkActivity {
 	private EditText mUrl;
 	private Spinner mExample;
 	private FromWebThread mThread = null;
+	private static final int REQUEST_CODE_EDITOR = 0;
 
 	protected void loadExample()
 	{
@@ -209,10 +210,12 @@ public class ImportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ImportActivity.this, EditorActivity.class);
-				startActivityForResult(i, 0);
+				startActivityForResult(i, REQUEST_CODE_EDITOR);
 			}
 		});
 	}
+	
+	
 	
 	@Override
 	public Object onRetainNonConfigurationInstance () {
@@ -226,6 +229,15 @@ public class ImportActivity extends NetworkActivity {
 			mThread.setContext(null);
 		}
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE_EDITOR && resultCode == RESULT_OK)
+		{
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
 	
