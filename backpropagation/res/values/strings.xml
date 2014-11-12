@@ -62,9 +62,29 @@
     <string name="output_example_dimension">Bad training set ouput example dimension></string>
     <string name="beginners">For beginners:</string>
     <string name="experts">For experts:</string>
+    <string name="advanced">For advanced:</string>
+    <string name="enter_layers">Enter layers count, neuron count in each layer and training set</string>
+    <string name="run_editor">Run editor</string>
     
     <!-- result input -->
     <string name="input">Input:</string>
     <string name="output">Output:</string>
     <string name="input_error">Input error</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Network editor</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="deletex">x</string>
+    <string name="add_layer">Add a layer</string>
+    <string name="add_training">Add an element</string>
+    <string name="training_set">Training set</string>
+    <string name="network_anatomy">Network anatomy</string>
+    <string name="input_dimension">Input dimension</string>
+    <string name="hidden_layers">Neuron count in hidden layers</string>
+    <string name="output_layer">Neuron count in output layer</string>
+    <string name="edit_anatomy">Edit anatomy</string>
+    <string name="edit_training">Edit training set</string>
 </resources>

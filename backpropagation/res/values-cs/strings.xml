@@ -62,9 +62,29 @@
     <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
     <string name="beginners">Pro začátečníky:</string>
     <string name="experts">Pro experty:</string>
+    <string name="advanced">Pro pokročilé:</string>
+    <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu</string>
+    <string name="run_editor">Spustit editor</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>
     <string name="output">Výstup:</string>
     <string name="input_error">Chyba vstupu</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Editor sítě</string>
+    <string name="ok">Budiž</string>
+    <string name="cancel">Zrušit</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="deletex">x</string>
+    <string name="add_layer">Přidat vrstvu</string>
+    <string name="add_training">Přidat prvek</string>
+    <string name="training_set">Tréninková množina</string>
+    <string name="network_anatomy">Anatomie sítě</string>
+    <string name="input_dimension">Dimenze vstupu</string>
+    <string name="hidden_layers">Počty neuronů ve skrytých vrstvách</string>
+    <string name="output_layer">Počet neuronů ve výstupní vrstvě</string>
+    <string name="edit_anatomy">Edituj anatomii</string>
+    <string name="edit_training">Edituj tréninkovou množinu</string>
 </resources>

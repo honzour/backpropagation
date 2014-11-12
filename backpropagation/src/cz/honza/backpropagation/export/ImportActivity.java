@@ -3,6 +3,7 @@ package cz.honza.backpropagation.export;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.editor.EditorActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.Parser;
 import cz.honza.backpropagation.network.ParserResultHandler;
@@ -21,10 +23,12 @@ public class ImportActivity extends NetworkActivity {
 	private View mFileButton;
 	private View mWebButton;
 	private View mExampleButton;
+	private View mEditorButton;
 	private EditText mFileName;
 	private EditText mUrl;
 	private Spinner mExample;
 	private FromWebThread mThread = null;
+	private static final int REQUEST_CODE_EDITOR = 0;
 
 	protected void loadExample()
 	{
@@ -200,7 +204,18 @@ public class ImportActivity extends NetworkActivity {
 				}
 			}
 		});
+		
+		mEditorButton = findViewById(R.id.import_run_editor);
+		mEditorButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(ImportActivity.this, EditorActivity.class);
+				startActivityForResult(i, REQUEST_CODE_EDITOR);
+			}
+		});
 	}
+	
+	
 	
 	@Override
 	public Object onRetainNonConfigurationInstance () {
@@ -214,6 +229,15 @@ public class ImportActivity extends NetworkActivity {
 			mThread.setContext(null);
 		}
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE_EDITOR && resultCode == RESULT_OK)
+		{
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
 	

@@ -42,6 +42,18 @@
             android:name="cz.honza.backpropagation.export.ImportActivity"
             android:label="@string/new_task"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.EditorActivity"
+            android:label="@string/network_editor"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.AnatomyActivity"
+            android:label="@string/network_anatomy"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingSetActivity"
+            android:label="@string/training_set"
+            android:windowSoftInputMode="stateHidden" />
         
     </application>
 

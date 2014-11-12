@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background">
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/network_anatomy"
+    	android:textColor="@color/text" />
+    
+    <TextView
+        android:id="@+id/editor_anatomy"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/text" />
+    
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/edit_anatomy"
+    	android:text="@string/edit_anatomy" />
+    
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/training_set"
+    	android:textColor="@color/text" />
+    
+    <TextView
+        android:id="@+id/edit_training_set"
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/text" />
+    
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/edit_training"
+    	android:text="@string/edit_training" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" >
+    	<Button
+        	android:layout_marginTop="@dimen/commonMargin"
+        	android:layout_width="0px"
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:id="@+id/editor_ok"
+    		android:text="@string/ok" />
+    	<Button
+        	android:layout_marginTop="@dimen/commonMargin"
+        	android:layout_width="0px"
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:id="@+id/editor_cancel"
+    		android:text="@string/cancel" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

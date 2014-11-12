@@ -36,6 +36,24 @@
        	android:layout_height="wrap_content"
        	android:text="@string/load_example" />
     <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/advanced"
+    	android:textColor="@color/text" />
+    <TextView 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/enter_layers"
+    	android:textColor="@color/text" />
+   	<Button
+   	    android:id="@+id/import_run_editor"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/run_editor" />
+    <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
