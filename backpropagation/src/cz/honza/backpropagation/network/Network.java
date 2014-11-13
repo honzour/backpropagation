@@ -2,6 +2,7 @@ package cz.honza.backpropagation.network;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import cz.honza.backpropagation.R;
 
 
 
-public class Network {
+public class Network implements Serializable {
+	
+	private static final long serialVersionUID = -6200117127679042346L;
 	
 	public Layer[] layers;
 	public double alpha = 1;

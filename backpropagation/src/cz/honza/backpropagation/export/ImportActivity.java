@@ -29,6 +29,8 @@ public class ImportActivity extends NetworkActivity {
 	private Spinner mExample;
 	private FromWebThread mThread = null;
 	private static final int REQUEST_CODE_EDITOR = 0;
+	
+	public static final String INTENT_EXTRA_NETWORK = "INTENT_EXTRA_NETWORK";
 
 	protected void loadExample()
 	{
@@ -210,6 +212,7 @@ public class ImportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ImportActivity.this, EditorActivity.class);
+				i.putExtra(INTENT_EXTRA_NETWORK, NetworkApplication.sNetwork);
 				startActivityForResult(i, REQUEST_CODE_EDITOR);
 			}
 		});

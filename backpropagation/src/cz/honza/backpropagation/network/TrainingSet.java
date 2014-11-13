@@ -1,8 +1,10 @@
 package cz.honza.backpropagation.network;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TrainingSet {
+public class TrainingSet implements Serializable {
+	private static final long serialVersionUID = 3556087741395041118L;
 	public double[][] inputs;
 	public double[][] outputs;
 	

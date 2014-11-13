@@ -1,10 +1,12 @@
 package cz.honza.backpropagation.network;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
-public class Layer {
+public class Layer implements Serializable {
+	private static final long serialVersionUID = -4328364654490455402L;
 	public Neuron[] neurons;
 	
 	public Layer(List<List<Double>> layersData)

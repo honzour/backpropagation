@@ -1,10 +1,13 @@
 package cz.honza.backpropagation.network;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
-public class Neuron {
+public class Neuron implements Serializable {
+
+	private static final long serialVersionUID = 1734654068548880380L;
 	// weights[0] is -treshold
 	public double[] weights;
 	public double[] weightsDerivation;

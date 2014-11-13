@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.export.ImportActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.TrainingSet;
 import cz.honza.backpropagation.util.NetworkActivity;
@@ -93,6 +94,45 @@ public class EditorActivity extends NetworkActivity {
 		{
 			mLayers = saved.mLayers;
 			mTraining = saved.mTraining;
+		}
+		else
+		{
+			Network network = (Network)getIntent().getSerializableExtra(ImportActivity.INTENT_EXTRA_NETWORK);
+			if (network != null)
+			{
+				mLayers = new ArrayList<Integer>(network.layers.length);
+				if (network.layers.length > 0 && network.layers[0].neurons.length > 0)
+				{
+					// input dimension
+					mLayers.add(network.layers[0].neurons[0].weights.length - 1);
+				}
+				for (int i = 0; i < network.layers.length; i++)
+				{
+					mLayers.add(network.layers[i].neurons.length);
+				}
+				
+				final int trainingSize = network.trainingSet.inputs.length;
+				final int inputSize = network.trainingSet.inputs[0].length;
+				final int outputSize = network.trainingSet.outputs[0].length;
+				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
+				for (int i = 0; i < trainingSize; i++)
+				{
+					final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>(2);
+					final ArrayList<Double> input = new ArrayList<Double>(inputSize);
+					final ArrayList<Double> output = new ArrayList<Double>(outputSize);
+					for (int j = 0; j < inputSize; j++)
+					{
+						input.add(network.trainingSet.inputs[i][j]);
+					}
+					for (int j = 0; j < outputSize; j++)
+					{
+						output.add(network.trainingSet.outputs[i][j]);
+					}
+					item.add(input);
+					item.add(output);
+					mTraining.add(item);
+				}
+			}
 		}
 		
 		// init anatomy
