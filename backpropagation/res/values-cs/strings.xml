@@ -63,7 +63,7 @@
     <string name="beginners">Pro začátečníky:</string>
     <string name="experts">Pro experty:</string>
     <string name="advanced">Pro pokročilé:</string>
-    <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu</string>
+    <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu. Výchozí stav editoru je současná síť.</string>
     <string name="run_editor">Spustit editor</string>
     
     <!-- result input -->

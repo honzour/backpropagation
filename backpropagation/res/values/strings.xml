@@ -63,7 +63,7 @@
     <string name="beginners">For beginners:</string>
     <string name="experts">For experts:</string>
     <string name="advanced">For advanced:</string>
-    <string name="enter_layers">Enter layer count, neuron count in each layer and training set</string>
+    <string name="enter_layers">Enter layer count, neuron count in each layer and training set. Editor starts with the current network.</string>
     <string name="run_editor">Run editor</string>
     
     <!-- result input -->
