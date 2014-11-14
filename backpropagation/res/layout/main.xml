@@ -57,13 +57,7 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	help:url="http://en.wikipedia.org/wiki/Backpropagation"
-        />
-    <cz.honza.backpropagation.components.HelpButton
-        android:layout_marginTop="@dimen/commonMargin"
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	help:link="Neuron"
+    	help:link="index.html"
         />
     
 </LinearLayout>

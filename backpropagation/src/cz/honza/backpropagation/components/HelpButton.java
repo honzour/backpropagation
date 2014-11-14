@@ -32,7 +32,7 @@ public class HelpButton extends Button {
 				            mUrl = a.getString(attr);
 				            break;
 				        case R.styleable.help_link:
-				            mUrl = "http://en.wikipedia.org/wiki/" + a.getString(attr);
+				            mUrl = "http://backpropagation.moxo.cz/" + a.getString(attr);
 				            break;
 				    }
 				}
