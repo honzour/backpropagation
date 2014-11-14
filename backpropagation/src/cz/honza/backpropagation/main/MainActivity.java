@@ -55,6 +55,7 @@ public class MainActivity extends NetworkActivity {
 		super.onDestroy();
 	}
 	
+	@Override
 	public String getHelpLink()
 	{
 		return "main.php";
