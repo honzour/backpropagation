@@ -1,8 +1,13 @@
 package cz.honza.backpropagation.util;
 
 import cz.honza.backpropagation.NetworkApplication;
+import cz.honza.backpropagation.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class NetworkActivity extends Activity {
@@ -40,5 +45,30 @@ public class NetworkActivity extends Activity {
 			}
 		});
 	}
+	
+	public String getHelpLink()
+	{
+		return "index.html";
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.help, menu);
+	    return true;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == R.id.menu_help)
+		{
+			Uri uri = Uri.parse("http://backpropagation.moxo.cz/" + getHelpLink());
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+			return true;
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	
 	
 }
