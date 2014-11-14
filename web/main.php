@@ -32,7 +32,7 @@ Give some input (exact numbers) to the network and it will calculate the output 
 </P>
 <H3>Export to xml</H3>
 <P>
-You can save the current task (including training set nad all neuron weights) to a XML file to you SD card or send it by e-mail to yourself. Press 'New task' if you want to restore it inthis program again.
+You can save the current task (including training set nad all neuron weights) to a XML file to you SD card or send it by e-mail to yourself. Press 'New task' if you want to restore it in this program again.
 </P>
 <H3>Help</H3>
 <P>
