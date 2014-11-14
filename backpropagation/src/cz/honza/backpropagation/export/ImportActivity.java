@@ -242,6 +242,11 @@ public class ImportActivity extends NetworkActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
+
+	@Override
+	public String getHelpLink()
+	{
+		return "newtask.php";
+	}
 	
 }

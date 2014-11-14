@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <META charset="utf-8">
-<TITLE>Backpropagation</TITLE>
+<TITLE>Backpropagation - Main screen</TITLE>
 </HEAD>
 <BODY>
 <?
