@@ -10,7 +10,7 @@ include 'google.php'
 <H2>Main screen</H2>
 <P>
 Welcome to the main screen of Android application called Backpropagation. If you have just started the program for the first time, there is no network loaded yet, so the only thing you can do now is to read this help page or add a new task. Or read <A HREF="index.php">several sentences</A> about this program first.
-<H3>New task</H3>
+<H3><A HREF="newtask.html">New task</A></H3>
 <P>
 This is exactly you should start with. There are several ways how to create or import the new task or edit an existing task. Do not worry if you are a beginner, import from several hardcoded tasks is also possible.
 </P>
