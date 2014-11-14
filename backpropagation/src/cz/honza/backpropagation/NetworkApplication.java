@@ -22,6 +22,7 @@ public class NetworkApplication extends Application {
 	public static final String PREFS_DEFAULT_IMPORT_XML_URL = "PREFS_DEFAULT_IMPORT_XML_URL";
 	public static final String PREFS_STORED_NET = "PREFS_STORED_NET";
 	
+	public static final String HELP_URL_ROOT = "http://backpropagation.moxo.cz/";
 	
 	public void savePref(String key, String value)
 	{

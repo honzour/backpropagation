@@ -11,12 +11,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.editor.EditorActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.Parser;
 import cz.honza.backpropagation.network.ParserResultHandler;
 import cz.honza.backpropagation.network.TrainingSet;
-import cz.honza.backpropagation.util.NetworkActivity;
 
 public class ImportActivity extends NetworkActivity {
 	

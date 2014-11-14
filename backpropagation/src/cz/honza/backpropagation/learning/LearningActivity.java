@@ -2,7 +2,7 @@ package cz.honza.backpropagation.learning;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;

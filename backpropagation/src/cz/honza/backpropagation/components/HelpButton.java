@@ -1,5 +1,6 @@
 package cz.honza.backpropagation.components;
 
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,7 @@ public class HelpButton extends Button {
 				            mUrl = a.getString(attr);
 				            break;
 				        case R.styleable.help_link:
-				            mUrl = "http://backpropagation.moxo.cz/" + a.getString(attr);
+				            mUrl = NetworkApplication.HELP_URL_ROOT + a.getString(attr);
 				            break;
 				    }
 				}

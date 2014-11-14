@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.util;
+package cz.honza.backpropagation.components;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
@@ -48,7 +48,7 @@ public class NetworkActivity extends Activity {
 	
 	public String getHelpLink()
 	{
-		return "index.html";
+		return "index.php";
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class NetworkActivity extends Activity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		if (item.getItemId() == R.id.menu_help)
 		{
-			Uri uri = Uri.parse("http://backpropagation.moxo.cz/" + getHelpLink());
+			Uri uri = Uri.parse(NetworkApplication.HELP_URL_ROOT + getHelpLink());
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
 			return true;
 		}

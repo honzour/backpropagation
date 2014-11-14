@@ -2,7 +2,7 @@ package cz.honza.backpropagation.network.visualisation;
 
 import android.os.Bundle;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 
 public class VisualisationActivity extends NetworkActivity {
 	@Override
