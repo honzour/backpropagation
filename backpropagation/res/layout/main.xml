@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	help:link="index.html"
+    	help:link="main.php"
         />
     
 </LinearLayout>
