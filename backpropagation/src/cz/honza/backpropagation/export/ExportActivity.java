@@ -132,5 +132,9 @@ public class ExportActivity extends NetworkActivity {
 	    .create();
 	}
 	
-	
+	@Override
+	public String getHelpLink()
+	{
+		return "exportxml.php";
+	}
 }

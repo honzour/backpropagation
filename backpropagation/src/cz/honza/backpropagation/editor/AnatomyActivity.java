@@ -121,4 +121,9 @@ public class AnatomyActivity extends NetworkActivity {
 		super.finish();
 	}
 	
+	@Override
+	public String getHelpLink()
+	{
+		return "anatomy.php";
+	}
 }

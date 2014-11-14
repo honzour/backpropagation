@@ -10,4 +10,10 @@ public class VisualisationActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.network_visualisation);
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "netvis.php";
+	}
 }

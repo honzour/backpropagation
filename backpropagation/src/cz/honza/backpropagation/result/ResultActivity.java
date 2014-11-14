@@ -35,4 +35,10 @@ public class ResultActivity extends NetworkActivity {
 		mThread.canStop();
 		super.onDestroy();
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "resvis.php";
+	}
 }

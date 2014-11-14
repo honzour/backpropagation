@@ -296,5 +296,9 @@ public class EditorActivity extends NetworkActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	
+	@Override
+	public String getHelpLink()
+	{
+		return "editor.php";
+	}
 }

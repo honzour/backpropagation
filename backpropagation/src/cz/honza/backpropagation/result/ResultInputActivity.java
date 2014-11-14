@@ -119,4 +119,10 @@ public class ResultInputActivity extends NetworkActivity {
 		outState.putDoubleArray(INPUT, mInput);
 		super.onSaveInstanceState(outState);
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "resinput.php";
+	}
 }

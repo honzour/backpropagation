@@ -155,4 +155,10 @@ public class TrainingSetActivity extends NetworkActivity {
 		save();
 		return mTraining;
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "trainingset.php";
+	}
 }

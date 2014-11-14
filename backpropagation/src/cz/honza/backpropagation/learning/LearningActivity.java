@@ -170,4 +170,10 @@ public class LearningActivity extends NetworkActivity {
 		stopThread();
 		super.onPause();
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "learning.php";
+	}
 }
