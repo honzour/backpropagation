@@ -14,7 +14,7 @@ Welcome to the main screen of Android application called Backpropagation. If you
 <P>
 This is exactly you should start with. There are several ways how to create or import the new task or edit an existing task. Do not worry if you are a beginner, import from several hardcoded tasks is also possible.
 </P>
-<H3>Learning</H3>
+<H3><A HREF="learning.php">Learning</A></H3>
 <P>
 If you have created or loaded a new task, all weights ar set to a small random number (the network will fail even in training set examples) so you have to teach it first. So this is probably the first thing you should do with the new task.
 </P>
