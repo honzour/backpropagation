@@ -5,13 +5,13 @@ import java.io.StringWriter;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.ExportActivity;
 import cz.honza.backpropagation.export.ImportActivity;
 import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
 import cz.honza.backpropagation.result.ResultInputActivity;
-import cz.honza.backpropagation.util.NetworkActivity;
 import android.os.Bundle;
 
 public class MainActivity extends NetworkActivity {
@@ -55,6 +55,10 @@ public class MainActivity extends NetworkActivity {
 		super.onDestroy();
 	}
 	
-	
+	@Override
+	public String getHelpLink()
+	{
+		return "main.php";
+	}
 	
 }

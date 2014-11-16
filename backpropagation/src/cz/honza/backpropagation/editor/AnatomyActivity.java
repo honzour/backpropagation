@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 
 public class AnatomyActivity extends NetworkActivity {
 
@@ -121,4 +121,9 @@ public class AnatomyActivity extends NetworkActivity {
 		super.finish();
 	}
 	
+	@Override
+	public String getHelpLink()
+	{
+		return "anatomy.php";
+	}
 }

@@ -3,7 +3,7 @@ package cz.honza.backpropagation.result;
 import android.os.Bundle;
 import android.view.View;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ResultActivity extends NetworkActivity {
 	
@@ -34,5 +34,11 @@ public class ResultActivity extends NetworkActivity {
 	{
 		mThread.canStop();
 		super.onDestroy();
+	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "resvis.php";
 	}
 }

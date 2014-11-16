@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:help="http://schemas.android.com/apk/res/cz.honza.backpropagation"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background">
@@ -53,5 +53,12 @@
     	android:id="@+id/main_export_xml"
     	android:text="@string/export_xml"
         />
+    <cz.honza.backpropagation.components.HelpButton
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	help:link="main.php"
+        />
+    
 </LinearLayout>
 </ScrollView>

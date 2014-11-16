@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ExportActivity extends NetworkActivity {
 	
@@ -132,5 +132,9 @@ public class ExportActivity extends NetworkActivity {
 	    .create();
 	}
 	
-	
+	@Override
+	public String getHelpLink()
+	{
+		return "exportxml.php";
+	}
 }

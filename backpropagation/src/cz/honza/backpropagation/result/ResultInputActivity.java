@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.util.NetworkActivity;
+import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ResultInputActivity extends NetworkActivity {
 	
@@ -118,5 +118,11 @@ public class ResultInputActivity extends NetworkActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putDoubleArray(INPUT, mInput);
 		super.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "resinput.php";
 	}
 }

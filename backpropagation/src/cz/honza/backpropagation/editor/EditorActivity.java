@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.ImportActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.TrainingSet;
-import cz.honza.backpropagation.util.NetworkActivity;
 
 public class EditorActivity extends NetworkActivity {
 	
@@ -296,5 +296,9 @@ public class EditorActivity extends NetworkActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	
+	@Override
+	public String getHelpLink()
+	{
+		return "editor.php";
+	}
 }
