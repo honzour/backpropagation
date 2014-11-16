@@ -23,7 +23,7 @@ If you are not satisfied with predefined examples, this will be the simplest way
 
 <H3>Load xml</H3>
 <P>
-Another way to get a new network into the program is to load it from a xml file. Unlike previous cases, there is not only the anatomy and training set but also all weights specified. So if you teach your network, save it into a xml and reload it again, it will stay trained. No more teaching will be needed for the second time. The file format is well human readable so if you are familiar with both xml and neural networks and you export to xml and read some examples, you will be able to create your own tasks.
+Another way to get a new network into the program is to load it from a xml file on your local filesystem or somewhere on the www. Unlike previous cases, there is not only the anatomy and training set but also all weights specified. So if you teach your network, save it into a xml and reload it again, it will stay trained. No more teaching will be needed for the second time. The file format is well human readable so if you are familiar with both xml and neural networks and you export to xml and read some examples, you will be able to create your own tasks.
 </P>
 
 </BODY>
