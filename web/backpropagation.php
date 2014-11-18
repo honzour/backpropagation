@@ -28,10 +28,14 @@ There are many ways how to connect neurons into a network. The most common are n
 </P>
 <H3>Problem with learning</H3>
 <P>
- Large networks can do lot of very interesting stuff. They can detect some object in a picture, make a weather forecast, predict the next word in a text, transform a sound of a talk to a text etc. Network calculation is very simple. So what is the problem? Each neuron has a weight vector and treshold. There is no obvious method how to set weights and tresholds for each problem. 
+ Large networks can do lot of very interesting stuff. They can detect some object in a picture, make a weather forecast, predict the next word in a text, transform a sound of a talk to a text etc. Network calculation is very simple. So what is the problem? Each neuron has a weight vector and treshold. There is no obvious method how to set weights and tresholds for each problem. Another (smaller) problem is the network anatomy. There is no simple magic rule to set the neuron count in each layer.
+</P>
+<P>
+In neural networking (unlike common programming approach) we normally do not exacly know what we want. We just have some set of examples what we want. For example in weather forecast one day forward case, we have set of temperatures, wind power and directions etc. on several places for days <I>d</I> (inputs) and weathers in some place for days <I>d + 1</I> (outputs). We are not able to write an exact mathematical formula like <I>output = f(input)</I> but we have set of many pairs <I>(input<SUB>i<SUB>, ouput<SUB>i<SUB>)</I> which is called a training set. All we want is to set layers count and neuron in each layer count to some appropriate number (this can be done by hand for each task) and set all weights and tresholds so that for each <I>input<SUB>i<SUB></I> in the training set our network calculates its <I>output<SUB>i<SUB></I>. (This is the hardest problem and cannot be done by hand.) If neuron count is not to big then the network has no capacity to learn the training set as a table, it must exstract some rules from the training set data - it must generalize. So we hope that the well trained network will give good ouput even for data that are not in the training set.
 </P>
 <H3>Gradient method</H3>
 <P>
+So we have a training set, the network with weights and tresholds set to random numbers and all we want is to set weights and treshols so that the network will not fail on out training set. But how to do it?
 </P>
 <H3>Backpropagation</H3>
 <P>
