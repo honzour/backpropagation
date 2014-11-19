@@ -35,7 +35,7 @@ In neural networking (unlike common programming approach) we normally do not exa
 </P>
 <H3>Gradient method</H3>
 <P>
-So we have a training set, the network with weights and tresholds set to random numbers and all we want is to set weights and treshols so that the network will not fail on out training set. But how to do it?
+We have a training set, the network with weights and tresholds set to random numbers and all we want is to set weights and treshols so that the network will not fail on out training set. But how to do it? First of all we resign on beeing perfect. Network output and the exact output in trainig set may differ, but the difference must be small. We define a partial error function for training set example i and output neuron with index j E<SUB>ij</SUB> = (real_output<SUB>ij</SUB> - expected_output<SUB>ij</SUB>)<SUP>2</SUP>. The whole error E is sum of all (all training set examples, all output neurons) such E<SUB>ij</SUB>.
 </P>
 <H3>Backpropagation</H3>
 <P>
