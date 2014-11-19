@@ -35,7 +35,13 @@ There are many ways how to connect neurons into a network. The most common are n
 In neural networking (unlike common programming approach) we normally do not exacly know what we want. We just have some set of examples what we want. For example in weather forecast one day forward case, we have set of temperatures, wind power and directions etc. on several places for days <I>d</I> (inputs) and weathers in some place for days <I>d + 1</I> (outputs). We are not able to write an exact mathematical formula like <I>output = f(input)</I> but we have set of many pairs <I>(input<SUB>i<SUB>, ouput<SUB>i<SUB>)</I> which is called a training set. All we want is to set layers count and neuron in each layer count to some appropriate number (this can be done by hand for each task) and set all weights and tresholds so that for each <I>input<SUB>i<SUB></I> in the training set our network calculates its <I>output<SUB>i<SUB></I>. (This is the hardest problem and cannot be done by hand.) If neuron count is not to big then the network has no capacity to learn the training set as a table, it must exstract some rules from the training set data - it must generalize. So we hope that the well trained network will give good ouput even for data that are not in the training set.
 </P>
 <P>
-We have a training set, the network with weights and tresholds set to random numbers and all we want is to set weights and treshols so that the network will not fail on out training set. But how to do it? First of all we resign on beeing perfect. Network output and the exact output in trainig set may differ, but the difference must be small. We define a partial error function for training set example i and output neuron with index j <I>E<SUB>ij</SUB> = (real_output<SUB>ij</SUB> - expected_output<SUB>ij</SUB>)<SUP>2</SUP></I>. The whole error E is sum of all (all training set examples, all output neurons) such E<SUB>ij</SUB>. E is always greater or equal to zero because it is a sum of squares. We want to set all the weights and tresholds to get E very small.
+We have a training set, the network with weights and tresholds set to random numbers and all we want is to set weights and treshols so that the network will not fail on out training set. But how to do it? First of all we resign on beeing perfect. Network output and the exact output in trainig set may differ, but the difference must be small. We define a partial error function for training set example i and output neuron with index j
+</P>
+<P>
+<I>E<SUB>ij</SUB> = (real_output<SUB>ij</SUB> - expected_output<SUB>ij</SUB>)<SUP>2</SUP></I>
+</P>
+<P>
+The whole error E is sum of all (all training set examples, all output neurons) such E<SUB>ij</SUB>. E is always greater or equal to zero because it is a sum of squares. We want to set all the weights and tresholds to get E very small.
 </P>
 <H3>Gradient method</H3>
 <P>
