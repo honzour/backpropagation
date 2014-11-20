@@ -14,6 +14,9 @@ public class Network implements Serializable {
 	
 	private static final long serialVersionUID = -6200117127679042346L;
 	
+	public double[][] inputScale;
+	public double[][] outputScale;
+	
 	public Layer[] layers;
 	public double alpha = 1;
 	
@@ -142,6 +145,11 @@ public class Network implements Serializable {
 		layers[layer].neurons[neuron].restart();
 	}
 
+	/**
+	 * Input and output are like in the training set, all scaling is done here
+	 * @param input before scaling. Array data will not be changed in this method.
+	 * @param output after scaling
+	 */
 	public void calculate(double[] input, double output[]) {
 		int i, j, k;
 
@@ -151,7 +159,7 @@ public class Network implements Serializable {
 				Neuron n = l.neurons[j];
 				double potential = 0;
 				for (k = 1; k < n.weights.length; k++) {
-					potential += (i == 0 ? input[k - 1]
+					potential += (i == 0 ? (inputScale == null ? input[k - 1] : input[k - 1] * inputScale[k - 1][0] + inputScale[k - 1][1])
 							: layers[i - 1].neurons[k - 1].output) * n.weights[k];
 				}
 				potential += n.weights[0];
@@ -163,11 +171,32 @@ public class Network implements Serializable {
 		for (i = 0; i < last.neurons.length; i++) {
 			output[i] = last.neurons[i].output;
 		}
+		if (outputScale != null)
+		{
+			for (i = 0; i < outputScale.length; i++)
+			{
+				output[i] = output[i] * outputScale[i][0] + outputScale[i][1]; 
+			}
+		}
 	}
 
 	private void initTraining(TrainingSet training) {
 		trainingSet = training;
 		mIteration = 0;
+		
+		if (training == null || training.inputs.length == 0)
+			return;
+		
+		inputScale = new double[training.inputs[0].length][];
+		outputScale = new double[training.outputs[0].length][];
+		double min;
+		double max;
+
+		// for each input dimension
+		for (int i = 0; i < inputScale.length; i++)
+		{
+			//inputScale.
+		}
 	}
 
 	public double getError()
