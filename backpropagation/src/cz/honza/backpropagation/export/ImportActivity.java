@@ -56,10 +56,15 @@ public class ImportActivity extends NetworkActivity {
 		double[][] or_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 		double[][] or_outputs = {{0}, {1}, {1}, {1}};
 		
-		
+		/*
 		// XOR
 		int[] xor_anatomy = {2, 2, 1};
 		double[][] xor_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+		double[][] xor_outputs = {{0}, {1}, {1}, {0}}; */
+		
+		// XOR
+		int[] xor_anatomy = {2, 2, 1};
+		double[][] xor_inputs = {{0, 0}, {0, 100}, {100, 0}, {100, 100}};
 		double[][] xor_outputs = {{0}, {1}, {1}, {0}};
 		
 		// Exception
