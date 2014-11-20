@@ -9,7 +9,7 @@ include 'google.php'
 ?>
 <H2>Main screen</H2>
 <P>
-Welcome to the main screen of Android application called Backpropagation. If you have just started the program for the first time, there is no network loaded yet, so the only thing you can do now is to read this help page or add a new task. Or read <A HREF="index.php">several sentences</A> about this program first.
+Welcome to the main screen of Android application called Backpropagation. If you have just started the program for the first time, there is no network loaded yet, so the only thing you can do now is to read this help page or add a new task. Or read several sentences <A HREF="index.php">about this program</A> or <A HREF="backpropagation.php">about the backpropagation algorithm</A> first.
 <H3><A HREF="newtask.php">New task</A></H3>
 <P>
 This is exactly you should start with. There are several ways how to create or import the new task or edit an existing task. Do not worry if you are a beginner, import from several hardcoded tasks is also possible.
@@ -38,7 +38,9 @@ You can save the current task (including training set nad all neuron weights) to
 <P>
 The button simply opens the system default www browser with this help screen. Please note that you can press MENU-&gt;Help at any place of this program and you will get the context help for each screen.
 </P>
-</P>
+<?
+include 'links.php'
+?>
 </BODY>
 </HTML>
 

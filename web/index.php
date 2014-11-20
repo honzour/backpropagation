@@ -15,8 +15,11 @@ Welcome to Backpropagation Android application. In this program you will be able
 This program is <A HREF="https://play.google.com/store/apps/details?id=cz.honza.backpropagation">available on Google Play</A>. It is <A HREF="http://en.wiktionary.org/wiki/free_as_in_beer">free as in bear</A> and <A HREF="https://github.com/honzour/backpropagation ">open sourced on github</A> but it is not <A HREF="http://en.wiktionary.org/wiki/free_as_in_speach">free as in speach</A>. The program itself is add free but there is a Google Addsense add on each of this help pages. Any <A HREF="https://www.paypal.com/us/cgi-bin/webscr?cmd=_send-money&nav=1&email=jnem6403@seznam.cz">donation by Paypal</A> or any idea how to get some money from it is welcommed. Do you know any better place for talented programmer headhunters addvertisment than this program? :-)
 </P>
 <P>
-If you do not know what artifitial neural network is, several first lessons of <A HREF="https://www.coursera.org/course/neuralnets">this coursera course</A> will be good place to start.
+If you do not know what artifitial neural network is, please read <A HREF="backpropagation.php">my quick introduction</A> or watch several first lessons of <A HREF="https://www.coursera.org/course/neuralnets">this coursera course</A> if you have more time and more serious interest.
 </P>
+<?
+include 'links.php'
+?>
 </BODY>
 </HTML>
 

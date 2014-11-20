@@ -29,6 +29,9 @@ The same but just one neuron is reset.
 <P>
 Still not succseeded? Check your anatomy. Are there enough neurons for this task? Are there not to many layer? Note that two hidden layers are normaly to much for a basic backpropagation. And one hidden layer is not enough for any complex task :-) I promiss I will try to improve the algorithm in the future.
 </P>
+<?
+include 'links.php'
+?>
 </BODY>
 </HTML>
 

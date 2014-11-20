@@ -53,7 +53,9 @@ We are simply looking for a minimum of the E function on some multi dimensional 
 <P>
 The Backpropagation algorithm is just a gradient method for learning neural networks. Sum has a derivation, product has a derivation, Neuron sigma function has a derivation, composed function has a derivation etc., so it is possible to get all partial derivation of E. It looks it will be difficult but it will not be. We can calculate it for each training set element individualy and then summarize it. Because of the properties of the sigma function the calculation for each element is quite simple, we go from the last layer backwards and the derivations value in the previous layer can be calculated from the (already calculated) next one. If you like calculus and are not satisfied by my simple explanation, please watch some chapters from <A HREF="https://www.coursera.org/course/neuralnets">this coursera course</A>.
 </P>
-
+<?
+include 'links.php'
+?>
 </BODY>
 </HTML>
 

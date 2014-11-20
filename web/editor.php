@@ -21,7 +21,9 @@ Basic backpropagation cannot train deep networks. So it normaly succeed when the
 <P>
 Training set is a set of examples with an input and expected output. For example if you want to teach your network prime numbers there will be for example (1)-&gt;(0), (2)-&gt;(1), (3)-&gt;(1), (4)-&gt;(0), (5)-&gt;(1), (6)-&gt;(0) and (8)-&gt;(0) and you will hope that after training, yor network will calculate not only this set well but it will also for example give for input 7 result 1. (And your network will fail because this is to complex problem :-))
 </P>
-
+<?
+include 'links.php'
+?>
 </BODY>
 </HTML>
 
