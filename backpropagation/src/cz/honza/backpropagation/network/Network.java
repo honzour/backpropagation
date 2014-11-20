@@ -150,7 +150,7 @@ public class Network implements Serializable {
 	 * @param input before scaling. Array data will not be changed in this method.
 	 * @param output after scaling
 	 */
-	public void calculate(double[] input, double output[]) {
+	public void calculate(double[] input, double output[], boolean scaleOutput) {
 		int i, j, k;
 
 		for (i = 0; i < layers.length; i++) {
@@ -171,7 +171,7 @@ public class Network implements Serializable {
 		for (i = 0; i < last.neurons.length; i++) {
 			output[i] = last.neurons[i].output;
 		}
-		if (outputScale != null)
+		if (outputScale != null && scaleOutput)
 		{
 			for (i = 0; i < outputScale.length; i++)
 			{
@@ -184,19 +184,76 @@ public class Network implements Serializable {
 		trainingSet = training;
 		mIteration = 0;
 		
-		if (training == null || training.inputs.length == 0)
+		if (training == null || training.inputs.length == 0 || training.inputs[0].length == 0 || training.outputs[0].length == 0)
 			return;
 		
 		inputScale = new double[training.inputs[0].length][];
 		outputScale = new double[training.outputs[0].length][];
-		double min;
-		double max;
 
 		// for each input dimension
 		for (int i = 0; i < inputScale.length; i++)
 		{
-			//inputScale.
+			inputScale[i] = new double[2];
+			double min = training.inputs[0][i];
+			double max = min;
+			double sum = min;
+			
+			for (int j = 1; j < training.inputs.length; j++)
+			{
+				final double val = training.inputs[j][i]; 
+				sum += val;
+				if (val < min)
+					min = val;
+				if (val > max)
+					max = val;
+			}
+			final double avg = sum / training.inputs.length;
+			final double diff = max - min;
+			
+			if (diff == 0d)
+			{
+				inputScale[i][0] = 1;
+				inputScale[i][1] = -max;
+			}
+			else
+			{
+				inputScale[i][0] = 2.0 / diff;
+				inputScale[i][1] = -2.0 * avg / diff;
+			}
 		}
+		
+		// for each output dimension
+		for (int i = 0; i < outputScale.length; i++)
+		{
+			outputScale[i] = new double[2];
+			double min = training.outputs[0][i];
+			double max = min;
+			double sum = min;
+			
+			for (int j = 1; j < training.outputs.length; j++)
+			{
+				final double val = training.outputs[j][i]; 
+				sum += val;
+				if (val < min)
+					min = val;
+				if (val > max)
+					max = val;
+			}
+			final double avg = sum / training.outputs.length;
+			final double diff = max - min;
+			
+			if (diff == 0d)
+			{
+				outputScale[i][0] = 1;
+				outputScale[i][1] = -max;
+			}
+			else
+			{
+				outputScale[i][0] = 2.0 / diff;
+				outputScale[i][1] = -2.0 * avg / diff;
+			}
+		}
+
 	}
 
 	public double getError()
@@ -204,7 +261,7 @@ public class Network implements Serializable {
 		double sumError = 0;
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (int i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output);
+			calculate(trainingSet.inputs[i], output, false);
 			for (int j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
@@ -227,7 +284,7 @@ public class Network implements Serializable {
 		}
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output);
+			calculate(trainingSet.inputs[i], output, false);
 			for (j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;

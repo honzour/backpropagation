@@ -36,7 +36,7 @@ public class ResultInputActivity extends NetworkActivity {
 				return;
 			}
 		}
-		NetworkApplication.sNetwork.calculate(mInput, mOutput);
+		NetworkApplication.sNetwork.calculate(mInput, mOutput, true);
 		final StringBuffer sb = new StringBuffer("[");
 		for (int i = 0; i < mOutput.length; i++)
 		{
