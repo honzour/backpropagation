@@ -27,6 +27,7 @@ which is just split of the space by a singe hyperline into two halfspaces. Neuro
 <P>
 There are many ways how to connect neurons into a network. The most common are networks split into layers. Input of each neuron in the first layer is input of the whole network, output of neurons in the last layer is output of the whole network. Otherwise input of each neuron in the layer <I>i</I> is output of the whole layer <I>i - 1</I> So this means that there are just connection between neighbour layers, there are no other connection, even neurons in the same layer are not connected with each other. There is also no cycle. Network calculation is simple. We put the input into each neuron in the first layer, they calculate its output. We take the first layer output vector and put it as input of each neuron in the second layer. Then we calculate output of the second layer and put it as the input of the third layer etc. 
 </P>
+<IMG SRC="network.png" ALT="network">
 <H3>Problem with learning</H3>
 <P>
  Large networks can do lot of very interesting stuff. They can detect some object in a picture, make a weather forecast, predict the next word in a text, transform a sound of a talk to a text etc. Network calculation is very simple. So what is the problem? Each neuron has a weight vector and a treshold. There is no obvious method how to set weights and tresholds for each problem. Another (smaller) problem is the network anatomy. There is no simple magic rule to set the neuron count in each layer.
