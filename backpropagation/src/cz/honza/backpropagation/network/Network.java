@@ -185,16 +185,31 @@ public class Network implements Serializable {
 		trainingSet = training;
 		mIteration = 0;
 		
+		inputScale = new double[layers[0].neurons[0].weights.length - 1][];
+		outputScale = new double[layers[layers.length - 1].neurons.length][];
+		
+		// default values
+		for (int i = 0; i < inputScale.length; i++)
+		{
+			inputScale[i] = new double[2];
+			inputScale[i][0] = 1;
+			inputScale[i][1] = 0;
+		}
+
+		// default values
+		for (int i = 0; i < outputScale.length; i++)
+		{
+			outputScale[i] = new double[2];
+			outputScale[i][0] = 1;
+			outputScale[i][1] = 0;
+		}
+		
 		if (training == null || training.inputs.length == 0 || training.inputs[0].length == 0 || training.outputs[0].length == 0)
 			return;
-		
-		inputScale = new double[training.inputs[0].length][];
-		outputScale = new double[training.outputs[0].length][];
 
 		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
 		for (int i = 0; i < inputScale.length; i++)
 		{
-			inputScale[i] = new double[2];
 			double min = training.inputs[0][i];
 			double max = min;
 			
@@ -224,7 +239,6 @@ public class Network implements Serializable {
 		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
 		for (int i = 0; i < outputScale.length; i++)
 		{
-			outputScale[i] = new double[2];
 			double min = training.outputs[0][i];
 			double max = min;
 			
