@@ -56,7 +56,7 @@ public class DrawResultThread extends Thread {
 				
 				input[0] = mMinX + i * (mMaxX - mMinX) / (double) width;
 				input[1] = mMinY + (height - j - 1) * (mMaxY - mMinY) / height;
-				NetworkApplication.sNetwork.calculate(input, output, true);
+				NetworkApplication.sNetwork.calculate(input, output, false);
 				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
 		}
