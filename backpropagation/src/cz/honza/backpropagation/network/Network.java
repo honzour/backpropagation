@@ -307,7 +307,7 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? trainingSet.inputs[i][l - 1] : layers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (trainingSet.inputs[i][l - 1] * inputScale[l - 1][0] + inputScale[l - 1][1]) : layers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
