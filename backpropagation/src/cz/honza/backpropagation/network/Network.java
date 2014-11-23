@@ -119,6 +119,7 @@ public class Network implements Serializable {
 			layers[i] = new Layer(layersData.get(i));
 		}
 		trainingSet = new TrainingSet(trainingData);
+		initTraining(trainingSet);
 	}
 	
 	public Network(int[] layersDimensions, TrainingSet training) {
@@ -190,24 +191,22 @@ public class Network implements Serializable {
 		inputScale = new double[training.inputs[0].length][];
 		outputScale = new double[training.outputs[0].length][];
 
-		// for each input dimension
+		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
 		for (int i = 0; i < inputScale.length; i++)
 		{
 			inputScale[i] = new double[2];
 			double min = training.inputs[0][i];
 			double max = min;
-			double sum = min;
 			
 			for (int j = 1; j < training.inputs.length; j++)
 			{
 				final double val = training.inputs[j][i]; 
-				sum += val;
 				if (val < min)
 					min = val;
 				if (val > max)
 					max = val;
 			}
-			final double avg = sum / training.inputs.length;
+			//final double avg = sum / training.inputs.length;
 			final double diff = max - min;
 			
 			if (diff == 0d)
@@ -218,39 +217,37 @@ public class Network implements Serializable {
 			else
 			{
 				inputScale[i][0] = 2.0 / diff;
-				inputScale[i][1] = -2.0 * avg / diff;
+				inputScale[i][1] = -(max + min) / diff;
 			}
 		}
 		
-		// for each output dimension
+		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
 		for (int i = 0; i < outputScale.length; i++)
 		{
 			outputScale[i] = new double[2];
 			double min = training.outputs[0][i];
 			double max = min;
-			double sum = min;
+			
 			
 			for (int j = 1; j < training.outputs.length; j++)
 			{
 				final double val = training.outputs[j][i]; 
-				sum += val;
 				if (val < min)
 					min = val;
 				if (val > max)
 					max = val;
 			}
-			final double avg = sum / training.outputs.length;
 			final double diff = max - min;
 			
 			if (diff == 0d)
 			{
-				outputScale[i][0] = 1;
-				outputScale[i][1] = -max;
+				outputScale[i][0] = 0;
+				outputScale[i][1] = max;
 			}
 			else
 			{
-				outputScale[i][0] = 2.0 / diff;
-				outputScale[i][1] = -2.0 * avg / diff;
+				outputScale[i][0] = diff;
+				outputScale[i][1] = min;
 			}
 		}
 
