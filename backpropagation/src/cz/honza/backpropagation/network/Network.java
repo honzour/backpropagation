@@ -255,8 +255,8 @@ public class Network implements Serializable {
 			
 			if (diff == 0d)
 			{
-				outputScale[i][0] = 0;
-				outputScale[i][1] = max;
+				outputScale[i][0] = 1;
+				outputScale[i][1] = min;
 			}
 			else
 			{
@@ -272,7 +272,7 @@ public class Network implements Serializable {
 		double sumError = 0;
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (int i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output, false);
+			calculate(trainingSet.inputs[i], output, true);
 			for (int j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
@@ -295,7 +295,7 @@ public class Network implements Serializable {
 		}
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output, false);
+			calculate(trainingSet.inputs[i], output, true);
 			for (j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
@@ -307,7 +307,7 @@ public class Network implements Serializable {
 					Neuron n = layers[j].neurons[k];
 					if (j == layers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - trainingSet.outputs[i][k];
+						n.derivation = n.output - (trainingSet.outputs[i][k] - outputScale[k][1]) / outputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						layers[j].neurons[k].derivation = 0;
