@@ -90,6 +90,11 @@ public class ImportActivity extends NetworkActivity {
 			 {1}, {1}, {1}, {1}						
 			};
 		
+		// OR
+		int[] multioutput_anatomy = {2, 3};
+		double[][] multioutput_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+		double[][] multioutput_outputs = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0}, {1, 1, 1}};
+		
 		
 		switch (item)
 		{
@@ -113,6 +118,9 @@ public class ImportActivity extends NetworkActivity {
 			break;
 		case 6:
 			NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSet(chess_inputs, chess_outputs));
+			break;
+		case 7:
+			NetworkApplication.sNetwork = new Network(multioutput_anatomy, new TrainingSet(multioutput_inputs, multioutput_outputs));
 			break;
 
 		}

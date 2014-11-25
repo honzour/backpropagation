@@ -28,6 +28,20 @@ public class Network implements Serializable {
 		return 1.0 / (1.0 + Math.exp(-x));
 	}
 	
+	public int getInputDimension()
+	{
+		if (layers == null || layers.length == 0 || layers[0] == null || layers[0].neurons == null || layers[0].neurons[0] == null || layers[0].neurons[0].weights == null)
+			return 0;
+		return layers[0].neurons[0].weights.length - 1;
+	}
+	
+	public int getOutputDimension()
+	{
+		if (layers == null || layers.length == 0 || layers[layers.length - 1] == null || layers[layers.length - 1].neurons == null)
+			return 0;
+		return layers[layers.length - 1].neurons.length;
+	}
+	
 	/**
 	 * Is everything ok?
 	 * @param handler runs onError if not ok
