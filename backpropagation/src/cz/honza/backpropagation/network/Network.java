@@ -269,8 +269,16 @@ public class Network implements Serializable {
 			
 			if (diff == 0d)
 			{
-				outputScale[i][0] = 1;
-				outputScale[i][1] = min;
+				if (min <= 1 && min >= 0)
+				{
+					outputScale[i][0] = 1;
+					outputScale[i][1] = 0;
+		}
+				else
+				{
+					outputScale[i][0] = 1;
+					outputScale[i][1] = min;
+				}
 			}
 			else
 			{
