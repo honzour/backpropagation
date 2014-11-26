@@ -56,16 +56,10 @@ public class ImportActivity extends NetworkActivity {
 		double[][] or_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 		double[][] or_outputs = {{0}, {1}, {1}, {1}};
 		
-		/*
 		// XOR
 		int[] xor_anatomy = {2, 2, 1};
 		double[][] xor_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-		double[][] xor_outputs = {{0}, {1}, {1}, {0}}; */
-		
-		// XOR
-		int[] xor_anatomy = {2, 2, 1};
-		double[][] xor_inputs = {{0, 0}, {0, 100}, {100, 0}, {100, 100}};
-		double[][] xor_outputs = {{0}, {100}, {100}, {0}};
+		double[][] xor_outputs = {{0}, {1}, {1}, {0}};
 		
 		// Exception
 		int[] ex_anatomy = {2, 4, 1};
@@ -90,7 +84,7 @@ public class ImportActivity extends NetworkActivity {
 			 {1}, {1}, {1}, {1}						
 			};
 		
-		// OR
+		// 3D
 		int[] multioutput_anatomy = {2, 3};
 		double[][] multioutput_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 		double[][] multioutput_outputs = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0}, {1, 1, 1}};
