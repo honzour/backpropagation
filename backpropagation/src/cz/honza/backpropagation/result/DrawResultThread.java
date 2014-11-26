@@ -42,8 +42,18 @@ public class DrawResultThread extends Thread {
 	
  	public void fillBitmap(Bitmap bmp)
  	{
+ 		int iDim = NetworkApplication.sNetwork.getInputDimension();
+ 		int oDim = NetworkApplication.sNetwork.getOutputDimension();
+ 		
  		double[] input = {0, 0};
-		double[] output = {0, 0.5};
+		double[] output = {0, 0.5, 0.5};
+		
+		if (iDim > 2)
+			input = new double[iDim];
+		
+		if (oDim > 3)
+			output = new double[oDim];
+		
 		int width = bmp.getWidth();
 		int height = bmp.getHeight();
 		
@@ -56,8 +66,8 @@ public class DrawResultThread extends Thread {
 				
 				input[0] = mMinX + i * (mMaxX - mMinX) / (double) width;
 				input[1] = mMinY + (height - j - 1) * (mMaxY - mMinY) / height;
-				NetworkApplication.sNetwork.calculate(input, output);
-				bmp.setPixel(i, j, Color.argb(255, 128, (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
+				NetworkApplication.sNetwork.calculate(input, output, false);
+				bmp.setPixel(i, j, Color.argb(255, (int)(255 * output[2] + 0.5), (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
 		}
  	}

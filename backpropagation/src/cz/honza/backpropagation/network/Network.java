@@ -14,6 +14,9 @@ public class Network implements Serializable {
 	
 	private static final long serialVersionUID = -6200117127679042346L;
 	
+	public double[][] inputScale;
+	public double[][] outputScale;
+	
 	public Layer[] layers;
 	public double alpha = 1;
 	
@@ -23,6 +26,20 @@ public class Network implements Serializable {
 
 	static double sigma(double x) {
 		return 1.0 / (1.0 + Math.exp(-x));
+	}
+	
+	public int getInputDimension()
+	{
+		if (layers == null || layers.length == 0 || layers[0] == null || layers[0].neurons == null || layers[0].neurons[0] == null || layers[0].neurons[0].weights == null)
+			return 0;
+		return layers[0].neurons[0].weights.length - 1;
+	}
+	
+	public int getOutputDimension()
+	{
+		if (layers == null || layers.length == 0 || layers[layers.length - 1] == null || layers[layers.length - 1].neurons == null)
+			return 0;
+		return layers[layers.length - 1].neurons.length;
 	}
 	
 	/**
@@ -116,6 +133,7 @@ public class Network implements Serializable {
 			layers[i] = new Layer(layersData.get(i));
 		}
 		trainingSet = new TrainingSet(trainingData);
+		initTraining(trainingSet);
 	}
 	
 	public Network(int[] layersDimensions, TrainingSet training) {
@@ -142,7 +160,12 @@ public class Network implements Serializable {
 		layers[layer].neurons[neuron].restart();
 	}
 
-	public void calculate(double[] input, double output[]) {
+	/**
+	 * Input and output are like in the training set, all scaling is done here
+	 * @param input before scaling. Array data will not be changed in this method.
+	 * @param output after scaling
+	 */
+	public void calculate(double[] input, double output[], boolean scaleOutput) {
 		int i, j, k;
 
 		for (i = 0; i < layers.length; i++) {
@@ -151,7 +174,7 @@ public class Network implements Serializable {
 				Neuron n = l.neurons[j];
 				double potential = 0;
 				for (k = 1; k < n.weights.length; k++) {
-					potential += (i == 0 ? input[k - 1]
+					potential += (i == 0 ? (inputScale == null ? input[k - 1] : input[k - 1] * inputScale[k - 1][0] + inputScale[k - 1][1])
 							: layers[i - 1].neurons[k - 1].output) * n.weights[k];
 				}
 				potential += n.weights[0];
@@ -163,11 +186,107 @@ public class Network implements Serializable {
 		for (i = 0; i < last.neurons.length; i++) {
 			output[i] = last.neurons[i].output;
 		}
+		if (outputScale != null && scaleOutput)
+		{
+			for (i = 0; i < outputScale.length; i++)
+			{
+				output[i] = output[i] * outputScale[i][0] + outputScale[i][1]; 
+			}
+		}
 	}
 
 	private void initTraining(TrainingSet training) {
 		trainingSet = training;
 		mIteration = 0;
+		
+		inputScale = new double[layers[0].neurons[0].weights.length - 1][];
+		outputScale = new double[layers[layers.length - 1].neurons.length][];
+		
+		// default values
+		for (int i = 0; i < inputScale.length; i++)
+		{
+			inputScale[i] = new double[2];
+			inputScale[i][0] = 1;
+			inputScale[i][1] = 0;
+		}
+
+		// default values
+		for (int i = 0; i < outputScale.length; i++)
+		{
+			outputScale[i] = new double[2];
+			outputScale[i][0] = 1;
+			outputScale[i][1] = 0;
+		}
+		
+		if (training == null || training.inputs.length == 0 || training.inputs[0].length == 0 || training.outputs[0].length == 0)
+			return;
+
+		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
+		for (int i = 0; i < inputScale.length; i++)
+		{
+			double min = training.inputs[0][i];
+			double max = min;
+			
+			for (int j = 1; j < training.inputs.length; j++)
+			{
+				final double val = training.inputs[j][i]; 
+				if (val < min)
+					min = val;
+				if (val > max)
+					max = val;
+			}
+			//final double avg = sum / training.inputs.length;
+			final double diff = max - min;
+			
+			if (diff == 0d)
+			{
+				inputScale[i][0] = 1;
+				inputScale[i][1] = -max;
+			}
+			else
+			{
+				inputScale[i][0] = 2.0 / diff;
+				inputScale[i][1] = -(max + min) / diff;
+			}
+		}
+		
+		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
+		for (int i = 0; i < outputScale.length; i++)
+		{
+			double min = training.outputs[0][i];
+			double max = min;
+			
+			
+			for (int j = 1; j < training.outputs.length; j++)
+			{
+				final double val = training.outputs[j][i]; 
+				if (val < min)
+					min = val;
+				if (val > max)
+					max = val;
+			}
+			final double diff = max - min;
+			
+			if (diff == 0d)
+			{
+				if (min <= 1 && min >= 0)
+				{
+					outputScale[i][0] = 1;
+					outputScale[i][1] = 0;
+		}
+				else
+				{
+					outputScale[i][0] = 1;
+					outputScale[i][1] = min;
+				}
+			}
+			else
+			{
+				outputScale[i][0] = diff;
+				outputScale[i][1] = min;
+			}
+		}
+
 	}
 
 	public double getError()
@@ -175,7 +294,7 @@ public class Network implements Serializable {
 		double sumError = 0;
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (int i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output);
+			calculate(trainingSet.inputs[i], output, true);
 			for (int j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
@@ -198,7 +317,7 @@ public class Network implements Serializable {
 		}
 		double[] output = new double[layers[layers.length - 1].neurons.length];
 		for (i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output);
+			calculate(trainingSet.inputs[i], output, true);
 			for (j = 0; j < output.length; j++) {
 				final double diff = output[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
@@ -210,7 +329,7 @@ public class Network implements Serializable {
 					Neuron n = layers[j].neurons[k];
 					if (j == layers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - trainingSet.outputs[i][k];
+						n.derivation = n.output - (trainingSet.outputs[i][k] - outputScale[k][1]) / outputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						layers[j].neurons[k].derivation = 0;
@@ -224,7 +343,7 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? trainingSet.inputs[i][l - 1] : layers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (trainingSet.inputs[i][l - 1] * inputScale[l - 1][0] + inputScale[l - 1][1]) : layers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}

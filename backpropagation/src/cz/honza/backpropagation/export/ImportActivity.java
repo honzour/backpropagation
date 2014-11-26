@@ -56,11 +56,16 @@ public class ImportActivity extends NetworkActivity {
 		double[][] or_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 		double[][] or_outputs = {{0}, {1}, {1}, {1}};
 		
-		
+		/*
 		// XOR
 		int[] xor_anatomy = {2, 2, 1};
 		double[][] xor_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-		double[][] xor_outputs = {{0}, {1}, {1}, {0}};
+		double[][] xor_outputs = {{0}, {1}, {1}, {0}}; */
+		
+		// XOR
+		int[] xor_anatomy = {2, 2, 1};
+		double[][] xor_inputs = {{0, 0}, {0, 100}, {100, 0}, {100, 100}};
+		double[][] xor_outputs = {{0}, {100}, {100}, {0}};
 		
 		// Exception
 		int[] ex_anatomy = {2, 4, 1};
@@ -85,6 +90,11 @@ public class ImportActivity extends NetworkActivity {
 			 {1}, {1}, {1}, {1}						
 			};
 		
+		// OR
+		int[] multioutput_anatomy = {2, 3};
+		double[][] multioutput_inputs = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+		double[][] multioutput_outputs = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0}, {1, 1, 1}};
+		
 		
 		switch (item)
 		{
@@ -108,6 +118,9 @@ public class ImportActivity extends NetworkActivity {
 			break;
 		case 6:
 			NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSet(chess_inputs, chess_outputs));
+			break;
+		case 7:
+			NetworkApplication.sNetwork = new Network(multioutput_anatomy, new TrainingSet(multioutput_inputs, multioutput_outputs));
 			break;
 
 		}

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -78,9 +77,10 @@ public class TrainingSetActivity extends NetworkActivity {
 			}
 			for (int j = 0; j < elementOutput.size(); j++)
 			{
-				final CheckBox cb = new CheckBox(this);
-				cb.setChecked(elementOutput.get(j) >= 0.5);
-				outputLayout.addView(cb);
+				final EditText e = new EditText(this);
+				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+				e.setText(String.valueOf(elementOutput.get(j)));
+				outputLayout.addView(e);
 			}
 			
 			mTrainingLayout.addView(item);
@@ -110,8 +110,13 @@ public class TrainingSetActivity extends NetworkActivity {
 			final int outputCount = outputLayout.getChildCount();
 			for (int j = 0; j < outputCount; j++)
 			{
-				final CheckBox output = (CheckBox)outputLayout.getChildAt(j);
-				final double d = output.isChecked() ? 1d : 0d;
+				final TextView input = (TextView)outputLayout.getChildAt(j);
+				double d = 0;
+				try
+				{
+					d = Double.valueOf(input.getText().toString());
+				}
+				catch (Exception e) {}
 				mTraining.get(i).get(1).set(j, d);
 			}
 		}
