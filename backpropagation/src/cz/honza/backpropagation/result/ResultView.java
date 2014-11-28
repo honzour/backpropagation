@@ -48,8 +48,8 @@ public class ResultView extends View {
 		// will be real y of top of the screen
 		double maxY = maxX;
 		
-		double[][] inputs = n.mTrainingSet.inputs; 
-		if (n.mTrainingSet.inputs.length > 0)
+		double[][] inputs = n.mTrainingSet.mInputs; 
+		if (n.mTrainingSet.mInputs.length > 0)
 		{
 			if (inputs[0].length > 0)
 				minX = maxX = inputs[0][0];
@@ -128,23 +128,23 @@ public class ResultView extends View {
 		canvas.drawLine(x0, 0, x0, height, mPaint);
 
 		
-		for (int i = 0; i < n.mTrainingSet.inputs.length; i++)
+		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
 		{
 			double ix = 0;
 			double iy = 0;
 			
-			if (n.mTrainingSet.inputs[i].length > 0)
+			if (n.mTrainingSet.mInputs[i].length > 0)
 			{
-				ix = n.mTrainingSet.inputs[i][0];
-				if (n.mTrainingSet.inputs[i].length > 1)
+				ix = n.mTrainingSet.mInputs[i][0];
+				if (n.mTrainingSet.mInputs[i].length > 1)
 				{
-					iy = n.mTrainingSet.inputs[i][1];
+					iy = n.mTrainingSet.mInputs[i][1];
 				}
 			}
 			
 			double x = width * (ix - minX) / (maxX - minX);
 			double y = height - 1 -  height * (iy - minY) / (maxY - minY);
-			if (Math.abs(n.mTrainingSet.outputs[i][0]) < 0.5)
+			if (Math.abs(n.mTrainingSet.mOutputs[i][0]) < 0.5)
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
 				mPaint.setStyle(Paint.Style.STROKE);

@@ -1,17 +1,19 @@
 package cz.honza.backpropagation.network;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.List;
 
 public class TrainingSet implements Serializable {
 	private static final long serialVersionUID = 3556087741395041118L;
-	public double[][] inputs;
-	public double[][] outputs;
+	public double[][] mInputs;
+	public double[][] mOutputs;
 	
 	public TrainingSet(double[][] inputs, double[][] outputs)
 	{
-		this.inputs = inputs;
-		this.outputs = outputs;
+		mInputs = inputs;
+		mOutputs = outputs;
 	}
 	
 	protected double[][] list2array(List<List<Double>> list)
@@ -36,7 +38,126 @@ public class TrainingSet implements Serializable {
 		final List<List<Double>> inputs = trainingData.get(0); 
 		final List<List<Double>> outputs = trainingData.get(1);
 		
-		this.inputs = list2array(inputs);
-		this.outputs = list2array(outputs);
+		this.mInputs = list2array(inputs);
+		this.mOutputs = list2array(outputs);
+	}
+	
+	protected void saveNumber(Writer writer, double number, int tabs) throws IOException
+	{
+		for (int i = 0; i < tabs; i++)
+		{
+			writer.write(Xml.TAB);
+		}
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.NUMBER);
+		writer.write(Xml.TAG_END);
+		
+		writer.write(String.valueOf(number));
+		
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.NUMBER);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void saveInput(Writer writer, int i) throws IOException
+	{
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.INPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int j = 0; j < mInputs[i].length; j++)
+		{
+			saveNumber(writer, mInputs[i][j], 4);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.INPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void saveOutput(Writer writer, int i) throws IOException
+	{
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int j = 0; j < mOutputs[i].length; j++)
+		{
+			saveNumber(writer, mOutputs[i][j], 4);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUT);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+	
+	protected void save(Writer writer) throws IOException
+	{
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.INPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			saveInput(writer, i);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.INPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			saveOutput(writer, i);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.OUTPUTS);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
 	}
 }

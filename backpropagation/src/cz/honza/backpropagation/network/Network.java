@@ -51,7 +51,7 @@ public class Network implements Serializable {
 	 */
 	public boolean check(ParserResultHandler handler)
 	{
-		if (mLayers == null || mTrainingSet == null || mTrainingSet.inputs == null || mTrainingSet.inputs == null)
+		if (mLayers == null || mTrainingSet == null || mTrainingSet.mInputs == null || mTrainingSet.mInputs == null)
 		{
 			handler.onError(R.string.null_elements);
 			return false;
@@ -91,30 +91,30 @@ public class Network implements Serializable {
 			}
 		}
 		
-		if (mTrainingSet.inputs.length != mTrainingSet.outputs.length)
+		if (mTrainingSet.mInputs.length != mTrainingSet.mOutputs.length)
 		{
 			handler.onError(R.string.input_output_count);
 			return false;
 		}
 		
-		if (mTrainingSet.inputs.length == 0)
+		if (mTrainingSet.mInputs.length == 0)
 		{
 			handler.onError(R.string.empty_training_set);
 			return false;
 		}
 		
-		for (int i = 0; i < mTrainingSet.inputs.length; i++)
+		for (int i = 0; i < mTrainingSet.mInputs.length; i++)
 		{
-			if (mTrainingSet.inputs[i].length != getInputDimension())
+			if (mTrainingSet.mInputs[i].length != getInputDimension())
 			{
 				handler.onError(R.string.input_example_dimension);
 				return false;
 			}
 		}
 		
-		for (int i = 0; i < mTrainingSet.outputs.length; i++)
+		for (int i = 0; i < mTrainingSet.mOutputs.length; i++)
 		{
-			if (mTrainingSet.outputs[i].length != getOutputDimension())
+			if (mTrainingSet.mOutputs[i].length != getOutputDimension())
 			{
 				handler.onError(R.string.output_example_dimension);
 				return false;
@@ -221,18 +221,18 @@ public class Network implements Serializable {
 			mOutputScale[i][1] = 0;
 		}
 		
-		if (training == null || training.inputs.length == 0 || training.inputs[0].length == 0 || training.outputs[0].length == 0)
+		if (training == null || training.mInputs.length == 0 || training.mInputs[0].length == 0 || training.mOutputs[0].length == 0)
 			return;
 
 		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
 		for (int i = 0; i < mInputScale.length; i++)
 		{
-			double min = training.inputs[0][i];
+			double min = training.mInputs[0][i];
 			double max = min;
 			
-			for (int j = 1; j < training.inputs.length; j++)
+			for (int j = 1; j < training.mInputs.length; j++)
 			{
-				final double val = training.inputs[j][i]; 
+				final double val = training.mInputs[j][i]; 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -256,13 +256,13 @@ public class Network implements Serializable {
 		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
 		for (int i = 0; i < mOutputScale.length; i++)
 		{
-			double min = training.outputs[0][i];
+			double min = training.mOutputs[0][i];
 			double max = min;
 			
 			
-			for (int j = 1; j < training.outputs.length; j++)
+			for (int j = 1; j < training.mOutputs.length; j++)
 			{
-				final double val = training.outputs[j][i]; 
+				final double val = training.mOutputs[j][i]; 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -296,10 +296,10 @@ public class Network implements Serializable {
 	{
 		double sumError = 0;
 		
-		for (int i = 0; i < mTrainingSet.inputs.length; i++) {
-			calculate(mTrainingSet.inputs[i], mOutput, true);
+		for (int i = 0; i < mTrainingSet.mInputs.length; i++) {
+			calculate(mTrainingSet.mInputs[i], mOutput, true);
 			for (int j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - mTrainingSet.outputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.mOutputs[i][j];
 				sumError += diff * diff;
 			}
 		}
@@ -319,10 +319,10 @@ public class Network implements Serializable {
 			}
 		}
 
-		for (i = 0; i < mTrainingSet.inputs.length; i++) {
-			calculate(mTrainingSet.inputs[i], mOutput, true);
+		for (i = 0; i < mTrainingSet.mInputs.length; i++) {
+			calculate(mTrainingSet.mInputs[i], mOutput, true);
 			for (j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - mTrainingSet.outputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.mOutputs[i][j];
 				sumError += diff * diff;
 			}
 			// from the last to the first layer 
@@ -332,7 +332,7 @@ public class Network implements Serializable {
 					Neuron n = mLayers[j].neurons[k];
 					if (j == mLayers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - (mTrainingSet.outputs[i][k] - mOutputScale[k][1]) / mOutputScale[k][0];
+						n.derivation = n.output - (mTrainingSet.mOutputs[i][k] - mOutputScale[k][1]) / mOutputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						mLayers[j].neurons[k].derivation = 0;
@@ -346,7 +346,7 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.inputs[i][l - 1] * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.mInputs[i][l - 1] * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
@@ -369,126 +369,6 @@ public class Network implements Serializable {
 	public long getItration()
 	{
 		return mIteration;
-	}
-	
-	protected void saveNumber(Writer writer, double number, int tabs) throws IOException
-	{
-		for (int i = 0; i < tabs; i++)
-		{
-			writer.write(Xml.TAB);
-		}
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.NUMBER);
-		writer.write(Xml.TAG_END);
-		
-		writer.write(String.valueOf(number));
-		
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.NUMBER);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-	}
-	
-	protected void saveInput(Writer writer, int i) throws IOException
-	{
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.INPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int j = 0; j < mTrainingSet.inputs[i].length; j++)
-		{
-			saveNumber(writer, mTrainingSet.inputs[i][j], 4);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.INPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
-	
-	protected void saveOutput(Writer writer, int i) throws IOException
-	{
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int j = 0; j < mTrainingSet.outputs[i].length; j++)
-		{
-			saveNumber(writer, mTrainingSet.outputs[i][j], 4);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
-	
-	protected void saveTraining(Writer writer) throws IOException
-	{
-		writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.TRAINING);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.INPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int i = 0; i < mTrainingSet.inputs.length; i++)
-		{
-			saveInput(writer, i);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.INPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int i = 0; i < mTrainingSet.inputs.length; i++)
-		{
-			saveOutput(writer, i);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.TRAINING);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
 	}
 	
 	protected void saveLayers(Writer writer) throws IOException
@@ -520,7 +400,7 @@ public class Network implements Serializable {
 		writer.write(Xml.NEW_LINE);
 		
 		saveLayers(writer);
-		saveTraining(writer);
+		mTrainingSet.save(writer);
 		
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NETWORK);
