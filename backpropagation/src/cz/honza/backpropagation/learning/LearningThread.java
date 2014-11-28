@@ -1,7 +1,5 @@
 package cz.honza.backpropagation.learning;
 
-import java.util.Calendar;
-
 import cz.honza.backpropagation.network.Network;
 
 public class LearningThread extends Thread {
@@ -38,7 +36,7 @@ public class LearningThread extends Thread {
 				}
 			}
 			mNetwork.trainingStep();
-			now = Calendar.getInstance().getTimeInMillis();
+			now = System.currentTimeMillis();
 			if (now > lastUpdate + 500)
 			{
 				LearningActivity.sInstance.update();
