@@ -14,15 +14,15 @@ public class Network implements Serializable {
 	
 	private static final long serialVersionUID = -6200117127679042346L;
 	
-	public double[][] inputScale;
-	public double[][] outputScale;
+	protected double[][] mInputScale;
+	protected double[][] mOutputScale;
 	
 	protected double[] mOutput;
 	
-	public Layer[] layers;
-	public double alpha = 1;
+	public Layer[] mLayers;
+	public double mAlpha = 1;
 	
-	public TrainingSet trainingSet;
+	public TrainingSet mTrainingSet;
 	
 	private long mIteration;
 
@@ -32,16 +32,16 @@ public class Network implements Serializable {
 	
 	public int getInputDimension()
 	{
-		if (layers == null || layers.length == 0 || layers[0] == null || layers[0].neurons == null || layers[0].neurons[0] == null || layers[0].neurons[0].weights == null)
+		if (mLayers == null || mLayers.length == 0 || mLayers[0] == null || mLayers[0].neurons == null || mLayers[0].neurons[0] == null || mLayers[0].neurons[0].weights == null)
 			return 0;
-		return layers[0].neurons[0].weights.length - 1;
+		return mLayers[0].neurons[0].weights.length - 1;
 	}
 	
 	public int getOutputDimension()
 	{
-		if (layers == null || layers.length == 0 || layers[layers.length - 1] == null || layers[layers.length - 1].neurons == null)
+		if (mLayers == null || mLayers.length == 0 || mLayers[mLayers.length - 1] == null || mLayers[mLayers.length - 1].neurons == null)
 			return 0;
-		return layers[layers.length - 1].neurons.length;
+		return mLayers[mLayers.length - 1].neurons.length;
 	}
 	
 	/**
@@ -51,39 +51,39 @@ public class Network implements Serializable {
 	 */
 	public boolean check(ParserResultHandler handler)
 	{
-		if (layers == null || trainingSet == null || trainingSet.inputs == null || trainingSet.inputs == null)
+		if (mLayers == null || mTrainingSet == null || mTrainingSet.inputs == null || mTrainingSet.inputs == null)
 		{
 			handler.onError(R.string.null_elements);
 			return false;
 		}
-		if (layers.length < 1)
+		if (mLayers.length < 1)
 		{
 			handler.onError(R.string.layers_missing);
 			return false;
 		}
-		for (int i = 0; i < layers.length; i++)
+		for (int i = 0; i < mLayers.length; i++)
 		{
-			if (layers[i].neurons.length < 1)
+			if (mLayers[i].neurons.length < 1)
 			{
 				handler.onError(R.string.neurons_missing);
 				return false;
 			}
 		}
 		
-		for (int i = 1; i < layers.length; i++)
+		for (int i = 1; i < mLayers.length; i++)
 		{
-			if ((layers[i].neurons[0].weights.length - 1) != layers[i - 1].neurons.length)
+			if ((mLayers[i].neurons[0].weights.length - 1) != mLayers[i - 1].neurons.length)
 			{
 				handler.onError(R.string.weights_count);
 				return false;
 			}
 		}
 		
-		for (int i = 0; i < layers.length; i++)
+		for (int i = 0; i < mLayers.length; i++)
 		{
-			for (int j = 1; j < layers[i].neurons.length; j++)
+			for (int j = 1; j < mLayers[i].neurons.length; j++)
 			{
-				if (layers[i].neurons[0].weights.length != layers[i].neurons[j].weights.length)
+				if (mLayers[i].neurons[0].weights.length != mLayers[i].neurons[j].weights.length)
 				{
 					handler.onError(R.string.weights_count);
 					return false;
@@ -91,30 +91,30 @@ public class Network implements Serializable {
 			}
 		}
 		
-		if (trainingSet.inputs.length != trainingSet.outputs.length)
+		if (mTrainingSet.inputs.length != mTrainingSet.outputs.length)
 		{
 			handler.onError(R.string.input_output_count);
 			return false;
 		}
 		
-		if (trainingSet.inputs.length == 0)
+		if (mTrainingSet.inputs.length == 0)
 		{
 			handler.onError(R.string.empty_training_set);
 			return false;
 		}
 		
-		for (int i = 0; i < trainingSet.inputs.length; i++)
+		for (int i = 0; i < mTrainingSet.inputs.length; i++)
 		{
-			if (trainingSet.inputs[i].length != getInputDimension())
+			if (mTrainingSet.inputs[i].length != getInputDimension())
 			{
 				handler.onError(R.string.input_example_dimension);
 				return false;
 			}
 		}
 		
-		for (int i = 0; i < trainingSet.outputs.length; i++)
+		for (int i = 0; i < mTrainingSet.outputs.length; i++)
 		{
-			if (trainingSet.outputs[i].length != getOutputDimension())
+			if (mTrainingSet.outputs[i].length != getOutputDimension())
 			{
 				handler.onError(R.string.output_example_dimension);
 				return false;
@@ -129,37 +129,37 @@ public class Network implements Serializable {
 	 * @param layersData
 	 */
 	public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData) {
-		layers = new Layer[layersData.size()];
-		for (int i = 0; i < layers.length; i++)
+		mLayers = new Layer[layersData.size()];
+		for (int i = 0; i < mLayers.length; i++)
 		{
-			layers[i] = new Layer(layersData.get(i));
+			mLayers[i] = new Layer(layersData.get(i));
 		}
-		trainingSet = new TrainingSet(trainingData);
-		initTraining(trainingSet);
+		mTrainingSet = new TrainingSet(trainingData);
+		initTraining(mTrainingSet);
 	}
 	
 	public Network(int[] layersDimensions, TrainingSet training) {
-		layers = new Layer[layersDimensions.length - 1];
+		mLayers = new Layer[layersDimensions.length - 1];
 		for (int i = 0; i < layersDimensions.length - 1; i++) {
-			layers[i] = new Layer(layersDimensions[i + 1], layersDimensions[i]);
+			mLayers[i] = new Layer(layersDimensions[i + 1], layersDimensions[i]);
 		}
 		initTraining(training);
 	}
 	
 	public void restart()
 	{
-		for (int i = 0; i < layers.length; i++)
-			for (int j = 0; j < layers[i].neurons.length; j++)
-				layers[i].neurons[j].restart();
+		for (int i = 0; i < mLayers.length; i++)
+			for (int j = 0; j < mLayers[i].neurons.length; j++)
+				mLayers[i].neurons[j].restart();
 	}
 	
 	public void restartNeuron()
 	{
-		int layer = ((int) (Math.random() * layers.length)) % layers.length;
-		int neuron = ((int) (Math.random() * layers[layer].neurons.length)) % layers[layer].neurons.length;
+		int layer = ((int) (Math.random() * mLayers.length)) % mLayers.length;
+		int neuron = ((int) (Math.random() * mLayers[layer].neurons.length)) % mLayers[layer].neurons.length;
 		
 
-		layers[layer].neurons[neuron].restart();
+		mLayers[layer].neurons[neuron].restart();
 	}
 
 	/**
@@ -170,62 +170,62 @@ public class Network implements Serializable {
 	public void calculate(double[] input, double output[], boolean scaleOutput) {
 		int i, j, k;
 
-		for (i = 0; i < layers.length; i++) {
-			Layer l = layers[i];
+		for (i = 0; i < mLayers.length; i++) {
+			Layer l = mLayers[i];
 			for (j = 0; j < l.neurons.length; j++) {
 				Neuron n = l.neurons[j];
 				double potential = 0;
 				for (k = 1; k < n.weights.length; k++) {
-					potential += (i == 0 ? (inputScale == null ? input[k - 1] : input[k - 1] * inputScale[k - 1][0] + inputScale[k - 1][1])
-							: layers[i - 1].neurons[k - 1].output) * n.weights[k];
+					potential += (i == 0 ? (mInputScale == null ? input[k - 1] : input[k - 1] * mInputScale[k - 1][0] + mInputScale[k - 1][1])
+							: mLayers[i - 1].neurons[k - 1].output) * n.weights[k];
 				}
 				potential += n.weights[0];
 				n.potential = potential;
 				n.output = sigma(potential);
 			}
 		}
-		Layer last = layers[layers.length - 1];
+		Layer last = mLayers[mLayers.length - 1];
 		for (i = 0; i < last.neurons.length; i++) {
 			output[i] = last.neurons[i].output;
 		}
-		if (outputScale != null && scaleOutput)
+		if (mOutputScale != null && scaleOutput)
 		{
-			for (i = 0; i < outputScale.length; i++)
+			for (i = 0; i < mOutputScale.length; i++)
 			{
-				output[i] = output[i] * outputScale[i][0] + outputScale[i][1]; 
+				output[i] = output[i] * mOutputScale[i][0] + mOutputScale[i][1]; 
 			}
 		}
 	}
 
 	private void initTraining(TrainingSet training) {
-		trainingSet = training;
+		mTrainingSet = training;
 		mIteration = 0;
 		
 		mOutput = new double[getOutputDimension()];
-		inputScale = new double[getInputDimension()][];
-		outputScale = new double[getOutputDimension()][];
+		mInputScale = new double[getInputDimension()][];
+		mOutputScale = new double[getOutputDimension()][];
 		
 		// default values
-		for (int i = 0; i < inputScale.length; i++)
+		for (int i = 0; i < mInputScale.length; i++)
 		{
-			inputScale[i] = new double[2];
-			inputScale[i][0] = 1;
-			inputScale[i][1] = 0;
+			mInputScale[i] = new double[2];
+			mInputScale[i][0] = 1;
+			mInputScale[i][1] = 0;
 		}
 
 		// default values
-		for (int i = 0; i < outputScale.length; i++)
+		for (int i = 0; i < mOutputScale.length; i++)
 		{
-			outputScale[i] = new double[2];
-			outputScale[i][0] = 1;
-			outputScale[i][1] = 0;
+			mOutputScale[i] = new double[2];
+			mOutputScale[i][0] = 1;
+			mOutputScale[i][1] = 0;
 		}
 		
 		if (training == null || training.inputs.length == 0 || training.inputs[0].length == 0 || training.outputs[0].length == 0)
 			return;
 
 		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
-		for (int i = 0; i < inputScale.length; i++)
+		for (int i = 0; i < mInputScale.length; i++)
 		{
 			double min = training.inputs[0][i];
 			double max = min;
@@ -243,18 +243,18 @@ public class Network implements Serializable {
 			
 			if (diff == 0d)
 			{
-				inputScale[i][0] = 1;
-				inputScale[i][1] = -max;
+				mInputScale[i][0] = 1;
+				mInputScale[i][1] = -max;
 			}
 			else
 			{
-				inputScale[i][0] = 2.0 / diff;
-				inputScale[i][1] = -(max + min) / diff;
+				mInputScale[i][0] = 2.0 / diff;
+				mInputScale[i][1] = -(max + min) / diff;
 			}
 		}
 		
 		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
-		for (int i = 0; i < outputScale.length; i++)
+		for (int i = 0; i < mOutputScale.length; i++)
 		{
 			double min = training.outputs[0][i];
 			double max = min;
@@ -274,19 +274,19 @@ public class Network implements Serializable {
 			{
 				if (min <= 1 && min >= 0)
 				{
-					outputScale[i][0] = 1;
-					outputScale[i][1] = 0;
+					mOutputScale[i][0] = 1;
+					mOutputScale[i][1] = 0;
 		}
 				else
 				{
-					outputScale[i][0] = 1;
-					outputScale[i][1] = min;
+					mOutputScale[i][0] = 1;
+					mOutputScale[i][1] = min;
 				}
 			}
 			else
 			{
-				outputScale[i][0] = diff;
-				outputScale[i][1] = min;
+				mOutputScale[i][0] = diff;
+				mOutputScale[i][1] = min;
 			}
 		}
 
@@ -296,10 +296,10 @@ public class Network implements Serializable {
 	{
 		double sumError = 0;
 		
-		for (int i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], mOutput, true);
+		for (int i = 0; i < mTrainingSet.inputs.length; i++) {
+			calculate(mTrainingSet.inputs[i], mOutput, true);
 			for (int j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - trainingSet.outputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 		}
@@ -310,35 +310,35 @@ public class Network implements Serializable {
 		int i, j, k, l;
 
 		double sumError = 0;
-		for (i = 0; i < layers.length; i++) {
-			for (j = 0; j < layers[i].neurons.length; j++) {
-				Neuron n = layers[i].neurons[j];
+		for (i = 0; i < mLayers.length; i++) {
+			for (j = 0; j < mLayers[i].neurons.length; j++) {
+				Neuron n = mLayers[i].neurons[j];
 				for (k = 0; k < n.weights.length; k++) {
 					n.weightsDerivation[k] = 0;
 				}
 			}
 		}
 
-		for (i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], mOutput, true);
+		for (i = 0; i < mTrainingSet.inputs.length; i++) {
+			calculate(mTrainingSet.inputs[i], mOutput, true);
 			for (j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - trainingSet.outputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 			// from the last to the first layer 
-			for (j = layers.length - 1; j >= 0; j--) { // backpropagation - go back
+			for (j = mLayers.length - 1; j >= 0; j--) { // backpropagation - go back
 				// for each neuron in the layer
-				for (k = 0; k < layers[j].neurons.length; k++) {
-					Neuron n = layers[j].neurons[k];
-					if (j == layers.length - 1) {
+				for (k = 0; k < mLayers[j].neurons.length; k++) {
+					Neuron n = mLayers[j].neurons[k];
+					if (j == mLayers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - (trainingSet.outputs[i][k] - outputScale[k][1]) / outputScale[k][0];
+						n.derivation = n.output - (mTrainingSet.outputs[i][k] - mOutputScale[k][1]) / mOutputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
-						layers[j].neurons[k].derivation = 0;
+						mLayers[j].neurons[k].derivation = 0;
 						// for each neuron in the next layer
-						for (l = 0; l < layers[j + 1].neurons.length; l++) {
-							Neuron n2 = layers[j + 1].neurons[l];
+						for (l = 0; l < mLayers[j + 1].neurons.length; l++) {
+							Neuron n2 = mLayers[j + 1].neurons[l];
 							n.derivation += n2.derivation * n2.output
 									* (1 - n2.output) * n2.weights[k + 1]; 
 						}
@@ -346,17 +346,17 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? (trainingSet.inputs[i][l - 1] * inputScale[l - 1][0] + inputScale[l - 1][1]) : layers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.inputs[i][l - 1] * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
 		}
 		
 		synchronized (this) {
-			for (i = 0; i < layers.length; i++) {
-				for (j = 0; j < layers[i].neurons.length; j++) {
-					for (k = 0; k < layers[i].neurons[j].weights.length; k++) {
-						layers[i].neurons[j].weights[k] -= alpha * layers[i].neurons[j].weightsDerivation[k];
+			for (i = 0; i < mLayers.length; i++) {
+				for (j = 0; j < mLayers[i].neurons.length; j++) {
+					for (k = 0; k < mLayers[i].neurons[j].weights.length; k++) {
+						mLayers[i].neurons[j].weights[k] -= mAlpha * mLayers[i].neurons[j].weightsDerivation[k];
 					}
 				}
 			}
@@ -398,9 +398,9 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < trainingSet.inputs[i].length; j++)
+		for (int j = 0; j < mTrainingSet.inputs[i].length; j++)
 		{
-			saveNumber(writer, trainingSet.inputs[i][j], 4);
+			saveNumber(writer, mTrainingSet.inputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -418,9 +418,9 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < trainingSet.outputs[i].length; j++)
+		for (int j = 0; j < mTrainingSet.outputs[i].length; j++)
 		{
-			saveNumber(writer, trainingSet.outputs[i][j], 4);
+			saveNumber(writer, mTrainingSet.outputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -444,7 +444,7 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < trainingSet.inputs.length; i++)
+		for (int i = 0; i < mTrainingSet.inputs.length; i++)
 		{
 			saveInput(writer, i);
 		}
@@ -461,7 +461,7 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < trainingSet.inputs.length; i++)
+		for (int i = 0; i < mTrainingSet.inputs.length; i++)
 		{
 			saveOutput(writer, i);
 		}
@@ -499,8 +499,8 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < layers.length; i++)
-			layers[i].save(Xml.TAB + Xml.TAB, writer);
+		for (int i = 0; i < mLayers.length; i++)
+			mLayers[i].save(Xml.TAB + Xml.TAB, writer);
 		
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_TERMINATE_START);

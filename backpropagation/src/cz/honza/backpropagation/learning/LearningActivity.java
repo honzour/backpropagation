@@ -32,7 +32,7 @@ public class LearningActivity extends NetworkActivity {
 		public void run() {
 			mIteratonView.setText(mIteration < 0 ? "" : String.valueOf(mIteration));
 			mErrorView.setText(mIteration < 0 ? "" : String.valueOf(mError));
-			mAlphaView.setText(String.valueOf(NetworkApplication.sNetwork.alpha));
+			mAlphaView.setText(String.valueOf(NetworkApplication.sNetwork.mAlpha));
 		}
 	};
 	
@@ -78,7 +78,7 @@ public class LearningActivity extends NetworkActivity {
 		mAlphaView.setText(String.valueOf(alpha));
 		synchronized(NetworkApplication.sNetwork)
 		{
-			NetworkApplication.sNetwork.alpha = alpha; 
+			NetworkApplication.sNetwork.mAlpha = alpha; 
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class LearningActivity extends NetworkActivity {
 		mAlphaView = (TextView)findViewById(R.id.main_alpha);
 		mStart = (Button)findViewById(R.id.main_start_stop);
 		mSeekBar = (SeekBar)findViewById(R.id.main_alpha_seek);
-		updateSeekBarPosition(NetworkApplication.sNetwork.alpha);
+		updateSeekBarPosition(NetworkApplication.sNetwork.mAlpha);
 		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);
 		mRestartNeuron = (Button)findViewById(R.id.main_restart_neuron);
 		

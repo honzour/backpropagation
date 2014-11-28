@@ -100,20 +100,20 @@ public class EditorActivity extends NetworkActivity {
 			Network network = (Network)getIntent().getSerializableExtra(ImportActivity.INTENT_EXTRA_NETWORK);
 			if (network != null)
 			{
-				mLayers = new ArrayList<Integer>(network.layers.length);
-				if (network.layers.length > 0 && network.layers[0].neurons.length > 0)
+				mLayers = new ArrayList<Integer>(network.mLayers.length);
+				if (network.mLayers.length > 0 && network.mLayers[0].neurons.length > 0)
 				{
 					// input dimension
-					mLayers.add(network.layers[0].neurons[0].weights.length - 1);
+					mLayers.add(network.mLayers[0].neurons[0].weights.length - 1);
 				}
-				for (int i = 0; i < network.layers.length; i++)
+				for (int i = 0; i < network.mLayers.length; i++)
 				{
-					mLayers.add(network.layers[i].neurons.length);
+					mLayers.add(network.mLayers[i].neurons.length);
 				}
 				
-				final int trainingSize = network.trainingSet.inputs.length;
-				final int inputSize = network.trainingSet.inputs[0].length;
-				final int outputSize = network.trainingSet.outputs[0].length;
+				final int trainingSize = network.mTrainingSet.inputs.length;
+				final int inputSize = network.mTrainingSet.inputs[0].length;
+				final int outputSize = network.mTrainingSet.outputs[0].length;
 				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
 				for (int i = 0; i < trainingSize; i++)
 				{
@@ -122,11 +122,11 @@ public class EditorActivity extends NetworkActivity {
 					final ArrayList<Double> output = new ArrayList<Double>(outputSize);
 					for (int j = 0; j < inputSize; j++)
 					{
-						input.add(network.trainingSet.inputs[i][j]);
+						input.add(network.mTrainingSet.inputs[i][j]);
 					}
 					for (int j = 0; j < outputSize; j++)
 					{
-						output.add(network.trainingSet.outputs[i][j]);
+						output.add(network.mTrainingSet.outputs[i][j]);
 					}
 					item.add(input);
 					item.add(output);
