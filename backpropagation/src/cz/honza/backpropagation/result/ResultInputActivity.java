@@ -56,7 +56,7 @@ public class ResultInputActivity extends NetworkActivity {
 		setContentView(R.layout.result_input);
 		mOutputView = (TextView) findViewById(R.id.result_input_result);
 		final LinearLayout ll = (LinearLayout)findViewById(R.id.result_input_layout);
-		final int inputsLength = NetworkApplication.sNetwork.layers[0].neurons[0].weights.length - 1;
+		final int inputsLength = NetworkApplication.sNetwork.getInputDimension();
 		mInputs = new EditText[inputsLength];
 		
 		for (int i = 0; i < inputsLength; i++)
@@ -78,7 +78,7 @@ public class ResultInputActivity extends NetworkActivity {
 				mInputs[i].setText(String.valueOf(mInput[i]));
 			}
 		}
-		mOutput = new double[NetworkApplication.sNetwork.layers[NetworkApplication.sNetwork.layers.length - 1].neurons.length];
+		mOutput = new double[NetworkApplication.sNetwork.getOutputDimension()];
 		for (int i = 0; i < inputsLength; i++)
 		{
 			mInputs[i].setOnEditorActionListener(new TextView.OnEditorActionListener() {
