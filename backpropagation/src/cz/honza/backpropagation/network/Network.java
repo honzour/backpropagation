@@ -103,7 +103,7 @@ public class Network implements Serializable {
 		
 		for (int i = 0; i < trainingSet.inputs.length; i++)
 		{
-			if (trainingSet.inputs[i].length != layers[0].neurons[0].weights.length - 1)
+			if (trainingSet.inputs[i].length != getInputDimension())
 			{
 				handler.onError(R.string.input_example_dimension);
 				return false;
@@ -112,7 +112,7 @@ public class Network implements Serializable {
 		
 		for (int i = 0; i < trainingSet.outputs.length; i++)
 		{
-			if (trainingSet.outputs[i].length != layers[layers.length - 1].neurons.length)
+			if (trainingSet.outputs[i].length != getOutputDimension())
 			{
 				handler.onError(R.string.output_example_dimension);
 				return false;
@@ -199,8 +199,8 @@ public class Network implements Serializable {
 		trainingSet = training;
 		mIteration = 0;
 		
-		inputScale = new double[layers[0].neurons[0].weights.length - 1][];
-		outputScale = new double[layers[layers.length - 1].neurons.length][];
+		inputScale = new double[getInputDimension()][];
+		outputScale = new double[getOutputDimension()][];
 		
 		// default values
 		for (int i = 0; i < inputScale.length; i++)
@@ -292,7 +292,7 @@ public class Network implements Serializable {
 	public double getError()
 	{
 		double sumError = 0;
-		double[] output = new double[layers[layers.length - 1].neurons.length];
+		double[] output = new double[getOutputDimension()];
 		for (int i = 0; i < trainingSet.inputs.length; i++) {
 			calculate(trainingSet.inputs[i], output, true);
 			for (int j = 0; j < output.length; j++) {
@@ -315,7 +315,7 @@ public class Network implements Serializable {
 				}
 			}
 		}
-		double[] output = new double[layers[layers.length - 1].neurons.length];
+		double[] output = new double[getOutputDimension()];
 		for (i = 0; i < trainingSet.inputs.length; i++) {
 			calculate(trainingSet.inputs[i], output, true);
 			for (j = 0; j < output.length; j++) {
