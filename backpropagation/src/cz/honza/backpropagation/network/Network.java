@@ -17,6 +17,8 @@ public class Network implements Serializable {
 	public double[][] inputScale;
 	public double[][] outputScale;
 	
+	protected double[] mOutput;
+	
 	public Layer[] layers;
 	public double alpha = 1;
 	
@@ -199,6 +201,7 @@ public class Network implements Serializable {
 		trainingSet = training;
 		mIteration = 0;
 		
+		mOutput = new double[getOutputDimension()];
 		inputScale = new double[getInputDimension()][];
 		outputScale = new double[getOutputDimension()][];
 		
@@ -292,11 +295,11 @@ public class Network implements Serializable {
 	public double getError()
 	{
 		double sumError = 0;
-		double[] output = new double[getOutputDimension()];
+		
 		for (int i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output, true);
-			for (int j = 0; j < output.length; j++) {
-				final double diff = output[j] - trainingSet.outputs[i][j];
+			calculate(trainingSet.inputs[i], mOutput, true);
+			for (int j = 0; j < mOutput.length; j++) {
+				final double diff = mOutput[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 		}
@@ -315,11 +318,11 @@ public class Network implements Serializable {
 				}
 			}
 		}
-		double[] output = new double[getOutputDimension()];
+
 		for (i = 0; i < trainingSet.inputs.length; i++) {
-			calculate(trainingSet.inputs[i], output, true);
-			for (j = 0; j < output.length; j++) {
-				final double diff = output[j] - trainingSet.outputs[i][j];
+			calculate(trainingSet.inputs[i], mOutput, true);
+			for (j = 0; j < mOutput.length; j++) {
+				final double diff = mOutput[j] - trainingSet.outputs[i][j];
 				sumError += diff * diff;
 			}
 			// from the last to the first layer 
