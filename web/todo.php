@@ -19,7 +19,7 @@ include 'google.php'
 			<LI>Faster going to the local minimum optimalisation</LI>
 			<LI>Local minimum handling</LI>
 			<LI>Report learning end when trainied enough</LI>
-			<LI>Solve chessboard problem correctly (difficult task, any help would be appreciated)</LI>
+			<LI>Solve chessboard problem correctly (difficult task, any help would be appreciated, the first try will be restricted Bolzmann machine)</LI>
 		</UL>
 	</LI>
 	<LI>Import and export
