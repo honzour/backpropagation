@@ -60,7 +60,8 @@
     	<Spinner
     	    android:id="@+id/main_export_format"
     	    android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" />
+    		android:layout_height="wrap_content"
+    		android:entries="@array/export_formats" />
    	</LinearLayout>
     <cz.honza.backpropagation.components.HelpButton
         android:layout_marginTop="@dimen/commonMargin"

@@ -13,8 +13,11 @@ import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
 import cz.honza.backpropagation.result.ResultInputActivity;
 import android.os.Bundle;
+import android.widget.Spinner;
 
 public class MainActivity extends NetworkActivity {
+	
+	Spinner mExportFormat; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_result_input, ResultInputActivity.class);
 		setStartActivity(R.id.main_export, ExportActivity.class);
 		setStartActivity(R.id.main_import_xml, ImportActivity.class);
+		
+		mExportFormat = (Spinner) findViewById(R.id.main_export_format);
 	}
 
 	@Override
