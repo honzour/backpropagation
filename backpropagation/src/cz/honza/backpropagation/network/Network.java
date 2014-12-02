@@ -149,6 +149,7 @@ public class Network implements Serializable {
 	
 	public void restart()
 	{
+		mAlpha = 1;
 		for (int i = 0; i < mLayers.length; i++)
 			for (int j = 0; j < mLayers[i].neurons.length; j++)
 				mLayers[i].neurons[j].restart();
@@ -156,6 +157,7 @@ public class Network implements Serializable {
 	
 	public void restartNeuron()
 	{
+		mAlpha = 1;
 		int layer = ((int) (Math.random() * mLayers.length)) % mLayers.length;
 		int neuron = ((int) (Math.random() * mLayers[layer].neurons.length)) % mLayers[layer].neurons.length;
 		
