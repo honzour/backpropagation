@@ -24,7 +24,7 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 		setStartActivity(R.id.main_result_visualisation, ResultActivity.class);
 		setStartActivity(R.id.main_result_input, ResultInputActivity.class);
-		setStartActivity(R.id.main_export_xml, ExportActivity.class);
+		setStartActivity(R.id.main_export, ExportActivity.class);
 		setStartActivity(R.id.main_import_xml, ImportActivity.class);
 	}
 
@@ -36,7 +36,7 @@ public class MainActivity extends NetworkActivity {
 		findViewById(R.id.main_result_visualisation).setEnabled(enabled);
 		findViewById(R.id.main_result_input).setEnabled(enabled);
 		findViewById(R.id.main_learning).setEnabled(enabled);
-		findViewById(R.id.main_export_xml).setEnabled(enabled);
+		findViewById(R.id.main_export).setEnabled(enabled);
 	}
 
 	@Override

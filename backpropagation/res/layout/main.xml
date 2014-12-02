@@ -46,13 +46,22 @@
     	android:id="@+id/main_result_input"
     	android:text="@string/result_for_input"
         />
-    <Button
+    <LinearLayout
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:id="@+id/main_export_xml"
-    	android:text="@string/export_xml"
-        />
+   		android:layout_height="wrap_content"
+   		android:orientation="horizontal" >
+    	<Button
+        	android:layout_width="0px"
+        	android:layout_weight="1"
+    		android:layout_height="wrap_content"
+    		android:id="@+id/main_export"
+    		android:text="@string/export" />
+    	<Spinner
+    	    android:id="@+id/main_export_format"
+    	    android:layout_width="wrap_content"
+    		android:layout_height="wrap_content" />
+   	</LinearLayout>
     <cz.honza.backpropagation.components.HelpButton
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
