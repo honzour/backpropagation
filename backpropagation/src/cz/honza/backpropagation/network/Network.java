@@ -21,6 +21,7 @@ public class Network implements Serializable {
 	
 	public Layer[] mLayers;
 	public double mAlpha = 1;
+	public boolean mAutoAlpha = true;
 	
 	public TrainingSet mTrainingSet;
 	

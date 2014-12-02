@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ public class LearningActivity extends NetworkActivity {
 	private Button mRestartNetwork;
 	private Button mRestartNeuron;
 	private SeekBar mSeekBar;
+	private CheckBox mAutoAlpha;
 	private volatile long mIteration;
 	private volatile double mError;
 	private volatile boolean mIsCreated = false;
@@ -97,15 +100,27 @@ public class LearningActivity extends NetworkActivity {
 		sInstance = this;
 		setContentView(R.layout.learning);
 		mHandler = new Handler();
-		mIteratonView = (TextView)findViewById(R.id.main_iteration);
-		mErrorView = (TextView)findViewById(R.id.main_error);
-		mAlphaView = (TextView)findViewById(R.id.main_alpha);
-		mStart = (Button)findViewById(R.id.main_start_stop);
-		mSeekBar = (SeekBar)findViewById(R.id.main_alpha_seek);
+		mIteratonView = (TextView)findViewById(R.id.learning_iteration);
+		mErrorView = (TextView)findViewById(R.id.learning_error);
+		mAlphaView = (TextView)findViewById(R.id.learning_alpha);
+		mStart = (Button)findViewById(R.id.learning_start_stop);
+		mSeekBar = (SeekBar)findViewById(R.id.learning_alpha_seek);
 		updateSeekBarPosition(NetworkApplication.sNetwork.mAlpha);
 		mRestartNetwork = (Button)findViewById(R.id.main_restart_all);
 		mRestartNeuron = (Button)findViewById(R.id.main_restart_neuron);
+		mAutoAlpha = (CheckBox) findViewById(R.id.learning_auto_alpha);
 		
+		mAutoAlpha.setChecked(NetworkApplication.sNetwork.mAutoAlpha);
+		
+		mAutoAlpha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				NetworkApplication.sNetwork.mAutoAlpha = isChecked; 
+				mSeekBar.setEnabled(!isChecked);
+			}
+		});
+		
+		mSeekBar.setEnabled(!NetworkApplication.sNetwork.mAutoAlpha);
 		mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			
 			@Override

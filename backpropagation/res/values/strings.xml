@@ -31,6 +31,7 @@
     <string name="restart_learning">Restart learning</string>
     <string name="restart_neuron">Restart neuron</string>
     <string name="alpha">Alpha:</string>
+    <string name="autoalpha">Automatic alpha update</string>
     
     <!-- export -->
     <string name="mail">E-mail</string>

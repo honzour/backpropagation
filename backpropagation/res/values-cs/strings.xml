@@ -31,6 +31,7 @@
     <string name="restart_learning">Spustit znovu</string>
     <string name="restart_neuron">Zmutovat neuron</string>
     <string name="alpha">Alfa:</string>
+    <string name="autoalpha">Automatická změna alfy</string>
     
     <!-- export -->
     <string name="mail">E-mail</string>
