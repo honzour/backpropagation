@@ -307,10 +307,17 @@ public class Network implements Serializable {
 		return sumError * 0.5;
 	}
 	
-	public double trainingStep() {
+	public void trainingStep() {
 		int i, j, k, l;
+		
+		double errorBefore = 0;
+		double errorAfter = 0;
+		
+		if (mAutoAlpha)
+		{
+			errorBefore = getError();
+		}
 
-		double sumError = 0;
 		for (i = 0; i < mLayers.length; i++) {
 			for (j = 0; j < mLayers[i].neurons.length; j++) {
 				Neuron n = mLayers[i].neurons[j];
@@ -322,10 +329,6 @@ public class Network implements Serializable {
 
 		for (i = 0; i < mTrainingSet.mInputs.length; i++) {
 			calculate(mTrainingSet.mInputs[i], mOutput, true);
-			for (j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - mTrainingSet.mOutputs[i][j];
-				sumError += diff * diff;
-			}
 			// from the last to the first layer 
 			for (j = mLayers.length - 1; j >= 0; j--) { // backpropagation - go back
 				// for each neuron in the layer
@@ -362,9 +365,20 @@ public class Network implements Serializable {
 				}
 			}
 		}
-		sumError *= 0.5;
 		mIteration++;
-		return sumError;
+		
+		if (mAutoAlpha)
+		{
+			errorAfter = getError();
+			if (errorAfter > errorBefore)
+			{
+				mAlpha *= 0.5;
+			}
+			else
+			{
+				mAlpha *= 1.01;
+			}
+		}
 	}
 	
 	public long getItration()
