@@ -40,7 +40,7 @@ public class ExportActivity extends NetworkActivity {
 	private String getCsv() throws IOException
 	{
 		final StringWriter writer = new StringWriter();
-		NetworkApplication.sNetwork.saveXml(writer);
+		NetworkApplication.sNetwork.saveCsv(writer);
 		return writer.getBuffer().toString();
 	}
 	
@@ -149,7 +149,15 @@ public class ExportActivity extends NetworkActivity {
 	        	savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 	        	try
 	        	{
-	        		NetworkApplication.sNetwork.saveXml(filename);
+	        		switch (mFormat)
+	        		{
+	        		case EXTRA_FORMAT_CSV:
+	        			NetworkApplication.sNetwork.saveCsv(filename);
+	        			break;
+	        		default:
+	        			NetworkApplication.sNetwork.saveXml(filename);
+	        			break;
+	        		}
 	        		Toast.makeText(ExportActivity.this, R.string.file_saved, Toast.LENGTH_LONG).show();
 	        	}
 	        	catch (IOException e)

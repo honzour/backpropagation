@@ -160,4 +160,24 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
+	protected void saveCsv(Writer writer) throws IOException
+	{
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			for (int j = 0; j < mInputs[i].length; j++)
+			{
+				writer.write(String.valueOf(mInputs[i][j]));
+				writer.write(Csv.COMMA);
+			}
+			writer.write(Csv.COMMA);
+			for (int j = 0; j < mOutputs[i].length; j++)
+			{
+				writer.write(String.valueOf(mOutputs[i][j]));
+				if (j < mOutputs[i].length - 1)
+					writer.write(Csv.COMMA);
+			}
+				
+			writer.write(Csv.NEW_LINE);
+		}
+	}
 }

@@ -431,4 +431,32 @@ public class Network implements Serializable {
 		saveXml(writer);
 		writer.close();
 	}
+	
+	protected void saveLayersCsv(Writer writer) throws IOException
+	{
+		
+		writer.append(String.valueOf(getInputDimension()));
+		writer.append(Csv.COMMA);
+		for (int i = 0; i < mLayers.length; i++)
+		{
+			writer.append(String.valueOf(mLayers[i].neurons.length));
+			if (i < mLayers.length - 1)
+				writer.append(Csv.COMMA);
+		}
+		
+		writer.write(Csv.NEW_LINE);
+	}
+	
+	public void saveCsv(Writer writer) throws IOException
+	{
+		saveLayersCsv(writer);
+		mTrainingSet.saveCsv(writer);
+	}
+	
+	public void saveCsv(String filename) throws IOException
+	{
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		saveCsv(writer);
+		writer.close();
+	}
 }
