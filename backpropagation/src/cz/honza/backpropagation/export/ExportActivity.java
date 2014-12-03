@@ -24,6 +24,8 @@ public class ExportActivity extends NetworkActivity {
 	public static final int EXTRA_FORMAT_CSV = 0;
 	public static final String EXTRA_FORMAT = "EXTRA_FORMAT";
 	
+	protected int mFormat;
+	
 	private View mSaveButton;
 	private View mMailButton;
 	private EditText mFileName;
@@ -35,15 +37,44 @@ public class ExportActivity extends NetworkActivity {
 		return writer.getBuffer().toString();
 	}
 	
+	private String getCsv() throws IOException
+	{
+		final StringWriter writer = new StringWriter();
+		NetworkApplication.sNetwork.save(writer);
+		return writer.getBuffer().toString();
+	}
+	
+	private String getValue() throws IOException
+	{
+		switch (mFormat)
+		{
+		case EXTRA_FORMAT_CSV:
+			return getCsv();
+		default:
+			return getXml();
+		}
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mFormat = getIntent().getIntExtra(EXTRA_FORMAT, EXTRA_FORMAT_CSV);
+		switch (mFormat)
+		{
+		case EXTRA_FORMAT_CSV:
+			setTitle(R.string.export_csv);
+			break;
+		case EXTRA_FORMAT_XML:
+			setTitle(R.string.export_xml);
+			break;
+		}
+		
 		setContentView(R.layout.export);
 		
-		TextView xml = (TextView) findViewById(R.id.export_text);
+		TextView value = (TextView) findViewById(R.id.export_text);
 		try
 		{
-			xml.setText(getXml());
+			value.setText(getValue());
 		}
 		catch (IOException e)
 		{
@@ -64,10 +95,10 @@ public class ExportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				
-				String xml = "";
+				String value = "";
 				try
 				{
-					xml = getXml();
+					value = getValue();
 				}
 				catch (IOException e)
 				{
@@ -79,7 +110,7 @@ public class ExportActivity extends NetworkActivity {
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
 				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.neural_network_xml));
-				intent.putExtra(Intent.EXTRA_TEXT, xml);
+				intent.putExtra(Intent.EXTRA_TEXT, value);
 				Intent chooser = Intent.createChooser(intent, getResources().getText(R.string.send_mail));
 				
 				if (chooser != null)

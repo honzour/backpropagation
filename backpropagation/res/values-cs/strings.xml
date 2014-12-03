@@ -9,6 +9,7 @@
     <string name="result_visualisation">Zobrazení výsledku</string>
     <string name="export">Export</string>
     <string name="export_xml">Export do XML</string>
+    <string name="export_csv">Export do CSV</string>
     <string name="new_task">Nový úkol</string>
     <string name="result_for_input">Výsledek pro vstup</string>
     

@@ -9,6 +9,7 @@
     <string name="result_visualisation">Result visualisation</string>
     <string name="export">Export</string>
     <string name="export_xml">Export to XML</string>
+    <string name="export_csv">Export to CSV</string>
     <string name="new_task">New task</string>
     <string name="result_for_input">Result for input</string>
     
