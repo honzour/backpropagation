@@ -20,6 +20,10 @@ import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ExportActivity extends NetworkActivity {
 	
+	public static final int EXTRA_FORMAT_XML = 1;
+	public static final int EXTRA_FORMAT_CSV = 0;
+	public static final String EXTRA_FORMAT = "EXTRA_FORMAT";
+	
 	private View mSaveButton;
 	private View mMailButton;
 	private EditText mFileName;

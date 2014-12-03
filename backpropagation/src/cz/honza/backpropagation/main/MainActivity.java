@@ -12,7 +12,9 @@ import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
 import cz.honza.backpropagation.result.ResultInputActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Spinner;
 
 public class MainActivity extends NetworkActivity {
@@ -27,7 +29,18 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 		setStartActivity(R.id.main_result_visualisation, ResultActivity.class);
 		setStartActivity(R.id.main_result_input, ResultInputActivity.class);
-		setStartActivity(R.id.main_export, ExportActivity.class);
+		
+		
+		final View v = findViewById(R.id.main_export);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Intent i = new Intent(MainActivity.this, ExportActivity.class);
+				i.putExtra(ExportActivity.EXTRA_FORMAT, mExportFormat.getSelectedItemPosition());
+				startActivity(i);
+			}
+		});
+		
 		setStartActivity(R.id.main_import_xml, ImportActivity.class);
 		
 		mExportFormat = (Spinner) findViewById(R.id.main_export_format);
