@@ -42,6 +42,7 @@ public class MainActivity extends NetworkActivity {
 		findViewById(R.id.main_result_input).setEnabled(enabled);
 		findViewById(R.id.main_learning).setEnabled(enabled);
 		findViewById(R.id.main_export).setEnabled(enabled);
+		mExportFormat.setEnabled(enabled);
 	}
 
 	@Override
