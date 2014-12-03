@@ -7,9 +7,17 @@
     <string name="learning">Učení</string>
     <string name="network_visualisation">Zobrazení sítě</string>
     <string name="result_visualisation">Zobrazení výsledku</string>
-    <string name="export_xml">Export do xml</string>
+    <string name="export">Export</string>
+    <string name="export_xml">Export do XML</string>
+    <string name="export_csv">Export do CSV</string>
     <string name="new_task">Nový úkol</string>
     <string name="result_for_input">Výsledek pro vstup</string>
+    
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+    
     
     <string-array name="functions">
         <item>Identita</item>
@@ -36,12 +44,14 @@
     <!-- export -->
     <string name="mail">E-mail</string>
     <string name="save">Ulož</string>
-    <string name="save_to_public_memory">Exportovat neuronovou síť do xml souboru ve veřejné paměti (SD karta)?</string>
+    <string name="save_to_public_memory">Exportovat neuronovou síť do souboru ve veřejné paměti (SD karta)?</string>
     <string name="cannot_export">Nemohu uložit síť do</string>
     <string name="file_saved">Soubor uložen</string>
     <string name="network_xml">sit.xml</string>
+    <string name="network_csv">sit.csv</string>
     <string name="send_mail">Poslat email&#8230;</string>
     <string name="neural_network_xml">Neuronová síť - XML</string>
+    <string name="neural_network_csv">Neuronová síť - CSV</string>
 
     <!-- import -->
     <string name="load_example">Načti příklad</string>

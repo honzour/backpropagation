@@ -69,7 +69,7 @@ public class Neuron implements Serializable {
 		return sb.toString();
 	}
 	
-	public void save(String tabs, Writer writer) throws IOException
+	public void saveXml(String tabs, Writer writer) throws IOException
 	{
 		writer.write(tabs);
 		writer.write(Xml.TAG_START);

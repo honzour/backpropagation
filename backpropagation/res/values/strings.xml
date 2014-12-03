@@ -7,9 +7,16 @@
     <string name="learning">Learning</string>
     <string name="network_visualisation">Network visualisation</string>
     <string name="result_visualisation">Result visualisation</string>
-    <string name="export_xml">Export to xml</string>
+    <string name="export">Export</string>
+    <string name="export_xml">Export to XML</string>
+    <string name="export_csv">Export to CSV</string>
     <string name="new_task">New task</string>
     <string name="result_for_input">Result for input</string>
+    
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
     
     <string-array name="functions">
         <item>Identity</item>
@@ -36,12 +43,14 @@
     <!-- export -->
     <string name="mail">E-mail</string>
     <string name="save">Save</string>
-    <string name="save_to_public_memory">Export neural network as xml file to public memory (sdcard)?</string>
+    <string name="save_to_public_memory">Export neural network as a file to public memory (sdcard)?</string>
     <string name="cannot_export">Cannot export network to</string>
     <string name="file_saved">File saved</string>
     <string name="network_xml">network.xml</string>
+    <string name="network_csv">network.csv</string>
     <string name="send_mail">Send email&#8230;</string>
     <string name="neural_network_xml">Neural network xml</string>
+    <string name="neural_network_csv">Neural network csv</string>
     
     <!-- import -->
     <string name="load_example">Load example</string>

@@ -388,7 +388,7 @@ public class Network implements Serializable {
 		return mIteration;
 	}
 	
-	protected void saveLayers(Writer writer) throws IOException
+	protected void saveLayersXml(Writer writer) throws IOException
 	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -397,7 +397,7 @@ public class Network implements Serializable {
 		writer.write(Xml.NEW_LINE);
 		
 		for (int i = 0; i < mLayers.length; i++)
-			mLayers[i].save(Xml.TAB + Xml.TAB, writer);
+			mLayers[i].saveXml(Xml.TAB + Xml.TAB, writer);
 		
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_TERMINATE_START);
@@ -407,7 +407,7 @@ public class Network implements Serializable {
 	}
 	
 	
-	public void save(Writer writer) throws IOException
+	public void saveXml(Writer writer) throws IOException
 	{
 		writer.write(Xml.HEADER);
 		writer.write(Xml.NEW_LINE);
@@ -416,8 +416,8 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		saveLayers(writer);
-		mTrainingSet.save(writer);
+		saveLayersXml(writer);
+		mTrainingSet.saveXml(writer);
 		
 		writer.write(Xml.TAG_TERMINATE_START);
 		writer.write(Xml.NETWORK);
@@ -425,10 +425,38 @@ public class Network implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	public void save(String filename) throws IOException
+	public void saveXml(String filename) throws IOException
 	{
 		PrintWriter writer = new PrintWriter(filename, "UTF-8");
-		save(writer);
+		saveXml(writer);
+		writer.close();
+	}
+	
+	protected void saveLayersCsv(Writer writer) throws IOException
+	{
+		
+		writer.append(String.valueOf(getInputDimension()));
+		writer.append(Csv.COMMA);
+		for (int i = 0; i < mLayers.length; i++)
+		{
+			writer.append(String.valueOf(mLayers[i].neurons.length));
+			if (i < mLayers.length - 1)
+				writer.append(Csv.COMMA);
+		}
+		
+		writer.write(Csv.NEW_LINE);
+	}
+	
+	public void saveCsv(Writer writer) throws IOException
+	{
+		saveLayersCsv(writer);
+		mTrainingSet.saveCsv(writer);
+	}
+	
+	public void saveCsv(String filename) throws IOException
+	{
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		saveCsv(writer);
 		writer.close();
 	}
 }

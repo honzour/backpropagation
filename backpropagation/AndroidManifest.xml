@@ -36,8 +36,7 @@
             android:name="cz.honza.backpropagation.result.ResultInputActivity"
             android:label="@string/result_for_input" />
         <activity
-            android:name="cz.honza.backpropagation.export.ExportActivity"
-            android:label="@string/export_xml" />
+            android:name="cz.honza.backpropagation.export.ExportActivity" />
         <activity
             android:name="cz.honza.backpropagation.export.ImportActivity"
             android:label="@string/new_task"

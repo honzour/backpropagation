@@ -25,7 +25,7 @@ public class Layer implements Serializable {
 			neurons[i] = new Neuron(previousCount);
 	}
 	
-	public void save(String tabs, Writer writer) throws IOException
+	public void saveXml(String tabs, Writer writer) throws IOException
 	{
 		writer.write(tabs);
 		writer.write(Xml.TAG_START);
@@ -34,7 +34,7 @@ public class Layer implements Serializable {
 		writer.write(Xml.NEW_LINE);
 		
 		for (int i = 0; i < neurons.length; i++)
-			neurons[i].save(tabs + Xml.TAB, writer);
+			neurons[i].saveXml(tabs + Xml.TAB, writer);
 		
 		writer.write(tabs);
 		writer.write(Xml.TAG_TERMINATE_START);

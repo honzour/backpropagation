@@ -19,6 +19,8 @@ public class NetworkApplication extends Application {
 	public static final String PREFS = "PREFS";
 	
 	public static final String PREFS_DEFAULT_EXPORT_XML_FILE = "PREFS_DEFAULT_EXPORT_XML_FILE";
+	public static final String PREFS_DEFAULT_EXPORT_CSV_FILE = "PREFS_DEFAULT_EXPORT_CSV_FILE";
+	
 	public static final String PREFS_DEFAULT_IMPORT_XML_URL = "PREFS_DEFAULT_IMPORT_XML_URL";
 	public static final String PREFS_STORED_NET = "PREFS_STORED_NET";
 	

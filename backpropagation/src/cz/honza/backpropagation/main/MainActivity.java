@@ -12,9 +12,14 @@ import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
 import cz.honza.backpropagation.result.ResultInputActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Spinner;
 
 public class MainActivity extends NetworkActivity {
+	
+	Spinner mExportFormat; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +29,21 @@ public class MainActivity extends NetworkActivity {
 		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 		setStartActivity(R.id.main_result_visualisation, ResultActivity.class);
 		setStartActivity(R.id.main_result_input, ResultInputActivity.class);
-		setStartActivity(R.id.main_export_xml, ExportActivity.class);
+		
+		
+		final View v = findViewById(R.id.main_export);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Intent i = new Intent(MainActivity.this, ExportActivity.class);
+				i.putExtra(ExportActivity.EXTRA_FORMAT, mExportFormat.getSelectedItemPosition());
+				startActivity(i);
+			}
+		});
+		
 		setStartActivity(R.id.main_import_xml, ImportActivity.class);
+		
+		mExportFormat = (Spinner) findViewById(R.id.main_export_format);
 	}
 
 	@Override
@@ -36,7 +54,8 @@ public class MainActivity extends NetworkActivity {
 		findViewById(R.id.main_result_visualisation).setEnabled(enabled);
 		findViewById(R.id.main_result_input).setEnabled(enabled);
 		findViewById(R.id.main_learning).setEnabled(enabled);
-		findViewById(R.id.main_export_xml).setEnabled(enabled);
+		findViewById(R.id.main_export).setEnabled(enabled);
+		mExportFormat.setEnabled(enabled);
 	}
 
 	@Override
@@ -45,7 +64,7 @@ public class MainActivity extends NetworkActivity {
 		{
 			StringWriter writer = new StringWriter();
 			try {
-				NetworkApplication.sNetwork.save(writer);
+				NetworkApplication.sNetwork.saveXml(writer);
 				savePref(NetworkApplication.PREFS_STORED_NET, writer.toString());
 			} catch (IOException e)
 			{

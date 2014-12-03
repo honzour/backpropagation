@@ -42,7 +42,7 @@ public class TrainingSet implements Serializable {
 		this.mOutputs = list2array(outputs);
 	}
 	
-	protected void saveNumber(Writer writer, double number, int tabs) throws IOException
+	protected void saveNumberXml(Writer writer, double number, int tabs) throws IOException
 	{
 		for (int i = 0; i < tabs; i++)
 		{
@@ -60,7 +60,7 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void saveInput(Writer writer, int i) throws IOException
+	protected void saveInputXml(Writer writer, int i) throws IOException
 	{
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -70,7 +70,7 @@ public class TrainingSet implements Serializable {
 		
 		for (int j = 0; j < mInputs[i].length; j++)
 		{
-			saveNumber(writer, mInputs[i][j], 4);
+			saveNumberXml(writer, mInputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -80,7 +80,7 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void saveOutput(Writer writer, int i) throws IOException
+	protected void saveOutputXml(Writer writer, int i) throws IOException
 	{
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -90,7 +90,7 @@ public class TrainingSet implements Serializable {
 		
 		for (int j = 0; j < mOutputs[i].length; j++)
 		{
-			saveNumber(writer, mOutputs[i][j], 4);
+			saveNumberXml(writer, mOutputs[i][j], 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -100,7 +100,7 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void save(Writer writer) throws IOException
+	protected void saveXml(Writer writer) throws IOException
 	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -116,7 +116,7 @@ public class TrainingSet implements Serializable {
 		
 		for (int i = 0; i < mInputs.length; i++)
 		{
-			saveInput(writer, i);
+			saveInputXml(writer, i);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -133,7 +133,7 @@ public class TrainingSet implements Serializable {
 		
 		for (int i = 0; i < mInputs.length; i++)
 		{
-			saveOutput(writer, i);
+			saveOutputXml(writer, i);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -159,5 +159,25 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TRAINING);
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
+	}
+	protected void saveCsv(Writer writer) throws IOException
+	{
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			for (int j = 0; j < mInputs[i].length; j++)
+			{
+				writer.write(String.valueOf(mInputs[i][j]));
+				writer.write(Csv.COMMA);
+			}
+			writer.write(Csv.COMMA);
+			for (int j = 0; j < mOutputs[i].length; j++)
+			{
+				writer.write(String.valueOf(mOutputs[i][j]));
+				if (j < mOutputs[i].length - 1)
+					writer.write(Csv.COMMA);
+			}
+				
+			writer.write(Csv.NEW_LINE);
+		}
 	}
 }
