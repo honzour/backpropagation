@@ -33,14 +33,14 @@ public class ExportActivity extends NetworkActivity {
 	private String getXml() throws IOException
 	{
 		final StringWriter writer = new StringWriter();
-		NetworkApplication.sNetwork.save(writer);
+		NetworkApplication.sNetwork.saveXml(writer);
 		return writer.getBuffer().toString();
 	}
 	
 	private String getCsv() throws IOException
 	{
 		final StringWriter writer = new StringWriter();
-		NetworkApplication.sNetwork.save(writer);
+		NetworkApplication.sNetwork.saveXml(writer);
 		return writer.getBuffer().toString();
 	}
 	
@@ -149,7 +149,7 @@ public class ExportActivity extends NetworkActivity {
 	        	savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 	        	try
 	        	{
-	        		NetworkApplication.sNetwork.save(filename);
+	        		NetworkApplication.sNetwork.saveXml(filename);
 	        		Toast.makeText(ExportActivity.this, R.string.file_saved, Toast.LENGTH_LONG).show();
 	        	}
 	        	catch (IOException e)

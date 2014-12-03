@@ -64,7 +64,7 @@ public class MainActivity extends NetworkActivity {
 		{
 			StringWriter writer = new StringWriter();
 			try {
-				NetworkApplication.sNetwork.save(writer);
+				NetworkApplication.sNetwork.saveXml(writer);
 				savePref(NetworkApplication.PREFS_STORED_NET, writer.toString());
 			} catch (IOException e)
 			{
