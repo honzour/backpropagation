@@ -109,7 +109,9 @@ public class ExportActivity extends NetworkActivity {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(R.string.neural_network_xml));
+				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(
+						mFormat == EXTRA_FORMAT_XML ? R.string.neural_network_xml : R.string.neural_network_csv 
+						));
 				intent.putExtra(Intent.EXTRA_TEXT, value);
 				Intent chooser = Intent.createChooser(intent, getResources().getText(R.string.send_mail));
 				
@@ -121,10 +123,12 @@ public class ExportActivity extends NetworkActivity {
 
 	}
 	
-	public static String getDefaultXmlName()
+	public static String getDefaultFileName(int format)
 	{
 		final File dir = Environment.getExternalStorageDirectory();
-		String name = NetworkApplication.sInstance.getResources().getText(R.string.network_xml).toString();
+		String name = NetworkApplication.sInstance.getResources().getText(
+				format == EXTRA_FORMAT_XML ? R.string.network_xml : R.string.network_csv
+				).toString();
 		if (dir != null)
 		{
 			name = dir.getAbsolutePath() + "/" + name;
@@ -135,9 +139,11 @@ public class ExportActivity extends NetworkActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		mFileName = new EditText(this);
-		final String hint = getDefaultXmlName();
+		final String hint = getDefaultFileName(mFormat);
 		mFileName.setHint(hint);
-		mFileName.setText(loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, hint));
+		mFileName.setText(loadPref(
+				mFormat == EXTRA_FORMAT_XML ? NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE : NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE,
+				hint));
 		
 		return new AlertDialog.Builder(this)
 	    .setTitle(R.string.save)
@@ -146,7 +152,7 @@ public class ExportActivity extends NetworkActivity {
 	    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) {
 	        	String filename = mFileName.getText().toString();
-	        	savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
+	        	savePref(mFormat == EXTRA_FORMAT_XML ? NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE : NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
 	        	try
 	        	{
 	        		switch (mFormat)

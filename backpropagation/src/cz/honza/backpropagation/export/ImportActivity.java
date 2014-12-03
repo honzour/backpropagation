@@ -139,7 +139,7 @@ public class ImportActivity extends NetworkActivity {
 		
 		mFileButton = findViewById(R.id.import_load);
 		mFileName = (EditText)findViewById(R.id.import_load_text);
-		final String defaultHint = ExportActivity.getDefaultXmlName();
+		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
 		
 		mFileName.setHint(defaultHint);
 		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
