@@ -137,15 +137,15 @@ public class ImportActivity extends NetworkActivity {
 		});
 		
 		
-		mFileButton = findViewById(R.id.import_load);
-		mFileName = (EditText)findViewById(R.id.import_load_text);
+		mFileButton = findViewById(R.id.import_load_xml);
+		mFileName = (EditText)findViewById(R.id.import_load_text_xml);
 		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
 		
 		mFileName.setHint(defaultHint);
 		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
 		mFileName.setText(defaultFile);
 		
-		mWebButton = findViewById(R.id.import_www);
+		mWebButton = findViewById(R.id.import_www_xml);
 		
 		mThread = (FromWebThread) getLastNonConfigurationInstance();
 		if (mThread != null)
@@ -154,7 +154,7 @@ public class ImportActivity extends NetworkActivity {
 			mWebButton.setEnabled(false);
 		}
 		
-		mUrl = (EditText)findViewById(R.id.import_www_text);
+		mUrl = (EditText)findViewById(R.id.import_www_text_xml);
 		mUrl.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
 		
 		mWebButton.setOnClickListener(new View.OnClickListener() {

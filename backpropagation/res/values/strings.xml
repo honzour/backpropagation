@@ -61,7 +61,10 @@
     <string name="predefined_example">Choose predefined example:</string>
     <string name="load_xml_data">Load xml data from a file:</string>
     <string name="load_xml_www">Or load xml data from www:</string>
-    <string name="www_hint">http://some.server.net/network.xml</string>
+    <string name="www_hint_xml">http://some.server.net/network.xml</string>
+    <string name="load_csv_data">Load csv data from a file:</string>
+    <string name="load_csv_www">Or load csv data from www:</string>
+    <string name="www_hint_csv">http://some.server.net/network.csv</string>
     <string name="missing_tag">Missing %1 tag</string>
     <string name="null_elements">Eneter layers and training set with inputs and outputs</string>
     <string name="layers_missing">Enter at least one layer</string>

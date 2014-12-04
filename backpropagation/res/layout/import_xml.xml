@@ -54,6 +54,37 @@
        	android:layout_height="wrap_content"
        	android:text="@string/run_editor" />
     <TextView
+        android:layout_margin="@dimen/commonMargin" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/load_csv_data"
+    	android:textColor="@color/text" />
+    <EditText
+        android:id="@+id/import_load_text_csv"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
+   	<Button
+   	    android:id="@+id/import_load_csv"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/load_file" />
+    <TextView
+        android:layout_margin="@dimen/commonMargin" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/load_csv_www"
+    	android:textColor="@color/text" />
+    <EditText
+        android:hint="@string/www_hint_csv"
+        android:id="@+id/import_www_text_csv"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content" />
+   	<Button
+   	    android:id="@+id/import_www_csv"
+   	    android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="@string/read_from_www" />
+    <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
@@ -67,11 +98,11 @@
     	android:text="@string/load_xml_data"
     	android:textColor="@color/text" />
     <EditText
-        android:id="@+id/import_load_text"
+        android:id="@+id/import_load_text_xml"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content" />
    	<Button
-   	    android:id="@+id/import_load"
+   	    android:id="@+id/import_load_xml"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content"
        	android:text="@string/load_file" />
@@ -82,12 +113,12 @@
     	android:text="@string/load_xml_www"
     	android:textColor="@color/text" />
     <EditText
-        android:hint="@string/www_hint"
-        android:id="@+id/import_www_text"
+        android:hint="@string/www_hint_xml"
+        android:id="@+id/import_www_text_xml"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content" />
    	<Button
-   	    android:id="@+id/import_www"
+   	    android:id="@+id/import_www_xml"
    	    android:layout_width="fill_parent"
        	android:layout_height="wrap_content"
        	android:text="@string/read_from_www" />
