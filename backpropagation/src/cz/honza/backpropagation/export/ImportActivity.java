@@ -128,14 +128,8 @@ public class ImportActivity extends NetworkActivity {
 		finish();
 	}
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.import_xml);
-
-		// Examples
-		
+	protected void initExamples()
+	{
 		mExample = (Spinner) findViewById(R.id.import_new_task);
 		mExampleButton = findViewById(R.id.import_examle);
 		mExampleButton.setOnClickListener(new View.OnClickListener() {
@@ -144,9 +138,10 @@ public class ImportActivity extends NetworkActivity {
 				loadExample();
 			}
 		});
-		
-		// Xml loading
-		
+	}
+	
+	protected void initXml()
+	{
 		mFileXmlButton = findViewById(R.id.import_load_xml);
 		mFileNameXml = (EditText)findViewById(R.id.import_load_text_xml);
 		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
@@ -217,9 +212,15 @@ public class ImportActivity extends NetworkActivity {
 				}
 			}
 		});
+	}
+	
+	protected void initCsv()
+	{
 		
-		// editor
-		
+	}
+	
+	protected void initEditor()
+	{
 		mEditorButton = findViewById(R.id.import_run_editor);
 		mEditorButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -230,8 +231,19 @@ public class ImportActivity extends NetworkActivity {
 			}
 		});
 	}
+
 	
-	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.import_xml);
+		
+		initExamples();
+		initXml();
+		initCsv();
+		initEditor();
+	}
 	
 	@Override
 	public Object onRetainNonConfigurationInstance () {
