@@ -20,12 +20,19 @@ import cz.honza.backpropagation.network.TrainingSet;
 
 public class ImportActivity extends NetworkActivity {
 	
-	private View mFileButton;
-	private View mWebButton;
+	private View mFileXmlButton;
+	private View mWebXmlButton;
+	private EditText mFileNameXml;
+	private EditText mUrlXml;
+	
+	private View mFileCsvButton;
+	private View mWebCsvButton;
+	private EditText mFileNameCsv;
+	private EditText mUrlCsv;
+	
 	private View mExampleButton;
 	private View mEditorButton;
-	private EditText mFileName;
-	private EditText mUrl;
+	
 	private Spinner mExample;
 	private FromWebThread mThread = null;
 	private static final int REQUEST_CODE_EDITOR = 0;
@@ -127,6 +134,8 @@ public class ImportActivity extends NetworkActivity {
 		
 		setContentView(R.layout.import_xml);
 
+		// Examples
+		
 		mExample = (Spinner) findViewById(R.id.import_new_task);
 		mExampleButton = findViewById(R.id.import_examle);
 		mExampleButton.setOnClickListener(new View.OnClickListener() {
@@ -136,31 +145,32 @@ public class ImportActivity extends NetworkActivity {
 			}
 		});
 		
+		// Xml loading
 		
-		mFileButton = findViewById(R.id.import_load_xml);
-		mFileName = (EditText)findViewById(R.id.import_load_text_xml);
+		mFileXmlButton = findViewById(R.id.import_load_xml);
+		mFileNameXml = (EditText)findViewById(R.id.import_load_text_xml);
 		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
 		
-		mFileName.setHint(defaultHint);
+		mFileNameXml.setHint(defaultHint);
 		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
-		mFileName.setText(defaultFile);
+		mFileNameXml.setText(defaultFile);
 		
-		mWebButton = findViewById(R.id.import_www_xml);
+		mWebXmlButton = findViewById(R.id.import_www_xml);
 		
 		mThread = (FromWebThread) getLastNonConfigurationInstance();
 		if (mThread != null)
 		{
 			mThread.setContext(this);
-			mWebButton.setEnabled(false);
+			mWebXmlButton.setEnabled(false);
 		}
 		
-		mUrl = (EditText)findViewById(R.id.import_www_text_xml);
-		mUrl.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
+		mUrlXml = (EditText)findViewById(R.id.import_www_text_xml);
+		mUrlXml.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
 		
-		mWebButton.setOnClickListener(new View.OnClickListener() {
+		mWebXmlButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final String url = mUrl.getText().toString();
+				final String url = mUrlXml.getText().toString();
 				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
 				if (url.length() == 0)
 				{
@@ -168,15 +178,15 @@ public class ImportActivity extends NetworkActivity {
 					return;
 				}
 				mThread = new FromWebThread(ImportActivity.this, url);
-				mWebButton.setEnabled(false);
+				mWebXmlButton.setEnabled(false);
 				mThread.start();
 			}
 		});
 		
-		mFileButton.setOnClickListener(new View.OnClickListener() {
+		mFileXmlButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final String filename = mFileName.getText().toString();
+				final String filename = mFileNameXml.getText().toString();
 				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 				
 				if (filename.length() == 0)
@@ -207,6 +217,8 @@ public class ImportActivity extends NetworkActivity {
 				}
 			}
 		});
+		
+		// editor
 		
 		mEditorButton = findViewById(R.id.import_run_editor);
 		mEditorButton.setOnClickListener(new View.OnClickListener() {
