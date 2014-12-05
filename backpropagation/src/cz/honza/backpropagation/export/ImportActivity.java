@@ -172,7 +172,7 @@ public class ImportActivity extends NetworkActivity {
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 					return;
 				}
-				mThread = new FromWebThread(ImportActivity.this, url);
+				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
 				mWebXmlButton.setEnabled(false);
 				mThread.start();
 			}
@@ -216,7 +216,76 @@ public class ImportActivity extends NetworkActivity {
 	
 	protected void initCsv()
 	{
+		mFileCsvButton = findViewById(R.id.import_load_csv);
+		mFileNameCsv = (EditText)findViewById(R.id.import_load_text_csv);
+		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_CSV);
 		
+		mFileNameCsv.setHint(defaultHint);
+		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, defaultHint);
+		mFileNameCsv.setText(defaultFile);
+		
+		mWebCsvButton = findViewById(R.id.import_www_csv);
+		
+		mThread = (FromWebThread) getLastNonConfigurationInstance();
+		if (mThread != null)
+		{
+			mThread.setContext(this);
+			mWebCsvButton.setEnabled(false);
+		}
+		
+		mUrlCsv = (EditText)findViewById(R.id.import_www_text_csv);
+		mUrlCsv.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, ""));
+		
+		mWebCsvButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final String url = mUrlCsv.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
+				if (url.length() == 0)
+				{
+					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+					return;
+				}
+				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
+				mWebCsvButton.setEnabled(false);
+				mThread.start();
+			}
+		});
+		
+		mFileCsvButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final String filename = mFileNameCsv.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
+				
+				if (filename.length() == 0)
+				{
+					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					return;
+				}
+				try
+				{
+					final InputStream inputStream = new FileInputStream(filename);
+					Parser.parseCsv(inputStream, new ParserResultHandler() {
+						
+						@Override
+						public void onFinished(Network network) {
+							NetworkApplication.sNetwork = network;
+							finish();
+						}
+						
+						@Override
+						public void onError(String error) {
+							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
+						}
+					});
+				}
+				catch (Throwable e)
+				{
+					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 	}
 	
 	protected void initEditor()

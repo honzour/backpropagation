@@ -16,6 +16,12 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 
 public class Parser {
+	public static void parseCsv(InputStream is, ParserResultHandler handler) throws Exception
+	{
+		// TODO
+	}
+	
+	
 	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
 	{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
