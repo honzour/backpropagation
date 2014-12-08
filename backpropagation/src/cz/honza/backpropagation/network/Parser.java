@@ -69,7 +69,6 @@ public class Parser {
 	
 	public static void parseCsv(InputStream is, ParserResultHandler handler)
 	{
-		// public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData)
 		try
 		{
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
@@ -98,6 +97,26 @@ public class Parser {
 			}
 			
 			// all parsed in int[] anatomy, List<double[]> training
+			// public Network(int[] layersDimensions, TrainingSet training)
+			
+			double inputs[][] = new double[training.size()][];
+			double outputs[][] = new double[training.size()][];
+			
+			for (int i = 0; i < training.size(); i++)
+			{
+				inputs[i] = new double[anatomy[0]];
+				outputs[i] = new double[anatomy[anatomy.length - 1]];
+				
+				System.arraycopy(arg0, arg1, arg2, arg3, arg4);
+				System.arraycopy(arg0, arg1, arg2, arg3, arg4);
+			}
+			
+			TrainingSet trainingSet = new TrainingSet(inputs, outputs);
+			Network n = new Network(anatomy, trainingSet);
+			if (n.check(handler))
+			{
+				handler.onFinished(n);
+			}
 			
 			// TODO
 		}
