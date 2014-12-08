@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,7 +32,7 @@ public class Parser {
 			}
 			catch (NumberFormatException e)
 			{
-				String error = String.format("Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
 				handler.onError(error);
 				return null;
 			}
@@ -52,14 +53,14 @@ public class Parser {
 				else
 					if (textVals[i].trim().length() > 0)
 					{
-						String error = String.format("Parser error, line %d, '%s', missing space between input and output, '%s' found", lineNumber, line, textVals[i]);
+						String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', missing space between input and output, '%s' found", lineNumber, line, textVals[i]);
 						handler.onError(error);
 						return null;
 					}
 			}
 			catch (NumberFormatException e)
 			{
-				String error = String.format("Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
 				handler.onError(error);
 				return null;
 			}
@@ -87,6 +88,10 @@ public class Parser {
 			}
 			List<double[]> training = new ArrayList<double[]>();
 			int lineNumber = 1;
+			
+			final int inputDim = anatomy[0];
+			final int outputDim = anatomy[anatomy.length - 1];
+			
 			while ((line = in.readLine()) != null)
 			{
 				final double[] elements = line2doubles(line, anatomy[0], lineNumber, handler);
@@ -104,11 +109,12 @@ public class Parser {
 			
 			for (int i = 0; i < training.size(); i++)
 			{
-				inputs[i] = new double[anatomy[0]];
-				outputs[i] = new double[anatomy[anatomy.length - 1]];
+				inputs[i] = new double[inputDim];
+				outputs[i] = new double[outputDim];
+				double[] element = training.get(i);
 				
-				System.arraycopy(arg0, arg1, arg2, arg3, arg4);
-				System.arraycopy(arg0, arg1, arg2, arg3, arg4);
+				System.arraycopy(element, 0, inputs[i], 0, inputDim);
+				System.arraycopy(element, inputDim + 1, outputs[i], 0, outputDim);
 			}
 			
 			TrainingSet trainingSet = new TrainingSet(inputs, outputs);
@@ -118,7 +124,6 @@ public class Parser {
 				handler.onFinished(n);
 			}
 			
-			// TODO
 		}
 		catch (Exception e)
 		{
