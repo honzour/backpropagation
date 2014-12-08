@@ -37,7 +37,34 @@ public class Parser {
 			}
 		}
 		return vals;
-		
+	}
+	
+	protected static double[] line2doubles(String line, int ignoredIndex, int lineNumber, ParserResultHandler handler)
+	{
+		String[] textVals = line.split(",");
+		double[] vals = new double[textVals.length];
+		for (int i = 0; i < textVals.length; i++)
+		{
+			try
+			{
+				if (i != ignoredIndex)
+					vals[i] = Double.valueOf(textVals[i]);
+				else
+					if (textVals[i].trim().length() > 0)
+					{
+						String error = String.format("Parser error, line %d, '%s', missing space between input and output, '%s' found", lineNumber, line, textVals[i]);
+						handler.onError(error);
+						return null;
+					}
+			}
+			catch (NumberFormatException e)
+			{
+				String error = String.format("Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				handler.onError(error);
+				return null;
+			}
+		}
+		return vals;
 	}
 	
 	public static void parseCsv(InputStream is, ParserResultHandler handler)
@@ -54,11 +81,25 @@ public class Parser {
 			final int[] anatomy = line2ints(line, 0, handler);
 			if (anatomy == null)
 				return;
+			if (anatomy.length < 2)
+			{
+				handler.onError("not enough layers");
+				return;
+			}
 			List<double[]> training = new ArrayList<double[]>();
+			int lineNumber = 1;
 			while ((line = in.readLine()) != null)
 			{
-				// TODO	
+				final double[] elements = line2doubles(line, anatomy[0], lineNumber, handler);
+				if (elements == null)
+					return;
+				training.add(elements);
+				lineNumber++;
 			}
+			
+			// all parsed in int[] anatomy, List<double[]> training
+			
+			// TODO
 		}
 		catch (Exception e)
 		{
