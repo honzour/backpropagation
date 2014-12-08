@@ -36,7 +36,10 @@ public class NetworkView extends View {
  	
  	protected static String weight2String(Network n, int layer, int neuron, int weight)
  	{
- 		return String.valueOf(n.mLayers[layer].neurons[neuron].weights[weight]).substring(0, 5);
+ 		String r = String.valueOf(n.mLayers[layer].neurons[neuron].weights[weight]);
+ 		if (r.length() > 5)
+ 			r = r.substring(0, 5);
+ 		return r;
  	}
 
 	@Override
