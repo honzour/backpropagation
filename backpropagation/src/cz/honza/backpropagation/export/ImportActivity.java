@@ -205,6 +205,7 @@ public class ImportActivity extends NetworkActivity {
 							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
 					});
+					inputStream.close();
 				}
 				catch (Throwable e)
 				{
@@ -279,6 +280,7 @@ public class ImportActivity extends NetworkActivity {
 							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
 					});
+					inputStream.close();
 				}
 				catch (Throwable e)
 				{

@@ -76,6 +76,7 @@ public class FromWebThread extends Thread {
 			}
 			else
 				Parser.parseXml(inputStream, callBack);
+			inputStream.close();
 		}
 		catch (final Throwable e)
 		{

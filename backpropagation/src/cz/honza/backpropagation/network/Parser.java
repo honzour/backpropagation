@@ -1,6 +1,8 @@
 package cz.honza.backpropagation.network;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,23 @@ import cz.honza.backpropagation.R;
 public class Parser {
 	public static void parseCsv(InputStream is, ParserResultHandler handler)
 	{
-		handler.onError("CSV not impemented");
+		// public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData)
+		try
+		{
+			BufferedReader in = new BufferedReader(new InputStreamReader(is));
+			String line = in.readLine();
+			if (line == null)
+			{
+				handler.onError(R.string.empty_file);
+			}
+			// TODO
+			String[] lineVals = line.split(",");
+		}
+		catch (Exception e)
+		{
+			handler.onError(e.toString());
+		}
+		
 	}
 	
 	
