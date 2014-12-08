@@ -38,6 +38,14 @@ public class FromWebThread extends Thread {
 			final InputStream inputStream = u.openStream();
 			ParserResultHandler callBack = new ParserResultHandler() {
 				
+				protected void enableButton()
+				{
+					if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
+						mContext.mWebCsvButton.setEnabled(true);
+					if (mFormat == ExportActivity.EXTRA_FORMAT_XML)
+						mContext.mWebXmlButton.setEnabled(true);
+				}
+				
 				@Override
 				public void onFinished(final Network network) {
 					mHandler.post(new Runnable() {
@@ -56,6 +64,7 @@ public class FromWebThread extends Thread {
 						@Override
 						public void run() {
 							Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
+							enableButton();
 						}
 					});
 				}

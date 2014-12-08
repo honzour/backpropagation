@@ -21,12 +21,12 @@ import cz.honza.backpropagation.network.TrainingSet;
 public class ImportActivity extends NetworkActivity {
 	
 	private View mFileXmlButton;
-	private View mWebXmlButton;
+	View mWebXmlButton;
 	private EditText mFileNameXml;
 	private EditText mUrlXml;
 	
 	private View mFileCsvButton;
-	private View mWebCsvButton;
+	View mWebCsvButton;
 	private EditText mFileNameCsv;
 	private EditText mUrlCsv;
 	

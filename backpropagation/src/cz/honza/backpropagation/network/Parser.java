@@ -16,38 +16,45 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 
 public class Parser {
-	public static void parseCsv(InputStream is, ParserResultHandler handler) throws Exception
+	public static void parseCsv(InputStream is, ParserResultHandler handler)
 	{
-		// TODO
+		handler.onError("CSV not impemented");
 	}
 	
 	
-	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
+	public static void parseXml(InputStream is, ParserResultHandler handler)
 	{
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		
-		Document doc = dBuilder.parse(is);
-		doc.getDocumentElement().normalize();
-
-		final Node network = getFirstChildWithName(doc, Xml.NETWORK, handler);
-		if (network == null)
+		try
 		{
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		
+			Document doc = dBuilder.parse(is);
+			doc.getDocumentElement().normalize();
+
+			final Node network = getFirstChildWithName(doc, Xml.NETWORK, handler);
+			if (network == null)
+			{
+				return;
+			}
+			
+			final List<List<List<Double>>> layers = parseLayers(network, handler);
+			if (layers == null)
 			return;
+			
+			final List<List<List<Double>>> training = parseTraining(network, handler);
+			if (training == null)
+				return;
+			
+			final Network networkTmp = new Network(layers, training);
+			if (!networkTmp.check(handler))
+				return;
+			handler.onFinished(networkTmp);
 		}
-			
-		final List<List<List<Double>>> layers = parseLayers(network, handler);
-		if (layers == null)
-			return;
-			
-		final List<List<List<Double>>> training = parseTraining(network, handler);
-		if (training == null)
-			return;
-			
-		final Network networkTmp = new Network(layers, training);
-		if (!networkTmp.check(handler))
-			return;
-		handler.onFinished(networkTmp);
+		catch (Exception e)
+		{
+			handler.onError(e.toString());
+		}
 	}
 	
 	protected static Node getFirstChildWithName(Node root, String name, ParserResultHandler handler)
