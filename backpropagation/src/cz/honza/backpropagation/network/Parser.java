@@ -18,6 +18,28 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 
 public class Parser {
+	
+	protected static int[] line2ints(String line, int lineNumber, ParserResultHandler handler)
+	{
+		String[] textVals = line.split(",");
+		int[] vals = new int[textVals.length];
+		for (int i = 0; i < textVals.length; i++)
+		{
+			try
+			{
+				vals[i] = Integer.valueOf(textVals[i]);
+			}
+			catch (NumberFormatException e)
+			{
+				String error = String.format("Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				handler.onError(error);
+				return null;
+			}
+		}
+		return vals;
+		
+	}
+	
 	public static void parseCsv(InputStream is, ParserResultHandler handler)
 	{
 		// public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData)
@@ -29,8 +51,14 @@ public class Parser {
 			{
 				handler.onError(R.string.empty_file);
 			}
-			// TODO
-			String[] lineVals = line.split(",");
+			final int[] anatomy = line2ints(line, 0, handler);
+			if (anatomy == null)
+				return;
+			List<double[]> training = new ArrayList<double[]>();
+			while ((line = in.readLine()) != null)
+			{
+				// TODO	
+			}
 		}
 		catch (Exception e)
 		{
