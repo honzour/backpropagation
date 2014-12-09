@@ -82,8 +82,8 @@
     
     <!-- csv parsing -->
     <string name="empty_file">Empty file</string>
-    <string name="parser_error_convert">Parser error, line %%d, \'%%s\', cannot convert \'%%s\'</string>
-    <string name="parser_error_missing_space">Parser error, line %%d, \'%%s\', missing space between input and output, \'%%s\' found</string>
+    <string name="parser_error_convert" formatted="false">Parser error, line %d, \'%s\', cannot convert \'%s\'</string>
+    <string name="parser_error_missing_space" formatted="false">Parser error, line %d, \'%s\', missing space between input and output, \'%s\' found</string>
     <string name="not_enough_layers">Not enough layers</string>
     <string name="negative_layer_size">Layer size must be a positive number</string>
     
