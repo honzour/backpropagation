@@ -29,10 +29,14 @@ public class Parser {
 			try
 			{
 				vals[i] = Integer.valueOf(textVals[i]);
+				if (vals[i] <= 0)
+				{
+					handler.onError(R.string.negative_layer_size);	
+				}
 			}
 			catch (NumberFormatException e)
 			{
-				String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_convert), lineNumber, line, textVals[i]);
 				handler.onError(error);
 				return null;
 			}
@@ -53,14 +57,14 @@ public class Parser {
 				else
 					if (textVals[i].trim().length() > 0)
 					{
-						String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', missing space between input and output, '%s' found", lineNumber, line, textVals[i]);
+						String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_missing_space), lineNumber, line, textVals[i]);
 						handler.onError(error);
 						return null;
 					}
 			}
 			catch (NumberFormatException e)
 			{
-				String error = String.format(Locale.getDefault(), "Parser error, line %d, '%s', cannot convert '%s'", lineNumber, line, textVals[i]);
+				String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_convert), lineNumber, line, textVals[i]);
 				handler.onError(error);
 				return null;
 			}
@@ -83,7 +87,7 @@ public class Parser {
 				return;
 			if (anatomy.length < 2)
 			{
-				handler.onError("not enough layers");
+				handler.onError(R.string.not_enough_layers);
 				return;
 			}
 			List<double[]> training = new ArrayList<double[]>();
@@ -101,8 +105,13 @@ public class Parser {
 				lineNumber++;
 			}
 			
+			if (training.size() == 0)
+			{
+				handler.onError(R.string.empty_training_set);
+				return;
+			}
+			
 			// all parsed in int[] anatomy, List<double[]> training
-			// public Network(int[] layersDimensions, TrainingSet training)
 			
 			double inputs[][] = new double[training.size()][];
 			double outputs[][] = new double[training.size()][];
