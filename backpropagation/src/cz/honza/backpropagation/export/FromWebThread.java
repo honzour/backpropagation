@@ -15,12 +15,14 @@ public class FromWebThread extends Thread {
 	public ImportActivity mContext;
 	public String mUrl;
 	public Handler mHandler;
+	public int mFormat;
 	
-	public FromWebThread(ImportActivity context, String url)
+	public FromWebThread(ImportActivity context, String url, int format)
 	{
 		mContext = context;
 		mUrl = url;
 		mHandler = new Handler();
+		mFormat = format;
 	}
 	
 	public void setContext(ImportActivity context)
@@ -34,7 +36,15 @@ public class FromWebThread extends Thread {
 		{
 			URL u = new URL(mUrl);
 			final InputStream inputStream = u.openStream();
-			Parser.parseXml(inputStream, new ParserResultHandler() {
+			ParserResultHandler callBack = new ParserResultHandler() {
+				
+				protected void enableButton()
+				{
+					if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
+						mContext.mWebCsvButton.setEnabled(true);
+					if (mFormat == ExportActivity.EXTRA_FORMAT_XML)
+						mContext.mWebXmlButton.setEnabled(true);
+				}
 				
 				@Override
 				public void onFinished(final Network network) {
@@ -54,10 +64,19 @@ public class FromWebThread extends Thread {
 						@Override
 						public void run() {
 							Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
+							enableButton();
 						}
 					});
 				}
-			});
+			};
+			
+			if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
+			{
+				Parser.parseCsv(inputStream, callBack);
+			}
+			else
+				Parser.parseXml(inputStream, callBack);
+			inputStream.close();
 		}
 		catch (final Throwable e)
 		{

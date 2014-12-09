@@ -1,8 +1,11 @@
 package cz.honza.backpropagation.network;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,32 +19,162 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 
 public class Parser {
-	public static void parseXml(InputStream is, ParserResultHandler handler) throws Exception
+	
+	protected static int[] line2ints(String line, int lineNumber, ParserResultHandler handler)
 	{
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		
-		Document doc = dBuilder.parse(is);
-		doc.getDocumentElement().normalize();
-
-		final Node network = getFirstChildWithName(doc, Xml.NETWORK, handler);
-		if (network == null)
+		String[] textVals = line.split(",");
+		int[] vals = new int[textVals.length];
+		for (int i = 0; i < textVals.length; i++)
 		{
-			return;
+			try
+			{
+				vals[i] = Integer.valueOf(textVals[i]);
+				if (vals[i] <= 0)
+				{
+					handler.onError(R.string.negative_layer_size);	
+				}
+			}
+			catch (NumberFormatException e)
+			{
+				String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_convert), lineNumber, line, textVals[i]);
+				handler.onError(error);
+				return null;
+			}
 		}
+		return vals;
+	}
+	
+	protected static double[] line2doubles(String line, int ignoredIndex, int lineNumber, ParserResultHandler handler)
+	{
+		String[] textVals = line.split(",");
+		double[] vals = new double[textVals.length];
+		for (int i = 0; i < textVals.length; i++)
+		{
+			try
+			{
+				if (i != ignoredIndex)
+					vals[i] = Double.valueOf(textVals[i]);
+				else
+					if (textVals[i].trim().length() > 0)
+					{
+						String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_missing_space), lineNumber, line, textVals[i]);
+						handler.onError(error);
+						return null;
+					}
+			}
+			catch (NumberFormatException e)
+			{
+				String error = String.format(Locale.getDefault(), NetworkApplication.sInstance.getResources().getString(R.string.parser_error_convert), lineNumber, line, textVals[i]);
+				handler.onError(error);
+				return null;
+			}
+		}
+		return vals;
+	}
+	
+	public static void parseCsv(InputStream is, ParserResultHandler handler)
+	{
+		try
+		{
+			BufferedReader in = new BufferedReader(new InputStreamReader(is));
+			String line = in.readLine();
+			if (line == null)
+			{
+				handler.onError(R.string.empty_file);
+			}
+			final int[] anatomy = line2ints(line, 0, handler);
+			if (anatomy == null)
+				return;
+			if (anatomy.length < 2)
+			{
+				handler.onError(R.string.not_enough_layers);
+				return;
+			}
+			List<double[]> training = new ArrayList<double[]>();
+			int lineNumber = 1;
 			
-		final List<List<List<Double>>> layers = parseLayers(network, handler);
-		if (layers == null)
+			final int inputDim = anatomy[0];
+			final int outputDim = anatomy[anatomy.length - 1];
+			
+			while ((line = in.readLine()) != null)
+			{
+				final double[] elements = line2doubles(line, anatomy[0], lineNumber, handler);
+				if (elements == null)
+					return;
+				training.add(elements);
+				lineNumber++;
+			}
+			
+			if (training.size() == 0)
+			{
+				handler.onError(R.string.empty_training_set);
+				return;
+			}
+			
+			// all parsed in int[] anatomy, List<double[]> training
+			
+			double inputs[][] = new double[training.size()][];
+			double outputs[][] = new double[training.size()][];
+			
+			for (int i = 0; i < training.size(); i++)
+			{
+				inputs[i] = new double[inputDim];
+				outputs[i] = new double[outputDim];
+				double[] element = training.get(i);
+				
+				System.arraycopy(element, 0, inputs[i], 0, inputDim);
+				System.arraycopy(element, inputDim + 1, outputs[i], 0, outputDim);
+			}
+			
+			TrainingSet trainingSet = new TrainingSet(inputs, outputs);
+			Network n = new Network(anatomy, trainingSet);
+			if (n.check(handler))
+			{
+				handler.onFinished(n);
+			}
+			
+		}
+		catch (Exception e)
+		{
+			handler.onError(e.toString());
+		}
+		
+	}
+	
+	
+	public static void parseXml(InputStream is, ParserResultHandler handler)
+	{
+		try
+		{
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		
+			Document doc = dBuilder.parse(is);
+			doc.getDocumentElement().normalize();
+
+			final Node network = getFirstChildWithName(doc, Xml.NETWORK, handler);
+			if (network == null)
+			{
+				return;
+			}
+			
+			final List<List<List<Double>>> layers = parseLayers(network, handler);
+			if (layers == null)
 			return;
 			
-		final List<List<List<Double>>> training = parseTraining(network, handler);
-		if (training == null)
-			return;
+			final List<List<List<Double>>> training = parseTraining(network, handler);
+			if (training == null)
+				return;
 			
-		final Network networkTmp = new Network(layers, training);
-		if (!networkTmp.check(handler))
-			return;
-		handler.onFinished(networkTmp);
+			final Network networkTmp = new Network(layers, training);
+			if (!networkTmp.check(handler))
+				return;
+			handler.onFinished(networkTmp);
+		}
+		catch (Exception e)
+		{
+			handler.onError(e.toString());
+		}
 	}
 	
 	protected static Node getFirstChildWithName(Node root, String name, ParserResultHandler handler)

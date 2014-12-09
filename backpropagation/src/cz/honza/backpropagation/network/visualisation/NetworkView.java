@@ -10,16 +10,26 @@ import android.view.View;
 
 public class NetworkView extends View {
 
+	Paint mPaint;
+	
+	protected void init()
+	{
+		mPaint = new Paint();
+	}
+	
 	public NetworkView(Context context) {
 		super(context);
+		init();
 	}
 
  	public NetworkView(Context context, AttributeSet attrs) {
  		super(context, attrs);
+ 		init();
  	}
  	
  	public NetworkView(Context context, AttributeSet attrs, int defStyleAttr) {
  		super(context, attrs, defStyleAttr);
+ 		init();
  	}
  	
  	protected int getX(Network n, int layer, int neuron)
@@ -36,7 +46,10 @@ public class NetworkView extends View {
  	
  	protected static String weight2String(Network n, int layer, int neuron, int weight)
  	{
- 		return String.valueOf(n.mLayers[layer].neurons[neuron].weights[weight]).substring(0, 5);
+ 		String r = String.valueOf(n.mLayers[layer].neurons[neuron].weights[weight]);
+ 		if (r.length() > 5)
+ 			r = r.substring(0, 5);
+ 		return r;
  	}
 
 	@Override
@@ -52,14 +65,14 @@ public class NetworkView extends View {
 		
 		int layers = n.mLayers.length;
 		
-		Paint paint = new Paint();
-		paint.setTextSize(radius);
+		
+		mPaint.setTextSize(radius);
 		
 		final int maxLayer = n.mLayers.length - 1;
 		// output
 		for (int j = 0; j < n.mLayers[maxLayer].neurons.length; j++)
 		{
-			canvas.drawLine(getX(n, maxLayer, j), height, getX(n, maxLayer, j), getY(n, maxLayer), paint);
+			canvas.drawLine(getX(n, maxLayer, j), height, getX(n, maxLayer, j), getY(n, maxLayer), mPaint);
 		}
 		
 		// input
@@ -72,13 +85,13 @@ public class NetworkView extends View {
 			for (int l = 0; l < n.mLayers[0].neurons[0].weights.length - 1; l++)
 			{
 				final int x2 = getX(n, -1, l);
-				canvas.drawLine(x1, y1, x2, y2, paint);
-				canvas.drawText(weight2String(n, 0, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, paint);
+				canvas.drawLine(x1, y1, x2, y2, mPaint);
+				canvas.drawText(weight2String(n, 0, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
 			}
 			final int tresholdX = x1 + getWidth() / (2 * (n.mLayers[0].neurons.length + 1));
 			
-			canvas.drawLine(x1, y1, tresholdX, y1, paint);
-			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, y1, paint);
+			canvas.drawLine(x1, y1, tresholdX, y1, mPaint);
+			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, y1, mPaint);
 		}
 		
 		// synapses
@@ -92,13 +105,13 @@ public class NetworkView extends View {
 				for (int l = 0; l < n.mLayers[i - 1].neurons.length; l++)
 				{
 					final int x2 = getX(n, i - 1, l);
-					canvas.drawLine(x1, y1, x2, y2, paint);
-					canvas.drawText(weight2String(n, i, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, paint);
+					canvas.drawLine(x1, y1, x2, y2, mPaint);
+					canvas.drawText(weight2String(n, i, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
 				}
 				final int tresholdX = x1 + getWidth() / (2 * (n.mLayers[i].neurons.length + 1));
 				
-				canvas.drawLine(x1, y1, tresholdX, y1, paint);
-				canvas.drawText(weight2String(n, i, j, 0), tresholdX, y1, paint);
+				canvas.drawLine(x1, y1, tresholdX, y1, mPaint);
+				canvas.drawText(weight2String(n, i, j, 0), tresholdX, y1, mPaint);
 			}	
 		}
 		
@@ -107,10 +120,8 @@ public class NetworkView extends View {
 			int neurons = n.mLayers[i].neurons.length;
 			for (int j = 0; j < neurons; j++)
 			{
-				canvas.drawCircle(getX(n, i, j), getY(n, i), radius, paint);
+				canvas.drawCircle(getX(n, i, j), getY(n, i), radius, mPaint);
 			}
 		}
 	}
- 	
- 	
 }

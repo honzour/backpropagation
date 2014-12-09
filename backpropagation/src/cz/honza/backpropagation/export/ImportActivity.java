@@ -20,12 +20,19 @@ import cz.honza.backpropagation.network.TrainingSet;
 
 public class ImportActivity extends NetworkActivity {
 	
-	private View mFileButton;
-	private View mWebButton;
+	private View mFileXmlButton;
+	View mWebXmlButton;
+	private EditText mFileNameXml;
+	private EditText mUrlXml;
+	
+	private View mFileCsvButton;
+	View mWebCsvButton;
+	private EditText mFileNameCsv;
+	private EditText mUrlCsv;
+	
 	private View mExampleButton;
 	private View mEditorButton;
-	private EditText mFileName;
-	private EditText mUrl;
+	
 	private Spinner mExample;
 	private FromWebThread mThread = null;
 	private static final int REQUEST_CODE_EDITOR = 0;
@@ -121,12 +128,8 @@ public class ImportActivity extends NetworkActivity {
 		finish();
 	}
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.import_xml);
-
+	protected void initExamples()
+	{
 		mExample = (Spinner) findViewById(R.id.import_new_task);
 		mExampleButton = findViewById(R.id.import_examle);
 		mExampleButton.setOnClickListener(new View.OnClickListener() {
@@ -135,48 +138,50 @@ public class ImportActivity extends NetworkActivity {
 				loadExample();
 			}
 		});
-		
-		
-		mFileButton = findViewById(R.id.import_load);
-		mFileName = (EditText)findViewById(R.id.import_load_text);
+	}
+	
+	protected void initXml()
+	{
+		mFileXmlButton = findViewById(R.id.import_load_xml);
+		mFileNameXml = (EditText)findViewById(R.id.import_load_text_xml);
 		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
 		
-		mFileName.setHint(defaultHint);
+		mFileNameXml.setHint(defaultHint);
 		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
-		mFileName.setText(defaultFile);
+		mFileNameXml.setText(defaultFile);
 		
-		mWebButton = findViewById(R.id.import_www);
+		mWebXmlButton = findViewById(R.id.import_www_xml);
 		
 		mThread = (FromWebThread) getLastNonConfigurationInstance();
 		if (mThread != null)
 		{
 			mThread.setContext(this);
-			mWebButton.setEnabled(false);
+			mWebXmlButton.setEnabled(false);
 		}
 		
-		mUrl = (EditText)findViewById(R.id.import_www_text);
-		mUrl.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
+		mUrlXml = (EditText)findViewById(R.id.import_www_text_xml);
+		mUrlXml.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
 		
-		mWebButton.setOnClickListener(new View.OnClickListener() {
+		mWebXmlButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final String url = mUrl.getText().toString();
+				final String url = mUrlXml.getText().toString();
 				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
 				if (url.length() == 0)
 				{
 					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 					return;
 				}
-				mThread = new FromWebThread(ImportActivity.this, url);
-				mWebButton.setEnabled(false);
+				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
+				mWebXmlButton.setEnabled(false);
 				mThread.start();
 			}
 		});
 		
-		mFileButton.setOnClickListener(new View.OnClickListener() {
+		mFileXmlButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final String filename = mFileName.getText().toString();
+				final String filename = mFileNameXml.getText().toString();
 				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
 				
 				if (filename.length() == 0)
@@ -200,6 +205,7 @@ public class ImportActivity extends NetworkActivity {
 							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
 					});
+					inputStream.close();
 				}
 				catch (Throwable e)
 				{
@@ -207,7 +213,85 @@ public class ImportActivity extends NetworkActivity {
 				}
 			}
 		});
+	}
+	
+	protected void initCsv()
+	{
+		mFileCsvButton = findViewById(R.id.import_load_csv);
+		mFileNameCsv = (EditText)findViewById(R.id.import_load_text_csv);
+		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_CSV);
 		
+		mFileNameCsv.setHint(defaultHint);
+		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, defaultHint);
+		mFileNameCsv.setText(defaultFile);
+		
+		mWebCsvButton = findViewById(R.id.import_www_csv);
+		
+		mThread = (FromWebThread) getLastNonConfigurationInstance();
+		if (mThread != null)
+		{
+			mThread.setContext(this);
+			mWebCsvButton.setEnabled(false);
+		}
+		
+		mUrlCsv = (EditText)findViewById(R.id.import_www_text_csv);
+		mUrlCsv.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, ""));
+		
+		mWebCsvButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final String url = mUrlCsv.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
+				if (url.length() == 0)
+				{
+					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+					return;
+				}
+				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
+				mWebCsvButton.setEnabled(false);
+				mThread.start();
+			}
+		});
+		
+		mFileCsvButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final String filename = mFileNameCsv.getText().toString();
+				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
+				
+				if (filename.length() == 0)
+				{
+					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					return;
+				}
+				try
+				{
+					final InputStream inputStream = new FileInputStream(filename);
+					Parser.parseCsv(inputStream, new ParserResultHandler() {
+						
+						@Override
+						public void onFinished(Network network) {
+							NetworkApplication.sNetwork = network;
+							finish();
+						}
+						
+						@Override
+						public void onError(String error) {
+							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
+						}
+					});
+					inputStream.close();
+				}
+				catch (Throwable e)
+				{
+					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+	}
+	
+	protected void initEditor()
+	{
 		mEditorButton = findViewById(R.id.import_run_editor);
 		mEditorButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -218,8 +302,19 @@ public class ImportActivity extends NetworkActivity {
 			}
 		});
 	}
+
 	
-	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.import_xml);
+		
+		initExamples();
+		initXml();
+		initCsv();
+		initEditor();
+	}
 	
 	@Override
 	public Object onRetainNonConfigurationInstance () {

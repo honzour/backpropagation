@@ -62,7 +62,10 @@
     <string name="predefined_example">Načti předdefinovaný příklad:</string>
     <string name="load_xml_data">Načti xml data ze souboru:</string>
     <string name="load_xml_www">Nebo načti xml data z webu:</string>
-    <string name="www_hint">http://nejaky.server.cz/sit.xml</string>
+    <string name="www_hint_xml">http://nejaky.server.cz/sit.xml</string>
+    <string name="load_csv_data">Načti csv data ze souboru:</string>
+    <string name="load_csv_www">Nebo načti csv data z webu:</string>
+    <string name="www_hint_csv">http://nejaky.server.cz/sit.csv</string>
     <string name="missing_tag">Chybí %1 tag</string>
     <string name="null_elements">Zadejte vrstvy a tréninkovou množinu se vstupy a výstupy</string>
     <string name="layers_missing">Zadejte aspoň jednu vrstvu</string>
@@ -77,6 +80,13 @@
     <string name="advanced">Pro pokročilé:</string>
     <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu. Výchozí stav editoru je současná síť.</string>
     <string name="run_editor">Spustit editor</string>
+    
+    <!-- csv parsing -->
+    <string name="empty_file">Prázdný soubor</string>
+    <string name="parser_error_convert" formatted="false">Chyba, řádek %d, \'%s\', nemůžu zkonvertovat \'%s\'</string>
+    <string name="parser_error_missing_space" formatted="false">Chyba, řádek %d, \'%s\', chybí místo mezi vstupem a výstupem, \'%s\' nalezeno</string>
+    <string name="not_enough_layers">Málo vrstev</string>
+    <string name="negative_layer_size">Velikost vrstvy musí být kladné číslo</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>

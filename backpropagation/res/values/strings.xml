@@ -61,7 +61,10 @@
     <string name="predefined_example">Choose predefined example:</string>
     <string name="load_xml_data">Load xml data from a file:</string>
     <string name="load_xml_www">Or load xml data from www:</string>
-    <string name="www_hint">http://some.server.net/network.xml</string>
+    <string name="www_hint_xml">http://some.server.net/network.xml</string>
+    <string name="load_csv_data">Load csv data from a file:</string>
+    <string name="load_csv_www">Or load csv data from www:</string>
+    <string name="www_hint_csv">http://some.server.net/network.csv</string>
     <string name="missing_tag">Missing %1 tag</string>
     <string name="null_elements">Eneter layers and training set with inputs and outputs</string>
     <string name="layers_missing">Enter at least one layer</string>
@@ -76,6 +79,13 @@
     <string name="advanced">For advanced:</string>
     <string name="enter_layers">Enter layer count, neuron count in each layer and training set. Editor starts with the current network.</string>
     <string name="run_editor">Run editor</string>
+    
+    <!-- csv parsing -->
+    <string name="empty_file">Empty file</string>
+    <string name="parser_error_convert" formatted="false">Parser error, line %d, \'%s\', cannot convert \'%s\'</string>
+    <string name="parser_error_missing_space" formatted="false">Parser error, line %d, \'%s\', missing space between input and output, \'%s\' found</string>
+    <string name="not_enough_layers">Not enough layers</string>
+    <string name="negative_layer_size">Layer size must be a positive number</string>
     
     <!-- result input -->
     <string name="input">Input:</string>

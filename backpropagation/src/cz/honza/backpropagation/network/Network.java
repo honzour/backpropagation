@@ -22,6 +22,8 @@ public class Network implements Serializable {
 	public Layer[] mLayers;
 	public double mAlpha = 1;
 	public boolean mAutoAlpha = true;
+	public static final double MAX_ALPHA = 100000000;
+	public static final double MIN_ALPHA = 0.0000001;
 	
 	public TrainingSet mTrainingSet;
 	
@@ -375,10 +377,14 @@ public class Network implements Serializable {
 			if (errorAfter > errorBefore)
 			{
 				mAlpha *= 0.5;
+				if (mAlpha == 0)
+					mAlpha = MIN_ALPHA;
 			}
 			else
 			{
 				mAlpha *= 1.01;
+				if (mAlpha > MAX_ALPHA)
+					mAlpha = MAX_ALPHA;
 			}
 		}
 	}
