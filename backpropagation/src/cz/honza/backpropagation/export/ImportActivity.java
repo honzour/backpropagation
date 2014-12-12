@@ -38,6 +38,7 @@ public class ImportActivity extends NetworkActivity {
 	private static final int REQUEST_CODE_EDITOR = 0;
 	
 	public static final String INTENT_EXTRA_NETWORK = "INTENT_EXTRA_NETWORK";
+	public static final String INTENT_EXTRA_URL = "INTENT_EXTRA_URL";
 
 	protected void loadExample()
 	{
@@ -215,6 +216,19 @@ public class ImportActivity extends NetworkActivity {
 		});
 	}
 	
+	protected void downloadCsv(String url)
+	{
+		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
+		if (url.length() == 0)
+		{
+			Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+			return;
+		}
+		mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
+		mWebCsvButton.setEnabled(false);
+		mThread.start();
+	}
+	
 	protected void initCsv()
 	{
 		mFileCsvButton = findViewById(R.id.import_load_csv);
@@ -241,15 +255,7 @@ public class ImportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				final String url = mUrlCsv.getText().toString();
-				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
-				if (url.length() == 0)
-				{
-					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
-					return;
-				}
-				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
-				mWebCsvButton.setEnabled(false);
-				mThread.start();
+				downloadCsv(url);
 			}
 		});
 		
@@ -314,6 +320,12 @@ public class ImportActivity extends NetworkActivity {
 		initXml();
 		initCsv();
 		initEditor();
+		
+		String url = getIntent().getStringExtra(INTENT_EXTRA_URL);
+		if (url != null)
+		{
+			downloadCsv(url);
+		}
 	}
 	
 	@Override
