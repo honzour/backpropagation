@@ -141,6 +141,20 @@ public class ImportActivity extends NetworkActivity {
 		});
 	}
 	
+	protected void downloadXml(String url)
+	{
+		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
+		if (url.length() == 0)
+		{
+			Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+			return;
+		}
+		mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
+		mWebXmlButton.setEnabled(false);
+		mThread.start();
+		
+	}
+	
 	protected void initXml()
 	{
 		mFileXmlButton = findViewById(R.id.import_load_xml);
@@ -167,15 +181,7 @@ public class ImportActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				final String url = mUrlXml.getText().toString();
-				savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
-				if (url.length() == 0)
-				{
-					Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
-					return;
-				}
-				mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
-				mWebXmlButton.setEnabled(false);
-				mThread.start();
+				downloadXml(url);
 			}
 		});
 		
@@ -324,7 +330,10 @@ public class ImportActivity extends NetworkActivity {
 		String url = getIntent().getStringExtra(INTENT_EXTRA_URL);
 		if (url != null)
 		{
-			downloadCsv(url);
+			if (url.endsWith(".xml"))
+				downloadXml(url);
+			else
+				downloadCsv(url);
 		}
 	}
 	
