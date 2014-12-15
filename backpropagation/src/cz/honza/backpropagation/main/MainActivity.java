@@ -7,6 +7,7 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.ExportActivity;
+import cz.honza.backpropagation.export.ImportDataActivity;
 import cz.honza.backpropagation.export.NewTaskActivity;
 import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
@@ -20,19 +21,20 @@ import android.widget.Spinner;
 
 public class MainActivity extends NetworkActivity {
 	
-	Spinner mExportFormat; 
+	protected Spinner mExportFormat;
+	protected Spinner mImportFormat; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		setStartActivity(R.id.main_new_task, NewTaskActivity.class);
 		setStartActivity(R.id.main_learning, LearningActivity.class);
 		setStartActivity(R.id.main_network_visualisation, VisualisationActivity.class);
 		setStartActivity(R.id.main_result_visualisation, ResultActivity.class);
 		setStartActivity(R.id.main_result_input, ResultInputActivity.class);
 		
-		
-		final View v = findViewById(R.id.main_export);
+		View v = findViewById(R.id.main_export);
 		v.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -42,9 +44,19 @@ public class MainActivity extends NetworkActivity {
 			}
 		});
 		
-		setStartActivity(R.id.main_new_task, NewTaskActivity.class);
-		
 		mExportFormat = (Spinner) findViewById(R.id.main_export_format);
+		
+		v = findViewById(R.id.main_import);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Intent i = new Intent(MainActivity.this, ImportDataActivity.class);
+				i.putExtra(ExportActivity.EXTRA_FORMAT, mImportFormat.getSelectedItemPosition());
+				startActivity(i);
+			}
+		});
+		
+		mImportFormat = (Spinner) findViewById(R.id.main_import_format);
 		
 		Intent startIntent = getIntent();
 		Uri uri = startIntent.getData();
@@ -54,8 +66,8 @@ public class MainActivity extends NetworkActivity {
 			builder.scheme("http");
 			uri = builder.build();
 			
-			Intent i = new Intent(this, NewTaskActivity.class);
-			i.putExtra(NewTaskActivity.INTENT_EXTRA_URL, uri.toString());
+			Intent i = new Intent(this, ImportDataActivity.class);
+			i.putExtra(ImportDataActivity.INTENT_EXTRA_URL, uri.toString());
 			startActivity(i);
 		}
 

@@ -1,34 +1,17 @@
 package cz.honza.backpropagation.export;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.editor.EditorActivity;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
 import cz.honza.backpropagation.network.TrainingSet;
 
 public class NewTaskActivity extends NetworkActivity {
-	
-	private View mFileXmlButton;
-	View mWebXmlButton;
-	private EditText mFileNameXml;
-	private EditText mUrlXml;
-	
-	private View mFileCsvButton;
-	View mWebCsvButton;
-	private EditText mFileNameCsv;
-	private EditText mUrlCsv;
 	
 	private View mExampleButton;
 	private View mEditorButton;
@@ -38,7 +21,6 @@ public class NewTaskActivity extends NetworkActivity {
 	private static final int REQUEST_CODE_EDITOR = 0;
 	
 	public static final String INTENT_EXTRA_NETWORK = "INTENT_EXTRA_NETWORK";
-	public static final String INTENT_EXTRA_URL = "INTENT_EXTRA_URL";
 
 	protected void loadExample()
 	{
@@ -141,166 +123,6 @@ public class NewTaskActivity extends NetworkActivity {
 		});
 	}
 	
-	protected void downloadXml(String url)
-	{
-		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
-		if (url.length() == 0)
-		{
-			Toast.makeText(NewTaskActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
-			return;
-		}
-		mThread = new FromWebThread(NewTaskActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
-		mWebXmlButton.setEnabled(false);
-		mThread.start();
-		
-	}
-	
-	protected void initXml()
-	{
-		mFileXmlButton = findViewById(R.id.import_load_xml);
-		mFileNameXml = (EditText)findViewById(R.id.import_load_text_xml);
-		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
-		
-		mFileNameXml.setHint(defaultHint);
-		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
-		mFileNameXml.setText(defaultFile);
-		
-		mWebXmlButton = findViewById(R.id.import_www_xml);
-		
-		mThread = (FromWebThread) getLastNonConfigurationInstance();
-		if (mThread != null)
-		{
-			mThread.setContext(this);
-			mWebXmlButton.setEnabled(false);
-		}
-		
-		mUrlXml = (EditText)findViewById(R.id.import_www_text_xml);
-		mUrlXml.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
-		
-		mWebXmlButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String url = mUrlXml.getText().toString();
-				downloadXml(url);
-			}
-		});
-		
-		mFileXmlButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String filename = mFileNameXml.getText().toString();
-				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
-				
-				if (filename.length() == 0)
-				{
-					Toast.makeText(NewTaskActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
-					return;
-				}
-				try
-				{
-					final InputStream inputStream = new FileInputStream(filename);
-					Parser.parseXml(inputStream, new ParserResultHandler() {
-						
-						@Override
-						public void onFinished(Network network) {
-							NetworkApplication.sNetwork = network;
-							finish();
-						}
-						
-						@Override
-						public void onError(String error) {
-							Toast.makeText(NewTaskActivity.this, error, Toast.LENGTH_LONG).show();							
-						}
-					});
-					inputStream.close();
-				}
-				catch (Throwable e)
-				{
-					Toast.makeText(NewTaskActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-	}
-	
-	protected void downloadCsv(String url)
-	{
-		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
-		if (url.length() == 0)
-		{
-			Toast.makeText(NewTaskActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
-			return;
-		}
-		mThread = new FromWebThread(NewTaskActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
-		mWebCsvButton.setEnabled(false);
-		mThread.start();
-	}
-	
-	protected void initCsv()
-	{
-		mFileCsvButton = findViewById(R.id.import_load_csv);
-		mFileNameCsv = (EditText)findViewById(R.id.import_load_text_csv);
-		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_CSV);
-		
-		mFileNameCsv.setHint(defaultHint);
-		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, defaultHint);
-		mFileNameCsv.setText(defaultFile);
-		
-		mWebCsvButton = findViewById(R.id.import_www_csv);
-		
-		mThread = (FromWebThread) getLastNonConfigurationInstance();
-		if (mThread != null)
-		{
-			mThread.setContext(this);
-			mWebCsvButton.setEnabled(false);
-		}
-		
-		mUrlCsv = (EditText)findViewById(R.id.import_www_text_csv);
-		mUrlCsv.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, ""));
-		
-		mWebCsvButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String url = mUrlCsv.getText().toString();
-				downloadCsv(url);
-			}
-		});
-		
-		mFileCsvButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				final String filename = mFileNameCsv.getText().toString();
-				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
-				
-				if (filename.length() == 0)
-				{
-					Toast.makeText(NewTaskActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
-					return;
-				}
-				try
-				{
-					final InputStream inputStream = new FileInputStream(filename);
-					Parser.parseCsv(inputStream, new ParserResultHandler() {
-						
-						@Override
-						public void onFinished(Network network) {
-							NetworkApplication.sNetwork = network;
-							finish();
-						}
-						
-						@Override
-						public void onError(String error) {
-							Toast.makeText(NewTaskActivity.this, error, Toast.LENGTH_LONG).show();							
-						}
-					});
-					inputStream.close();
-				}
-				catch (Throwable e)
-				{
-					Toast.makeText(NewTaskActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-	}
 	
 	protected void initEditor()
 	{
@@ -323,18 +145,8 @@ public class NewTaskActivity extends NetworkActivity {
 		setContentView(R.layout.new_task);
 		
 		initExamples();
-		initXml();
-		initCsv();
 		initEditor();
 		
-		String url = getIntent().getStringExtra(INTENT_EXTRA_URL);
-		if (url != null)
-		{
-			if (url.endsWith(".xml"))
-				downloadXml(url);
-			else
-				downloadCsv(url);
-		}
 	}
 	
 	@Override

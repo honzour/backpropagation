@@ -12,12 +12,12 @@ import cz.honza.backpropagation.network.ParserResultHandler;
 
 public class FromWebThread extends Thread {
 	
-	public NewTaskActivity mContext;
+	public ImportDataActivity mContext;
 	public String mUrl;
 	public Handler mHandler;
 	public int mFormat;
 	
-	public FromWebThread(NewTaskActivity context, String url, int format)
+	public FromWebThread(ImportDataActivity context, String url, int format)
 	{
 		mContext = context;
 		mUrl = url;
@@ -25,7 +25,7 @@ public class FromWebThread extends Thread {
 		mFormat = format;
 	}
 	
-	public void setContext(NewTaskActivity context)
+	public void setContext(ImportDataActivity context)
 	{
 		mContext = context;
 	}
@@ -40,10 +40,7 @@ public class FromWebThread extends Thread {
 				
 				protected void enableButton()
 				{
-					if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
-						mContext.mWebCsvButton.setEnabled(true);
-					if (mFormat == ExportActivity.EXTRA_FORMAT_XML)
-						mContext.mWebXmlButton.setEnabled(true);
+					mContext.mWebButton.setEnabled(true);
 				}
 				
 				@Override
