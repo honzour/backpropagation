@@ -86,6 +86,10 @@
     <string name="parser_error_missing_space" formatted="false">Parser error, line %d, \'%s\', missing space between input and output, \'%s\' found</string>
     <string name="not_enough_layers">Not enough layers</string>
     <string name="negative_layer_size">Layer size must be a positive number</string>
+    <string name="missing_format_description">Missing format description</string>
+    <string name="unknown_format">Unknown format</string>
+    <string name="missing_anatomy">Missing anatomy</string>
+    <string name="missing_training_set">Missing training set</string>
     
     <!-- result input -->
     <string name="input">Input:</string>

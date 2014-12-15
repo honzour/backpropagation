@@ -87,6 +87,10 @@
     <string name="parser_error_missing_space" formatted="false">Chyba, řádek %d, \'%s\', chybí místo mezi vstupem a výstupem, \'%s\' nalezeno</string>
     <string name="not_enough_layers">Málo vrstev</string>
     <string name="negative_layer_size">Velikost vrstvy musí být kladné číslo</string>
+    <string name="missing_format_description">Chybí popis formátu</string>
+    <string name="unknown_format">Neznámý formát</string>
+    <string name="missing_anatomy">Chybí anatomie</string>
+    <string name="missing_training_set">Chybí tréninková množina</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>

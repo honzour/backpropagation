@@ -81,7 +81,30 @@ public class Parser {
 			if (line == null)
 			{
 				handler.onError(R.string.empty_file);
+				return;
 			}
+			line = in.readLine();
+			if (line == null)
+			{
+				handler.onError(R.string.missing_format_description);
+				return;
+			}
+			if (!line.equals("CSV1"))
+			{
+				handler.onError(R.string.unknown_format);
+				return;
+			}
+			line = in.readLine();
+			if (line != null)
+			{
+				line = in.readLine();
+			}
+			if (line == null)
+			{
+				handler.onError(R.string.missing_anatomy);
+				return;
+			}
+			
 			final int[] anatomy = line2ints(line, 0, handler);
 			if (anatomy == null)
 				return;
@@ -90,6 +113,13 @@ public class Parser {
 				handler.onError(R.string.not_enough_layers);
 				return;
 			}
+			line = in.readLine();
+			if (line == null)
+			{
+				handler.onError(R.string.missing_training_set);
+				return;
+			}
+			
 			List<double[]> training = new ArrayList<double[]>();
 			int lineNumber = 1;
 			
