@@ -7,7 +7,7 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.ExportActivity;
-import cz.honza.backpropagation.export.ImportActivity;
+import cz.honza.backpropagation.export.NewTaskActivity;
 import cz.honza.backpropagation.learning.LearningActivity;
 import cz.honza.backpropagation.network.visualisation.VisualisationActivity;
 import cz.honza.backpropagation.result.ResultActivity;
@@ -42,7 +42,7 @@ public class MainActivity extends NetworkActivity {
 			}
 		});
 		
-		setStartActivity(R.id.main_import_xml, ImportActivity.class);
+		setStartActivity(R.id.main_new_task, NewTaskActivity.class);
 		
 		mExportFormat = (Spinner) findViewById(R.id.main_export_format);
 		
@@ -54,8 +54,8 @@ public class MainActivity extends NetworkActivity {
 			builder.scheme("http");
 			uri = builder.build();
 			
-			Intent i = new Intent(this, ImportActivity.class);
-			i.putExtra(ImportActivity.INTENT_EXTRA_URL, uri.toString());
+			Intent i = new Intent(this, NewTaskActivity.class);
+			i.putExtra(NewTaskActivity.INTENT_EXTRA_URL, uri.toString());
 			startActivity(i);
 		}
 

@@ -44,7 +44,7 @@
         <activity
             android:name="cz.honza.backpropagation.export.ExportActivity" />
         <activity
-            android:name="cz.honza.backpropagation.export.ImportActivity"
+            android:name="cz.honza.backpropagation.export.NewTaskActivity"
             android:label="@string/new_task"
             android:windowSoftInputMode="stateHidden" />
         <activity

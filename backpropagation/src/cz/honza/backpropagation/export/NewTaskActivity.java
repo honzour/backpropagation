@@ -18,7 +18,7 @@ import cz.honza.backpropagation.network.Parser;
 import cz.honza.backpropagation.network.ParserResultHandler;
 import cz.honza.backpropagation.network.TrainingSet;
 
-public class ImportActivity extends NetworkActivity {
+public class NewTaskActivity extends NetworkActivity {
 	
 	private View mFileXmlButton;
 	View mWebXmlButton;
@@ -146,10 +146,10 @@ public class ImportActivity extends NetworkActivity {
 		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, url);
 		if (url.length() == 0)
 		{
-			Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+			Toast.makeText(NewTaskActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 			return;
 		}
-		mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
+		mThread = new FromWebThread(NewTaskActivity.this, url, ExportActivity.EXTRA_FORMAT_XML);
 		mWebXmlButton.setEnabled(false);
 		mThread.start();
 		
@@ -193,7 +193,7 @@ public class ImportActivity extends NetworkActivity {
 				
 				if (filename.length() == 0)
 				{
-					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					Toast.makeText(NewTaskActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
 					return;
 				}
 				try
@@ -209,14 +209,14 @@ public class ImportActivity extends NetworkActivity {
 						
 						@Override
 						public void onError(String error) {
-							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
+							Toast.makeText(NewTaskActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
 					});
 					inputStream.close();
 				}
 				catch (Throwable e)
 				{
-					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+					Toast.makeText(NewTaskActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -227,10 +227,10 @@ public class ImportActivity extends NetworkActivity {
 		savePref(NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
 		if (url.length() == 0)
 		{
-			Toast.makeText(ImportActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
+			Toast.makeText(NewTaskActivity.this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 			return;
 		}
-		mThread = new FromWebThread(ImportActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
+		mThread = new FromWebThread(NewTaskActivity.this, url, ExportActivity.EXTRA_FORMAT_CSV);
 		mWebCsvButton.setEnabled(false);
 		mThread.start();
 	}
@@ -273,7 +273,7 @@ public class ImportActivity extends NetworkActivity {
 				
 				if (filename.length() == 0)
 				{
-					Toast.makeText(ImportActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
+					Toast.makeText(NewTaskActivity.this, R.string.enter_filename_first, Toast.LENGTH_LONG).show();
 					return;
 				}
 				try
@@ -289,14 +289,14 @@ public class ImportActivity extends NetworkActivity {
 						
 						@Override
 						public void onError(String error) {
-							Toast.makeText(ImportActivity.this, error, Toast.LENGTH_LONG).show();							
+							Toast.makeText(NewTaskActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
 					});
 					inputStream.close();
 				}
 				catch (Throwable e)
 				{
-					Toast.makeText(ImportActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+					Toast.makeText(NewTaskActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -308,7 +308,7 @@ public class ImportActivity extends NetworkActivity {
 		mEditorButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(ImportActivity.this, EditorActivity.class);
+				Intent i = new Intent(NewTaskActivity.this, EditorActivity.class);
 				i.putExtra(INTENT_EXTRA_NETWORK, NetworkApplication.sNetwork);
 				startActivityForResult(i, REQUEST_CODE_EDITOR);
 			}
@@ -320,7 +320,7 @@ public class ImportActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.import_xml);
+		setContentView(R.layout.new_task);
 		
 		initExamples();
 		initXml();

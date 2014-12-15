@@ -11,7 +11,7 @@ import android.widget.TextView;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
-import cz.honza.backpropagation.export.ImportActivity;
+import cz.honza.backpropagation.export.NewTaskActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.TrainingSet;
 
@@ -97,7 +97,7 @@ public class EditorActivity extends NetworkActivity {
 		}
 		else
 		{
-			Network network = (Network)getIntent().getSerializableExtra(ImportActivity.INTENT_EXTRA_NETWORK);
+			Network network = (Network)getIntent().getSerializableExtra(NewTaskActivity.INTENT_EXTRA_NETWORK);
 			if (network != null)
 			{
 				mLayers = new ArrayList<Integer>(network.mLayers.length);

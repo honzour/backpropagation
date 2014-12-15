@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/main_import_xml"
+    	android:id="@+id/main_new_task"
     	android:text="@string/new_task"
         />
     <Button

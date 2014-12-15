@@ -12,12 +12,12 @@ import cz.honza.backpropagation.network.ParserResultHandler;
 
 public class FromWebThread extends Thread {
 	
-	public ImportActivity mContext;
+	public NewTaskActivity mContext;
 	public String mUrl;
 	public Handler mHandler;
 	public int mFormat;
 	
-	public FromWebThread(ImportActivity context, String url, int format)
+	public FromWebThread(NewTaskActivity context, String url, int format)
 	{
 		mContext = context;
 		mUrl = url;
@@ -25,7 +25,7 @@ public class FromWebThread extends Thread {
 		mFormat = format;
 	}
 	
-	public void setContext(ImportActivity context)
+	public void setContext(NewTaskActivity context)
 	{
 		mContext = context;
 	}
