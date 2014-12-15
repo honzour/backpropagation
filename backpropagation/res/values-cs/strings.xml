@@ -7,6 +7,7 @@
     <string name="learning">Učení</string>
     <string name="network_visualisation">Zobrazení sítě</string>
     <string name="result_visualisation">Zobrazení výsledku</string>
+    <string name="import_string">Import</string>
     <string name="export">Export</string>
     <string name="export_xml">Export do XML</string>
     <string name="export_csv">Export do CSV</string>
