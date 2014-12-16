@@ -54,6 +54,8 @@
     <string name="neural_network_csv">Neural network csv</string>
     
     <!-- import -->
+    <string name="import_csv">Import csv</string>
+    <string name="import_xml">Import xml</string>
     <string name="load_example">Load example</string>
     <string name="load_file">Load file</string>
     <string name="read_from_www">Read from www</string>

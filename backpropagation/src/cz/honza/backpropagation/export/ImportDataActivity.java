@@ -6,6 +6,7 @@ import java.io.InputStream;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
@@ -18,38 +19,54 @@ public class ImportDataActivity extends NetworkActivity {
 	
 	public static final String INTENT_EXTRA_URL = "INTENT_EXTRA_URL";
 	
-	private View mFileButton;
-	View mWebButton;
-	private EditText mFileName;
-	private EditText mUrl;
+	protected View mFileButton;
+	protected View mWebButton;
+	protected TextView mFileText;
+	protected TextView mWwwText;
+	protected EditText mFileName;
+	protected EditText mUrl;
 
-	private FromWebThread mThread = null;
+	protected FromWebThread mThread = null;
+	protected boolean mXml;
 
 
 	protected void download(String url)
 	{
-		boolean xml = url.endsWith(".xml");
-		
-		savePref(xml ? NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL : NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
+		savePref(mXml ? NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL : NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, url);
 		if (url.length() == 0)
 		{
 			Toast.makeText(this, R.string.enter_url_first, Toast.LENGTH_LONG).show();
 			return;
 		}
-		mThread = new FromWebThread(this, url, xml ? ExportActivity.EXTRA_FORMAT_XML : ExportActivity.EXTRA_FORMAT_CSV);
+		mThread = new FromWebThread(this, url, mXml ? ExportActivity.EXTRA_FORMAT_XML : ExportActivity.EXTRA_FORMAT_CSV);
 		mWebButton.setEnabled(false);
 		mThread.start();
 		
 	}
 	
-	protected void init()
+	protected void initGui()
 	{
+		mFileText = (TextView)findViewById(R.id.import_load_data_text);
+		mWwwText = (TextView)findViewById(R.id.import_load_www_text);
+		findViewById(R.id.import_load_www_text);
+		if (mXml)
+		{
+			setTitle(R.string.import_xml);
+			mFileText.setText(R.string.load_xml_data);
+			mWwwText.setText(R.string.load_xml_www);
+		}
+		else
+		{
+			setTitle(R.string.import_csv);
+			mFileText.setText(R.string.load_csv_data);
+			mWwwText.setText(R.string.load_csv_www);
+		}
 		mFileButton = findViewById(R.id.import_load);
 		mFileName = (EditText)findViewById(R.id.import_load_text);
-		final String defaultHint = ExportActivity.getDefaultFileName(ExportActivity.EXTRA_FORMAT_XML);
+		final String defaultHint = ExportActivity.getDefaultFileName(mXml ? ExportActivity.EXTRA_FORMAT_XML : ExportActivity.EXTRA_FORMAT_CSV);
 		
 		mFileName.setHint(defaultHint);
-		final String defaultFile = loadPref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, defaultHint);
+		final String defaultFile = loadPref(mXml ? NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE : NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, defaultHint);
 		mFileName.setText(defaultFile);
 		
 		mWebButton = findViewById(R.id.import_www);
@@ -62,7 +79,7 @@ public class ImportDataActivity extends NetworkActivity {
 		}
 		
 		mUrl = (EditText)findViewById(R.id.import_www_text);
-		mUrl.setText(loadPref(NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL, ""));
+		mUrl.setText(loadPref(mXml ? NetworkApplication.PREFS_DEFAULT_IMPORT_XML_URL : NetworkApplication.PREFS_DEFAULT_IMPORT_CSV_URL, ""));
 		
 		mWebButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -76,7 +93,7 @@ public class ImportDataActivity extends NetworkActivity {
 			@Override
 			public void onClick(View v) {
 				final String filename = mFileName.getText().toString();
-				savePref(NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE, filename);
+				savePref(mXml ? NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE : NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
 				
 				if (filename.length() == 0)
 				{
@@ -86,7 +103,7 @@ public class ImportDataActivity extends NetworkActivity {
 				try
 				{
 					final InputStream inputStream = new FileInputStream(filename);
-					Parser.parseXml(inputStream, new ParserResultHandler() {
+					final ParserResultHandler handler = new ParserResultHandler() {
 						
 						@Override
 						public void onFinished(Network network) {
@@ -98,7 +115,11 @@ public class ImportDataActivity extends NetworkActivity {
 						public void onError(String error) {
 							Toast.makeText(ImportDataActivity.this, error, Toast.LENGTH_LONG).show();							
 						}
-					});
+					};
+					if (mXml)
+						Parser.parseXml(inputStream, handler);
+					else
+						Parser.parseCsv(inputStream, handler);
 					inputStream.close();
 				}
 				catch (Throwable e)
@@ -117,9 +138,20 @@ public class ImportDataActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.import_data);
 		
-		init();
-		
+		int format = getIntent().getIntExtra(ExportActivity.EXTRA_FORMAT, -1);
 		String url = getIntent().getStringExtra(INTENT_EXTRA_URL);
+		
+		mXml = false;
+		if (format == ExportActivity.EXTRA_FORMAT_XML)
+			mXml = true;
+		if (format < 0)
+			if (url != null)
+			{
+				mXml = url.endsWith(".xml");
+			}
+			
+		initGui();
+		
 		if (url != null)
 		{
 			download(url);

@@ -55,6 +55,8 @@
     <string name="neural_network_csv">Neuronová síť - CSV</string>
 
     <!-- import -->
+    <string name="import_csv">Import csv</string>
+    <string name="import_xml">Import xml</string>
     <string name="load_example">Načti příklad</string>
     <string name="load_file">Načti soubor</string>
     <string name="read_from_www">Načti z webu</string>
