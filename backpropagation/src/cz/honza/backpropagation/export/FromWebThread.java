@@ -32,40 +32,43 @@ public class FromWebThread extends Thread {
 	
 	@Override
 	public void run() {
+		
+		ParserResultHandler callBack = new ParserResultHandler() {
+			
+			protected void enableButton()
+			{
+				mContext.mWebButton.setEnabled(true);
+			}
+			
+			@Override
+			public void onFinished(final Network network) {
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						NetworkApplication.sNetwork = network;
+						if (mContext != null)
+							mContext.finish();
+					}
+				});
+			}
+			
+			@Override
+			public void onError(final String error) {
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
+						enableButton();
+					}
+				});
+			}
+		};
+		
 		try
 		{
 			URL u = new URL(mUrl);
 			final InputStream inputStream = u.openStream();
-			ParserResultHandler callBack = new ParserResultHandler() {
-				
-				protected void enableButton()
-				{
-					mContext.mWebButton.setEnabled(true);
-				}
-				
-				@Override
-				public void onFinished(final Network network) {
-					mHandler.post(new Runnable() {
-						@Override
-						public void run() {
-							NetworkApplication.sNetwork = network;
-							if (mContext != null)
-								mContext.finish();
-						}
-					});
-				}
-				
-				@Override
-				public void onError(final String error) {
-					mHandler.post(new Runnable() {
-						@Override
-						public void run() {
-							Toast.makeText(NetworkApplication.sInstance, error, Toast.LENGTH_LONG).show();
-							enableButton();
-						}
-					});
-				}
-			};
+			
 			
 			if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
 			{
@@ -77,11 +80,7 @@ public class FromWebThread extends Thread {
 		}
 		catch (final Throwable e)
 		{
-			mHandler.post(new Runnable() {
-				public void run() {
-					Toast.makeText(NetworkApplication.sInstance, e.toString(), Toast.LENGTH_LONG).show();
-				}
-			});
+			callBack.onError(e.toString());
 		}
 	}
 }
