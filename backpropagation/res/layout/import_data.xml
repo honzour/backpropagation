@@ -18,6 +18,7 @@
     	android:text="@string/load_csv_data"
     	android:textColor="@color/text" />
     <EditText
+        android:inputType="textVisiblePassword"
         android:layout_margin="@dimen/commonMargin"
         android:id="@+id/import_load_text"
    	    android:layout_width="fill_parent"
@@ -35,6 +36,7 @@
     	android:text="@string/load_csv_www"
     	android:textColor="@color/text" />
     <EditText
+        android:inputType="textVisiblePassword"
         android:layout_margin="@dimen/commonMargin"
         android:hint="@string/www_hint_csv"
         android:id="@+id/import_www_text"
