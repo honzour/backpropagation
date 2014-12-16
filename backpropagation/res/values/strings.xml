@@ -61,7 +61,8 @@
     <string name="read_from_www">Read from www</string>
     <string name="enter_filename_first">Enter file name first</string>
     <string name="enter_url_first">Enter url name first</string>
-    <string name="predefined_example">Choose predefined example:</string>
+    <string name="www_example">Open a www browser and choose any of commented examples from our www pages:</string>
+    <string name="predefined_example">Choose internal example, no Internet connection needed:</string>
     <string name="load_xml_data">Load xml data from a file:</string>
     <string name="load_xml_www">Or load xml data from www:</string>
     <string name="www_hint_xml">http://some.server.net/network.xml</string>
@@ -82,6 +83,7 @@
     <string name="advanced">For advanced:</string>
     <string name="enter_layers">Enter layer count, neuron count in each layer and training set. Editor starts with the current network.</string>
     <string name="run_editor">Run editor</string>
+    <string name="load_from_www">Load from www</string>
     
     <!-- csv parsing -->
     <string name="empty_file">Empty file</string>

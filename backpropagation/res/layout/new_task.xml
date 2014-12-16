@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/cz.honza.backpropagation"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:layout_width="fill_parent"
@@ -17,6 +18,18 @@
     	android:layout_height="wrap_content"
     	android:text="@string/beginners"
     	android:textColor="@color/text" />
+    <TextView 
+        android:layout_margin="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/www_example"
+    	android:textColor="@color/text" />
+    <cz.honza.backpropagation.components.HelpButton
+        android:text="@string/load_from_www"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	custom:link="examples"
+        />
     <TextView 
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
