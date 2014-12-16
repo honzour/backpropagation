@@ -113,8 +113,8 @@ public class NewTaskActivity extends NetworkActivity {
 	
 	protected void initExamples()
 	{
-		mExample = (Spinner) findViewById(R.id.import_new_task);
-		mExampleButton = findViewById(R.id.import_examle);
+		mExample = (Spinner) findViewById(R.id.new_task_spinner_example);
+		mExampleButton = findViewById(R.id.new_task_button_examle);
 		mExampleButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -126,7 +126,7 @@ public class NewTaskActivity extends NetworkActivity {
 	
 	protected void initEditor()
 	{
-		mEditorButton = findViewById(R.id.import_run_editor);
+		mEditorButton = findViewById(R.id.new_task_run_editor);
 		mEditorButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
