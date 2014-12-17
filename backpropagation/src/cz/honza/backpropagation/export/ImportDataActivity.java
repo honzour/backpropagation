@@ -28,6 +28,7 @@ public class ImportDataActivity extends NetworkActivity {
 
 	protected FromWebThread mThread = null;
 	protected boolean mXml;
+	protected int mFormat;
 
 
 	protected void download(String url)
@@ -138,13 +139,13 @@ public class ImportDataActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.import_data);
 		
-		int format = getIntent().getIntExtra(ExportActivity.EXTRA_FORMAT, -1);
+		mFormat = getIntent().getIntExtra(ExportActivity.EXTRA_FORMAT, -1);
 		String url = getIntent().getStringExtra(INTENT_EXTRA_URL);
 		
 		mXml = false;
-		if (format == ExportActivity.EXTRA_FORMAT_XML)
+		if (mFormat == ExportActivity.EXTRA_FORMAT_XML)
 			mXml = true;
-		if (format < 0)
+		if (mFormat < 0)
 			if (url != null)
 			{
 				mXml = url.endsWith(".xml");
@@ -156,6 +157,12 @@ public class ImportDataActivity extends NetworkActivity {
 		{
 			download(url);
 		}
+	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return mFormat == ExportActivity.EXTRA_FORMAT_XML ? "importxml.php" : "importcsv.php";
 	}
 
 }
