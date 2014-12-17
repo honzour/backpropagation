@@ -184,6 +184,6 @@ public class ExportActivity extends NetworkActivity {
 	@Override
 	public String getHelpLink()
 	{
-		return "exportxml.php";
+		return mFormat == EXTRA_FORMAT_XML ? "exportxml.php" : "exportcsv.php";
 	}
 }
