@@ -14,7 +14,7 @@ Do you like this program? And do you want to help me to develop it? There are ma
 <UL>
 	<LI>You are a common person without any knowledge and without money
 		<UL>
-			<LI><A HREF="market://details?id=cz.honza.backpropagation">Rate this app</A> in Google Play. Short comment is better than just start.</LI>
+			<LI><A HREF="market://details?id=cz.honza.backpropagation">Rate this app</A> in Google Play. Short comment is better than just star rating.</LI>
 			<LI>Tell your friends about this app</LI>
 			<LI>Share this app on your favorite social network</LI>
 		</UL>
