@@ -11,11 +11,11 @@ include 'google.php'
 <UL>
 	<LI>Algorithm improvements
 		<UL>
-			<LI>Automatic alpha learning speed</LI>
+			<LI>Automatic alpha learning speed - <B>FIXED</B></LI>
 			<LI>Optional limited weights</LI>
 			<LI>Optional fixed weights (?)</LI>
 			<LI>Optional mini batch</LI>
-			<LI>Learning code optimalisation</LI>
+			<LI>Learning code optimalisation - <B>FIXED</B></LI>
 			<LI>Faster going to the local minimum optimalisation</LI>
 			<LI>Local minimum handling</LI>
 			<LI>Report learning end when trainied enough</LI>
@@ -24,7 +24,7 @@ include 'google.php'
 	</LI>
 	<LI>Import and export
 		<UL>
-			<LI>CSV import and export</LI>
+			<LI>CSV import and export - <B>FIXED</B></LI>
 			<LI>PNG with 0-1 transparency as training set</LI>
 			<LI>Export trained network to C or Java</LI>
 			<LI>Export network to be trained on the PC to C or Java</LI>

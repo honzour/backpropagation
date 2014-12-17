@@ -58,7 +58,7 @@ Do you like this program? And do you want to help me to develop it? There are ma
 			<LI>Send me some money for your add in this app.</LI>
 			<LI>Send me some money for implementing some feature in the <A HREF="todo.php">TODO list</A> or some another.</LI>
 		</UL>
-		The program has (according to Google Play) between 90 and 100 active users and I am sure most of them are very smart people.
+		The program has (according to Google Play) slightly more than 100 active users and I am sure most of them are very smart people.
 	</LI>
 </UL>
 
