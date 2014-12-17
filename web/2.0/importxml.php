@@ -9,7 +9,7 @@ include 'google.php'
 ?>
 <H2>Import from XML</H2>
 <P>
-This program supports import of the network (including current weights) from a xml file. You can load the file from the SD card or from anywhere else on the local filesystem where this program has access rights. You can also download it from the www by a button press here or from the native android browser by the special backpropagation:// URL scheme handling.
+This program supports import of the network (including current weights) from a xml file. You can load the file from the SD card or from anywhere else on the local filesystem where this program has access rights. You can also download it from the www by a button press here or <A HREF="examples/">from the native android browser</A> by the special backpropagation:// URL scheme handling.
 </P>
 <P>
 XML is a text format, so the data can be created in any text editor and it is quite well human readable for small networks. But even for small networks it is quite lot of work. If you want to load just the network anatomy and training set and not each weight (training status), use CSV file format.
