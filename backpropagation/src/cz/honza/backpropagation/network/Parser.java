@@ -1,6 +1,5 @@
 package cz.honza.backpropagation.network;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -76,14 +75,8 @@ public class Parser {
 	{
 		try
 		{
-			BufferedReader in = new BufferedReader(new InputStreamReader(is));
+			CsvBufferedReader in = new CsvBufferedReader(new InputStreamReader(is));
 			String line = in.readLine();
-			if (line == null)
-			{
-				handler.onError(R.string.empty_file);
-				return;
-			}
-			line = in.readLine();
 			if (line == null)
 			{
 				handler.onError(R.string.missing_format_description);
@@ -95,10 +88,6 @@ public class Parser {
 				return;
 			}
 			line = in.readLine();
-			if (line != null)
-			{
-				line = in.readLine();
-			}
 			if (line == null)
 			{
 				handler.onError(R.string.missing_anatomy);
@@ -113,26 +102,18 @@ public class Parser {
 				handler.onError(R.string.not_enough_layers);
 				return;
 			}
-			line = in.readLine();
-			if (line == null)
-			{
-				handler.onError(R.string.missing_training_set);
-				return;
-			}
 			
 			List<double[]> training = new ArrayList<double[]>();
-			int lineNumber = 1;
 			
 			final int inputDim = anatomy[0];
 			final int outputDim = anatomy[anatomy.length - 1];
 			
 			while ((line = in.readLine()) != null)
 			{
-				final double[] elements = line2doubles(line, anatomy[0], lineNumber, handler);
+				final double[] elements = line2doubles(line, anatomy[0], in.getLine(), handler);
 				if (elements == null)
 					return;
 				training.add(elements);
-				lineNumber++;
 			}
 			
 			if (training.size() == 0)
