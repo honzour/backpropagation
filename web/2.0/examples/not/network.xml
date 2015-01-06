@@ -3,8 +3,8 @@
 	<layers>
 		<layer>
 			<neuron>
-				<weight>5.52958521943579E-13</weight>
-				<weight>16.238024549702363</weight>
+				<weight>9.937883890707506E-13</weight>
+				<weight>-16.621779196704903</weight>
 			</neuron>
 		</layer>
 	</layers>
@@ -19,10 +19,10 @@
 		</inputs>
 		<outputs>
 			<output>
-				<number>0.0</number>
+				<number>1.0</number>
 			</output>
 			<output>
-				<number>1.0</number>
+				<number>0.0</number>
 			</output>
 		</outputs>
 		<outputs>
