@@ -1,19 +1,19 @@
 <HTML>
 <HEAD>
 <META charset="utf-8">
-<TITLE>Backpropagation - Examples - Identity</TITLE>
+<TITLE>Backpropagation - Examples - 3D output</TITLE>
 </HEAD>
 <BODY>
 <?
 include '../../google.php'
 ?>
-<H2>Identity</H2>
+<H2>3D output</H2>
 <P>
-A very basic hello world example. We simply want the network to return 0 for input 0 and 1 for input 1. Single layer network with just one neuron is used and even this is quite overkill for this task.
+All previous task had just 1 dimensional 0 or 1 output. This is a basic task with just several hyperplanes but the output is 3D and it can draw a colorful picture. Just a demonstration that the output can have higher dimension, nothing more.
 </P>
 <UL>
-<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.0/examples/identity/network.csv">Import the problem to be learned</A></LI>
-<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.0/examples/identity/network.xml">Import the solution</A></LI>
+<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.0/3d/identity/network.csv">Import the problem to be learned</A></LI>
+<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.0/3d/identity/network.xml">Import the solution</A></LI>
 <LI><A HREF="network.csv">View the problem CSV file</A></LI>
 <LI><A HREF="network.xml">View the solution XML file</A></LI>
 <LI><BR><IMG SRC="result.png">
