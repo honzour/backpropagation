@@ -1,13 +1,13 @@
 <HTML>
 <HEAD>
 <META charset="utf-8">
-<TITLE>Backpropagation - Examples - AND</TITLE>
+<TITLE>Backpropagation - Examples - OR</TITLE>
 </HEAD>
 <BODY>
 <?
 include '../../google.php'
 ?>
-<H2>AND</H2>
+<H2>OR</H2>
 <P>
 Compute the logical OR. This is very similar to previous example AND and again single layer network with just one neuron with two inputs is used.
 </P>
