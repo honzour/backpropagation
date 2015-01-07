@@ -59,6 +59,9 @@ We have a chess board 2x2 and we want to return 1 on any pixel of the white fiel
 All previous task had just 1 dimensional 0 or 1 output. This is a basic task with just several hyperplanes but the output is 3D and it can draw a colorful picture. Just a demonstration that the output can have higher dimension, nothing more.
 </P>
 </LI>
+</UL>
+<H3>Mathematical examples</H3>
+<UL>
 <LI>
 <B><A HREF="plus">Plus</A></B><BR>
 <P>
