@@ -9,7 +9,7 @@ include '../../google.php'
 ?>
 <H2>Distance</H2>
 <P>
-Calculate a distance from the point in 2D. Learn from the table and generalize for non training set examples.
+Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table and generalize for non training set examples.
 </P>
 <UL>
 <LI><A HREF="backpropagation://backpropagation.moxo.cz/2.0/examples/distance/network.csv">Import the problem to be learned</A></LI>

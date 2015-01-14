@@ -71,13 +71,13 @@ Simply return x + y. Learn from the table and generalize for non training set ex
 <LI>
 <B><A HREF="distance">Distance</A></B><BR>
 <P>
-Calculate a distance from the point in 2D. Learn from the table and generalize for non training set examples.
+Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table and generalize for non training set examples.
 </P>
 </LI>
 <LI>
 <B><A HREF="sinus">Sinus</A></B><BR>
 <P>
-Learn a simple sinus wave from the training set. If it generalised right, it would generate a missing 2 pi period. But generalisation will fail here.
+Learn 5 2 pi periods of a simple sinus wave from the training set. If it generalised right, it would generate a missing 2 pi period.
 </P>
 </LI>
 
