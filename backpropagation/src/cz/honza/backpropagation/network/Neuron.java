@@ -48,9 +48,11 @@ public class Neuron implements Serializable {
 	{
 		int inputCount = weights.length;
 		final double mul = 1.0d / inputCount;
-		for (int i = 0; i < inputCount; i++)
+		weights[0] = Math.random() * 2 - 1;
+		weightsDerivation[0] = 0;
+		for (int i = 1; i < inputCount; i++)
 		{
-			weights[i] = Math.random() * mul;
+			weights[i] = (Math.random() * 2 - 1) * mul;
 			weightsDerivation[i] = 0;
 		}
 	}
