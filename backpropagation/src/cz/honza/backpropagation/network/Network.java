@@ -376,6 +376,17 @@ public class Network implements Serializable {
 			errorAfter = getError();
 			if (errorAfter > errorBefore)
 			{
+				// cancel training step
+				synchronized (this) {
+					for (i = 0; i < mLayers.length; i++) {
+						for (j = 0; j < mLayers[i].neurons.length; j++) {
+							for (k = 0; k < mLayers[i].neurons[j].weights.length; k++) {
+								mLayers[i].neurons[j].weights[k] += mAlpha * mLayers[i].neurons[j].weightsDerivation[k];
+							}
+						}
+					}
+				}
+				
 				mAlpha *= 0.5;
 				if (mAlpha == 0)
 					mAlpha = MIN_ALPHA;
