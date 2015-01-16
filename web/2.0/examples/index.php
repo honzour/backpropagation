@@ -65,19 +65,19 @@ All previous task had just 1 dimensional 0 or 1 output. This is a basic task wit
 <LI>
 <B><A HREF="plus">Plus</A></B><BR>
 <P>
-Simply return x + y. Learn from the table and generalize for non training set examples.
+Simply return x + y. Learn from the table and generalize to non training set examples. When trained, you will be able to calculate for example 0.2 + 0.2 and you will get result like 0.39.
 </P>
 </LI>
 <LI>
 <B><A HREF="distance">Distance</A></B><BR>
 <P>
-Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table and generalize for non training set examples.
+Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table and generalize to non training set examples. This task seems quite hard to learn, it requires some time and sometimes also several attemps. When trained, you will get results like distance(0.0, 0.5) = 0.47 so it works quite well incluiding the generalisation but it is clear that learning should be improved in this case. It is a TODO for me.
 </P>
 </LI>
 <LI>
 <B><A HREF="sinus">Sinus</A></B><BR>
 <P>
-Learn 5 2 pi periods of a simple sinus wave from the training set. If it generalised right, it would generate a missing 2 pi period.
+0 to 10 pi of a simple sinus wave. There are no training set examples between 4 pi and 6 pi, so the medium sinus period in the middle is not covered by training set and the task for the network is to generalize. I expected fail of the generalisation here but the program even fails to learn the training set by any way (simply to get the training set error small). What more: each step of the backpropagation takes quite a long time and the other problem is that there are quite many neurons and training set examples and the program does not handle it nice in the GUI. So this sinus task is a total fail of the whole program but also a big TODO for me.
 </P>
 </LI>
 
