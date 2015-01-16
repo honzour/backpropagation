@@ -10,7 +10,8 @@ import android.view.View;
 
 public class NetworkView extends View {
 
-	Paint mPaint;
+	protected Paint mPaint;
+	protected int mMaxNeuronsInLayer = 8;
 	
 	protected void init()
 	{
@@ -34,9 +35,19 @@ public class NetworkView extends View {
  	
  	protected int getX(Network n, int layer, int neuron)
  	{
+ 		int count;
+ 			
  		if (layer < 0)
- 			return (getWidth() * (neuron + 1)) / (n.mLayers[0].neurons[0].weights.length);
- 		return (getWidth() * (neuron + 1)) / (n.mLayers[layer].neurons.length + 1);
+ 		{
+ 			count = n.mLayers[0].neurons[0].weights.length - 1;
+ 		}
+ 		else
+ 		{
+ 			count = n.mLayers[layer].neurons.length;
+ 		}
+ 		if (count > mMaxNeuronsInLayer)
+ 			count = mMaxNeuronsInLayer + 1;
+ 		return (getWidth() * (neuron + 1)) / (count + 1);
  	}
  	
  	protected int getY(Network n, int layer)
@@ -70,13 +81,22 @@ public class NetworkView extends View {
 		
 		final int maxLayer = n.mLayers.length - 1;
 		// output
-		for (int j = 0; j < n.mLayers[maxLayer].neurons.length; j++)
+		int limit = n.mLayers[maxLayer].neurons.length;
+		if (limit > mMaxNeuronsInLayer)
+			limit = mMaxNeuronsInLayer;
+		
+		for (int j = 0; j < limit; j++)
 		{
 			canvas.drawLine(getX(n, maxLayer, j), height, getX(n, maxLayer, j), getY(n, maxLayer), mPaint);
 		}
 		
 		// input
-		for (int j = 0; j < n.mLayers[0].neurons.length; j++)
+		
+		limit = n.mLayers[0].neurons.length;
+		if (limit > mMaxNeuronsInLayer)
+			limit = mMaxNeuronsInLayer;
+		
+		for (int j = 0; j < limit; j++)
 		{
 			final int x1 = getX(n, 0, j);
 			final int y1 = getY(n, 0);
