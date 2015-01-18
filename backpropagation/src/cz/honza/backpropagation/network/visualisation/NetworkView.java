@@ -12,6 +12,7 @@ public class NetworkView extends View {
 
 	protected Paint mPaint;
 	protected int mMaxNeuronsInLayer = 8;
+	protected int mMaxDrawText = 3;
 	
 	protected void init()
 	{
@@ -79,6 +80,9 @@ public class NetworkView extends View {
 		
 		mPaint.setTextSize(radius);
 		
+		if (n.getInputDimension() > mMaxNeuronsInLayer)
+			canvas.drawText("...", getX(n, 0, mMaxNeuronsInLayer), 0.7f * getY(n, -1) + 0.3f * getY(n, 0), mPaint);
+		
 		final int maxLayer = n.mLayers.length - 1;
 		// output
 		int limit = n.mLayers[maxLayer].neurons.length;
@@ -102,45 +106,69 @@ public class NetworkView extends View {
 			final int y1 = getY(n, 0);
 			final int y2 = 0;
 			
-			for (int l = 0; l < n.mLayers[0].neurons[0].weights.length - 1; l++)
+			int limit2 = n.getInputDimension();
+			if (limit2 > mMaxNeuronsInLayer)
+				limit2 = mMaxNeuronsInLayer;
+			for (int l = 0; l < limit2; l++)
 			{
 				final int x2 = getX(n, -1, l);
 				canvas.drawLine(x1, y1, x2, y2, mPaint);
-				canvas.drawText(weight2String(n, 0, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
+				if (limit <= mMaxDrawText && limit2 <= mMaxDrawText)
+					canvas.drawText(weight2String(n, 0, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
 			}
 			final int tresholdX = x1 + getWidth() / (2 * (n.mLayers[0].neurons.length + 1));
 			
-			canvas.drawLine(x1, y1, tresholdX, y1, mPaint);
-			canvas.drawText(weight2String(n, 0, j, 0), tresholdX, y1, mPaint);
+			
+			if (limit <= mMaxDrawText)
+			{
+				canvas.drawLine(x1, y1, tresholdX, y1, mPaint);
+				canvas.drawText(weight2String(n, 0, j, 0), tresholdX, y1, mPaint);
+			}
 		}
 		
 		// synapses
 		for (int i = 1; i < n.mLayers.length; i++)
 		{
-			for (int j = 0; j < n.mLayers[i].neurons.length; j++)
+			limit = n.mLayers[i].neurons.length;
+			if (limit > mMaxNeuronsInLayer)
+				limit = mMaxNeuronsInLayer;
+			for (int j = 0; j < limit; j++)
 			{
 				final int x1 = getX(n, i, j);
 				final int y1 = getY(n, i);
 				final int y2 = getY(n, i - 1);
-				for (int l = 0; l < n.mLayers[i - 1].neurons.length; l++)
+				
+				int limit2 = n.mLayers[i - 1].neurons.length;
+				if (limit2 > mMaxNeuronsInLayer)
+					limit2 = mMaxNeuronsInLayer;
+				for (int l = 0; l < limit2; l++)
 				{
 					final int x2 = getX(n, i - 1, l);
 					canvas.drawLine(x1, y1, x2, y2, mPaint);
-					canvas.drawText(weight2String(n, i, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
+					if (limit <= mMaxDrawText && limit2 <= mMaxDrawText)
+						canvas.drawText(weight2String(n, i, j, l + 1), x1 + (x2 - x1) / 3 , y1 + (y2 - y1) / 3, mPaint);
 				}
 				final int tresholdX = x1 + getWidth() / (2 * (n.mLayers[i].neurons.length + 1));
 				
 				canvas.drawLine(x1, y1, tresholdX, y1, mPaint);
-				canvas.drawText(weight2String(n, i, j, 0), tresholdX, y1, mPaint);
+				if (limit <= mMaxDrawText)
+					canvas.drawText(weight2String(n, i, j, 0), tresholdX, y1, mPaint);
 			}	
 		}
 		
 		for (int i = 0; i < layers; i++)
 		{
 			int neurons = n.mLayers[i].neurons.length;
+			if (neurons > mMaxNeuronsInLayer)
+				neurons = mMaxNeuronsInLayer;
+			int h = getY(n, i);
 			for (int j = 0; j < neurons; j++)
 			{
-				canvas.drawCircle(getX(n, i, j), getY(n, i), radius, mPaint);
+				canvas.drawCircle(getX(n, i, j), h, radius, mPaint);
+			}
+			if (neurons < n.mLayers[i].neurons.length)
+			{
+				canvas.drawText("...", getX(n, i, neurons), h, mPaint);
 			}
 		}
 	}
