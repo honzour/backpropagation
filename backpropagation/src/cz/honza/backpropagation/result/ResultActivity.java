@@ -8,7 +8,7 @@ import cz.honza.backpropagation.components.NetworkActivity;
 public class ResultActivity extends NetworkActivity {
 	
 	ResultView mResultView;
-	DrawResultThread mThread;
+	DrawResultThread2D mThread;
 	View mProgresBar;
 	
 		
@@ -19,7 +19,7 @@ public class ResultActivity extends NetworkActivity {
 		mProgresBar = findViewById(R.id.result_progress);
 		
 		mResultView = (ResultView)findViewById(R.id.result_result);
-		mThread = new DrawResultThread(new Runnable() {
+		mThread = new DrawResultThread2D(new Runnable() {
 			@Override
 			public void run() {
 				mProgresBar.setVisibility(View.GONE);

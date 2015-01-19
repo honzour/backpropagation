@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.view.View;
 
-public class DrawResultThread extends Thread {
+public class DrawResultThread2D extends Thread {
 	
 	private Bitmap mBmp;
 	private View mView;
@@ -18,7 +18,7 @@ public class DrawResultThread extends Thread {
 	private double mMaxX;
 	private double mMaxY;
 	
-	public DrawResultThread(Runnable onEnd)
+	public DrawResultThread2D(Runnable onEnd)
 	{
 		mOnEnd = onEnd;
 	}

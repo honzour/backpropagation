@@ -18,7 +18,7 @@ public class ResultView extends View {
 	private Bitmap mBmp = null;
 	private boolean mDrawBitmap = true;
 	private Paint mPaint = null;
-	private DrawResultThread mThread;
+	private DrawResultThread2D mThread;
 
 	public ResultView(Context context) {
 		super(context);
@@ -176,7 +176,7 @@ public class ResultView extends View {
 		mDrawBitmap = true;
 	}
  	
-	public void setThread(DrawResultThread thread)
+	public void setThread(DrawResultThread2D thread)
 	{
 		mThread = thread;
 	}
