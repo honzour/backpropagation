@@ -12,10 +12,13 @@ import android.view.View;
 
 public class ResultView extends View {
 	
+	private int mMaxTexts = 8;
+	private int mMaxFullSize = 8;
+	
 	private Bitmap mBmp = null;
 	private boolean mDrawBitmap = true;
-	Paint mPaint = null;
-	DrawResultThread mThread;
+	private Paint mPaint = null;
+	private DrawResultThread mThread;
 
 	public ResultView(Context context) {
 		super(context);
@@ -149,8 +152,12 @@ public class ResultView extends View {
 			else
 				mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawCircle((float)x, (float)y, radius, mPaint);
-			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-			canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
+			
+			if (n.mTrainingSet.mInputs.length <= mMaxTexts)
+			{
+				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+				canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
+			}
 		}
 		
 	}
