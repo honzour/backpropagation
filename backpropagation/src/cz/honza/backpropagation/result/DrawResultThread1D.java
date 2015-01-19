@@ -45,11 +45,10 @@ public class DrawResultThread1D extends Thread {
  		int iDim = NetworkApplication.sNetwork.getInputDimension();
  		int oDim = NetworkApplication.sNetwork.getOutputDimension();
  		
- 		double[] input = {0, 0};
+ 		double[] input;
 		double[] output = {0, 0.5, 0.5};
 		
-		if (iDim > 2)
-			input = new double[iDim];
+		input = new double[iDim];
 		
 		if (oDim > 3)
 			output = new double[oDim];
