@@ -101,7 +101,7 @@ public class ResultView extends View {
 		final int width = getWidth();
 		final int height = getHeight();
 		
-		final int radius = (width + height) >> 6;
+		int radius = (width + height) >> 6;
 		if (mPaint == null)
 			mPaint = new Paint();
 		mPaint.setTextSize(radius);
@@ -130,6 +130,15 @@ public class ResultView extends View {
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
 
+		
+		if (mMaxFullSize < n.mTrainingSet.mInputs.length)
+		{
+			radius = (int)(
+					
+					radius / Math.sqrt(((n.mTrainingSet.mInputs.length) / (double) mMaxFullSize)) 
+					
+					+ 0.5);
+		}
 		
 		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
 		{
