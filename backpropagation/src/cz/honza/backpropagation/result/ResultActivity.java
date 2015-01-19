@@ -2,13 +2,14 @@ package cz.honza.backpropagation.result;
 
 import android.os.Bundle;
 import android.view.View;
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ResultActivity extends NetworkActivity {
 	
 	ResultView mResultView;
-	DrawResultThread2D mThread;
+	DrawResultThread mThread;
 	View mProgresBar;
 	
 		
@@ -19,12 +20,20 @@ public class ResultActivity extends NetworkActivity {
 		mProgresBar = findViewById(R.id.result_progress);
 		
 		mResultView = (ResultView)findViewById(R.id.result_result);
-		mThread = new DrawResultThread2D(new Runnable() {
+		
+		final Runnable r = new Runnable() {
 			@Override
 			public void run() {
 				mProgresBar.setVisibility(View.GONE);
 			}
-		});
+		};
+		
+		
+		if (NetworkApplication.sNetwork.getInputDimension() > 1)
+			mThread = new DrawResultThread2D(r);
+		else
+			mThread = new DrawResultThread1D(r);
+			
 		mResultView.setThread(mThread);
 	}
 	
