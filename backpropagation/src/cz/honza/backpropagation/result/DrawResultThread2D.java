@@ -3,43 +3,15 @@ package cz.honza.backpropagation.result;
 import cz.honza.backpropagation.NetworkApplication;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Handler;
-import android.view.View;
 
-public class DrawResultThread2D extends Thread {
-	
-	private Bitmap mBmp;
-	private View mView;
-	private Handler mHandler;
-	private volatile boolean mStop = false;
-	private Runnable mOnEnd;
-	private double mMinX;
-	private double mMinY;
-	private double mMaxX;
-	private double mMaxY;
+public class DrawResultThread2D extends DrawResultThread {
 	
 	public DrawResultThread2D(Runnable onEnd)
 	{
-		mOnEnd = onEnd;
+		super(onEnd);
 	}
-	
-	public void canStop()
-	{
-		mStop = true;
-	}
-	
-	public void start(Bitmap bmp, View v, double minX, double minY, double maxX, double maxY)
-	{
-		mMaxX = maxX;
-		mMaxY = maxY;
-		mMinX = minX;
-		mMinY = minY;
-		mBmp = bmp;
-		mView = v;
-		mHandler = new Handler();
-		start();
-	}
-	
+
+	@Override
  	public void fillBitmap(Bitmap bmp)
  	{
  		int iDim = NetworkApplication.sNetwork.getInputDimension();
@@ -71,20 +43,4 @@ public class DrawResultThread2D extends Thread {
 			}
 		}
  	}
-	
-	@Override
-	public void run()
-	{
-		fillBitmap(mBmp);
-		mHandler.post(new Runnable() {
-			@Override
-			public void run() {
-				mView.invalidate();
-				((ResultView)mView).bitmapValid();
-				if (mOnEnd != null)
-					mOnEnd.run();
-			}
-		});
-		
-	}
 }
