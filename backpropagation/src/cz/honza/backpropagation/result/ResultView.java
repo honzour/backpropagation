@@ -32,15 +32,8 @@ public class ResultView extends View {
  		super(context, attrs, defStyleAttr);
  	}
 
-	@Override
-	protected void onDraw(Canvas canvas) {
-		
-		final Network n = NetworkApplication.sNetwork;
-		
-		if (n == null)
-			return;
-		
-		final double delta = 0.01;
+ 	protected void onDraw2d(Canvas canvas, Network n, int width, int height, int radius) {
+ 		final double delta = 0.01;
 		
 		// will be real x of left of the screen
 		double minX = - delta / 2;
@@ -98,14 +91,6 @@ public class ResultView extends View {
 		minY -= deltaY2;
 		maxY += deltaY2;
 		
-		final int width = getWidth();
-		final int height = getHeight();
-		
-		int radius = (width + height) >> 6;
-		if (mPaint == null)
-			mPaint = new Paint();
-		mPaint.setTextSize(radius);
-		
 		if (mBmp == null || mBmp.getWidth() != width || mBmp.getHeight() != height)
 		{
 			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
@@ -129,16 +114,6 @@ public class ResultView extends View {
 		
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
-
-		
-		if (mMaxFullSize < n.mTrainingSet.mInputs.length)
-		{
-			radius = (int)(
-					
-					radius / Math.sqrt(((n.mTrainingSet.mInputs.length) / (double) mMaxFullSize)) 
-					
-					+ 0.5);
-		}
 		
 		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
 		{
@@ -168,6 +143,136 @@ public class ResultView extends View {
 				canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
 			}
 		}
+ 	}
+ 	
+ 	protected void onDraw1d(Canvas canvas, Network n, int width, int height, int radius) {
+ 		final double delta = 0.01;
+		
+		// will be real x of left of the screen
+		double minX = - delta / 2;
+		// will be real y of bottom of the screen
+		double minY = minX;
+		// will be real x of right of the screen
+		double maxX = delta / 2;
+		// will be real y of top of the screen
+		double maxY = maxX;
+		
+		
+		final double[][] inputs = n.mTrainingSet.mInputs;
+		final double[][] outputs = n.mTrainingSet.mOutputs;
+		
+		if (inputs.length > 0)
+		{
+			if (inputs[0].length > 0)
+				minX = maxX = inputs[0][0];
+			if (inputs[0].length > 1)
+				minY = maxY = inputs[0][1];
+			
+			for (int i = 1; i < inputs.length; i++)
+			{
+				if (inputs[i].length > 0)
+				{
+					if (minX > inputs[i][0])
+						minX = inputs[i][0];
+					if (maxX < inputs[i][0])
+						maxX = inputs[i][0];
+				}
+				if (outputs[i].length > 0)
+				{
+					if (minY > outputs[i][0])
+						minY = outputs[i][0];
+					if (maxY < outputs[i][0])
+						maxY = outputs[i][0];
+				}
+			}
+		}
+		
+		if (minX == maxX)
+		{
+			minX -= delta / 2;
+			maxX += delta / 2;
+		}
+		
+		if (minY == maxY)
+		{
+			minY -= delta / 2;
+			maxY += delta / 2;
+		}
+		
+		final double deltaX2 = (maxX - minX) / 2;
+		minX -= deltaX2;
+		maxX += deltaX2;
+		
+		final double deltaY2 = (maxY - minY) / 2;
+		minY -= deltaY2;
+		maxY += deltaY2;
+
+		
+		if (mBmp == null || mBmp.getWidth() != width || mBmp.getHeight() != height)
+		{
+			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+			mDrawBitmap = false;
+			
+			mThread.start(mBmp, this, minX, minY, maxX, maxY);
+		}
+		else
+		{
+			if (mDrawBitmap)
+				canvas.drawBitmap(mBmp, 0, 0, mPaint);
+		}
+		
+		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
+		{
+			double ix = 0;
+			double iy = 0;
+			
+			ix = inputs[i][0];
+			iy = outputs[i][0];
+			
+			double x = width * (ix - minX) / (maxX - minX);
+			double y = height - 1 -  height * (iy - minY) / (maxY - minY);
+			if (Math.abs(n.mTrainingSet.mOutputs[i][0]) < 0.5)
+				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+			else
+				mPaint.setStyle(Paint.Style.STROKE);
+			canvas.drawCircle((float)x, (float)y, radius, mPaint);
+			
+			if (n.mTrainingSet.mInputs.length <= mMaxTexts)
+			{
+				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+				canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
+			}
+		}
+ 	}
+
+ 	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		
+		final Network n = NetworkApplication.sNetwork;
+		
+		if (n == null)
+			return;
+		
+		final int width = getWidth();
+		final int height = getHeight();
+		
+		int radius = (width + height) >> 6;
+		if (mMaxFullSize < n.mTrainingSet.mInputs.length)
+		{
+			radius = (int)(
+					radius / Math.sqrt(((n.mTrainingSet.mInputs.length) / (double) mMaxFullSize)) 
+					+ 0.5);
+		}
+		if (mPaint == null)
+			mPaint = new Paint();
+		mPaint.setTextSize(radius);
+
+		
+		if (n.getInputDimension() > 1)
+			onDraw2d(canvas, n, width, height, radius);
+		else
+			onDraw1d(canvas, n, width, height, radius);
 		
 	}
 	
