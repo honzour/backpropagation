@@ -67,8 +67,14 @@ public class EditorActivity extends NetworkActivity {
 	{
 		final TextView training = (TextView)findViewById(R.id.edit_training_set);
 		final StringBuffer sb = new StringBuffer();
+		final int limit = 8;
 		for (int i = 0; i < mTraining.size(); i++)
 		{
+			if (i >= limit)
+			{
+				sb.append("\n...");
+				break;
+			}
 			if (i > 0)
 				sb.append('\n');
 			final ArrayList<ArrayList<Double>> item = mTraining.get(i);
@@ -77,7 +83,6 @@ public class EditorActivity extends NetworkActivity {
 			addVector(inputItem, sb);
 			sb.append("->");
 			addVector(outputItem, sb);
-			
 		}
 		training.setText(sb.toString());
 	}
