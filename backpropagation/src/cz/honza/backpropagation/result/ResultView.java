@@ -2,6 +2,7 @@ package cz.honza.backpropagation.result;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.network.Neuron;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -111,6 +112,25 @@ public class ResultView extends View {
 		float x0 = (float)(width - maxX / ax);
 		// screen y of real 0
 		float y0 = (float)(0 + maxY / ay);
+		
+		if (n.mLayers[0].neurons.length <= 8)
+		{
+			for (int i = 0; i < n.mLayers[0].neurons.length; i++)
+			{
+				final double[] w = n.mLayers[0].neurons[i].weights;
+				if (w[2] != 0)
+				{
+					double ymi = (w[0] - w[1] * minX) / w[2];
+					double yma = (w[0] - w[1] * maxX) / w[2];
+					float ymis = (float)(height - (ymi - minY) / (maxY - minY) * height);
+					float ymas = (float)(height - (yma - minY) / (maxY - minY) * height);
+					
+					// TODO input scale?
+					
+					canvas.drawLine(0, ymis, width, ymas, mPaint);
+				}
+			}
+		}
 		
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
