@@ -5,14 +5,14 @@
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <TableLayout
         android:layout_height="wrap_content"
     	android:layout_width="0px"
     	android:layout_weight="1"
     	android:orientation="vertical"
     	android:layout_marginLeft="@dimen/commonMargin"
         >
-		<LinearLayout 
+		<TableRow 
     		android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
     		android:orientation="horizontal">
@@ -22,6 +22,7 @@
 		        android:layout_width="wrap_content"
     			android:layout_height="wrap_content"
     			android:text="@string/input"
+    			android:layout_marginRight="@dimen/commonMargin"
 		        />
 		    <ScrollView
 		        android:layout_width="fill_parent"
@@ -33,8 +34,8 @@
     				android:layout_height="wrap_content"
     				android:orientation="horizontal" />
 		    </ScrollView>
-		</LinearLayout>
-		<LinearLayout 
+		</TableRow>
+		<TableRow 
     		android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
     		android:orientation="horizontal">
@@ -44,6 +45,7 @@
 		        android:layout_width="wrap_content"
     			android:layout_height="wrap_content"
     			android:text="@string/output"
+    			android:layout_marginRight="@dimen/commonMargin"
 		        />
    		    <ScrollView
 		        android:layout_width="fill_parent"
@@ -55,11 +57,12 @@
     				android:layout_height="wrap_content"
     				android:orientation="horizontal" />
 		    </ScrollView>
-		</LinearLayout>
+		</TableRow>
         
-	</LinearLayout>        
+	</TableLayout>        
 
     <Button
+        android:layout_gravity="center_vertical"
         android:id="@+id/editor_training_item_delete"
         android:layout_height="wrap_content"
     	android:layout_width="wrap_content"
