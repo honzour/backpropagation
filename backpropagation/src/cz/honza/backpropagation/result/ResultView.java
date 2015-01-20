@@ -119,8 +119,9 @@ public class ResultView extends View {
 				final double[] w = n.mLayers[0].neurons[i].weights;
 				if (w[2] != 0)
 				{
-					double ymi = (w[0] - w[1] * minX) / w[2];
-					double yma = (w[0] - w[1] * maxX) / w[2];
+					double ymi = ((w[0] - w[1] * (n.mInputScale[0][0] * minX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+					double yma = ((w[0] - w[1] * (n.mInputScale[0][0] * maxX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+
 					float ymis = (float)(height - (ymi - minY) / (maxY - minY) * height);
 					float ymas = (float)(height - (yma - minY) / (maxY - minY) * height);
 					

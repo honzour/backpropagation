@@ -14,7 +14,7 @@ public class Network implements Serializable {
 	
 	private static final long serialVersionUID = -6200117127679042346L;
 	
-	protected double[][] mInputScale;
+	public double[][] mInputScale;
 	protected double[][] mOutputScale;
 	
 	protected double[] mOutput;
