@@ -112,26 +112,26 @@ public class ResultView extends View {
 		// screen y of real 0
 		float y0 = (float)(0 + maxY / ay);
 		
-		if (n.mLayers[0].neurons.length <= 8)
+		if (true)
 		{
 			for (int i = 0; i < n.mLayers[0].neurons.length; i++)
 			{
 				final double[] w = n.mLayers[0].neurons[i].weights;
 				if (w[2] != 0)
 				{
-					double ymi = ((w[0] - w[1] * (n.mInputScale[0][0] * minX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
-					double yma = ((w[0] - w[1] * (n.mInputScale[0][0] * maxX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+					double ymi = ((-w[0] - w[1] * (n.mInputScale[0][0] * minX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+					double yma = ((-w[0] - w[1] * (n.mInputScale[0][0] * maxX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
 
 					float ymis = (float)(height - (ymi - minY) / (maxY - minY) * height);
 					float ymas = (float)(height - (yma - minY) / (maxY - minY) * height);
 					
-					// TODO input scale?
-					
+					mPaint.setColor(0xFFFFFFFF);
 					canvas.drawLine(0, ymis, width, ymas, mPaint);
 				}
 			}
 		}
 		
+		mPaint.setColor(0xFF000000);
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
 		
