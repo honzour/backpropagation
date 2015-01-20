@@ -165,8 +165,8 @@ public class ResultView extends View {
 		{
 			if (inputs[0].length > 0)
 				minX = maxX = inputs[0][0];
-			if (inputs[0].length > 1)
-				minY = maxY = inputs[0][1];
+			if (outputs[0].length > 0)
+				minY = maxY = outputs[0][0];
 			
 			for (int i = 1; i < inputs.length; i++)
 			{

@@ -30,7 +30,6 @@ public class DrawResultThread1D extends DrawResultThread {
 		Canvas c = new Canvas(bmp);
 		c.drawRGB(255, 255, 255);
 		Paint p = new Paint();
-		//p.s
 		
 		for (int i = 0; i < width; i++)
 		{
@@ -39,10 +38,11 @@ public class DrawResultThread1D extends DrawResultThread {
 				return;
 				
 			input[0] = mMinX + i * (mMaxX - mMinX) / (double) width;
-		
-			NetworkApplication.sNetwork.calculate(input, output, false);
+			NetworkApplication.sNetwork.calculate(input, output, true);
+			output[0] = height - 1 - ((output[0] - mMinY) / (mMaxY - mMinY) * (double) height);
+			
 			if (i > 0)
-				c.drawLine(i - 1, (float)(height * oldOutput[0]), i, (float)(height * output[0]), p);
+				c.drawLine(i - 1, (float)(oldOutput[0]), i, (float)(output[0]), p);
 			System.arraycopy(output, 0, oldOutput, 0, output.length);
 		
 		}
