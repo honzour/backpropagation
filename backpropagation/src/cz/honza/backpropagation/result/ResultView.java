@@ -2,7 +2,6 @@ package cz.honza.backpropagation.result;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Neuron;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
