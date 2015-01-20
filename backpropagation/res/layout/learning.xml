@@ -32,7 +32,7 @@
     			android:layout_height="wrap_content"
     			android:textColor="@color/text"
     			android:text="@string/error" />
-       	    <TextView
+       	    <cz.honza.backpropagation.components.ErrorTextView
        	        android:layout_marginLeft="@dimen/commonMargin"
        	        android:id="@+id/learning_error"
     	        android:layout_width="wrap_content"

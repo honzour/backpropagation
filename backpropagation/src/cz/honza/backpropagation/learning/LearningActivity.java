@@ -2,6 +2,7 @@ package cz.honza.backpropagation.learning;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.components.ErrorTextView;
 import cz.honza.backpropagation.components.NetworkActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +19,7 @@ public class LearningActivity extends NetworkActivity {
 	
 	private Handler mHandler;
 	private TextView mIteratonView;
-	private TextView mErrorView;
+	private ErrorTextView mErrorView;
 	private TextView mAlphaView;
 	private Button mStart;
 	private Button mRestartNetwork;
@@ -34,7 +35,10 @@ public class LearningActivity extends NetworkActivity {
 		@Override
 		public void run() {
 			mIteratonView.setText(mIteration < 0 ? "" : String.valueOf(mIteration));
-			mErrorView.setText(mIteration < 0 ? "" : String.valueOf(mError));
+			if (mIteration < 0)
+				mErrorView.setText("");
+			else
+				mErrorView.setNumber(mError);
 			mAlphaView.setText(String.valueOf(NetworkApplication.sNetwork.mAlpha));
 		}
 	};
@@ -101,7 +105,7 @@ public class LearningActivity extends NetworkActivity {
 		setContentView(R.layout.learning);
 		mHandler = new Handler();
 		mIteratonView = (TextView)findViewById(R.id.learning_iteration);
-		mErrorView = (TextView)findViewById(R.id.learning_error);
+		mErrorView = (ErrorTextView)findViewById(R.id.learning_error);
 		mAlphaView = (TextView)findViewById(R.id.learning_alpha);
 		mStart = (Button)findViewById(R.id.learning_start_stop);
 		mSeekBar = (SeekBar)findViewById(R.id.learning_alpha_seek);
