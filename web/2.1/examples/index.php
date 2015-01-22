@@ -50,13 +50,19 @@ Return 1 near some point in 2D and 0 everywhere else. This is slightly more comp
 <LI>
 <B><A HREF="chess">Chessboard 2x2</A></B><BR>
 <P>
-We have a chess board 2x2 and we want to return 1 on any pixel of the white field and 0 on any pixel of the black field. Looks simple but basic backpropagation seems to be useless for this task. It cannot be done by 1 layer network but also 2 layers is not enough. We must place hyperplanes between the fields (1 layer) and it reduces the problem to XOR (2 more layers). So we need 3 layers to compute this. And it is even worse, there is a pretty deep local minimum of the error function when we place hyperplanes in the first layer like in the basic XOR... Simple problem but hard for the backpropagation algorithm. The current version fails here but it is number one on my TODO list.
+We have a chess board 2x2 and we want to return 1 on any pixel of the white field and 0 on any pixel of the black field. Looks but simple it seems to be a challenge for a basic backpropagation. It cannot be done by 1 layer network but also 2 layers is not enough. We must place hyperplanes between the fields (1 layer) and it reduces the problem to XOR (2 more layers). So we need 3 layers to compute this. And it is even worse, there is a pretty deep local minimum of the error function when we place hyperplanes in the first layer like in the basic XOR... Simple problem but hard for the backpropagation algorithm. The current version fails here many times. If you are lucky, you will get the good result but I would expect better behaviour. It is number one on my TODO list.
 </P>
 </LI>
 <LI>
 <B><A HREF="3d">Output 3D</A></B><BR>
 <P>
 All previous task had just 1 dimensional 0 or 1 output. This is a basic task with just several hyperplanes but the output is 3D and it can draw a colorful picture. Just a demonstration that the output can have higher dimension, nothing more.
+</P>
+</LI>
+<LI>
+<B><A HREF="identity07">Identity on &lt;0, 7&gt;</A></B><BR>
+<P>
+Return 0 for 0, 1 for 1, ... and 7 for 7. Just an identity on some interval. Network works well on this example.
 </P>
 </LI>
 </UL>
@@ -77,7 +83,7 @@ Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table an
 <LI>
 <B><A HREF="sinus">Sinus</A></B><BR>
 <P>
-0 to 10 pi of a simple sinus wave. There are no training set examples between 4 pi and 6 pi, so the medium sinus period in the middle is not covered by training set and the task for the network is to generalize. I expected fail of the generalisation here but the program even fails to learn the training set by any way (simply to get the training set error small). What more: each step of the backpropagation takes quite a long time and the other problem is that there are quite many neurons and training set examples and the program does not handle it nice in the GUI. So this sinus task is a total fail of the whole program but also a big TODO for me.
+0 to 10 pi of a simple sinus wave. There are no training set examples between 4 pi and 6 pi, so the medium sinus period in the middle is not covered by training set and the task for the network is to generalize. I expected fail of the generalisation here but the program even fails to learn the training set by any way (simply to get the training set error small). What more: each step of the backpropagation takes quite a long time and the other problem is that there are quite many neurons and training set examples. So this sinus task is a total fail of the whole program but also a big TODO for me.
 </P>
 </LI>
 
