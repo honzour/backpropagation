@@ -59,7 +59,7 @@ public class NewTaskActivity extends NetworkActivity {
 								  {1}, {1}, {1}, {1}, {1}, {1}, {1}, {1} };
 		
 		// Chess board
-		int[] chess_anatomy = {2, 2, 2, 1};
+		int[] chess_anatomy = {2, 4, 2, 1};
 		double[][] chess_inputs = 
 			{{0, 0}, {0, 0.4}, {0.4, 0}, {0.4, 0.4},
 			 {0.6, 0.6}, {0.6, 1}, {1, 0.6}, {1, 1},
