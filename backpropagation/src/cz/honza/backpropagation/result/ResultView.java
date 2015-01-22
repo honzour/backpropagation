@@ -117,16 +117,29 @@ public class ResultView extends View {
 			for (int i = 0; i < n.mLayers[0].neurons.length; i++)
 			{
 				final double[] w = n.mLayers[0].neurons[i].weights;
-				if (w[2] != 0)
+				if (w[1] != 0 || w[2] != 0) // avoid division by zero
 				{
-					double ymi = ((-w[0] - w[1] * (n.mInputScale[0][0] * minX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
-					double yma = ((-w[0] - w[1] * (n.mInputScale[0][0] * maxX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
-
-					float ymis = (float)(height - (ymi - minY) / (maxY - minY) * height);
-					float ymas = (float)(height - (yma - minY) / (maxY - minY) * height);
-					
 					mPaint.setColor(0xFFFFFFFF);
-					canvas.drawLine(0, ymis, width, ymas, mPaint);
+					if (Math.abs(w[2]) > Math.abs(w[1])) // divide by greater number
+					{
+						double ymi = ((-w[0] - w[1] * (n.mInputScale[0][0] * minX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+						double yma = ((-w[0] - w[1] * (n.mInputScale[0][0] * maxX + n.mInputScale[0][1])) / w[2] - n.mInputScale[1][1])  / n.mInputScale[1][0];
+
+						float ymis = (float)(height - (ymi - minY) / (maxY - minY) * height);
+						float ymas = (float)(height - (yma - minY) / (maxY - minY) * height);
+						
+						canvas.drawLine(0, ymis, width, ymas, mPaint);
+					}
+					else
+					{
+						double xmi = ((-w[0] - w[2] * (n.mInputScale[1][0] * minY + n.mInputScale[1][1])) / w[1] - n.mInputScale[0][1])  / n.mInputScale[0][0];
+						double xma = ((-w[0] - w[2] * (n.mInputScale[1][0] * maxY + n.mInputScale[1][1])) / w[1] - n.mInputScale[0][1])  / n.mInputScale[0][0];
+
+						float xmis = (float)((xmi - minX) / (maxX - minX) * width);
+						float xmas = (float)((xma - minX) / (maxX - minX) * width);
+						
+						canvas.drawLine(xmis, height, xmas, 0, mPaint);
+					}
 				}
 			}
 		}
