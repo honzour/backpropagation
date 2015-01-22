@@ -19,7 +19,7 @@ include 'google.php'
 			<LI>Faster going to the local minimum optimalisation</LI>
 			<LI>Local minimum handling</LI>
 			<LI>Report learning end when trainied enough</LI>
-			<LI>Solve chessboard problem correctly (difficult task, any help would be appreciated, the first try will be restricted Bolzmann machine)</LI>
+			<LI>Solve chessboard problem correctly (difficult task, any help would be appreciated, the first try will be restricted Bolzmann machine) - <B>50% FIXED</B>, but still not ok</LI>
 		</UL>
 	</LI>
 	<LI>Import and export
@@ -34,10 +34,10 @@ include 'google.php'
 	</LI>
 	<LI>GUI improvements
 		<UL>
-			<LI>Nicer network visualisation</LI>
-			<LI>Configurable result visualisation</LI>
-			<LI>Nicer training set editor</LI>
-			<LI>Better huge network handling</LI>
+			<LI>Nicer network visualisation - <B>50% FIXED</B></LI>
+			<LI>Configurable result visualisation - <B>50% FIXED</B></LI>
+			<LI>Nicer training set editor - <B>10% FIXED</B></LI>
+			<LI>Better huge network handling - <B>50% FIXED</B></LI>
 		</UL>
 	</LI>
 

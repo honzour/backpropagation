@@ -38,7 +38,7 @@ Do you like this program? And do you want to help me to develop it? There are ma
 	</LI>
 	<LI>You are a neural network expert
 		<UL>
-			<LI>Explain me how to teach the network the chessboard problem from the hardcoded examples. It always finds just a local minimum :-( I was looked for an improved algorithm but I have only found something with learning it from the front as a restricted Bolzmann machine, which looks pretty wired to me, but I will try it unles I find something better.</LI>
+			<LI>Explain me how to teach the network the chessboard problem from the hardcoded examples. It the most times times finds just a local minimum :-( I looked for an improved algorithm but I have only found something with learning it from the front as a restricted Bolzmann machine, which looks pretty wired to me, but I will try it unles I find something better.</LI>
 		</UL>
 	</LI>
 	<LI>You are a tester and have found a bug
