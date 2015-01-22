@@ -51,7 +51,7 @@ public class Neuron implements Serializable {
  
 		weights[0] = 0;
 		for (int i = 1; i < inputCount; i++)
-			// TODO calculate the probability distribution
+			// TODO calculate the probability distribution, see http://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
 			weights[0] += (Math.random() * 2 - 1) * (Math.random() * 2 - 1) * mul;
 		weightsDerivation[0] = 0;
 		for (int i = 1; i < inputCount; i++)
