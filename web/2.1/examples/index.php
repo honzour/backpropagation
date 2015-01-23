@@ -60,9 +60,9 @@ The same but with more neurons in the first layer. Program sometimes sucseed to 
 </P>
 </LI>
 <LI>
-<B><A HREF="chess3">Chessboard 2x2 - 2-4-2-1 - more elements in training set</A></B><BR>
+<B><A HREF="chess3">Chessboard 2x2 - 2-4-2-1 - more elements in the training set</A></B><BR>
 <P>
-The same but with larger training set.
+The same but with larger training set. The network sometimes learn the task well and sometimes not.
 </P>
 </LI>
 <LI>
