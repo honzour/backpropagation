@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background">
-
-<LinearLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/background" >
     
-    <LinearLayout 
-        android:id="@+id/training_training"
+    <ListView 
+        android:id="@+id/training_list"
     	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="vertical" />
-    
+    	android:layout_height="0px"
+    	android:layout_weight="1" />
     <Button
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
@@ -25,4 +20,3 @@
     	android:text="@string/add_training"
         />
 </LinearLayout>
-</ScrollView>

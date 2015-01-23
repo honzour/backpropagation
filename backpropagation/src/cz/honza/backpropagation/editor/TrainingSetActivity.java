@@ -10,13 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 
 public class TrainingSetActivity extends NetworkActivity {
 	
-	protected LinearLayout mTrainingLayout;
+	protected ListView mList;
 	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
 	protected ArrayList<Integer> mLayers;
 	
@@ -45,6 +46,7 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void refreshTraining()
 	{
+		/*
 		mTrainingLayout.removeAllViews();
 				
 		for (int i = 0; i < mTraining.size(); i++)
@@ -85,10 +87,12 @@ public class TrainingSetActivity extends NetworkActivity {
 			
 			mTrainingLayout.addView(item);
 		}
+		*/
 	}
 	
 	protected void save()
 	{
+		/*
 		final int count = mTrainingLayout.getChildCount();
 		for (int i = 0; i < count; i++)
 		{
@@ -120,6 +124,7 @@ public class TrainingSetActivity extends NetworkActivity {
 				mTraining.get(i).get(1).set(j, d);
 			}
 		}
+		*/
 		
 	}
 
@@ -135,7 +140,8 @@ public class TrainingSetActivity extends NetworkActivity {
 		}
 		mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		mInflater = LayoutInflater.from(this);
-		mTrainingLayout = (LinearLayout)findViewById(R.id.training_training);
+		mList = (ListView)findViewById(R.id.training_list);
+		mList.setAdapter(new TrainingAdapter(this, R.layout.training_list_item, mTraining));
 		findViewById(R.id.training_add_training).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
