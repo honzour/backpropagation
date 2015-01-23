@@ -12,8 +12,8 @@ include '../../google.php'
 Return 0 for 0, 1 for 1, ... and 7 for 7. Just an identity on some interval. Network works well on this example.
 </P>
 <UL>
-<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.1/examples/identity/network.csv">Import the problem to be learned</A></LI>
-<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.1/examples/identity/network.xml">Import the solution</A></LI>
+<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.1/examples/identity07/network.csv">Import the problem to be learned</A></LI>
+<LI><A HREF="backpropagation://backpropagation.moxo.cz/2.1/examples/identity07/network.xml">Import the solution</A></LI>
 <LI><A HREF="network.csv">View the problem CSV file</A></LI>
 <LI><A HREF="network.xml">View the solution XML file</A></LI>
 <LI><BR><IMG SRC="result.png">
