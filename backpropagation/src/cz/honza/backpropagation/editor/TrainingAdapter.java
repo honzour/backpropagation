@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> {
 
@@ -22,7 +23,7 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 	}
 	
 	@Override
-	public View getView (int position, View convertView, ViewGroup parent)
+	public View getView (final int position, View convertView, ViewGroup parent)
 	{
 		if (convertView == null)
 		{
@@ -37,6 +38,14 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 		
 		text.setText(sb.toString());
 		number.setText(String.valueOf(position) + '.');
+		
+		convertView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getContext(), "kliknul " + position, Toast.LENGTH_LONG).show();
+				
+			}
+		});
 		
 		return convertView;
 	}

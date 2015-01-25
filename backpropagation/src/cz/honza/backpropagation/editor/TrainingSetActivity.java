@@ -15,8 +15,8 @@ public class TrainingSetActivity extends NetworkActivity {
 	protected ListView mList;
 	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
 	protected ArrayList<Integer> mLayers;
-	
-	LayoutInflater mInflater;
+	protected TrainingAdapter mAdapter;
+	protected LayoutInflater mInflater;
 	
 	protected void addTraining()
 	{
@@ -35,54 +35,13 @@ public class TrainingSetActivity extends NetworkActivity {
 		
 		item.add(inputItem);
 		item.add(outputItem);
-		mTraining.add(item);
-		refreshTraining();
+		mAdapter.add(item);
 	}
 	
 	protected void refreshTraining()
 	{
-		/*
-		mTrainingLayout.removeAllViews();
-				
-		for (int i = 0; i < mTraining.size(); i++)
-		{
-			final View item = mInflater.inflate(R.layout.training_item, mTrainingLayout, false);
-			final View delete = item.findViewById(R.id.editor_training_item_delete);
-			final int finali = i;
-			
-			delete.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mTraining.remove(finali);
-					refreshTraining();
-				}
-			});
-			
-			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
-			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
-			
-			final ArrayList<ArrayList<Double>> element = mTraining.get(i);
-			final List<Double> elementInput = element.get(0);
-			final List<Double> elementOutput = element.get(1);
-			
-			for (int j = 0; j < elementInput.size(); j++)
-			{
-				final EditText e = new EditText(this);
-				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-				e.setText(String.valueOf(elementInput.get(j)));
-				inputLayout.addView(e);
-			}
-			for (int j = 0; j < elementOutput.size(); j++)
-			{
-				final EditText e = new EditText(this);
-				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-				e.setText(String.valueOf(elementOutput.get(j)));
-				outputLayout.addView(e);
-			}
-			
-			mTrainingLayout.addView(item);
-		}
-		*/
+		mAdapter = new TrainingAdapter(this, R.layout.training_list_item, mTraining);
+		mList.setAdapter(mAdapter);
 	}
 	
 	protected void save()
@@ -136,7 +95,6 @@ public class TrainingSetActivity extends NetworkActivity {
 		mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		mInflater = LayoutInflater.from(this);
 		mList = (ListView)findViewById(R.id.training_list);
-		mList.setAdapter(new TrainingAdapter(this, R.layout.training_list_item, mTraining));
 		findViewById(R.id.training_add_training).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
