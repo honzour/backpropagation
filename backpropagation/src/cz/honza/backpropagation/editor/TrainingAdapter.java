@@ -44,6 +44,8 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getContext(), TrainingSetDetailActivity.class);
+				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_NUMBER, position);
+				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_DATA, getItem(position));
 				getContext().startActivity(i);
 			}
 		});
