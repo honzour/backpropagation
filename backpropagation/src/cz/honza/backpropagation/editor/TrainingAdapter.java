@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cz.honza.backpropagation.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,8 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "kliknul " + position, Toast.LENGTH_LONG).show();
-				
+				Intent i = new Intent(getContext(), TrainingSetDetailActivity.class);
+				getContext().startActivity(i);
 			}
 		});
 		

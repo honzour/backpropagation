@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background">
 
     <TableLayout
-        android:layout_height="wrap_content"
-    	android:layout_width="0px"
+    	android:layout_width="fill_parent"
+    	android:layout_height="0px"
     	android:layout_weight="1"
-    	android:orientation="vertical"
     	android:layout_marginLeft="@dimen/commonMargin"
         >
 		<TableRow 
     		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
+    		android:layout_height="0px"
+    		android:layout_weight="1"
     		android:orientation="horizontal">
 		    <TextView
 		        android:layout_gravity="center_vertical"
@@ -37,8 +38,8 @@
 		</TableRow>
 		<TableRow 
     		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-    		android:orientation="horizontal">
+    		android:layout_height="0px"
+    		android:layout_weight="1">
 		    <TextView
 		        android:layout_gravity="center_vertical"
 		        android:textColor="@color/text"
@@ -62,10 +63,9 @@
 	</TableLayout>        
 
     <Button
-        android:layout_gravity="center_vertical"
         android:id="@+id/editor_training_item_delete"
         android:layout_height="wrap_content"
-    	android:layout_width="wrap_content"
+    	android:layout_width="fill_parent"
     	android:text="@string/deletex"
         />
 </LinearLayout>

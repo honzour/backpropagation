@@ -59,9 +59,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="cz.honza.backpropagation.editor.TrainingSetActivity"
+            android:label="@string/training_set" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingSetDetailActivity"
             android:label="@string/training_set"
             android:windowSoftInputMode="stateHidden" />
-        
     </application>
 
 </manifest>
