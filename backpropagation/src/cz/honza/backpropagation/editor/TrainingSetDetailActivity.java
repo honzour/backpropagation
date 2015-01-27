@@ -45,14 +45,14 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 			final EditText e = new EditText(this);
 			e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 			e.setText(String.valueOf(elementInput.get(j)));
-			inputLayout.addView(e);
+			inputLayout.addView(e, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 		}
 		for (int j = 0; j < elementOutput.size(); j++)
 		{
 			final EditText e = new EditText(this);
 			e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 			e.setText(String.valueOf(elementOutput.get(j)));
-			outputLayout.addView(e);
+			outputLayout.addView(e, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 		}
 	}
 	

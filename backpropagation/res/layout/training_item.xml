@@ -1,66 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/background"  >
+    
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background">
+    android:layout_margin="@dimen/commonMargin"  >
 
-    <TableLayout
+    <TextView
+		android:textColor="@color/text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/input" />
+
+	<LinearLayout 
+		android:id="@+id/editor_training_item_input"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" />
+
+	<TextView
+		android:textColor="@color/text"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/output" />
+	
+	<LinearLayout 
+		android:id="@+id/editor_training_item_output"
     	android:layout_width="fill_parent"
-    	android:layout_height="0px"
-    	android:layout_weight="1"
-    	android:layout_marginLeft="@dimen/commonMargin"
-        >
-		<TableRow 
-    		android:layout_width="fill_parent"
-    		android:layout_height="0px"
-    		android:layout_weight="1"
-    		android:orientation="horizontal">
-		    <TextView
-		        android:layout_gravity="center_vertical"
-		        android:textColor="@color/text"
-		        android:layout_width="wrap_content"
-    			android:layout_height="wrap_content"
-    			android:text="@string/input"
-    			android:layout_marginRight="@dimen/commonMargin"
-		        />
-		    <ScrollView
-		        android:layout_width="fill_parent"
-    			android:layout_height="wrap_content"
-		        >
-		        <LinearLayout 
-		            android:id="@+id/editor_training_item_input"
-    				android:layout_width="wrap_content"
-    				android:layout_height="wrap_content"
-    				android:orientation="horizontal" />
-		    </ScrollView>
-		</TableRow>
-		<TableRow 
-    		android:layout_width="fill_parent"
-    		android:layout_height="0px"
-    		android:layout_weight="1">
-		    <TextView
-		        android:layout_gravity="center_vertical"
-		        android:textColor="@color/text"
-		        android:layout_width="wrap_content"
-    			android:layout_height="wrap_content"
-    			android:text="@string/output"
-    			android:layout_marginRight="@dimen/commonMargin"
-		        />
-   		    <ScrollView
-		        android:layout_width="fill_parent"
-    			android:layout_height="wrap_content"
-		        >
-		        <LinearLayout 
-		            android:id="@+id/editor_training_item_output"
-    				android:layout_width="wrap_content"
-    				android:layout_height="wrap_content"
-    				android:orientation="horizontal" />
-		    </ScrollView>
-		</TableRow>
-        
-	</TableLayout>        
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" />
 
     <Button
         android:id="@+id/editor_training_item_delete"
@@ -69,3 +42,4 @@
     	android:text="@string/deletex"
         />
 </LinearLayout>
+</ScrollView>
