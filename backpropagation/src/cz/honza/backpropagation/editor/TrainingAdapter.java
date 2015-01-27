@@ -4,20 +4,19 @@ import java.util.ArrayList;
 
 import cz.honza.backpropagation.R;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> {
 
 	LayoutInflater mInflater;
 	
-	public TrainingAdapter(Context context, int resource,
+	public TrainingAdapter(TrainingSetActivity context, int resource,
 			ArrayList<ArrayList<ArrayList<Double>>> data) {
 		super(context, resource, data);
 		mInflater = LayoutInflater.from(context);
@@ -46,7 +45,7 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 				Intent i = new Intent(getContext(), TrainingSetDetailActivity.class);
 				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_NUMBER, position);
 				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_DATA, getItem(position));
-				getContext().startActivity(i);
+				((Activity)getContext()).startActivityForResult(i, position);
 			}
 		});
 		

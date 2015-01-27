@@ -20,7 +20,6 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void addTraining()
 	{
-		save();
 		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
 		final ArrayList<Double> inputItem = new ArrayList<Double>();
 		final ArrayList<Double> outputItem = new ArrayList<Double>();
@@ -42,44 +41,6 @@ public class TrainingSetActivity extends NetworkActivity {
 	{
 		mAdapter = new TrainingAdapter(this, R.layout.training_list_item, mTraining);
 		mList.setAdapter(mAdapter);
-	}
-	
-	protected void save()
-	{
-		/*
-		final int count = mTrainingLayout.getChildCount();
-		for (int i = 0; i < count; i++)
-		{
-			final View item = mTrainingLayout.getChildAt(i);
-			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
-			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
-			final int inputCount = inputLayout.getChildCount();
-			for (int j = 0; j < inputCount; j++)
-			{
-				final TextView input = (TextView)inputLayout.getChildAt(j);
-				double d = 0;
-				try
-				{
-					d = Double.valueOf(input.getText().toString());
-				}
-				catch (Exception e) {}
-				mTraining.get(i).get(0).set(j, d);
-			}
-			final int outputCount = outputLayout.getChildCount();
-			for (int j = 0; j < outputCount; j++)
-			{
-				final TextView input = (TextView)outputLayout.getChildAt(j);
-				double d = 0;
-				try
-				{
-					d = Double.valueOf(input.getText().toString());
-				}
-				catch (Exception e) {}
-				mTraining.get(i).get(1).set(j, d);
-			}
-		}
-		*/
-		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -106,7 +67,6 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	@Override
 	public void finish() {
-		save();
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mTraining);
 		setResult(RESULT_OK, resultIntent);
@@ -114,9 +74,26 @@ public class TrainingSetActivity extends NetworkActivity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		final ArrayList<ArrayList<Double>> element = (ArrayList<ArrayList<Double>>)data.getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		if (element == null)
+		{
+			mTraining.remove(requestCode);
+			refreshTraining();
+		}
+		else
+		{
+			mTraining.set(requestCode, element);
+			refreshTraining();
+		}
+	}
+
+	@Override
 	public Object onRetainNonConfigurationInstance()
 	{
-		save();
 		return mTraining;
 	}
 	
