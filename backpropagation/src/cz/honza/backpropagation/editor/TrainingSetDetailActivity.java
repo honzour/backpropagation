@@ -96,7 +96,8 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 	
 	@Override
 	public void finish() {
-		save();
+		if (mData != null)
+			save();
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mData);
 		setResult(RESULT_OK, resultIntent);
