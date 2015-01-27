@@ -122,8 +122,8 @@ public class EditorActivity extends NetworkActivity {
 				}
 				
 				final int trainingSize = network.mTrainingSet.mInputs.length;
-				final int inputSize = network.mTrainingSet.mInputs[0].length;
-				final int outputSize = network.mTrainingSet.mOutputs[0].length;
+				final int inputSize = network.getInputDimension();
+				final int outputSize = network.getOutputDimension();
 				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
 				for (int i = 0; i < trainingSize; i++)
 				{
