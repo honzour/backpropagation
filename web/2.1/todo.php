@@ -36,7 +36,7 @@ include 'google.php'
 		<UL>
 			<LI>Nicer network visualisation - <B>50% FIXED</B></LI>
 			<LI>Configurable result visualisation - <B>50% FIXED</B></LI>
-			<LI>Nicer training set editor - <B>10% FIXED</B></LI>
+			<LI>Nicer training set editor - <B>50% FIXED</B></LI>
 			<LI>Better huge network handling - <B>50% FIXED</B></LI>
 		</UL>
 	</LI>
