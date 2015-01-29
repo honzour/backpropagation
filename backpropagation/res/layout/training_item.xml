@@ -39,7 +39,7 @@
         android:id="@+id/editor_training_item_delete"
         android:layout_height="wrap_content"
     	android:layout_width="fill_parent"
-    	android:text="@string/deletex"
+    	android:text="@string/delete"
         />
 </LinearLayout>
 </ScrollView>

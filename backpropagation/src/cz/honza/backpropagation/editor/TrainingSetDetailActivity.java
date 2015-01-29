@@ -90,7 +90,9 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training_item);
-		mData = (ArrayList<ArrayList<Double>>)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+		mData = (ArrayList<ArrayList<Double>>)getLastNonConfigurationInstance();
+		if (mData == null)
+			mData = (ArrayList<ArrayList<Double>>)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
 		fillData();
 	}
 	
@@ -102,5 +104,12 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mData);
 		setResult(RESULT_OK, resultIntent);
 		super.finish();
+	}
+	
+	@Override
+	public Object onRetainNonConfigurationInstance()
+	{
+		save();
+		return mData;
 	}
 }
