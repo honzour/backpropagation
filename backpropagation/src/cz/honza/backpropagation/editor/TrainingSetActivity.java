@@ -1,30 +1,25 @@
 package cz.honza.backpropagation.editor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 
 public class TrainingSetActivity extends NetworkActivity {
 	
-	protected LinearLayout mTrainingLayout;
+	protected ListView mList;
 	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
 	protected ArrayList<Integer> mLayers;
-	
-	LayoutInflater mInflater;
+	protected TrainingAdapter mAdapter;
+	protected LayoutInflater mInflater;
 	
 	protected void addTraining()
 	{
-		save();
 		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
 		final ArrayList<Double> inputItem = new ArrayList<Double>();
 		final ArrayList<Double> outputItem = new ArrayList<Double>();
@@ -39,88 +34,13 @@ public class TrainingSetActivity extends NetworkActivity {
 		
 		item.add(inputItem);
 		item.add(outputItem);
-		mTraining.add(item);
-		refreshTraining();
+		mAdapter.add(item);
 	}
 	
 	protected void refreshTraining()
 	{
-		mTrainingLayout.removeAllViews();
-				
-		for (int i = 0; i < mTraining.size(); i++)
-		{
-			final View item = mInflater.inflate(R.layout.training_item, mTrainingLayout, false);
-			final View delete = item.findViewById(R.id.editor_training_item_delete);
-			final int finali = i;
-			
-			delete.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mTraining.remove(finali);
-					refreshTraining();
-				}
-			});
-			
-			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
-			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
-			
-			final ArrayList<ArrayList<Double>> element = mTraining.get(i);
-			final List<Double> elementInput = element.get(0);
-			final List<Double> elementOutput = element.get(1);
-			
-			for (int j = 0; j < elementInput.size(); j++)
-			{
-				final EditText e = new EditText(this);
-				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-				e.setText(String.valueOf(elementInput.get(j)));
-				inputLayout.addView(e);
-			}
-			for (int j = 0; j < elementOutput.size(); j++)
-			{
-				final EditText e = new EditText(this);
-				e.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-				e.setText(String.valueOf(elementOutput.get(j)));
-				outputLayout.addView(e);
-			}
-			
-			mTrainingLayout.addView(item);
-		}
-	}
-	
-	protected void save()
-	{
-		final int count = mTrainingLayout.getChildCount();
-		for (int i = 0; i < count; i++)
-		{
-			final View item = mTrainingLayout.getChildAt(i);
-			final LinearLayout inputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_input);
-			final LinearLayout outputLayout = (LinearLayout)item.findViewById(R.id.editor_training_item_output);
-			final int inputCount = inputLayout.getChildCount();
-			for (int j = 0; j < inputCount; j++)
-			{
-				final TextView input = (TextView)inputLayout.getChildAt(j);
-				double d = 0;
-				try
-				{
-					d = Double.valueOf(input.getText().toString());
-				}
-				catch (Exception e) {}
-				mTraining.get(i).get(0).set(j, d);
-			}
-			final int outputCount = outputLayout.getChildCount();
-			for (int j = 0; j < outputCount; j++)
-			{
-				final TextView input = (TextView)outputLayout.getChildAt(j);
-				double d = 0;
-				try
-				{
-					d = Double.valueOf(input.getText().toString());
-				}
-				catch (Exception e) {}
-				mTraining.get(i).get(1).set(j, d);
-			}
-		}
-		
+		mAdapter = new TrainingAdapter(this, R.layout.training_list_item, mTraining);
+		mList.setAdapter(mAdapter);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -135,7 +55,7 @@ public class TrainingSetActivity extends NetworkActivity {
 		}
 		mLayers = (ArrayList<Integer>)getIntent().getExtras().getSerializable(EditorActivity.INTENT_EXTRA_ANATOMY);
 		mInflater = LayoutInflater.from(this);
-		mTrainingLayout = (LinearLayout)findViewById(R.id.training_training);
+		mList = (ListView)findViewById(R.id.training_list);
 		findViewById(R.id.training_add_training).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -147,7 +67,6 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	@Override
 	public void finish() {
-		save();
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(EditorActivity.INTENT_EXTRA_TRAINING, mTraining);
 		setResult(RESULT_OK, resultIntent);
@@ -155,9 +74,26 @@ public class TrainingSetActivity extends NetworkActivity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		final ArrayList<ArrayList<Double>> element = (ArrayList<ArrayList<Double>>)data.getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		if (element == null)
+		{
+			mTraining.remove(requestCode);
+			refreshTraining();
+		}
+		else
+		{
+			mTraining.set(requestCode, element);
+			refreshTraining();
+		}
+	}
+
+	@Override
 	public Object onRetainNonConfigurationInstance()
 	{
-		save();
 		return mTraining;
 	}
 	

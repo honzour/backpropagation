@@ -27,6 +27,6 @@
         android:id="@+id/editor_item_delete"
         android:layout_height="wrap_content"
     	android:layout_width="wrap_content"
-    	android:text="@string/deletex"
+    	android:text="@string/delete"
         />
 </LinearLayout>

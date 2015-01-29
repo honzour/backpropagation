@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.honza.backpropagation"
-    android:versionCode="12"
-    android:versionName="2.1" >
+    android:versionCode="13"
+    android:versionName="2.2" >
 
     <uses-sdk
         android:minSdkVersion="3"
@@ -59,9 +59,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="cz.honza.backpropagation.editor.TrainingSetActivity"
+            android:label="@string/training_set" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingSetDetailActivity"
             android:label="@string/training_set"
             android:windowSoftInputMode="stateHidden" />
-        
     </application>
 
 </manifest>

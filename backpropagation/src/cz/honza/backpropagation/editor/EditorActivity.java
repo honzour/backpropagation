@@ -49,7 +49,7 @@ public class EditorActivity extends NetworkActivity {
 		mTraining.add(item);
 	}
 
-	protected void addVector(List<Double> list, StringBuffer sb)
+	protected static void addVector(List<Double> list, StringBuffer sb)
 	{
 		sb.append('(');
 		for (int i = 0; i < list.size(); i++)
@@ -61,6 +61,15 @@ public class EditorActivity extends NetworkActivity {
 			sb.append(String.valueOf(list.get(i)));
 		}
 		sb.append(')');
+	}
+	
+	public static void addElement(ArrayList<ArrayList<Double>> item, StringBuffer sb)
+	{
+		final ArrayList<Double> inputItem = item.get(0);
+		final ArrayList<Double> outputItem = item.get(1);
+		addVector(inputItem, sb);
+		sb.append("->");
+		addVector(outputItem, sb);
 	}
 	
 	protected void refreshTraining()
@@ -78,11 +87,7 @@ public class EditorActivity extends NetworkActivity {
 			if (i > 0)
 				sb.append('\n');
 			final ArrayList<ArrayList<Double>> item = mTraining.get(i);
-			final ArrayList<Double> inputItem = item.get(0);
-			final ArrayList<Double> outputItem = item.get(1);
-			addVector(inputItem, sb);
-			sb.append("->");
-			addVector(outputItem, sb);
+			addElement(item, sb);			
 		}
 		training.setText(sb.toString());
 	}
@@ -117,8 +122,8 @@ public class EditorActivity extends NetworkActivity {
 				}
 				
 				final int trainingSize = network.mTrainingSet.mInputs.length;
-				final int inputSize = network.mTrainingSet.mInputs[0].length;
-				final int outputSize = network.mTrainingSet.mOutputs[0].length;
+				final int inputSize = network.getInputDimension();
+				final int outputSize = network.getOutputDimension();
 				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
 				for (int i = 0; i < trainingSize; i++)
 				{
