@@ -112,4 +112,10 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 		save();
 		return mData;
 	}
+	
+	@Override
+	public String getHelpLink()
+	{
+		return "trainingsetdetail.php";
+	}
 }
