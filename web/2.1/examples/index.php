@@ -98,7 +98,12 @@ Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table an
 0 to 10 pi of a simple sinus wave. There are no training set examples between 4 pi and 6 pi, so the medium sinus period in the middle is not covered by training set and the task for the network is to generalize. I expected fail of the generalisation here but the program even fails to learn the training set by any way (simply to get the training set error small). What more: each step of the backpropagation takes quite a long time and the other problem is that there are quite many neurons and training set examples. So this sinus task is a total fail of the whole program but also a big TODO for me.
 </P>
 </LI>
-
+<LI>
+<B><A HREF="oddeven">Odd - Even</A></B><BR>
+<P>
+Returns 1 for odd and 0 for even numbers. Training set is from 0 to 6 and the network can learn the training set pretty well. It fails for larger training set and it also fails to generalize for numbers that are not in the training set. Anyway, I would like to know how a common neural network with sigma activation fuction can generalize here...
+</P>
+</LI>
 </UL>
 
 <?
