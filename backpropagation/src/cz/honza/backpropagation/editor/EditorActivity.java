@@ -14,6 +14,7 @@ import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.NewTaskActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.TrainingSet;
+import cz.honza.backpropagation.network.TrainingSetBase;
 
 public class EditorActivity extends NetworkActivity {
 	
@@ -121,7 +122,7 @@ public class EditorActivity extends NetworkActivity {
 					mLayers.add(network.mLayers[i].neurons.length);
 				}
 				
-				final int trainingSize = network.mTrainingSet.mInputs.length;
+				final int trainingSize = network.mTrainingSet.length();
 				final int inputSize = network.getInputDimension();
 				final int outputSize = network.getOutputDimension();
 				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
@@ -132,11 +133,11 @@ public class EditorActivity extends NetworkActivity {
 					final ArrayList<Double> output = new ArrayList<Double>(outputSize);
 					for (int j = 0; j < inputSize; j++)
 					{
-						input.add(network.mTrainingSet.mInputs[i][j]);
+						input.add(network.mTrainingSet.getInput(i, j));
 					}
 					for (int j = 0; j < outputSize; j++)
 					{
-						output.add(network.mTrainingSet.mOutputs[i][j]);
+						output.add(network.mTrainingSet.getOutput(i, j));
 					}
 					item.add(input);
 					item.add(output);
@@ -234,7 +235,7 @@ public class EditorActivity extends NetworkActivity {
 			}
 		}
 		
-		TrainingSet training = new TrainingSet(inputs, outputs);
+		TrainingSet training = new TrainingSetBase(inputs, outputs);
 		
 		
 		NetworkApplication.sNetwork = new Network(layers, training);

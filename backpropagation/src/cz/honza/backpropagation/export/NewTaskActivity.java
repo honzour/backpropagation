@@ -10,6 +10,7 @@ import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.editor.EditorActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.TrainingSet;
+import cz.honza.backpropagation.network.TrainingSetBase;
 
 public class NewTaskActivity extends NetworkActivity {
 	
@@ -83,28 +84,28 @@ public class NewTaskActivity extends NetworkActivity {
 		switch (item)
 		{
 		case 0:
-			NetworkApplication.sNetwork = new Network(id_anatomy, new TrainingSet(id_inputs, id_outputs));
+			NetworkApplication.sNetwork = new Network(id_anatomy, new TrainingSetBase(id_inputs, id_outputs));
 			break;
 		case 1:
-			NetworkApplication.sNetwork = new Network(not_anatomy, new TrainingSet(not_inputs, not_outputs));
+			NetworkApplication.sNetwork = new Network(not_anatomy, new TrainingSetBase(not_inputs, not_outputs));
 			break;
 		case 2:
-			NetworkApplication.sNetwork = new Network(and_anatomy, new TrainingSet(and_inputs, and_outputs));
+			NetworkApplication.sNetwork = new Network(and_anatomy, new TrainingSetBase(and_inputs, and_outputs));
 			break;
 		case 3:
-			NetworkApplication.sNetwork = new Network(or_anatomy, new TrainingSet(or_inputs, or_outputs));
+			NetworkApplication.sNetwork = new Network(or_anatomy, new TrainingSetBase(or_inputs, or_outputs));
 			break;
 		case 4:
-			NetworkApplication.sNetwork = new Network(xor_anatomy, new TrainingSet(xor_inputs, xor_outputs));
+			NetworkApplication.sNetwork = new Network(xor_anatomy, new TrainingSetBase(xor_inputs, xor_outputs));
 			break;
 		case 5:
-			NetworkApplication.sNetwork = new Network(ex_anatomy, new TrainingSet(ex_inputs, ex_outputs));
+			NetworkApplication.sNetwork = new Network(ex_anatomy, new TrainingSetBase(ex_inputs, ex_outputs));
 			break;
 		case 6:
-			NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSet(chess_inputs, chess_outputs));
+			NetworkApplication.sNetwork = new Network(chess_anatomy, new TrainingSetBase(chess_inputs, chess_outputs));
 			break;
 		case 7:
-			NetworkApplication.sNetwork = new Network(multioutput_anatomy, new TrainingSet(multioutput_inputs, multioutput_outputs));
+			NetworkApplication.sNetwork = new Network(multioutput_anatomy, new TrainingSetBase(multioutput_inputs, multioutput_outputs));
 			break;
 
 		}

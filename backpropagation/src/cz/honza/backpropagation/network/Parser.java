@@ -137,7 +137,7 @@ public class Parser {
 				System.arraycopy(element, inputDim + 1, outputs[i], 0, outputDim);
 			}
 			
-			TrainingSet trainingSet = new TrainingSet(inputs, outputs);
+			TrainingSet trainingSet = new TrainingSetBase(inputs, outputs);
 			Network n = new Network(anatomy, trainingSet);
 			if (n.check(handler))
 			{
