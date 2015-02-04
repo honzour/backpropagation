@@ -6,6 +6,15 @@ import java.io.Writer;
 public class TrainingSetSingleTimeline implements TrainingSet {
 
 	private static final long serialVersionUID = -2798729495999954517L;
+	
+	protected int mInputDimension;
+	protected int mOutputDimension;
+	protected double mTimeline;
+	
+	public TrainingSetSingleTimeline(int inputDimension, int outputDimension, double[] timeline)
+	{
+		
+	}
 
 	@Override
 	public void saveXml(Writer writer) throws IOException {
