@@ -13,4 +13,5 @@ public interface TrainingSet extends Serializable {
 	
 	int getInputDimension();
 	int getOutputDimension();
+	boolean check(ParserResultHandler handler);
 }

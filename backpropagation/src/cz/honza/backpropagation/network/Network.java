@@ -54,7 +54,7 @@ public class Network implements Serializable {
 	 */
 	public boolean check(ParserResultHandler handler)
 	{
-		if (mLayers == null || mTrainingSet == null || mTrainingSet.mInputs == null || mTrainingSet.mInputs == null)
+		if (mLayers == null || mTrainingSet == null)
 		{
 			handler.onError(R.string.null_elements);
 			return false;
@@ -93,38 +93,8 @@ public class Network implements Serializable {
 				}
 			}
 		}
-		
-		if (mTrainingSet.mInputs.length != mTrainingSet.mOutputs.length)
-		{
-			handler.onError(R.string.input_output_count);
-			return false;
-		}
-		
-		if (mTrainingSet.mInputs.length == 0)
-		{
-			handler.onError(R.string.empty_training_set);
-			return false;
-		}
-		
-		for (int i = 0; i < mTrainingSet.mInputs.length; i++)
-		{
-			if (mTrainingSet.mInputs[i].length != getInputDimension())
-			{
-				handler.onError(R.string.input_example_dimension);
-				return false;
-			}
-		}
-		
-		for (int i = 0; i < mTrainingSet.mOutputs.length; i++)
-		{
-			if (mTrainingSet.mOutputs[i].length != getOutputDimension())
-			{
-				handler.onError(R.string.output_example_dimension);
-				return false;
-			}
-		}
 			
-		return true;
+		return mTrainingSet.check(handler);
 	}
 
 	/**
