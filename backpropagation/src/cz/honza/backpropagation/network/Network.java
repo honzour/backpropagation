@@ -137,7 +137,7 @@ public class Network implements Serializable {
 		{
 			mLayers[i] = new Layer(layersData.get(i));
 		}
-		mTrainingSet = new TrainingSet(trainingData);
+		mTrainingSet = new TrainingSetBase(trainingData);
 		initTraining(mTrainingSet);
 	}
 	
@@ -226,18 +226,19 @@ public class Network implements Serializable {
 			mOutputScale[i][1] = 0;
 		}
 		
-		if (training == null || training.mInputs.length == 0 || training.mInputs[0].length == 0 || training.mOutputs[0].length == 0)
+		if (training == null || training.length() == 0 || training.getInputDimension() == 0 ||
+				training.getInputDimension() == 0)
 			return;
 
 		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
 		for (int i = 0; i < mInputScale.length; i++)
 		{
-			double min = training.mInputs[0][i];
+			double min = training.getInput(0, i);
 			double max = min;
 			
-			for (int j = 1; j < training.mInputs.length; j++)
+			for (int j = 1; j < training.length(); j++)
 			{
-				final double val = training.mInputs[j][i]; 
+				final double val = training.getInput(j, i); 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -261,13 +262,13 @@ public class Network implements Serializable {
 		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
 		for (int i = 0; i < mOutputScale.length; i++)
 		{
-			double min = training.mOutputs[0][i];
+			double min = training.getOutput(0, i);
 			double max = min;
 			
 			
-			for (int j = 1; j < training.mOutputs.length; j++)
+			for (int j = 1; j < training.length(); j++)
 			{
-				final double val = training.mOutputs[j][i]; 
+				final double val = training.getOutput(j, i); 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -301,10 +302,10 @@ public class Network implements Serializable {
 	{
 		double sumError = 0;
 		
-		for (int i = 0; i < mTrainingSet.mInputs.length; i++) {
+		for (int i = 0; i < mTrainingSet.length(); i++) {
 			calculate(mTrainingSet.mInputs[i], mOutput, true);
 			for (int j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - mTrainingSet.mOutputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.getOutput(i, j);
 				sumError += diff * diff;
 			}
 		}
@@ -331,7 +332,7 @@ public class Network implements Serializable {
 			}
 		}
 
-		for (i = 0; i < mTrainingSet.mInputs.length; i++) {
+		for (i = 0; i < mTrainingSet.length(); i++) {
 			calculate(mTrainingSet.mInputs[i], mOutput, true);
 			// from the last to the first layer 
 			for (j = mLayers.length - 1; j >= 0; j--) { // backpropagation - go back
@@ -340,7 +341,7 @@ public class Network implements Serializable {
 					Neuron n = mLayers[j].neurons[k];
 					if (j == mLayers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - (mTrainingSet.mOutputs[i][k] - mOutputScale[k][1]) / mOutputScale[k][0];
+						n.derivation = n.output - (mTrainingSet.getOutput(i, k) - mOutputScale[k][1]) / mOutputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						mLayers[j].neurons[k].derivation = 0;
@@ -354,7 +355,7 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.mInputs[i][l - 1] * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.getInput(i, l - 1) * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
