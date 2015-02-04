@@ -268,12 +268,23 @@ public class Network implements Serializable {
 
 	}
 
+	private double[] mInputCache = null;
+	
 	public double getError()
 	{
 		double sumError = 0;
 		
+		if (mInputCache == null || mInputCache.length != mTrainingSet.getInputDimension())
+		{
+			mInputCache = new double[mTrainingSet.getInputDimension()];
+		}
+		
 		for (int i = 0; i < mTrainingSet.length(); i++) {
-			calculate(mTrainingSet.mInputs[i], mOutput, true);
+			for (int j = 0; j < mTrainingSet.getInputDimension(); j++)
+			{
+				mInputCache[j] = mTrainingSet.getInput(i, j);
+			}
+			calculate(mInputCache, mOutput, true);
 			for (int j = 0; j < mOutput.length; j++) {
 				final double diff = mOutput[j] - mTrainingSet.getOutput(i, j);
 				sumError += diff * diff;
@@ -301,9 +312,18 @@ public class Network implements Serializable {
 				}
 			}
 		}
+		
+		if (mInputCache == null || mInputCache.length != mTrainingSet.getInputDimension())
+		{
+			mInputCache = new double[mTrainingSet.getInputDimension()];
+		}
 
 		for (i = 0; i < mTrainingSet.length(); i++) {
-			calculate(mTrainingSet.mInputs[i], mOutput, true);
+			for (j = 0; j < mTrainingSet.getInputDimension(); j++)
+			{
+				mInputCache[j] = mTrainingSet.getInput(i, j);
+			}
+			calculate(mInputCache, mOutput, true);
 			// from the last to the first layer 
 			for (j = mLayers.length - 1; j >= 0; j--) { // backpropagation - go back
 				// for each neuron in the layer
