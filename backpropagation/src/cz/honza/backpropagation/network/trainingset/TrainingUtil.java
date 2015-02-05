@@ -3,9 +3,33 @@ package cz.honza.backpropagation.network.trainingset;
 import java.io.IOException;
 import java.io.Writer;
 
+import cz.honza.backpropagation.network.Csv;
 import cz.honza.backpropagation.network.Xml;
 
 public class TrainingUtil {
+	
+	public static void saveCsv(TrainingSet set, Writer writer) throws IOException
+	{
+		for (int i = 0; i < set.length(); i++)
+		{
+			for (int j = 0; j < set.getInputDimension(); j++)
+			{
+				writer.write(String.valueOf(set.getInput(i, j)));
+				writer.write(Csv.COMMA);
+			}
+			writer.write(Csv.COMMA);
+			for (int j = 0; j < set.getOutputDimension(); j++)
+			{
+				writer.write(String.valueOf(set.getOutput(i, j)));
+				if (j < set.getOutputDimension() - 1)
+					writer.write(Csv.COMMA);
+			}
+				
+			writer.write(Csv.NEW_LINE);
+		}
+	}
+
+	
 	protected static void saveNumberXml(Writer writer, double number, int tabs) throws IOException
 	{
 		for (int i = 0; i < tabs; i++)

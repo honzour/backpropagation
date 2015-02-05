@@ -5,7 +5,6 @@ import java.io.Writer;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.network.Csv;
 import cz.honza.backpropagation.network.ParserResultHandler;
 
 public class TrainingSetBase implements TrainingSet {
@@ -43,28 +42,6 @@ public class TrainingSetBase implements TrainingSet {
 		
 		this.mInputs = list2array(inputs);
 		this.mOutputs = list2array(outputs);
-	}
-	
-	
-	public void saveCsv(Writer writer) throws IOException
-	{
-		for (int i = 0; i < mInputs.length; i++)
-		{
-			for (int j = 0; j < mInputs[i].length; j++)
-			{
-				writer.write(String.valueOf(mInputs[i][j]));
-				writer.write(Csv.COMMA);
-			}
-			writer.write(Csv.COMMA);
-			for (int j = 0; j < mOutputs[i].length; j++)
-			{
-				writer.write(String.valueOf(mOutputs[i][j]));
-				if (j < mOutputs[i].length - 1)
-					writer.write(Csv.COMMA);
-			}
-				
-			writer.write(Csv.NEW_LINE);
-		}
 	}
 
 	@Override
@@ -137,5 +114,10 @@ public class TrainingSetBase implements TrainingSet {
 	@Override
 	public void saveXml(Writer writer) throws IOException {
 		TrainingUtil.saveXml(this, writer);
+	}
+
+	@Override
+	public void saveCsv(Writer writer) throws IOException {
+		TrainingUtil.saveCsv(this, writer);
 	}
 }

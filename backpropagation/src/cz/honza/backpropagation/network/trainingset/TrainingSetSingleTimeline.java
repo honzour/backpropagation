@@ -27,7 +27,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void saveCsv(Writer writer) throws IOException {
-		// TODO Auto-generated method stub
+		TrainingUtil.saveCsv(this, writer);
 	}
 
 	@Override
