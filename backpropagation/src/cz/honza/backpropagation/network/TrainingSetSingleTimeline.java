@@ -9,11 +9,13 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	
 	protected int mInputDimension;
 	protected int mOutputDimension;
-	protected double mTimeline;
+	protected double[] mTimeline;
 	
 	public TrainingSetSingleTimeline(int inputDimension, int outputDimension, double[] timeline)
 	{
-		
+		mInputDimension = inputDimension;
+		mOutputDimension = outputDimension;
+		mTimeline = timeline;
 	}
 
 	@Override
@@ -28,37 +30,32 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public int length() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mTimeline.length - mInputDimension - mOutputDimension + 1;
 	}
 
 	@Override
 	public double getInput(int inputIndex, int numberIndex) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mTimeline[inputIndex + numberIndex];
 	}
 
 	@Override
 	public double getOutput(int outputIndex, int numberIndex) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mTimeline[mInputDimension + 1 + numberIndex];
 	}
 
 	@Override
 	public int getInputDimension() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mInputDimension;
 	}
 
 	@Override
 	public int getOutputDimension() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mOutputDimension;
 	}
 
 	@Override
 	public boolean check(ParserResultHandler handler) {
-		// TODO Auto-generated method stub
+		// TODO
 		return false;
 	}
 }
