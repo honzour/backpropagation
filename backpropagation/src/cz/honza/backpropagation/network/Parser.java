@@ -16,6 +16,8 @@ import org.w3c.dom.Text;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.trainingset.TrainingSet;
+import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 
 public class Parser {
 	

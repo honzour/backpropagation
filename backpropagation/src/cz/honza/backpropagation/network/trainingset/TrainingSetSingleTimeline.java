@@ -1,7 +1,9 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.trainingset;
 
 import java.io.IOException;
 import java.io.Writer;
+
+import cz.honza.backpropagation.network.ParserResultHandler;
 
 public class TrainingSetSingleTimeline implements TrainingSet {
 

@@ -9,8 +9,8 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.editor.EditorActivity;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.TrainingSet;
-import cz.honza.backpropagation.network.TrainingSetBase;
+import cz.honza.backpropagation.network.trainingset.TrainingSet;
+import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 
 public class NewTaskActivity extends NetworkActivity {
 	
