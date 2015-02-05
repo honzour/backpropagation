@@ -7,7 +7,6 @@ import java.util.List;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Csv;
 import cz.honza.backpropagation.network.ParserResultHandler;
-import cz.honza.backpropagation.network.Xml;
 
 public class TrainingSetBase implements TrainingSet {
 	private static final long serialVersionUID = 3556087741395041118L;
@@ -46,124 +45,6 @@ public class TrainingSetBase implements TrainingSet {
 		this.mOutputs = list2array(outputs);
 	}
 	
-	protected static void saveNumberXml(Writer writer, double number, int tabs) throws IOException
-	{
-		for (int i = 0; i < tabs; i++)
-		{
-			writer.write(Xml.TAB);
-		}
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.NUMBER);
-		writer.write(Xml.TAG_END);
-		
-		writer.write(String.valueOf(number));
-		
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.NUMBER);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
-	
-	protected void saveInputXml(Writer writer, int i) throws IOException
-	{
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.INPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int j = 0; j < mInputs[i].length; j++)
-		{
-			saveNumberXml(writer, mInputs[i][j], 4);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.INPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
-	
-	protected void saveOutputXml(Writer writer, int i) throws IOException
-	{
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int j = 0; j < mOutputs[i].length; j++)
-		{
-			saveNumberXml(writer, mOutputs[i][j], 4);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUT);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
-	
-	public void saveXml(Writer writer) throws IOException
-	{
-		writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.TRAINING);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.INPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int i = 0; i < mInputs.length; i++)
-		{
-			saveInputXml(writer, i);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.INPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		for (int i = 0; i < mInputs.length; i++)
-		{
-			saveOutputXml(writer, i);
-		}
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB); writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.OUTPUTS);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-		
-		writer.write(Xml.TAB);
-		writer.write(Xml.TAG_TERMINATE_START);
-		writer.write(Xml.TRAINING);
-		writer.write(Xml.TAG_END);
-		writer.write(Xml.NEW_LINE);
-	}
 	
 	public void saveCsv(Writer writer) throws IOException
 	{
@@ -251,5 +132,10 @@ public class TrainingSetBase implements TrainingSet {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public void saveXml(Writer writer) throws IOException {
+		TrainingUtil.saveXml(this, writer);
 	}
 }

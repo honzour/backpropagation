@@ -22,7 +22,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void saveXml(Writer writer) throws IOException {
-		// TODO Auto-generated method stub
+		TrainingUtil.saveXml(this, writer);
 	}
 
 	@Override
