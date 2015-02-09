@@ -76,7 +76,11 @@ public class CsvParser {
 				handler.onError(R.string.missing_format_description);
 				return;
 			}
-			if (!line.equals("CSV1"))
+			
+			final boolean csv1 = line.equals("CSV1");
+			final boolean csv2 = line.equals("CSV2");
+			
+			if (!csv1 && !csv2)
 			{
 				handler.onError(R.string.unknown_format);
 				return;
@@ -101,6 +105,13 @@ public class CsvParser {
 			
 			final int inputDim = anatomy[0];
 			final int outputDim = anatomy[anatomy.length - 1];
+			
+			if (csv2)
+			{
+				// TODO CSV2 - read timeline
+			}
+			
+			else
 			
 			while ((line = in.readLine()) != null)
 			{
