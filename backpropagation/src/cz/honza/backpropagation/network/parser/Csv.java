@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 public class Csv {
 	public static final String COMMA = ",";

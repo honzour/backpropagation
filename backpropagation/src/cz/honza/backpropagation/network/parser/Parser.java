@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 

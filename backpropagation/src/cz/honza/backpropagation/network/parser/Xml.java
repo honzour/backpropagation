@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 public class Xml {
 	public static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";

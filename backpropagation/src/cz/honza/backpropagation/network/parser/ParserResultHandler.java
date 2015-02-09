@@ -1,6 +1,7 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 import cz.honza.backpropagation.NetworkApplication;
+import cz.honza.backpropagation.network.Network;
 
 public abstract class ParserResultHandler {
 	public abstract void onFinished(Network network);

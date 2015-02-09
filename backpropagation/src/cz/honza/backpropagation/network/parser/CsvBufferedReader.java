@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
