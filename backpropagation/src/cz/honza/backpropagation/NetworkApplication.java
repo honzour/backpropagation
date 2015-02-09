@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 
 import cz.honza.backpropagation.learning.LearningThread;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.Parser;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.Parser;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class FromWebThread extends Thread {
 	

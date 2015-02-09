@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public interface TrainingSet extends Serializable {
 	void saveXml(Writer writer) throws IOException;

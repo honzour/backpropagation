@@ -5,7 +5,7 @@ import java.io.Writer;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class TrainingSetBase implements TrainingSet {
 	private static final long serialVersionUID = 3556087741395041118L;

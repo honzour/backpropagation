@@ -12,8 +12,8 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.Parser;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class ImportDataActivity extends NetworkActivity {
 	

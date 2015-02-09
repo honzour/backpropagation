@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
+import cz.honza.backpropagation.network.parser.Xml;
+
 public class Layer implements Serializable {
 	private static final long serialVersionUID = -4328364654490455402L;
 	public Neuron[] neurons;

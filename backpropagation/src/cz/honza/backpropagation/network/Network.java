@@ -7,6 +7,9 @@ import java.io.Writer;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.parser.Csv;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.Xml;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 

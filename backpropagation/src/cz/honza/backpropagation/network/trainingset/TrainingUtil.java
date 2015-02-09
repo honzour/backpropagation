@@ -3,8 +3,8 @@ package cz.honza.backpropagation.network.trainingset;
 import java.io.IOException;
 import java.io.Writer;
 
-import cz.honza.backpropagation.network.Csv;
-import cz.honza.backpropagation.network.Xml;
+import cz.honza.backpropagation.network.parser.Csv;
+import cz.honza.backpropagation.network.parser.Xml;
 
 public class TrainingUtil {
 	
