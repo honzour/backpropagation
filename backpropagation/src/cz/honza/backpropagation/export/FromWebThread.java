@@ -7,7 +7,8 @@ import android.os.Handler;
 import android.widget.Toast;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.parser.Parser;
+import cz.honza.backpropagation.network.parser.CsvParser;
+import cz.honza.backpropagation.network.parser.XmlParser;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class FromWebThread extends Thread {
@@ -72,10 +73,10 @@ public class FromWebThread extends Thread {
 			
 			if (mFormat == ExportActivity.EXTRA_FORMAT_CSV)
 			{
-				Parser.parseCsv(inputStream, callBack);
+				CsvParser.parseCsv(inputStream, callBack);
 			}
 			else
-				Parser.parseXml(inputStream, callBack);
+				XmlParser.parseXml(inputStream, callBack);
 			inputStream.close();
 		}
 		catch (final Throwable e)

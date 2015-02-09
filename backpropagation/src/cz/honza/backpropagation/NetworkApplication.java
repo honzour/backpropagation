@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 
 import cz.honza.backpropagation.learning.LearningThread;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.parser.Parser;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.XmlParser;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -53,7 +53,7 @@ public class NetworkApplication extends Application {
 		{
 			try
 			{
-				Parser.parseXml(new ByteArrayInputStream(net.getBytes()), new ParserResultHandler() {
+				XmlParser.parseXml(new ByteArrayInputStream(net.getBytes()), new ParserResultHandler() {
 					@Override
 					public void onFinished(Network network) {
 						sNetwork = network;
