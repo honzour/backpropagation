@@ -1,5 +1,6 @@
 package cz.honza.backpropagation.network.parser;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -65,6 +66,39 @@ public class CsvParser {
 		return vals;
 	}
 	
+	protected static TrainingSet parseBaseTrainingSet(int[] anatomy, CsvBufferedReader in, ParserResultHandler handler) throws IOException
+	{
+		List<double[]> training = new ArrayList<double[]>();
+		final int inputDim = anatomy[0];
+		final int outputDim = anatomy[anatomy.length - 1];
+		String line;
+		
+		while ((line = in.readLine()) != null)
+		{
+			final double[] elements = line2doubles(line, anatomy[0], in.getLine(), handler);
+			if (elements == null)
+				return null;
+			training.add(elements);
+		}
+		
+		// all parsed in int[] anatomy, List<double[]> training
+		
+		double inputs[][] = new double[training.size()][];
+		double outputs[][] = new double[training.size()][];
+		
+		for (int i = 0; i < training.size(); i++)
+		{
+			inputs[i] = new double[inputDim];
+			outputs[i] = new double[outputDim];
+			double[] element = training.get(i);
+			
+			System.arraycopy(element, 0, inputs[i], 0, inputDim);
+			System.arraycopy(element, inputDim + 1, outputs[i], 0, outputDim);
+		}
+		
+		return new TrainingSetBase(inputs, outputs);
+	}
+	
 	public static void parseCsv(InputStream is, ParserResultHandler handler)
 	{
 		try
@@ -77,8 +111,8 @@ public class CsvParser {
 				return;
 			}
 			
-			final boolean csv1 = line.equals("CSV1");
-			final boolean csv2 = line.equals("CSV2");
+			final boolean csv1 = line.equals(Csv.CSV1);
+			final boolean csv2 = line.equals(Csv.CSV2);
 			
 			if (!csv1 && !csv2)
 			{
@@ -101,48 +135,38 @@ public class CsvParser {
 				return;
 			}
 			
-			List<double[]> training = new ArrayList<double[]>();
-			
-			final int inputDim = anatomy[0];
-			final int outputDim = anatomy[anatomy.length - 1];
+			int type = Csv.BASE_CODE;
 			
 			if (csv2)
 			{
-				// TODO CSV2 - read timeline
+				// TODO which type?
 			}
 			
-			else
 			
-			while ((line = in.readLine()) != null)
+			TrainingSet trainingSet = null;
+			
+			switch (type)
 			{
-				final double[] elements = line2doubles(line, anatomy[0], in.getLine(), handler);
-				if (elements == null)
-					return;
-				training.add(elements);
+			case Csv.BASE_CODE:
+				trainingSet = parseBaseTrainingSet(anatomy, in, handler);
+				break;
+			case Csv.SINGLE_TIMELINE_CODE:
+				// TODO
+				break;
+			default:
+				// TODO handler
+				return;
 			}
 			
-			if (training.size() == 0)
+			if (trainingSet == null)
+				return;
+			
+			if (trainingSet.length() == 0)
 			{
 				handler.onError(R.string.empty_training_set);
 				return;
 			}
 			
-			// all parsed in int[] anatomy, List<double[]> training
-			
-			double inputs[][] = new double[training.size()][];
-			double outputs[][] = new double[training.size()][];
-			
-			for (int i = 0; i < training.size(); i++)
-			{
-				inputs[i] = new double[inputDim];
-				outputs[i] = new double[outputDim];
-				double[] element = training.get(i);
-				
-				System.arraycopy(element, 0, inputs[i], 0, inputDim);
-				System.arraycopy(element, inputDim + 1, outputs[i], 0, outputDim);
-			}
-			
-			TrainingSet trainingSet = new TrainingSetBase(inputs, outputs);
 			Network n = new Network(anatomy, trainingSet);
 			if (n.check(handler))
 			{
