@@ -3,6 +3,7 @@ package cz.honza.backpropagation.network.trainingset;
 import java.io.IOException;
 import java.io.Writer;
 
+import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
@@ -66,7 +67,11 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public boolean check(ParserResultHandler handler) {
-		// TODO
+		if (mTimeline.length < mInputDimension + mOutputDimension)
+		{
+			handler.onError(R.string.sequence_to_short);
+			return false;
+		}
 		return true;
 	}
 }
