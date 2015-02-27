@@ -113,7 +113,7 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void saveXml(Writer writer) throws IOException {
-		TrainingUtil.saveXml(this, writer);
+		TrainingUtil.saveXmlSimple(this, writer);
 	}
 
 	@Override

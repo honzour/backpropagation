@@ -90,11 +90,18 @@ public class TrainingUtil {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	public static void saveXml(TrainingSet set, Writer writer) throws IOException
+	public static void saveXmlTimeline(double[] set, Writer writer) throws IOException
+	{
+		
+	}
+	
+	public static void saveXmlSimple(TrainingSet set, Writer writer) throws IOException
 	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.TRAINING);
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.SIMPLE + "\n");
+		
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		

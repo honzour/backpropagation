@@ -19,4 +19,5 @@ public class Xml {
 	public static final String INPUT = "input";
 	public static final String OUTPUT = "output";
 	public static final String NUMBER = "number";
+	public static final String TYPE = "type";
 }
