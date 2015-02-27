@@ -42,7 +42,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public double getOutput(int outputIndex, int numberIndex) {
-		return mTimeline[mInputDimension + 1 + numberIndex];
+		return mTimeline[mInputDimension + numberIndex + outputIndex];
 	}
 
 	@Override
