@@ -96,6 +96,7 @@
     <string name="missing_anatomy">Missing anatomy</string>
     <string name="missing_training_set">Missing training set</string>
     <string name="no_training_set_type">No training set type?</string>
+    <string name="unknown_training_set_type">Unknown training set type</string>
     
     <!-- result input -->
     <string name="input">Input:</string>

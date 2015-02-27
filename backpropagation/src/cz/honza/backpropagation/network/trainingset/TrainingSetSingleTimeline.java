@@ -58,6 +58,6 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	@Override
 	public boolean check(ParserResultHandler handler) {
 		// TODO
-		return false;
+		return true;
 	}
 }

@@ -97,6 +97,7 @@
     <string name="missing_anatomy">Chybí anatomie</string>
     <string name="missing_training_set">Chybí tréninková množina</string>
     <string name="no_training_set_type">Chybí typ tréninkové množiny</string>
+    <string name="unknown_training_set_type">Neznámý typ tréninkové množiny</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>

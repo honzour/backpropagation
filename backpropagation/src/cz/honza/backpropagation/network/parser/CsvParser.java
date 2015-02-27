@@ -12,6 +12,7 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
+import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
 
 public class CsvParser {
 	protected static int[] line2ints(String line, int lineNumber, ParserResultHandler handler)
@@ -64,6 +65,22 @@ public class CsvParser {
 			}
 		}
 		return vals;
+	}
+	
+	
+	protected static TrainingSet parseTimelineTrainingSet(int[] anatomy, CsvBufferedReader in, ParserResultHandler handler) throws IOException
+	{
+		final String line = in.readLine();
+		if (line == null)
+		{
+			handler.onError(R.string.empty_training_set);
+			return null;
+		}
+		final double[] elements = line2doubles(line, -1, in.getLine(), handler);
+		if (elements == null)
+			return null;
+		// TODO check length
+		return new TrainingSetSingleTimeline(anatomy[0], anatomy[anatomy.length - 1], elements);
 	}
 	
 	protected static TrainingSet parseBaseTrainingSet(int[] anatomy, CsvBufferedReader in, ParserResultHandler handler) throws IOException
@@ -149,6 +166,11 @@ public class CsvParser {
 					handler.onError(R.string.no_training_set_type);
 					return;
 				}
+				if (line.equals(Csv.TIMELINE))
+				{
+					type = Csv.TIMELINE_CODE;
+				}
+				
 			}
 			
 			
@@ -160,10 +182,10 @@ public class CsvParser {
 				trainingSet = parseBaseTrainingSet(anatomy, in, handler);
 				break;
 			case Csv.TIMELINE_CODE:
-				// TODO
+				trainingSet = parseTimelineTrainingSet(anatomy, in, handler);
 				break;
 			default:
-				// TODO handler
+				handler.onError(R.string.unknown_training_set_type);
 				return;
 			}
 			
