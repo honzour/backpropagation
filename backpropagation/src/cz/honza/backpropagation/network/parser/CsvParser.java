@@ -79,7 +79,6 @@ public class CsvParser {
 		final double[] elements = line2doubles(line, -1, in.getLine(), handler);
 		if (elements == null)
 			return null;
-		// TODO check length
 		return new TrainingSetSingleTimeline(anatomy[0], anatomy[anatomy.length - 1], elements);
 	}
 	
