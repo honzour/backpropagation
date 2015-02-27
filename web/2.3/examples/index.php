@@ -117,7 +117,7 @@ In this cases neural network should predict the next value(s) from previous valu
 </P>
 <UL>
 <LI>
-<B><A HREF="01">0, 0, 1, 0, 0, 1, 0, 0, 1</A></B><BR>
+<B><A HREF="001">0, 0, 1, 0, 0, 1, 0, 0, 1</A></B><BR>
 <P>
 2D to 1D prediction of the periodic function. A simple hello world timeline example.
 </P>
