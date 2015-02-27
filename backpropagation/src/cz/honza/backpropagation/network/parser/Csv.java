@@ -6,9 +6,9 @@ public class Csv {
 	
 	public static final String CSV1 = "CSV1";
 	public static final String CSV2 = "CSV2";
-	public static final String BASE = "Base";
-	public static final String SINGLE_TIMELINE = "SingleTimeline";
+	public static final String SIMPLE = "simple";
+	public static final String TIMELINE = "timeline";
 	
-	public static final int BASE_CODE = 1;
-	public static final int SINGLE_TIMELINE_CODE = 2;
+	public static final int SIMPLE_CODE = 1;
+	public static final int TIMELINE_CODE = 2;
 }

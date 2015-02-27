@@ -104,6 +104,10 @@ public class CsvParser {
 		try
 		{
 			CsvBufferedReader in = new CsvBufferedReader(new InputStreamReader(is));
+			TrainingSet trainingSet = null;
+			int[] anatomy = null;
+			try
+			{
 			String line = in.readLine();
 			if (line == null)
 			{
@@ -126,7 +130,7 @@ public class CsvParser {
 				return;
 			}
 			
-			final int[] anatomy = line2ints(line, 0, handler);
+			anatomy = line2ints(line, 0, handler);
 			if (anatomy == null)
 				return;
 			if (anatomy.length < 2)
@@ -135,22 +139,27 @@ public class CsvParser {
 				return;
 			}
 			
-			int type = Csv.BASE_CODE;
+			int type = Csv.SIMPLE_CODE;
 			
 			if (csv2)
 			{
-				// TODO which type?
+				line = in.readLine();
+				if (line == null)
+				{
+					handler.onError(R.string.no_training_set_type);
+					return;
+				}
 			}
 			
 			
-			TrainingSet trainingSet = null;
+			
 			
 			switch (type)
 			{
-			case Csv.BASE_CODE:
+			case Csv.SIMPLE_CODE:
 				trainingSet = parseBaseTrainingSet(anatomy, in, handler);
 				break;
-			case Csv.SINGLE_TIMELINE_CODE:
+			case Csv.TIMELINE_CODE:
 				// TODO
 				break;
 			default:
@@ -165,6 +174,11 @@ public class CsvParser {
 			{
 				handler.onError(R.string.empty_training_set);
 				return;
+			}
+			}
+			finally
+			{
+				in.close();
 			}
 			
 			Network n = new Network(anatomy, trainingSet);
