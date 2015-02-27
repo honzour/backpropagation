@@ -8,8 +8,10 @@ import cz.honza.backpropagation.network.parser.Xml;
 
 public class TrainingUtil {
 	
-	public static void saveCsv(TrainingSet set, Writer writer) throws IOException
+	public static void saveCsvSimple(TrainingSet set, Writer writer) throws IOException
 	{
+		writer.write(Csv.SIMPLE);
+		writer.write(Csv.NEW_LINE);
 		for (int i = 0; i < set.length(); i++)
 		{
 			for (int j = 0; j < set.getInputDimension(); j++)

@@ -3,6 +3,7 @@ package cz.honza.backpropagation.network.trainingset;
 import java.io.IOException;
 import java.io.Writer;
 
+import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class TrainingSetSingleTimeline implements TrainingSet {
@@ -27,7 +28,15 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void saveCsv(Writer writer) throws IOException {
-		TrainingUtil.saveCsv(this, writer);
+		writer.write(Csv.TIMELINE);
+		writer.write(Csv.NEW_LINE);
+		for (int i = 0; i < mTimeline.length; i++)
+		{
+			writer.write(String.valueOf(mTimeline[i]));
+			if (i < mTimeline.length - 1)
+				writer.write(Csv.COMMA);
+		}
+		writer.write(Csv.NEW_LINE);
 	}
 
 	@Override

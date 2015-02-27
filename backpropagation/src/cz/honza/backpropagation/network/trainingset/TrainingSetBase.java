@@ -118,6 +118,6 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void saveCsv(Writer writer) throws IOException {
-		TrainingUtil.saveCsv(this, writer);
+		TrainingUtil.saveCsvSimple(this, writer);
 	}
 }

@@ -463,7 +463,7 @@ public class Network implements Serializable {
 	public void saveCsv(Writer writer) throws IOException
 	{
 		writer.append(";Format\n");
-		writer.append("CSV1\n");
+		writer.append("CSV2\n");
 		writer.append(";Anatomy\n");
 		saveLayersCsv(writer);
 		writer.append(";Training set\n");
