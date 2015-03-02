@@ -15,6 +15,8 @@ import org.w3c.dom.Text;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.network.trainingset.TrainingSet;
+import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 
 public class XmlParser {
 	public static void parseXml(InputStream is, ParserResultHandler handler)
@@ -37,7 +39,7 @@ public class XmlParser {
 			if (layers == null)
 			return;
 			
-			final List<List<List<Double>>> training = parseTraining(network, handler);
+			TrainingSet training = parseTraining(network, handler);
 			if (training == null)
 				return;
 			
@@ -69,7 +71,7 @@ public class XmlParser {
 		return null;
 	}
 
-	protected static List<List<List<Double>>> parseTraining(Node network, ParserResultHandler handler) {
+	protected static TrainingSet parseTraining(Node network, ParserResultHandler handler) {
 		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, handler);
 		if (trainingNode == null)
 		{
@@ -117,7 +119,7 @@ public class XmlParser {
 			outputList.add(n);
 		}
 		
-		return result;
+		return new TrainingSetBase(result); 
 	}
 	
 	protected static String missingTag(String tag)

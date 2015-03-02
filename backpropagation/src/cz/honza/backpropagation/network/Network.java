@@ -106,13 +106,13 @@ public class Network implements Serializable {
 	 * Parsing constructor
 	 * @param layersData
 	 */
-	public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData) {
+	public Network(List<List<List<Double>>> layersData, TrainingSet trainingSet) {
 		mLayers = new Layer[layersData.size()];
 		for (int i = 0; i < mLayers.length; i++)
 		{
 			mLayers[i] = new Layer(layersData.get(i));
 		}
-		mTrainingSet = new TrainingSetBase(trainingData);
+		mTrainingSet = trainingSet;
 		initTraining(mTrainingSet);
 	}
 	
