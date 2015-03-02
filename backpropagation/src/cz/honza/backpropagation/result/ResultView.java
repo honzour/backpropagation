@@ -44,29 +44,29 @@ public class ResultView extends View {
 		// will be real y of top of the screen
 		double maxY = maxX;
 		
-		double[][] inputs = n.mTrainingSet.mInputs; 
-		if (n.mTrainingSet.mInputs.length > 0)
+		//double[][] inputs = n.mTrainingSet.mInputs; 
+		if (n.mTrainingSet.length() > 0)
 		{
-			if (inputs[0].length > 0)
-				minX = maxX = inputs[0][0];
-			if (inputs[0].length > 1)
-				minY = maxY = inputs[0][1];
+			if (n.mTrainingSet.getInputDimension() > 0)
+				minX = maxX = n.mTrainingSet.getInput(0, 0);
+			if (n.mTrainingSet.getInputDimension() > 1)
+				minY = maxY = n.mTrainingSet.getInput(0, 1);
 			
-			for (int i = 1; i < inputs.length; i++)
+			for (int i = 1; i < n.mTrainingSet.length(); i++)
 			{
-				if (inputs[i].length > 0)
+				if (n.mTrainingSet.getInputDimension() > 0)
 				{
-					if (minX > inputs[i][0])
-						minX = inputs[i][0];
-					if (maxX < inputs[i][0])
-						maxX = inputs[i][0];
+					if (minX > n.mTrainingSet.getInput(i, 0))
+						minX = n.mTrainingSet.getInput(i, 0);
+					if (maxX < n.mTrainingSet.getInput(i, 0))
+						maxX = n.mTrainingSet.getInput(i, 0);
 				}
-				if (inputs[i].length > 1)
+				if (n.mTrainingSet.getInputDimension() > 1)
 				{
-					if (minY > inputs[i][1])
-						minY = inputs[i][1];
-					if (maxY < inputs[i][1])
-						maxY = inputs[i][1];
+					if (minY > n.mTrainingSet.getInput(i, 1))
+						minY = n.mTrainingSet.getInput(i, 1);
+					if (maxY < n.mTrainingSet.getInput(i, 1))
+						maxY = n.mTrainingSet.getInput(i, 1);
 				}
 			}
 		}
@@ -148,29 +148,29 @@ public class ResultView extends View {
 		canvas.drawLine(0, y0, width, y0, mPaint);
 		canvas.drawLine(x0, 0, x0, height, mPaint);
 		
-		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
+		for (int i = 0; i < n.mTrainingSet.length(); i++)
 		{
 			double ix = 0;
 			double iy = 0;
 			
-			if (n.mTrainingSet.mInputs[i].length > 0)
+			if (n.mTrainingSet.getInputDimension() > 0)
 			{
-				ix = n.mTrainingSet.mInputs[i][0];
-				if (n.mTrainingSet.mInputs[i].length > 1)
+				ix = n.mTrainingSet.getInput(i, 0);
+				if (n.mTrainingSet.getInputDimension() > 1)
 				{
-					iy = n.mTrainingSet.mInputs[i][1];
+					iy = n.mTrainingSet.getInput(i, 1);
 				}
 			}
 			
 			double x = width * (ix - minX) / (maxX - minX);
 			double y = height - 1 -  height * (iy - minY) / (maxY - minY);
-			if (Math.abs(n.mTrainingSet.mOutputs[i][0]) < 0.5)
+			if (Math.abs(n.mTrainingSet.getOutput(i, 0)) < 0.5)
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
 				mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawCircle((float)x, (float)y, radius, mPaint);
 			
-			if (n.mTrainingSet.mInputs.length <= mMaxTexts)
+			if (n.mTrainingSet.length() <= mMaxTexts)
 			{
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 				canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
@@ -190,32 +190,28 @@ public class ResultView extends View {
 		// will be real y of top of the screen
 		double maxY = maxX;
 		
-		
-		final double[][] inputs = n.mTrainingSet.mInputs;
-		final double[][] outputs = n.mTrainingSet.mOutputs;
-		
-		if (inputs.length > 0)
+		if (n.mTrainingSet.length() > 0)
 		{
-			if (inputs[0].length > 0)
-				minX = maxX = inputs[0][0];
-			if (outputs[0].length > 0)
-				minY = maxY = outputs[0][0];
+			if (n.mTrainingSet.getInputDimension() > 0)
+				minX = maxX = n.mTrainingSet.getInput(0, 0);
+			if (n.mTrainingSet.getOutputDimension() > 0)
+				minY = maxY = n.mTrainingSet.getOutput(0, 0);
 			
-			for (int i = 1; i < inputs.length; i++)
+			for (int i = 1; i < n.mTrainingSet.length(); i++)
 			{
-				if (inputs[i].length > 0)
+				if (n.mTrainingSet.getInputDimension() > 0)
 				{
-					if (minX > inputs[i][0])
-						minX = inputs[i][0];
-					if (maxX < inputs[i][0])
-						maxX = inputs[i][0];
+					if (minX > n.mTrainingSet.getInput(i, 0))
+						minX = n.mTrainingSet.getInput(i, 0);
+					if (maxX < n.mTrainingSet.getInput(i, 0))
+						maxX = n.mTrainingSet.getInput(i, 0);
 				}
-				if (outputs[i].length > 0)
+				if (n.mTrainingSet.getOutputDimension() > 0)
 				{
-					if (minY > outputs[i][0])
-						minY = outputs[i][0];
-					if (maxY < outputs[i][0])
-						maxY = outputs[i][0];
+					if (minY > n.mTrainingSet.getOutput(i, 0))
+						minY = n.mTrainingSet.getOutput(i, 0);
+					if (maxY < n.mTrainingSet.getOutput(i, 0))
+						maxY = n.mTrainingSet.getOutput(i, 0);
 				}
 			}
 		}
@@ -254,23 +250,23 @@ public class ResultView extends View {
 				canvas.drawBitmap(mBmp, 0, 0, mPaint);
 		}
 		
-		for (int i = 0; i < n.mTrainingSet.mInputs.length; i++)
+		for (int i = 0; i < n.mTrainingSet.length(); i++)
 		{
 			double ix = 0;
 			double iy = 0;
 			
-			ix = inputs[i][0];
-			iy = outputs[i][0];
+			ix = n.mTrainingSet.getInput(i, 0);
+			iy = n.mTrainingSet.getOutput(i, 0);
 			
 			double x = width * (ix - minX) / (maxX - minX);
 			double y = height - 1 -  height * (iy - minY) / (maxY - minY);
-			if (Math.abs(n.mTrainingSet.mOutputs[i][0]) < 0.5)
+			if (Math.abs(n.mTrainingSet.getOutput(i, 0)) < 0.5)
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 			else
 				mPaint.setStyle(Paint.Style.STROKE);
 			canvas.drawCircle((float)x, (float)y, radius, mPaint);
 			
-			if (n.mTrainingSet.mInputs.length <= mMaxTexts)
+			if (n.mTrainingSet.length() <= mMaxTexts)
 			{
 				mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 				canvas.drawText("[" + ix + ", " + iy + "]", (float)x + radius, (float)y - radius, mPaint);
@@ -291,10 +287,10 @@ public class ResultView extends View {
 		final int height = getHeight();
 		
 		int radius = (width + height) >> 6;
-		if (mMaxFullSize < n.mTrainingSet.mInputs.length)
+		if (mMaxFullSize < n.mTrainingSet.length())
 		{
 			radius = (int)(
-					radius / Math.sqrt(((n.mTrainingSet.mInputs.length) / (double) mMaxFullSize)) 
+					radius / Math.sqrt(((n.mTrainingSet.length()) / (double) mMaxFullSize)) 
 					+ 0.5);
 		}
 		if (mPaint == null)

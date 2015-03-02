@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 
 import cz.honza.backpropagation.learning.LearningThread;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.XmlParser;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,7 +25,7 @@ public class NetworkApplication extends Application {
 	public static final String PREFS_DEFAULT_IMPORT_XML_URL = "PREFS_DEFAULT_IMPORT_XML_URL";
 	public static final String PREFS_STORED_NET = "PREFS_STORED_NET";
 	
-	public static final String HELP_URL_ROOT = "http://backpropagation.moxo.cz/2.1/";
+	public static final String HELP_URL_ROOT = "http://backpropagation.moxo.cz/2.3/";
 	
 	public void savePref(String key, String value)
 	{
@@ -53,7 +53,7 @@ public class NetworkApplication extends Application {
 		{
 			try
 			{
-				Parser.parseXml(new ByteArrayInputStream(net.getBytes()), new ParserResultHandler() {
+				XmlParser.parseXml(new ByteArrayInputStream(net.getBytes()), new ParserResultHandler() {
 					@Override
 					public void onFinished(Network network) {
 						sNetwork = network;

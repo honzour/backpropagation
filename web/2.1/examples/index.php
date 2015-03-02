@@ -101,7 +101,13 @@ Calculate a distance of the point in 2D from [0.5, 0.5]. Learn from the table an
 <LI>
 <B><A HREF="oddeven">Odd - Even</A></B><BR>
 <P>
-Returns 1 for odd and 0 for even numbers. Training set is from 0 to 6 and the network can learn the training set pretty well. It fails for larger training set and it also fails to generalize for numbers that are not in the training set. Anyway, I would like to know how a common neural network with sigma activation fuction can generalize here...
+Returns 1 for odd and 0 for even numbers. The input is simply 1D, the real value of the number scaled to &lt;0, 1&gt;. Training set is from 0 to 6 and the network can learn the training set pretty well. It fails for larger training set and it also fails to generalize for numbers that are not in the training set. Anyway, I would like to know how a common neural network with sigma activation fuction can generalize here...
+</P>
+</LI>
+<LI>
+<B><A HREF="oddevenbinary">Odd - Even binary</A></B><BR>
+<P>
+Returns 1 for odd and 0 for even numbers. The input is an 8 bit encoded binary number. (Idea commes from Bartek Gołąbek.) Unlike the previous example with real number value this is an extremly simple task and even generalisation works well. So please note that result may strongly depend on the input encoding.
 </P>
 </LI>
 </UL>

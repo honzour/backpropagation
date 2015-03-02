@@ -1,4 +1,4 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.parser;
 
 public class Xml {
 	public static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
@@ -19,4 +19,6 @@ public class Xml {
 	public static final String INPUT = "input";
 	public static final String OUTPUT = "output";
 	public static final String NUMBER = "number";
+	public static final String TYPE = "type";
+	public static final String LINE = "line";
 }

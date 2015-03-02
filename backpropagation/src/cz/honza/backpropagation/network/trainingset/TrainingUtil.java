@@ -1,48 +1,38 @@
-package cz.honza.backpropagation.network;
+package cz.honza.backpropagation.network.trainingset;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.Writer;
-import java.util.List;
 
-public class TrainingSet implements Serializable {
-	private static final long serialVersionUID = 3556087741395041118L;
-	public double[][] mInputs;
-	public double[][] mOutputs;
+import cz.honza.backpropagation.network.parser.Csv;
+import cz.honza.backpropagation.network.parser.Xml;
+
+public class TrainingUtil {
 	
-	public TrainingSet(double[][] inputs, double[][] outputs)
+	public static void saveCsvSimple(TrainingSet set, Writer writer) throws IOException
 	{
-		mInputs = inputs;
-		mOutputs = outputs;
-	}
-	
-	protected double[][] list2array(List<List<Double>> list)
-	{
-		final int size = list.size();
-		final double[][] array = new double[size][];
-		for (int i = 0; i < size; i++)
+		writer.write(Csv.SIMPLE);
+		writer.write(Csv.NEW_LINE);
+		for (int i = 0; i < set.length(); i++)
 		{
-			final List<Double> item = list.get(i);
-			final int itemSize = item.size();
-			array[i] = new double[itemSize];
-			for (int j = 0; j < itemSize; j++)
+			for (int j = 0; j < set.getInputDimension(); j++)
 			{
-				array[i][j] = item.get(j).doubleValue();
+				writer.write(String.valueOf(set.getInput(i, j)));
+				writer.write(Csv.COMMA);
 			}
+			writer.write(Csv.COMMA);
+			for (int j = 0; j < set.getOutputDimension(); j++)
+			{
+				writer.write(String.valueOf(set.getOutput(i, j)));
+				if (j < set.getOutputDimension() - 1)
+					writer.write(Csv.COMMA);
+			}
+				
+			writer.write(Csv.NEW_LINE);
 		}
-		return array;
 	}
+
 	
-	public TrainingSet(List<List<List<Double>>> trainingData)
-	{
-		final List<List<Double>> inputs = trainingData.get(0); 
-		final List<List<Double>> outputs = trainingData.get(1);
-		
-		this.mInputs = list2array(inputs);
-		this.mOutputs = list2array(outputs);
-	}
-	
-	protected void saveNumberXml(Writer writer, double number, int tabs) throws IOException
+	protected static void saveNumberXml(Writer writer, double number, int tabs) throws IOException
 	{
 		for (int i = 0; i < tabs; i++)
 		{
@@ -60,7 +50,7 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void saveInputXml(Writer writer, int i) throws IOException
+	protected static void saveInputXml(TrainingSet set, Writer writer, int i) throws IOException
 	{
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -68,9 +58,9 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < mInputs[i].length; j++)
+		for (int j = 0; j < set.getInputDimension(); j++)
 		{
-			saveNumberXml(writer, mInputs[i][j], 4);
+			saveNumberXml(writer, set.getInput(i, j), 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -80,7 +70,7 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void saveOutputXml(Writer writer, int i) throws IOException
+	protected static void saveOutputXml(TrainingSet set, Writer writer, int i) throws IOException
 	{
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
@@ -88,9 +78,9 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int j = 0; j < mOutputs[i].length; j++)
+		for (int j = 0; j < set.getOutputDimension(); j++)
 		{
-			saveNumberXml(writer, mOutputs[i][j], 4);
+			saveNumberXml(writer, set.getOutput(i, j), 4);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -100,11 +90,18 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.NEW_LINE);
 	}
 	
-	protected void saveXml(Writer writer) throws IOException
+	public static void saveXmlTimeline(double[] set, Writer writer) throws IOException
+	{
+		
+	}
+	
+	public static void saveXmlSimple(TrainingSet set, Writer writer) throws IOException
 	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.TRAINING);
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.SIMPLE + "\"");
+		
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
@@ -114,9 +111,9 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < mInputs.length; i++)
+		for (int i = 0; i < set.length(); i++)
 		{
-			saveInputXml(writer, i);
+			saveInputXml(set, writer, i);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -131,9 +128,9 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		
-		for (int i = 0; i < mInputs.length; i++)
+		for (int i = 0; i < set.length(); i++)
 		{
-			saveOutputXml(writer, i);
+			saveOutputXml(set, writer, i);
 		}
 		
 		writer.write(Xml.TAB); writer.write(Xml.TAB);
@@ -160,24 +157,40 @@ public class TrainingSet implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
-	protected void saveCsv(Writer writer) throws IOException
+	
+	
+	public static void saveXmlTimeline(TrainingSetSingleTimeline set, Writer writer) throws IOException
 	{
-		for (int i = 0; i < mInputs.length; i++)
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.TRAINING);
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.TIMELINE + "\"");
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.LINE);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < set.mTimeline.length; i++)
 		{
-			for (int j = 0; j < mInputs[i].length; j++)
-			{
-				writer.write(String.valueOf(mInputs[i][j]));
-				writer.write(Csv.COMMA);
-			}
-			writer.write(Csv.COMMA);
-			for (int j = 0; j < mOutputs[i].length; j++)
-			{
-				writer.write(String.valueOf(mOutputs[i][j]));
-				if (j < mOutputs[i].length - 1)
-					writer.write(Csv.COMMA);
-			}
-				
-			writer.write(Csv.NEW_LINE);
+			saveNumberXml(writer, set.mTimeline[i], 3);
 		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.LINE);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
 	}
+
+
 }

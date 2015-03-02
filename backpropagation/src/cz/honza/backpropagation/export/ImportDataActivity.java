@@ -12,8 +12,9 @@ import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.network.Network;
-import cz.honza.backpropagation.network.Parser;
-import cz.honza.backpropagation.network.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.XmlParser;
+import cz.honza.backpropagation.network.parser.CsvParser;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class ImportDataActivity extends NetworkActivity {
 	
@@ -118,9 +119,9 @@ public class ImportDataActivity extends NetworkActivity {
 						}
 					};
 					if (mXml)
-						Parser.parseXml(inputStream, handler);
+						XmlParser.parseXml(inputStream, handler);
 					else
-						Parser.parseCsv(inputStream, handler);
+						CsvParser.parseCsv(inputStream, handler);
 					inputStream.close();
 				}
 				catch (Throwable e)

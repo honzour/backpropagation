@@ -7,6 +7,11 @@ import java.io.Writer;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.parser.Csv;
+import cz.honza.backpropagation.network.parser.ParserResultHandler;
+import cz.honza.backpropagation.network.parser.Xml;
+import cz.honza.backpropagation.network.trainingset.TrainingSet;
+import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 
 
 
@@ -54,7 +59,7 @@ public class Network implements Serializable {
 	 */
 	public boolean check(ParserResultHandler handler)
 	{
-		if (mLayers == null || mTrainingSet == null || mTrainingSet.mInputs == null || mTrainingSet.mInputs == null)
+		if (mLayers == null || mTrainingSet == null)
 		{
 			handler.onError(R.string.null_elements);
 			return false;
@@ -93,51 +98,21 @@ public class Network implements Serializable {
 				}
 			}
 		}
-		
-		if (mTrainingSet.mInputs.length != mTrainingSet.mOutputs.length)
-		{
-			handler.onError(R.string.input_output_count);
-			return false;
-		}
-		
-		if (mTrainingSet.mInputs.length == 0)
-		{
-			handler.onError(R.string.empty_training_set);
-			return false;
-		}
-		
-		for (int i = 0; i < mTrainingSet.mInputs.length; i++)
-		{
-			if (mTrainingSet.mInputs[i].length != getInputDimension())
-			{
-				handler.onError(R.string.input_example_dimension);
-				return false;
-			}
-		}
-		
-		for (int i = 0; i < mTrainingSet.mOutputs.length; i++)
-		{
-			if (mTrainingSet.mOutputs[i].length != getOutputDimension())
-			{
-				handler.onError(R.string.output_example_dimension);
-				return false;
-			}
-		}
 			
-		return true;
+		return mTrainingSet.check(handler);
 	}
 
 	/**
 	 * Parsing constructor
 	 * @param layersData
 	 */
-	public Network(List<List<List<Double>>> layersData, List<List<List<Double>>> trainingData) {
+	public Network(List<List<List<Double>>> layersData, TrainingSet trainingSet) {
 		mLayers = new Layer[layersData.size()];
 		for (int i = 0; i < mLayers.length; i++)
 		{
 			mLayers[i] = new Layer(layersData.get(i));
 		}
-		mTrainingSet = new TrainingSet(trainingData);
+		mTrainingSet = trainingSet;
 		initTraining(mTrainingSet);
 	}
 	
@@ -226,18 +201,19 @@ public class Network implements Serializable {
 			mOutputScale[i][1] = 0;
 		}
 		
-		if (training == null || training.mInputs.length == 0 || training.mInputs[0].length == 0 || training.mOutputs[0].length == 0)
+		if (training == null || training.length() == 0 || training.getInputDimension() == 0 ||
+				training.getInputDimension() == 0)
 			return;
 
 		// for each input dimension, calculate scale from (x1, x2) to <-1, 1>
 		for (int i = 0; i < mInputScale.length; i++)
 		{
-			double min = training.mInputs[0][i];
+			double min = training.getInput(0, i);
 			double max = min;
 			
-			for (int j = 1; j < training.mInputs.length; j++)
+			for (int j = 1; j < training.length(); j++)
 			{
-				final double val = training.mInputs[j][i]; 
+				final double val = training.getInput(j, i); 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -261,13 +237,13 @@ public class Network implements Serializable {
 		// for each output dimension, calculate scale from (0, 1) to (y1, y2)
 		for (int i = 0; i < mOutputScale.length; i++)
 		{
-			double min = training.mOutputs[0][i];
+			double min = training.getOutput(0, i);
 			double max = min;
 			
 			
-			for (int j = 1; j < training.mOutputs.length; j++)
+			for (int j = 1; j < training.length(); j++)
 			{
-				final double val = training.mOutputs[j][i]; 
+				final double val = training.getOutput(j, i); 
 				if (val < min)
 					min = val;
 				if (val > max)
@@ -297,14 +273,25 @@ public class Network implements Serializable {
 
 	}
 
+	private double[] mInputCache = null;
+	
 	public double getError()
 	{
 		double sumError = 0;
 		
-		for (int i = 0; i < mTrainingSet.mInputs.length; i++) {
-			calculate(mTrainingSet.mInputs[i], mOutput, true);
+		if (mInputCache == null || mInputCache.length != mTrainingSet.getInputDimension())
+		{
+			mInputCache = new double[mTrainingSet.getInputDimension()];
+		}
+		
+		for (int i = 0; i < mTrainingSet.length(); i++) {
+			for (int j = 0; j < mTrainingSet.getInputDimension(); j++)
+			{
+				mInputCache[j] = mTrainingSet.getInput(i, j);
+			}
+			calculate(mInputCache, mOutput, true);
 			for (int j = 0; j < mOutput.length; j++) {
-				final double diff = mOutput[j] - mTrainingSet.mOutputs[i][j];
+				final double diff = mOutput[j] - mTrainingSet.getOutput(i, j);
 				sumError += diff * diff;
 			}
 		}
@@ -330,9 +317,18 @@ public class Network implements Serializable {
 				}
 			}
 		}
+		
+		if (mInputCache == null || mInputCache.length != mTrainingSet.getInputDimension())
+		{
+			mInputCache = new double[mTrainingSet.getInputDimension()];
+		}
 
-		for (i = 0; i < mTrainingSet.mInputs.length; i++) {
-			calculate(mTrainingSet.mInputs[i], mOutput, true);
+		for (i = 0; i < mTrainingSet.length(); i++) {
+			for (j = 0; j < mTrainingSet.getInputDimension(); j++)
+			{
+				mInputCache[j] = mTrainingSet.getInput(i, j);
+			}
+			calculate(mInputCache, mOutput, true);
 			// from the last to the first layer 
 			for (j = mLayers.length - 1; j >= 0; j--) { // backpropagation - go back
 				// for each neuron in the layer
@@ -340,7 +336,7 @@ public class Network implements Serializable {
 					Neuron n = mLayers[j].neurons[k];
 					if (j == mLayers.length - 1) {
 						// in the last layer calculate difference from the expected result
-						n.derivation = n.output - (mTrainingSet.mOutputs[i][k] - mOutputScale[k][1]) / mOutputScale[k][0];
+						n.derivation = n.output - (mTrainingSet.getOutput(i, k) - mOutputScale[k][1]) / mOutputScale[k][0];
 					} else {
 						// in the hidden layer calculate the derivation by this form
 						mLayers[j].neurons[k].derivation = 0;
@@ -354,7 +350,7 @@ public class Network implements Serializable {
 					for (l = 0; l < n.weights.length; l++) {
 						n.weightsDerivation[l] += n.derivation
 								* n.output * (1 - n.output)
-								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.mInputs[i][l - 1] * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
+								* ((l == 0) ? 1 : (j == 0 ? (mTrainingSet.getInput(i, l - 1) * mInputScale[l - 1][0] + mInputScale[l - 1][1]) : mLayers[j - 1].neurons[l - 1].output));
 					}
 				}
 			}
@@ -467,7 +463,7 @@ public class Network implements Serializable {
 	public void saveCsv(Writer writer) throws IOException
 	{
 		writer.append(";Format\n");
-		writer.append("CSV1\n");
+		writer.append("CSV2\n");
 		writer.append(";Anatomy\n");
 		saveLayersCsv(writer);
 		writer.append(";Training set\n");
