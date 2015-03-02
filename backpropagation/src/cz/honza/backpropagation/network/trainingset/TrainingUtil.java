@@ -100,7 +100,7 @@ public class TrainingUtil {
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.TRAINING);
-		writer.write(' ' + Xml.TYPE + " = \"" + Csv.SIMPLE + "\n");
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.SIMPLE + "\"");
 		
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
@@ -157,5 +157,40 @@ public class TrainingUtil {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
+	
+	
+	public static void saveXmlTimeline(TrainingSetSingleTimeline set, Writer writer) throws IOException
+	{
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.TRAINING);
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.TIMELINE + "\"");
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_START);
+		writer.write(Xml.LINE);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		for (int i = 0; i < set.mTimeline.length; i++)
+		{
+			saveNumberXml(writer, set.mTimeline[i], 3);
+		}
+		
+		writer.write(Xml.TAB); writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.LINE);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+		
+		writer.write(Xml.TAB);
+		writer.write(Xml.TAG_TERMINATE_START);
+		writer.write(Xml.TRAINING);
+		writer.write(Xml.TAG_END);
+		writer.write(Xml.NEW_LINE);
+	}
+
 
 }

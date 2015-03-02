@@ -24,7 +24,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void saveXml(Writer writer) throws IOException {
-		TrainingUtil.saveXmlSimple(this, writer);
+		TrainingUtil.saveXmlTimeline(this, writer);
 	}
 
 	@Override
