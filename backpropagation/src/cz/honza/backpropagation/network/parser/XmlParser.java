@@ -18,10 +18,12 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
+import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
 
 public class XmlParser {
 	public static void parseXml(InputStream is, ParserResultHandler handler)
 	{
+		// TODO check if handler is always called 
 		try
 		{
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -38,9 +40,13 @@ public class XmlParser {
 			
 			final List<List<List<Double>>> layers = parseLayers(network, handler);
 			if (layers == null)
-			return;
+				return;
 			
-			TrainingSet training = parseTraining(network, handler);
+			// TODO exceptions
+			int inputDim = layers.get(0).get(0).size();
+			int outputDim = layers.get(layers.size() - 1).size();
+			
+			TrainingSet training = parseTraining(network, inputDim, outputDim, handler);
 			if (training == null)
 				return;
 			
@@ -118,13 +124,24 @@ public class XmlParser {
 		return new TrainingSetBase(result); 
 	}
 	
-	protected static TrainingSet parseTimelineTrainingSet(Node trainingNode, ParserResultHandler handler)
+	protected static TrainingSet parseTimelineTrainingSet(Node trainingNode, int inputDimension, int outputDimension, ParserResultHandler handler)
 	{
-		// TODO
-		return null;
+		final Node lineNode = getFirstChildWithName(trainingNode, Xml.LINE, handler);
+		if (lineNode == null)
+			return null;
+		List<Double> numbers = parseNumbers(lineNode, handler);
+		if (numbers == null)
+			return null;
+		double[] timeline = new double[numbers.size()];
+		int i = 0;
+		for (Double d : numbers)
+		{
+			timeline[i++] = d;
+		}
+		return new TrainingSetSingleTimeline(inputDimension, outputDimension, timeline);
 	}
 
-	protected static TrainingSet parseTraining(Node network, ParserResultHandler handler) {
+	protected static TrainingSet parseTraining(Node network, int inputDimension, int outputDimension, ParserResultHandler handler) {
 		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, handler);
 		if (trainingNode == null)
 		{
@@ -151,7 +168,7 @@ public class XmlParser {
 		if (type == Csv.SIMPLE_CODE)
 			return parseSimpleTrainingSet(trainingNode, handler);
 		if (type == Csv.TIMELINE_CODE)
-			return parseTimelineTrainingSet(trainingNode, handler);
+			return parseTimelineTrainingSet(trainingNode, inputDimension, outputDimension, handler);
 		return null;
 	}
 	
