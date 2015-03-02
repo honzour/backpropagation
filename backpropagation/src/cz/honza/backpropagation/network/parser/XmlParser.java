@@ -71,31 +71,9 @@ public class XmlParser {
 		handler.onError(missingTag(Xml.LAYERS));
 		return null;
 	}
-
-	protected static TrainingSet parseTraining(Node network, ParserResultHandler handler) {
-		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, handler);
-		if (trainingNode == null)
-		{
-			return null;
-		}
-		
-		int type = Csv.SIMPLE_CODE;
-		
-		final NamedNodeMap attrs = trainingNode.getAttributes();
-		if (attrs != null)
-		{
-			Node node = attrs.getNamedItem(Xml.TYPE);
-			if (node != null)
-			{
-				String typeString = node.getNodeValue();
-				if (typeString != null)
-				{
-					if (typeString.equals(Csv.TIMELINE))
-						type = Csv.TIMELINE_CODE;
-				}
-			}
-		}
-		
+	
+	protected static TrainingSet parseSimpleTrainingSet(Node trainingNode, ParserResultHandler handler)
+	{
 		final List<List<List<Double>>> result = new ArrayList<List<List<Double>>>();
 		final List<List<Double>> inputList = new ArrayList<List<Double>>();
 		final List<List<Double>> outputList = new ArrayList<List<Double>>();
@@ -138,6 +116,43 @@ public class XmlParser {
 		}
 		
 		return new TrainingSetBase(result); 
+	}
+	
+	protected static TrainingSet parseTimelineTrainingSet(Node trainingNode, ParserResultHandler handler)
+	{
+		// TODO
+		return null;
+	}
+
+	protected static TrainingSet parseTraining(Node network, ParserResultHandler handler) {
+		final Node trainingNode = getFirstChildWithName(network, Xml.TRAINING, handler);
+		if (trainingNode == null)
+		{
+			return null;
+		}
+		
+		int type = Csv.SIMPLE_CODE;
+		
+		final NamedNodeMap attrs = trainingNode.getAttributes();
+		if (attrs != null)
+		{
+			Node node = attrs.getNamedItem(Xml.TYPE);
+			if (node != null)
+			{
+				String typeString = node.getNodeValue();
+				if (typeString != null)
+				{
+					if (typeString.equals(Csv.TIMELINE))
+						type = Csv.TIMELINE_CODE;
+				}
+			}
+		}
+		
+		if (type == Csv.SIMPLE_CODE)
+			return parseSimpleTrainingSet(trainingNode, handler);
+		if (type == Csv.TIMELINE_CODE)
+			return parseTimelineTrainingSet(trainingNode, handler);
+		return null;
 	}
 	
 	protected static String missingTag(String tag)
