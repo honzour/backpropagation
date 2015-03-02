@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -76,6 +77,23 @@ public class XmlParser {
 		if (trainingNode == null)
 		{
 			return null;
+		}
+		
+		int type = Csv.SIMPLE_CODE;
+		
+		final NamedNodeMap attrs = trainingNode.getAttributes();
+		if (attrs != null)
+		{
+			Node node = attrs.getNamedItem(Xml.TYPE);
+			if (node != null)
+			{
+				String typeString = node.getNodeValue();
+				if (typeString != null)
+				{
+					if (typeString.equals(Csv.TIMELINE))
+						type = Csv.TIMELINE_CODE;
+				}
+			}
 		}
 		
 		final List<List<List<Double>>> result = new ArrayList<List<List<Double>>>();
