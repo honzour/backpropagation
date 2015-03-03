@@ -99,6 +99,7 @@
     <string name="no_training_set_type">Chybí typ tréninkové množiny</string>
     <string name="unknown_training_set_type">Neznámý typ tréninkové množiny</string>
     <string name="sequence_to_short">Moc krátká posloupnost</string>
+    <string name="cannot_parse_layers">Nemůžu načíst vrstvy sítě</string>
     
     <!-- result input -->
     <string name="input">Vstup:</string>

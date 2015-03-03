@@ -23,7 +23,6 @@ import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
 public class XmlParser {
 	public static void parseXml(InputStream is, ParserResultHandler handler)
 	{
-		// TODO check if handler is always called 
 		try
 		{
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -42,9 +41,19 @@ public class XmlParser {
 			if (layers == null)
 				return;
 			
-			// TODO exceptions
-			int inputDim = layers.get(0).get(0).size();
-			int outputDim = layers.get(layers.size() - 1).size();
+			int inputDim;
+			int outputDim;
+			
+			try
+			{
+				inputDim = layers.get(0).get(0).size();
+				outputDim = layers.get(layers.size() - 1).size();
+			}
+			catch (IndexOutOfBoundsException e)
+			{
+				handler.onError(R.string.cannot_parse_layers);
+				return;
+			}
 			
 			TrainingSet training = parseTraining(network, inputDim, outputDim, handler);
 			if (training == null)
@@ -169,6 +178,7 @@ public class XmlParser {
 			return parseSimpleTrainingSet(trainingNode, handler);
 		if (type == Csv.TIMELINE_CODE)
 			return parseTimelineTrainingSet(trainingNode, inputDimension, outputDimension, handler);
+		handler.onError(R.string.unknown_training_set_type);
 		return null;
 	}
 	

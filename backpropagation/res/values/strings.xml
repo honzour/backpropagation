@@ -98,6 +98,7 @@
     <string name="no_training_set_type">No training set type?</string>
     <string name="unknown_training_set_type">Unknown training set type</string>
     <string name="sequence_to_short">Sequence to short</string>
+    <string name="cannot_parse_layers">Cannot parse layers</string>
     
     <!-- result input -->
     <string name="input">Input:</string>
