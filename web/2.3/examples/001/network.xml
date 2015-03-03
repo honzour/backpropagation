@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<network>
+	<layers>
+		<layer>
+			<neuron>
+				<weight>-15.883013176134147</weight>
+				<weight>-15.984379473060164</weight>
+				<weight>-15.984379473060164</weight>
+			</neuron>
+		</layer>
+	</layers>
+	<training type = "timeline">
+		<line>
+			<number>0.0</number>
+			<number>0.0</number>
+			<number>1.0</number>
+			<number>0.0</number>
+			<number>0.0</number>
+			<number>1.0</number>
+			<number>0.0</number>
+			<number>0.0</number>
+			<number>1.0</number>
+		</line>
+	</training>
+</network>
