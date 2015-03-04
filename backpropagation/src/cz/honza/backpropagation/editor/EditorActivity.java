@@ -110,7 +110,15 @@ public class EditorActivity extends NetworkActivity {
 					mLayers.add(network.mLayers[i].neurons.length);
 				}
 				
-				mTraining = network.mTrainingSet.clone();
+				try
+				{
+					mTraining = (TrainingSet)network.mTrainingSet.clone();
+				}
+				catch (CloneNotSupportedException e)
+				{
+					// must not happen
+					throw new RuntimeException(e);
+				}
 			}
 		}
 		

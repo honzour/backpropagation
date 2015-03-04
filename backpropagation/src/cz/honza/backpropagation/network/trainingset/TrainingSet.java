@@ -19,5 +19,5 @@ public interface TrainingSet extends Serializable {
 	void setOutputDimension(int dim);
 	boolean check(ParserResultHandler handler);
 	void add();
-	TrainingSet clone();
+	Object clone() throws CloneNotSupportedException;
 }

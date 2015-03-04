@@ -82,4 +82,23 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 		timeline[mTimeline.length] = 0;
 		mTimeline = timeline;
 	}
+
+	@Override
+	public void setInputDimension(int dim) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOutputDimension(int dim) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		// TODO 
+		return null;
+	}
 }

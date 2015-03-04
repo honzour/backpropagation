@@ -135,5 +135,23 @@ public class TrainingSetBase implements TrainingSet {
 		mInputs = inputs;
 		mOutputs = outputs;
 	}
-	
+
+	@Override
+	public void setInputDimension(int dim) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOutputDimension(int dim) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		// TODO 
+		return null;
+	}
 }
