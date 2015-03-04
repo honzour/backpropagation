@@ -120,4 +120,20 @@ public class TrainingSetBase implements TrainingSet {
 	public void saveCsv(Writer writer) throws IOException {
 		TrainingUtil.saveCsvSimple(this, writer);
 	}
+
+	@Override
+	public void add() {
+		double[][] inputs = new double[mInputs.length + 1][];
+		double[][] outputs = new double[mOutputs.length + 1][];;
+		
+		System.arraycopy(mInputs, 0, inputs, 0, mInputs.length);
+		System.arraycopy(mOutputs, 0, outputs, 0, mOutputs.length);
+		
+		inputs[mInputs.length] = new double[mInputs[0].length];
+		outputs[mOutputs.length] = new double[mOutputs[0].length];
+		
+		mInputs = inputs;
+		mOutputs = outputs;
+	}
+	
 }

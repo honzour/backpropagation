@@ -74,4 +74,12 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 		}
 		return true;
 	}
+	
+	@Override
+	public void add() {
+		double[] timeline = new double[mTimeline.length + 1];
+		System.arraycopy(mTimeline, 0, timeline, 0, mTimeline.length);
+		timeline[mTimeline.length] = 0;
+		mTimeline = timeline;
+	}
 }
