@@ -2,6 +2,7 @@ package cz.honza.backpropagation.network.trainingset;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
@@ -99,6 +100,24 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	public Object clone() throws CloneNotSupportedException
 	{
 		// TODO 
+		return null;
+	}
+
+	@Override
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void set(int index, Object element) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Object> getLines() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

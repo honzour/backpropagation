@@ -1,8 +1,9 @@
 package cz.honza.backpropagation.editor;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.trainingset.TrainingSet;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,13 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> {
+public class TrainingAdapter extends ArrayAdapter<Object> {
 
 	LayoutInflater mInflater;
 	
 	public TrainingAdapter(TrainingSetActivity context, int resource,
-			ArrayList<ArrayList<ArrayList<Double>>> data) {
-		super(context, resource, data);
+			TrainingSet set) {
+		super(context, resource, set.getLines());
 		mInflater = LayoutInflater.from(context);
 	}
 	
@@ -29,9 +30,9 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 		{
 			convertView = mInflater.inflate(R.layout.training_list_item, null);
 		}
-		ArrayList<ArrayList<Double>> element = getItem(position);
+		Object element = getItem(position);
 		StringBuffer sb = new StringBuffer();
-		EditorActivity.addElement(element, sb);
+		sb.append(element.toString());
 		
 		TextView number = (TextView)convertView.findViewById(R.id.training_list_item_number);
 		TextView text = (TextView)convertView.findViewById(R.id.training_list_item_text);
@@ -44,7 +45,7 @@ public class TrainingAdapter extends ArrayAdapter<ArrayList<ArrayList<Double>>> 
 			public void onClick(View v) {
 				Intent i = new Intent(getContext(), TrainingSetDetailActivity.class);
 				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_NUMBER, position);
-				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_DATA, getItem(position));
+				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_DATA, (Serializable)getItem(position));
 				((Activity)getContext()).startActivityForResult(i, position);
 			}
 		});
