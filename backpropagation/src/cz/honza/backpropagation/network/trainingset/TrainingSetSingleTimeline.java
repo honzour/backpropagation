@@ -99,8 +99,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
-		// TODO 
-		return null;
+		return new TrainingSetSingleTimeline(mInputDimension, mOutputDimension, mTimeline.clone());
 	}
 
 	@Override

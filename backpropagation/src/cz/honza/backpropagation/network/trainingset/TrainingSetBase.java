@@ -152,8 +152,16 @@ public class TrainingSetBase implements TrainingSet {
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
-		// TODO 
-		return null;
+		double inputs[][] = new double[mInputs.length][];
+		double outputs[][] = new double[mOutputs.length][];
+		
+		for (int i = 0; i < inputs.length; i++)
+			inputs[i] = mInputs[i];
+		
+		for (int i = 0; i < outputs.length; i++)
+			outputs[i] = mOutputs[i];
+		
+		return new TrainingSetBase(inputs, outputs);
 	}
 
 	@Override
