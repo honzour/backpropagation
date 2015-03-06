@@ -176,9 +176,42 @@ public class TrainingSetBase implements TrainingSet {
 		
 	}
 
+	/*
+			final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+		final ArrayList<Double> inputItem = new ArrayList<Double>();
+		final ArrayList<Double> outputItem = new ArrayList<Double>();
+		
+		final int inputDim = mTraining.getInputDimension();
+		final int outputDim = mTraining.getOutputDimension();
+		
+		for (int i = 0; i < inputDim; i++)
+			inputItem.add(0d);
+		for (int i = 0; i < outputDim; i++)
+			outputItem.add(0d);
+		
+		item.add(inputItem);
+		item.add(outputItem);
+		mAdapter.add(item);
+	*/
 	@Override
 	public ArrayList<Object> getLines() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Object> list = new ArrayList<Object>();
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+			final ArrayList<Double> inputItem = new ArrayList<Double>();
+			final ArrayList<Double> outputItem = new ArrayList<Double>();
+			
+			for (int j = 0; j < mInputs[i].length; j++)
+				inputItem.add(mInputs[i][j]);
+			
+			for (int j = 0; j < mOutputs[i].length; j++)
+				outputItem.add(mOutputs[i][j]);
+			
+			item.add(inputItem);
+			item.add(outputItem);
+			list.add(item);
+		}
+		return list;
 	}
 }

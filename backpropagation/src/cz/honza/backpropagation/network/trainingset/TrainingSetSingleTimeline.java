@@ -111,12 +111,13 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	@Override
 	public void set(int index, Object element) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public ArrayList<Object> getLines() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Object> list = new ArrayList<Object>();
+		for (int i = 0; i < mTimeline.length; i++)
+			list.add(mTimeline[i]);
+		return list;
 	}
 }
