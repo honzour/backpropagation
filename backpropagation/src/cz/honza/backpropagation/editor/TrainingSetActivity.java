@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
+import cz.honza.backpropagation.network.trainingset.TrainingLine;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 
 public class TrainingSetActivity extends NetworkActivity {
@@ -20,6 +21,7 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void addTraining()
 	{
+		/*
 		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
 		final ArrayList<Double> inputItem = new ArrayList<Double>();
 		final ArrayList<Double> outputItem = new ArrayList<Double>();
@@ -34,7 +36,10 @@ public class TrainingSetActivity extends NetworkActivity {
 		
 		item.add(inputItem);
 		item.add(outputItem);
-		mAdapter.add(item);
+		*/
+		mTraining.add();
+		ArrayList<TrainingLine> lines = mTraining.getLines();
+		mAdapter.add(lines.get(lines.size() - 1));
 	}
 	
 	protected void refreshTraining()
@@ -76,7 +81,7 @@ public class TrainingSetActivity extends NetworkActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode != RESULT_OK)
 			return;
-		final Object element = data.getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
+		final TrainingLine element = (TrainingLine)data.getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
 		if (element == null)
 		{
 			mTraining.remove(requestCode);

@@ -26,6 +26,6 @@ public interface TrainingSet extends Serializable {
 	 * @param index element index.
 	 */
 	void remove(int index);
-	void set(int index, Object element);
-	ArrayList<Object> getLines();
+	void set(int index, TrainingLine element);
+	ArrayList<TrainingLine> getLines();
 }

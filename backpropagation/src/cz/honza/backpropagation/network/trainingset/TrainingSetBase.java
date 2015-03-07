@@ -188,17 +188,17 @@ public class TrainingSetBase implements TrainingSet {
 	}
 
 	@Override
-	public void set(int index, Object element) {
+	public void set(int index, TrainingLine element) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<Object> getLines() {
-		ArrayList<Object> list = new ArrayList<Object>();
+	public ArrayList<TrainingLine> getLines() {
+		ArrayList<TrainingLine> list = new ArrayList<TrainingLine>();
 		for (int i = 0; i < mInputs.length; i++)
 		{
-			final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
+			final TrainingLineBase item = new TrainingLineBase();
 			final ArrayList<Double> inputItem = new ArrayList<Double>();
 			final ArrayList<Double> outputItem = new ArrayList<Double>();
 			

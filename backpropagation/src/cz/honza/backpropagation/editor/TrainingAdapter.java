@@ -3,6 +3,7 @@ package cz.honza.backpropagation.editor;
 import java.io.Serializable;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.trainingset.TrainingLine;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 
 import android.app.Activity;
@@ -13,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TrainingAdapter extends ArrayAdapter<Object> {
+public class TrainingAdapter extends ArrayAdapter<TrainingLine> {
 
 	LayoutInflater mInflater;
 	
