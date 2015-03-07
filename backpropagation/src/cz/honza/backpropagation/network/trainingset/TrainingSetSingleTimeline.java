@@ -43,7 +43,10 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public int length() {
-		return mTimeline.length - mInputDimension - mOutputDimension + 1;
+		int length = mTimeline.length - mInputDimension - mOutputDimension + 1;
+		if (length <= 0)
+			return 0;
+		return length;
 	}
 
 	@Override
@@ -86,14 +89,12 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void setInputDimension(int dim) {
-		// TODO Auto-generated method stub
-		
+		mInputDimension = dim;
 	}
 
 	@Override
 	public void setOutputDimension(int dim) {
-		// TODO Auto-generated method stub
-		
+		mOutputDimension = dim;
 	}
 	
 	@Override

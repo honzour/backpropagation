@@ -139,14 +139,22 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void setInputDimension(int dim) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			final double[] input = new double[mInputs[i].length + i];
+			System.arraycopy(mInputs[i], 0, input, 0, input.length < mInputs[i].length ? input.length : mInputs[i].length);
+			mInputs[i] = input;
+		}
 	}
 
 	@Override
 	public void setOutputDimension(int dim) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < mOutputs.length; i++)
+		{
+			final double[] output = new double[mOutputs[i].length + i];
+			System.arraycopy(mOutputs[i], 0, output, 0, output.length < mOutputs[i].length ? output.length : mOutputs[i].length);
+			mOutputs[i] = output;
+		}
 	}
 
 	@Override
