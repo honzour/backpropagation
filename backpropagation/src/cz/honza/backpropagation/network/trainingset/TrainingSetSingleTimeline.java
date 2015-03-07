@@ -104,8 +104,12 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void remove(int index) {
-		// TODO Auto-generated method stub
+		double timeline[] = new double[mTimeline.length - 1];
 		
+		System.arraycopy(mTimeline, 0, timeline, 0, index);
+		System.arraycopy(mTimeline, index + 1, timeline, index, timeline.length - index);
+		
+		mTimeline = timeline;
 	}
 
 	@Override

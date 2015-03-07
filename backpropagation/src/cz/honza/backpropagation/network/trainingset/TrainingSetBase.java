@@ -166,8 +166,17 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void remove(int index) {
-		// TODO Auto-generated method stub
+		double inputs[][] = new double[mInputs.length - 1][];
+		double outputs[][] = new double[mOutputs.length - 1][];
 		
+		System.arraycopy(mInputs, 0, inputs, 0, index);
+		System.arraycopy(mInputs, index + 1, inputs, index, inputs.length - index);
+		
+		System.arraycopy(mOutputs, 0, outputs, 0, index);
+		System.arraycopy(mOutputs, index + 1, outputs, index, outputs.length - index);
+		
+		mInputs = inputs;
+		mOutputs = outputs;
 	}
 
 	@Override
@@ -176,23 +185,6 @@ public class TrainingSetBase implements TrainingSet {
 		
 	}
 
-	/*
-			final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
-		final ArrayList<Double> inputItem = new ArrayList<Double>();
-		final ArrayList<Double> outputItem = new ArrayList<Double>();
-		
-		final int inputDim = mTraining.getInputDimension();
-		final int outputDim = mTraining.getOutputDimension();
-		
-		for (int i = 0; i < inputDim; i++)
-			inputItem.add(0d);
-		for (int i = 0; i < outputDim; i++)
-			outputItem.add(0d);
-		
-		item.add(inputItem);
-		item.add(outputItem);
-		mAdapter.add(item);
-	*/
 	@Override
 	public ArrayList<Object> getLines() {
 		ArrayList<Object> list = new ArrayList<Object>();
