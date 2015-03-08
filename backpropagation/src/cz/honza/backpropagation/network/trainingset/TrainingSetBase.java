@@ -139,9 +139,10 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void setInputDimension(int dim) {
+		if (dim == getInputDimension()) return;
 		for (int i = 0; i < mInputs.length; i++)
 		{
-			final double[] input = new double[mInputs[i].length + i];
+			final double[] input = new double[dim];
 			System.arraycopy(mInputs[i], 0, input, 0, input.length < mInputs[i].length ? input.length : mInputs[i].length);
 			mInputs[i] = input;
 		}
@@ -149,9 +150,10 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void setOutputDimension(int dim) {
+		if (dim == getOutputDimension()) return;
 		for (int i = 0; i < mOutputs.length; i++)
 		{
-			final double[] output = new double[mOutputs[i].length + i];
+			final double[] output = new double[dim];
 			System.arraycopy(mOutputs[i], 0, output, 0, output.length < mOutputs[i].length ? output.length : mOutputs[i].length);
 			mOutputs[i] = output;
 		}

@@ -1,6 +1,5 @@
 package cz.honza.backpropagation.editor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -12,14 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
+import cz.honza.backpropagation.network.trainingset.TrainingLineBase;
 
-public class TrainingSetDetailActivity extends NetworkActivity {
+public class TrainingLineBaseActivity extends NetworkActivity {
 	
 	public static final String INTENT_EXTRA_NUMBER = "INTENT_EXTRA_NUMBER";
 	public static final String INTENT_EXTRA_DATA = "INTENT_EXTRA_DATA";
 	
 	
-	protected ArrayList<ArrayList<Double>> mData; 
+	protected TrainingLineBase mData; 
 	
 	
 	protected void fillData()
@@ -90,9 +90,12 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training_item);
-		mData = (ArrayList<ArrayList<Double>>)getLastNonConfigurationInstance();
+		mData = (TrainingLineBase)getLastNonConfigurationInstance();
 		if (mData == null)
-			mData = (ArrayList<ArrayList<Double>>)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+		{
+			Object o = getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+			mData = (TrainingLineBase)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+		}
 		fillData();
 	}
 	

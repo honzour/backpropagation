@@ -44,9 +44,13 @@ public class TrainingAdapter extends ArrayAdapter<TrainingLine> {
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getContext(), TrainingSetDetailActivity.class);
-				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_NUMBER, position);
-				i.putExtra(TrainingSetDetailActivity.INTENT_EXTRA_DATA, (Serializable)getItem(position));
+				
+				Object o = getItem(position);
+				
+				
+				Intent i = new Intent(getContext(), TrainingLineBaseActivity.class);
+				i.putExtra(TrainingLineBaseActivity.INTENT_EXTRA_NUMBER, position);
+				i.putExtra(TrainingLineBaseActivity.INTENT_EXTRA_DATA, (Serializable)getItem(position));
 				((Activity)getContext()).startActivityForResult(i, position);
 			}
 		});

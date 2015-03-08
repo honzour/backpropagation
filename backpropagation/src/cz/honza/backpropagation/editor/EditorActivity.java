@@ -192,18 +192,6 @@ public class EditorActivity extends NetworkActivity {
 	{
 		return new SavedState(mTraining, mLayers);
 	}
-	/*
-	protected void setToSize(List<Double> list, int requestedSize)
-	{
-		while (list.size() < requestedSize)
-		{
-			list.add(0d);
-		}
-		while (list.size() > requestedSize)
-		{
-			list.remove(list.size() - 1);
-		}
-	}*/
 	
 	protected void refreshAnatomy()
 	{

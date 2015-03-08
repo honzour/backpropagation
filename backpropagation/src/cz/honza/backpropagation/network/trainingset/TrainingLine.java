@@ -1,6 +1,8 @@
 package cz.honza.backpropagation.network.trainingset;
 
-public interface TrainingLine {
+import java.io.Serializable;
+
+public interface TrainingLine extends Serializable {
 	public String toString();
 	public String getEditorType();
 }
