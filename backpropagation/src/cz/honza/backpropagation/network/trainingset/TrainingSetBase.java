@@ -210,8 +210,8 @@ public class TrainingSetBase implements TrainingSet {
 			for (int j = 0; j < mOutputs[i].length; j++)
 				outputItem.add(mOutputs[i][j]);
 			
-			item.add(inputItem);
-			item.add(outputItem);
+			item.mData.add(inputItem);
+			item.mData.add(outputItem);
 			list.add(item);
 		}
 		return list;

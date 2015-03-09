@@ -37,8 +37,8 @@ public class TrainingLineBaseActivity extends NetworkActivity {
 		final LinearLayout inputLayout = (LinearLayout)findViewById(R.id.editor_training_item_input);
 		final LinearLayout outputLayout = (LinearLayout)findViewById(R.id.editor_training_item_output);
 		
-		final List<Double> elementInput = mData.get(0);
-		final List<Double> elementOutput = mData.get(1);
+		final List<Double> elementInput = mData.mData.get(0);
+		final List<Double> elementOutput = mData.mData.get(1);
 		
 		for (int j = 0; j < elementInput.size(); j++)
 		{
@@ -70,7 +70,7 @@ public class TrainingLineBaseActivity extends NetworkActivity {
 				d = Double.valueOf(input.getText().toString());
 			}
 			catch (Exception e) {}
-			mData.get(0).set(j, d);
+			mData.mData.get(0).set(j, d);
 		}
 		final int outputCount = outputLayout.getChildCount();
 		for (int j = 0; j < outputCount; j++)
@@ -82,7 +82,7 @@ public class TrainingLineBaseActivity extends NetworkActivity {
 				d = Double.valueOf(input.getText().toString());
 			}
 			catch (Exception e) {}
-			mData.get(1).set(j, d);
+			mData.mData.get(1).set(j, d);
 		}
 	}
 
