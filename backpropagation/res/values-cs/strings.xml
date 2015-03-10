@@ -123,6 +123,10 @@
     <string name="edit_anatomy">Edituj anatomii</string>
     <string name="edit_training">Edituj tréninkovou množinu</string>
     <string name="value">Hodnota</string>
+    <string-array name="training_formats">
+        <item>Jednoduchá množina</item>
+        <item>Posloupnost</item>
+    </string-array>
     
     <!-- components -->
     <string name="help">Nápověda</string>

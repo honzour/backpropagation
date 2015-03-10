@@ -24,5 +24,6 @@
         android:layout_marginTop="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:id="@+id/training_type"	/>
+    	android:id="@+id/training_type"
+    	android:entries="@array/training_formats"	/>
 </LinearLayout>
