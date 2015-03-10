@@ -115,7 +115,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void set(int index, TrainingLine element) {
-		// TODO Auto-generated method stub
+		mTimeline[index] = ((TrainingLineSingleTimeline) element).mValue;
 	}
 
 	@Override
