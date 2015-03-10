@@ -12,6 +12,7 @@ import cz.honza.backpropagation.components.NetworkActivity;
 import cz.honza.backpropagation.export.NewTaskActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
+import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
 
 public class EditorActivity extends NetworkActivity {
 	
@@ -129,6 +130,11 @@ public class EditorActivity extends NetworkActivity {
 			mLayers = new ArrayList<Integer>();
 			mLayers.add(1);
 			mLayers.add(1);
+		}
+		
+		if (mTraining == null)
+		{
+			mTraining = new TrainingSetBase();
 		}
 
 		refreshAnatomy();

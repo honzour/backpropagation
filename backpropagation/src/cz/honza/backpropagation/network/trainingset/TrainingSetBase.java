@@ -13,6 +13,15 @@ public class TrainingSetBase implements TrainingSet {
 	public double[][] mInputs;
 	public double[][] mOutputs;
 	
+	public TrainingSetBase()
+	{
+		mInputs = new double[1][];
+		mOutputs = new double[1][];
+		
+		mInputs[0] = new double[1];
+		mOutputs[0] = new double[1];
+	}
+	
 	public TrainingSetBase(double[][] inputs, double[][] outputs)
 	{
 		mInputs = inputs;
