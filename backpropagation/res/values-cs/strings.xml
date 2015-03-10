@@ -122,6 +122,7 @@
     <string name="output_layer">Počet neuronů ve výstupní vrstvě</string>
     <string name="edit_anatomy">Edituj anatomii</string>
     <string name="edit_training">Edituj tréninkovou množinu</string>
+    <string name="value">Hodnota</string>
     
     <!-- components -->
     <string name="help">Nápověda</string>

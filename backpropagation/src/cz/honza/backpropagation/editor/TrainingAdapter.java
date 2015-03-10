@@ -3,6 +3,7 @@ package cz.honza.backpropagation.editor;
 import java.io.Serializable;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.trainingset.TrainingLine;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 
@@ -44,13 +45,24 @@ public class TrainingAdapter extends ArrayAdapter<TrainingLine> {
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				TrainingLine line = getItem(position);
+				Class<?> c = TrainingLineBaseActivity.class;
 				
-				Object o = getItem(position);
+				if (line.getEditorType().equals(Csv.SIMPLE))
+				{
+					c = TrainingLineBaseActivity.class;
+				}
+				else
+				{
+					if (line.getEditorType().equals(Csv.TIMELINE))
+					{
+						c = TrainingLineSingleTimelineActivity.class;
+					}
+				}
 				
-				
-				Intent i = new Intent(getContext(), TrainingLineBaseActivity.class);
+				Intent i = new Intent(getContext(), c);
 				i.putExtra(TrainingLineBaseActivity.INTENT_EXTRA_NUMBER, position);
-				i.putExtra(TrainingLineBaseActivity.INTENT_EXTRA_DATA, (Serializable)getItem(position));
+				i.putExtra(TrainingLineBaseActivity.INTENT_EXTRA_DATA, line);
 				((Activity)getContext()).startActivityForResult(i, position);
 			}
 		});

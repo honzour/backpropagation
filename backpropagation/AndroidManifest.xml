@@ -64,6 +64,10 @@
             android:name="cz.honza.backpropagation.editor.TrainingLineBaseActivity"
             android:label="@string/training_set"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingLineSingleTimelineActivity"
+            android:label="@string/training_set"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

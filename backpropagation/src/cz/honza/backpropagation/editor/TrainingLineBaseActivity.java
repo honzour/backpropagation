@@ -89,7 +89,7 @@ public class TrainingLineBaseActivity extends NetworkActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.training_item);
+		setContentView(R.layout.training_item_base);
 		mData = (TrainingLineBase)getLastNonConfigurationInstance();
 		if (mData == null)
 		{

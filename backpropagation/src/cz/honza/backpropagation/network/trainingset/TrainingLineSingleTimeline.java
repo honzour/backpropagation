@@ -14,7 +14,14 @@ public class TrainingLineSingleTimeline implements TrainingLine {
 	}
 	
 	@Override
-	public String getEditorType() {
+	public String toString()
+	{
+		return String.valueOf(mValue);
+	}
+	
+	@Override
+	public String getEditorType()
+	{
 		return Csv.TIMELINE;
 	}
 
