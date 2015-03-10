@@ -200,8 +200,13 @@ public class TrainingSetBase implements TrainingSet {
 
 	@Override
 	public void set(int index, TrainingLine element) {
-		// TODO Auto-generated method stub
+		ArrayList<ArrayList<Double>> data = ((TrainingLineBase) element).mData;
 		
+		for (int i = 0; i < mInputs[index].length; i++)
+			mInputs[index][i] = data.get(0).get(i);
+		
+		for (int i = 0; i < mOutputs[index].length; i++)
+			mOutputs[index][i] = data.get(1).get(i);
 	}
 
 	@Override
