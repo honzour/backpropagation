@@ -21,22 +21,6 @@ public class TrainingSetActivity extends NetworkActivity {
 	
 	protected void addTraining()
 	{
-		/*
-		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
-		final ArrayList<Double> inputItem = new ArrayList<Double>();
-		final ArrayList<Double> outputItem = new ArrayList<Double>();
-		
-		final int inputDim = mTraining.getInputDimension();
-		final int outputDim = mTraining.getOutputDimension();
-		
-		for (int i = 0; i < inputDim; i++)
-			inputItem.add(0d);
-		for (int i = 0; i < outputDim; i++)
-			outputItem.add(0d);
-		
-		item.add(inputItem);
-		item.add(outputItem);
-		*/
 		mTraining.add();
 		ArrayList<TrainingLine> lines = mTraining.getLines();
 		mAdapter.add(lines.get(lines.size() - 1));
