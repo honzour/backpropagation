@@ -28,4 +28,5 @@ public interface TrainingSet extends Serializable {
 	void remove(int index);
 	void set(int index, TrainingLine element);
 	ArrayList<TrainingLine> getLines();
+	String getType();
 }

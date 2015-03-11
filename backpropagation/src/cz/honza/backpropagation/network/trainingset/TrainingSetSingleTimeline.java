@@ -22,6 +22,13 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 		mOutputDimension = outputDimension;
 		mTimeline = timeline;
 	}
+	
+	public TrainingSetSingleTimeline(int inputDimension, int outputDimension)
+	{
+		mInputDimension = inputDimension;
+		mOutputDimension = outputDimension;
+		mTimeline = new double[inputDimension + outputDimension];
+	}
 
 	@Override
 	public void saveXml(Writer writer) throws IOException {
@@ -124,5 +131,10 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 		for (int i = 0; i < mTimeline.length; i++)
 			list.add(new TrainingLineSingleTimeline(mTimeline[i]));
 		return list;
+	}
+	
+	@Override
+	public String getType() {
+		return Csv.TIMELINE;
 	}
 }

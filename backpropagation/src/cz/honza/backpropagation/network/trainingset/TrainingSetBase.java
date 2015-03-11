@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class TrainingSetBase implements TrainingSet {
@@ -20,6 +21,15 @@ public class TrainingSetBase implements TrainingSet {
 		
 		mInputs[0] = new double[1];
 		mOutputs[0] = new double[1];
+	}
+	
+	public TrainingSetBase(int inputDimension, int outputDimension)
+	{
+		mInputs = new double[1][];
+		mOutputs = new double[1][];
+		
+		mInputs[0] = new double[inputDimension];
+		mOutputs[0] = new double[outputDimension];
 	}
 	
 	public TrainingSetBase(double[][] inputs, double[][] outputs)
@@ -229,5 +239,10 @@ public class TrainingSetBase implements TrainingSet {
 			list.add(item);
 		}
 		return list;
+	}
+
+	@Override
+	public String getType() {
+		return Csv.SIMPLE;
 	}
 }
