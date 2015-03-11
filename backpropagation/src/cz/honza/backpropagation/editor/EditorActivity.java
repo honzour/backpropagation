@@ -1,8 +1,6 @@
 package cz.honza.backpropagation.editor;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -21,10 +19,10 @@ public class EditorActivity extends NetworkActivity {
 	
 	public static class SavedState
 	{
-		public ArrayList<ArrayList<ArrayList<Double>>> mTraining;
+		public TrainingSet mTraining;
 		public ArrayList<Integer> mLayers;
 		
-		public SavedState(ArrayList<ArrayList<ArrayList<Double>>> training,
+		public SavedState(TrainingSet training,
 				ArrayList<Integer> layers) {
 			mTraining = training;
 			mLayers = layers;
@@ -36,41 +34,33 @@ public class EditorActivity extends NetworkActivity {
 	public static final String INTENT_EXTRA_ANATOMY = "INTENT_EXTRA_ANATOMY";
 	public static final String INTENT_EXTRA_TRAINING = "INTENT_EXTRA_TRAINING";
 
-	protected ArrayList<ArrayList<ArrayList<Double>>> mTraining;
+	protected TrainingSet mTraining;
 	protected ArrayList<Integer> mLayers;
 
 	protected void addTraining()
 	{
-		final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>();
-		final ArrayList<Double> inputItem = new ArrayList<Double>();
-		final ArrayList<Double> outputItem = new ArrayList<Double>();
-		
-		item.add(inputItem);
-		item.add(outputItem);
-		mTraining.add(item);
+		mTraining.add();
 	}
 
-	protected static void addVector(List<Double> list, StringBuffer sb)
+	protected static void addVector(TrainingSet set, int line, boolean input, StringBuffer sb)
 	{
 		sb.append('(');
-		for (int i = 0; i < list.size(); i++)
+		for (int i = 0; i < (input ? set.getInputDimension() : set.getOutputDimension()); i++)
 		{
 			if (i > 0)
 			{
 				sb.append(", ");
 			}
-			sb.append(String.valueOf(list.get(i)));
+			sb.append(String.valueOf(input ? set.getInput(line, i) : set.getOutput(line, i)));
 		}
 		sb.append(')');
 	}
 	
-	public static void addElement(ArrayList<ArrayList<Double>> item, StringBuffer sb)
+	public static void addElement(TrainingSet set, int line, StringBuffer sb)
 	{
-		final ArrayList<Double> inputItem = item.get(0);
-		final ArrayList<Double> outputItem = item.get(1);
-		addVector(inputItem, sb);
+		addVector(set, line, true, sb);
 		sb.append("->");
-		addVector(outputItem, sb);
+		addVector(set, line, false, sb);
 	}
 	
 	protected void refreshTraining()
@@ -78,7 +68,7 @@ public class EditorActivity extends NetworkActivity {
 		final TextView training = (TextView)findViewById(R.id.edit_training_set);
 		final StringBuffer sb = new StringBuffer();
 		final int limit = 8;
-		for (int i = 0; i < mTraining.size(); i++)
+		for (int i = 0; i < mTraining.length(); i++)
 		{
 			if (i >= limit)
 			{
@@ -87,8 +77,7 @@ public class EditorActivity extends NetworkActivity {
 			}
 			if (i > 0)
 				sb.append('\n');
-			final ArrayList<ArrayList<Double>> item = mTraining.get(i);
-			addElement(item, sb);			
+			addElement(mTraining, i, sb);			
 		}
 		training.setText(sb.toString());
 	}
@@ -122,26 +111,14 @@ public class EditorActivity extends NetworkActivity {
 					mLayers.add(network.mLayers[i].neurons.length);
 				}
 				
-				final int trainingSize = network.mTrainingSet.length();
-				final int inputSize = network.getInputDimension();
-				final int outputSize = network.getOutputDimension();
-				mTraining = new ArrayList<ArrayList<ArrayList<Double>>>(trainingSize);
-				for (int i = 0; i < trainingSize; i++)
+				try
 				{
-					final ArrayList<ArrayList<Double>> item = new ArrayList<ArrayList<Double>>(2);
-					final ArrayList<Double> input = new ArrayList<Double>(inputSize);
-					final ArrayList<Double> output = new ArrayList<Double>(outputSize);
-					for (int j = 0; j < inputSize; j++)
-					{
-						input.add(network.mTrainingSet.getInput(i, j));
-					}
-					for (int j = 0; j < outputSize; j++)
-					{
-						output.add(network.mTrainingSet.getOutput(i, j));
-					}
-					item.add(input);
-					item.add(output);
-					mTraining.add(item);
+					mTraining = (TrainingSet)network.mTrainingSet.clone();
+				}
+				catch (CloneNotSupportedException e)
+				{
+					// must not happen
+					throw new RuntimeException(e);
 				}
 			}
 		}
@@ -154,12 +131,12 @@ public class EditorActivity extends NetworkActivity {
 			mLayers.add(1);
 			mLayers.add(1);
 		}
-		// inint training
+		
 		if (mTraining == null)
 		{
-			mTraining = new ArrayList<ArrayList<ArrayList<Double>>>();
-			addTraining();
+			mTraining = new TrainingSetBase();
 		}
+
 		refreshAnatomy();
 		refreshTraining();
 		
@@ -210,35 +187,7 @@ public class EditorActivity extends NetworkActivity {
 		for (int i = 0; i < layers.length; i++)
 			layers[i] = mLayers.get(i);
 		
-		final int trainingSize = mTraining.size();
-		
-		final double[][] inputs = new double[trainingSize][];
-		final double[][] outputs = new double[trainingSize][];
-		
-		if (trainingSize > 0)
-		{
-			final int inputDim = mTraining.get(0).get(0).size();
-			final int outputDim = mTraining.get(0).get(1).size();
-			for (int i = 0; i < trainingSize; i++)
-			{
-				final ArrayList<ArrayList<Double>> item = mTraining.get(i);
-				inputs[i] = new double[inputDim];
-				outputs[i] = new double[outputDim];
-				for (int j = 0; j < inputDim; j++)
-				{
-					inputs[i][j] = item.get(0).get(j);
-				}
-				for (int j = 0; j < outputDim; j++)
-				{
-					outputs[i][j] = item.get(1).get(j);
-				}
-			}
-		}
-		
-		TrainingSet training = new TrainingSetBase(inputs, outputs);
-		
-		
-		NetworkApplication.sNetwork = new Network(layers, training);
+		NetworkApplication.sNetwork = new Network(layers, mTraining);
 		setResult(RESULT_OK);
 		finish();
 	}
@@ -248,18 +197,6 @@ public class EditorActivity extends NetworkActivity {
 	public Object onRetainNonConfigurationInstance()
 	{
 		return new SavedState(mTraining, mLayers);
-	}
-	
-	protected void setToSize(List<Double> list, int requestedSize)
-	{
-		while (list.size() < requestedSize)
-		{
-			list.add(0d);
-		}
-		while (list.size() > requestedSize)
-		{
-			list.remove(list.size() - 1);
-		}
 	}
 	
 	protected void refreshAnatomy()
@@ -278,12 +215,8 @@ public class EditorActivity extends NetworkActivity {
 			final int inputDimension = mLayers.get(0);
 			final int outputDimension = mLayers.get(mLayers.size() - 1);
 			
-			for (int i = 0; i < mTraining.size(); i++)
-			{
-				final ArrayList<ArrayList<Double>> item = mTraining.get(i);
-				setToSize(item.get(0), inputDimension);
-				setToSize(item.get(1), outputDimension);
-			}
+			mTraining.setInputDimension(inputDimension);
+			mTraining.setOutputDimension(outputDimension);
 		}
 	}
 
@@ -300,7 +233,7 @@ public class EditorActivity extends NetworkActivity {
 			}
 			if (requestCode == REQUEST_CODE_TRAINING)
 			{
-				mTraining = (ArrayList<ArrayList<ArrayList<Double>>>)data.getSerializableExtra(INTENT_EXTRA_TRAINING);
+				mTraining = (TrainingSet)data.getSerializableExtra(INTENT_EXTRA_TRAINING);
 				refreshTraining();
 			}
 		}

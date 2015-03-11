@@ -2,15 +2,35 @@ package cz.honza.backpropagation.network.trainingset;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.honza.backpropagation.R;
+import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
 public class TrainingSetBase implements TrainingSet {
 	private static final long serialVersionUID = 3556087741395041118L;
 	public double[][] mInputs;
 	public double[][] mOutputs;
+	
+	public TrainingSetBase()
+	{
+		mInputs = new double[1][];
+		mOutputs = new double[1][];
+		
+		mInputs[0] = new double[1];
+		mOutputs[0] = new double[1];
+	}
+	
+	public TrainingSetBase(int inputDimension, int outputDimension)
+	{
+		mInputs = new double[1][];
+		mOutputs = new double[1][];
+		
+		mInputs[0] = new double[inputDimension];
+		mOutputs[0] = new double[outputDimension];
+	}
 	
 	public TrainingSetBase(double[][] inputs, double[][] outputs)
 	{
@@ -119,5 +139,110 @@ public class TrainingSetBase implements TrainingSet {
 	@Override
 	public void saveCsv(Writer writer) throws IOException {
 		TrainingUtil.saveCsvSimple(this, writer);
+	}
+
+	@Override
+	public void add() {
+		double[][] inputs = new double[mInputs.length + 1][];
+		double[][] outputs = new double[mOutputs.length + 1][];;
+		
+		System.arraycopy(mInputs, 0, inputs, 0, mInputs.length);
+		System.arraycopy(mOutputs, 0, outputs, 0, mOutputs.length);
+		
+		inputs[mInputs.length] = new double[mInputs[0].length];
+		outputs[mOutputs.length] = new double[mOutputs[0].length];
+		
+		mInputs = inputs;
+		mOutputs = outputs;
+	}
+
+	@Override
+	public void setInputDimension(int dim) {
+		if (dim == getInputDimension()) return;
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			final double[] input = new double[dim];
+			System.arraycopy(mInputs[i], 0, input, 0, input.length < mInputs[i].length ? input.length : mInputs[i].length);
+			mInputs[i] = input;
+		}
+	}
+
+	@Override
+	public void setOutputDimension(int dim) {
+		if (dim == getOutputDimension()) return;
+		for (int i = 0; i < mOutputs.length; i++)
+		{
+			final double[] output = new double[dim];
+			System.arraycopy(mOutputs[i], 0, output, 0, output.length < mOutputs[i].length ? output.length : mOutputs[i].length);
+			mOutputs[i] = output;
+		}
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		double inputs[][] = new double[mInputs.length][];
+		double outputs[][] = new double[mOutputs.length][];
+		
+		for (int i = 0; i < inputs.length; i++)
+			inputs[i] = mInputs[i];
+		
+		for (int i = 0; i < outputs.length; i++)
+			outputs[i] = mOutputs[i];
+		
+		return new TrainingSetBase(inputs, outputs);
+	}
+
+	@Override
+	public void remove(int index) {
+		double inputs[][] = new double[mInputs.length - 1][];
+		double outputs[][] = new double[mOutputs.length - 1][];
+		
+		System.arraycopy(mInputs, 0, inputs, 0, index);
+		System.arraycopy(mInputs, index + 1, inputs, index, inputs.length - index);
+		
+		System.arraycopy(mOutputs, 0, outputs, 0, index);
+		System.arraycopy(mOutputs, index + 1, outputs, index, outputs.length - index);
+		
+		mInputs = inputs;
+		mOutputs = outputs;
+	}
+
+	@Override
+	public void set(int index, TrainingLine element) {
+		ArrayList<ArrayList<Double>> data = ((TrainingLineBase) element).mData;
+		
+		for (int i = 0; i < mInputs[index].length; i++)
+			mInputs[index][i] = data.get(0).get(i);
+		
+		for (int i = 0; i < mOutputs[index].length; i++)
+			mOutputs[index][i] = data.get(1).get(i);
+	}
+
+	@Override
+	public ArrayList<TrainingLine> getLines() {
+		ArrayList<TrainingLine> list = new ArrayList<TrainingLine>();
+		for (int i = 0; i < mInputs.length; i++)
+		{
+			final TrainingLineBase item = new TrainingLineBase();
+			final ArrayList<Double> inputItem = new ArrayList<Double>();
+			final ArrayList<Double> outputItem = new ArrayList<Double>();
+			
+			for (int j = 0; j < mInputs[i].length; j++)
+				inputItem.add(mInputs[i][j]);
+			
+			for (int j = 0; j < mOutputs[i].length; j++)
+				outputItem.add(mOutputs[i][j]);
+			
+			item.mData.add(inputItem);
+			item.mData.add(outputItem);
+			list.add(item);
+		}
+		return list;
+	}
+
+	@Override
+	public String getType() {
+		return Csv.SIMPLE;
 	}
 }

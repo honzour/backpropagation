@@ -121,6 +121,11 @@
     <string name="output_layer">Neuron count in output layer</string>
     <string name="edit_anatomy">Edit anatomy</string>
     <string name="edit_training">Edit training set</string>
+    <string name="value">Value</string>
+    <string-array name="training_formats">
+        <item>Simple training set</item>
+        <item>Timeline</item>
+    </string-array>
     
     <!-- components -->
     <string name="help">Help</string>

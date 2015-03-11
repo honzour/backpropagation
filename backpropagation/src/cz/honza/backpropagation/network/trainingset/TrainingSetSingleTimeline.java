@@ -2,6 +2,7 @@ package cz.honza.backpropagation.network.trainingset;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
@@ -20,6 +21,13 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 		mInputDimension = inputDimension;
 		mOutputDimension = outputDimension;
 		mTimeline = timeline;
+	}
+	
+	public TrainingSetSingleTimeline(int inputDimension, int outputDimension)
+	{
+		mInputDimension = inputDimension;
+		mOutputDimension = outputDimension;
+		mTimeline = new double[inputDimension + outputDimension];
 	}
 
 	@Override
@@ -42,7 +50,10 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public int length() {
-		return mTimeline.length - mInputDimension - mOutputDimension + 1;
+		int length = mTimeline.length - mInputDimension - mOutputDimension + 1;
+		if (length <= 0)
+			return 0;
+		return length;
 	}
 
 	@Override
@@ -73,5 +84,57 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public void add() {
+		double[] timeline = new double[mTimeline.length + 1];
+		System.arraycopy(mTimeline, 0, timeline, 0, mTimeline.length);
+		timeline[mTimeline.length] = 0;
+		mTimeline = timeline;
+	}
+
+	@Override
+	public void setInputDimension(int dim) {
+		mInputDimension = dim;
+	}
+
+	@Override
+	public void setOutputDimension(int dim) {
+		mOutputDimension = dim;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		return new TrainingSetSingleTimeline(mInputDimension, mOutputDimension, mTimeline.clone());
+	}
+
+	@Override
+	public void remove(int index) {
+		double timeline[] = new double[mTimeline.length - 1];
+		
+		System.arraycopy(mTimeline, 0, timeline, 0, index);
+		System.arraycopy(mTimeline, index + 1, timeline, index, timeline.length - index);
+		
+		mTimeline = timeline;
+	}
+
+	@Override
+	public void set(int index, TrainingLine element) {
+		mTimeline[index] = ((TrainingLineSingleTimeline) element).mValue;
+	}
+
+	@Override
+	public ArrayList<TrainingLine> getLines() {
+		ArrayList<TrainingLine> list = new ArrayList<TrainingLine>();
+		for (int i = 0; i < mTimeline.length; i++)
+			list.add(new TrainingLineSingleTimeline(mTimeline[i]));
+		return list;
+	}
+	
+	@Override
+	public String getType() {
+		return Csv.TIMELINE;
 	}
 }

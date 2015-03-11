@@ -1,6 +1,5 @@
 package cz.honza.backpropagation.editor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -12,14 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
+import cz.honza.backpropagation.network.trainingset.TrainingLineBase;
 
-public class TrainingSetDetailActivity extends NetworkActivity {
+public class TrainingLineBaseActivity extends NetworkActivity {
 	
 	public static final String INTENT_EXTRA_NUMBER = "INTENT_EXTRA_NUMBER";
 	public static final String INTENT_EXTRA_DATA = "INTENT_EXTRA_DATA";
 	
 	
-	protected ArrayList<ArrayList<Double>> mData; 
+	protected TrainingLineBase mData; 
 	
 	
 	protected void fillData()
@@ -37,8 +37,8 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 		final LinearLayout inputLayout = (LinearLayout)findViewById(R.id.editor_training_item_input);
 		final LinearLayout outputLayout = (LinearLayout)findViewById(R.id.editor_training_item_output);
 		
-		final List<Double> elementInput = mData.get(0);
-		final List<Double> elementOutput = mData.get(1);
+		final List<Double> elementInput = mData.mData.get(0);
+		final List<Double> elementOutput = mData.mData.get(1);
 		
 		for (int j = 0; j < elementInput.size(); j++)
 		{
@@ -70,7 +70,7 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 				d = Double.valueOf(input.getText().toString());
 			}
 			catch (Exception e) {}
-			mData.get(0).set(j, d);
+			mData.mData.get(0).set(j, d);
 		}
 		final int outputCount = outputLayout.getChildCount();
 		for (int j = 0; j < outputCount; j++)
@@ -82,17 +82,20 @@ public class TrainingSetDetailActivity extends NetworkActivity {
 				d = Double.valueOf(input.getText().toString());
 			}
 			catch (Exception e) {}
-			mData.get(1).set(j, d);
+			mData.mData.get(1).set(j, d);
 		}
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.training_item);
-		mData = (ArrayList<ArrayList<Double>>)getLastNonConfigurationInstance();
+		setContentView(R.layout.training_item_base);
+		mData = (TrainingLineBase)getLastNonConfigurationInstance();
 		if (mData == null)
-			mData = (ArrayList<ArrayList<Double>>)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+		{
+			Object o = getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+			mData = (TrainingLineBase)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+		}
 		fillData();
 	}
 	

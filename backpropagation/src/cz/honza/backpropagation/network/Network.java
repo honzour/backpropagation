@@ -11,9 +11,6 @@ import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 import cz.honza.backpropagation.network.parser.Xml;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
-import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
-
-
 
 public class Network implements Serializable {
 	
