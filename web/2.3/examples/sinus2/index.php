@@ -1,5 +1,5 @@
 <?
 include '../../util.php';
-example("0, 0, 1, 0, 0, 1, 0, 0, 1", "2D to 1D prediction of the periodic function. A simple hello world timeline example.");
+example("Sinus sequence", "Training set is a sequence of sinus(k * 0.1) and the network task is to predict the next value from previous two. So for example if you put sinus(0.05) and sinus(0.15), you should get sinus(0.25). It works well.");
 ?>
 

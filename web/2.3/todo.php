@@ -25,11 +25,20 @@ include 'google.php'
 	<LI>Import and export
 		<UL>
 			<LI>CSV import and export - <B>FIXED</B></LI>
-			<LI>PNG with 0-1 transparency as training set</LI>
 			<LI>Export trained network to C or Java</LI>
 			<LI>Export network to be trained on the PC to C or Java</LI>
 			<LI>Input from device sensors, output some action</LI>
 			<LI>Some real examples</LI>
+		</UL>
+	</LI>
+	<LI>Training sets
+		<UL>
+			<LI>Sequences - <B>FIXED</B></LI>
+			<LI>Multisequences</LI>
+			<LI>PNG with 0-1 transparency as training set</LI>
+			<LI>Image clasification</LI>
+			<LI>Binary data clasification</LI>
+			<LI>PNG with 0-1 transparency as training set</LI>
 		</UL>
 	</LI>
 	<LI>GUI improvements
@@ -40,7 +49,11 @@ include 'google.php'
 			<LI>Better huge network handling - <B>50% FIXED</B></LI>
 		</UL>
 	</LI>
-
+	<LI>Technical tasks
+		<UL>
+			<LI>Find better webhosting</B></LI>
+		</UL>
+	</LI>
 </UL>
 
 <?

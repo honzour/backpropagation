@@ -111,7 +111,7 @@ Returns 1 for odd and 0 for even numbers. The input is an 8 bit encoded binary n
 </P>
 </LI>
 </UL>
-<H3>Timelines examples</H3>
+<H3>Sequence examples</H3>
 <P>
 In this cases neural network should predict the next value(s) from previous value(s). Training set has a different format, it is just a sequence of numbers a<sub>n</sub> which is interpreted like set of rules (a<sub>i+1</sub>, a<sub>i+2</sub>, ... a<sub>i+k</sub>) -&gt; (a<sub>i+k+1</sub>, a<sub>i+k+2</sub>, ... a<sub>i+k+j</sub>) for each i when it makes sense. For example if training set is 0,0,1,1,0,0,1,1,0,0,1,1 and you give the nework 0,1,1 as an 3D input, it should return  0 as a 1D output. So this approach is useful for the prediction of next value of periodic function or a random variable with some pattern. You can try to predict weather or stock values with this approach.
 </P>
@@ -119,7 +119,13 @@ In this cases neural network should predict the next value(s) from previous valu
 <LI>
 <B><A HREF="001">0, 0, 1, 0, 0, 1, 0, 0, 1</A></B><BR>
 <P>
-2D to 1D prediction of the periodic function. A simple hello world timeline example.
+2D to 1D prediction of the periodic function. A simple hello world sequence example.
+</P>
+</LI>
+<LI>
+<B><A HREF="sinus2">Sinus sequence</A></B><BR>
+<P>
+Training set is a sequence of sinus(k * 0.1) and the network task is to predict the next value from previous two. So for example if you put sinus(0.05) and sinus(0.15), you should get sinus(0.25). It works well..
 </P>
 </LI>
 </UL>
