@@ -3,37 +3,31 @@
 	<layers>
 		<layer>
 			<neuron>
-				<weight>-4.984566119270683</weight>
-				<weight>1.5219899797330692</weight>
-				<weight>-5.722884384242823</weight>
+				<weight>-4.977895142164868</weight>
+				<weight>2.076181121889787</weight>
+				<weight>-6.249269237940387</weight>
 			</neuron>
 			<neuron>
-				<weight>-4.965081870522604</weight>
-				<weight>-1.6986754617699553</weight>
-				<weight>5.924349581496401</weight>
+				<weight>-0.263504365428621</weight>
+				<weight>1.5153648507323234</weight>
+				<weight>-2.6146882553542667</weight>
 			</neuron>
 			<neuron>
-				<weight>0.126534876228596</weight>
-				<weight>-1.0321648849014888</weight>
-				<weight>1.601213752249494</weight>
-			</neuron>
-			<neuron>
-				<weight>-0.1733368255975096</weight>
-				<weight>0.8793347873192034</weight>
-				<weight>-1.615747109269011</weight>
+				<weight>-4.802883545199546</weight>
+				<weight>-2.3419235951388115</weight>
+				<weight>6.390466872876476</weight>
 			</neuron>
 		</layer>
 		<layer>
 			<neuron>
-				<weight>0.026010676909960413</weight>
-				<weight>-7.039721953919499</weight>
-				<weight>7.054781658031101</weight>
-				<weight>4.0156475892645975</weight>
-				<weight>-4.725150486082446</weight>
+				<weight>2.191038978275006</weight>
+				<weight>-7.415774582871658</weight>
+				<weight>-5.06292203540894</weight>
+				<weight>7.715255440665768</weight>
 			</neuron>
 		</layer>
 	</layers>
-	<training type = "timeline">
+	<training type = "sequence">
 		<line>
 			<number>0.0</number>
 			<number>0.099833</number>

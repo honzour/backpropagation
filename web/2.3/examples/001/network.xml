@@ -9,7 +9,7 @@
 			</neuron>
 		</layer>
 	</layers>
-	<training type = "timeline">
+	<training type = "sequence">
 		<line>
 			<number>0.0</number>
 			<number>0.0</number>
