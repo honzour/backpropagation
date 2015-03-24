@@ -15,7 +15,7 @@ import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.trainingset.TrainingLine;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
-import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
+import cz.honza.backpropagation.network.trainingset.TrainingSetSingleSequence;
 
 public class TrainingSetActivity extends NetworkActivity {
 	
@@ -68,7 +68,7 @@ public class TrainingSetActivity extends NetworkActivity {
 					refreshTraining();
 					break;
 				case 1:
-					mTraining = new TrainingSetSingleTimeline(mTraining.getInputDimension(), mTraining.getOutputDimension());
+					mTraining = new TrainingSetSingleSequence(mTraining.getInputDimension(), mTraining.getOutputDimension());
 					refreshTraining();
 					break;
 				}
@@ -84,7 +84,7 @@ public class TrainingSetActivity extends NetworkActivity {
 		{
 			mTraining = (TrainingSet)getIntent().getSerializableExtra(EditorActivity.INTENT_EXTRA_TRAINING);
 		}
-		if (mTraining.getType().equals(Csv.TIMELINE))
+		if (mTraining.getType().equals(Csv.SEQUENCE))
 		{
 			mType.setSelection(1);
 		}

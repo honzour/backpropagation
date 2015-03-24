@@ -8,7 +8,7 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 
-public class TrainingSetSingleTimeline implements TrainingSet {
+public class TrainingSetSingleSequence implements TrainingSet {
 
 	private static final long serialVersionUID = -2798729495999954517L;
 	
@@ -16,14 +16,14 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	protected int mOutputDimension;
 	protected double[] mTimeline;
 	
-	public TrainingSetSingleTimeline(int inputDimension, int outputDimension, double[] timeline)
+	public TrainingSetSingleSequence(int inputDimension, int outputDimension, double[] timeline)
 	{
 		mInputDimension = inputDimension;
 		mOutputDimension = outputDimension;
 		mTimeline = timeline;
 	}
 	
-	public TrainingSetSingleTimeline(int inputDimension, int outputDimension)
+	public TrainingSetSingleSequence(int inputDimension, int outputDimension)
 	{
 		mInputDimension = inputDimension;
 		mOutputDimension = outputDimension;
@@ -37,7 +37,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void saveCsv(Writer writer) throws IOException {
-		writer.write(Csv.TIMELINE);
+		writer.write(Csv.SEQUENCE);
 		writer.write(Csv.NEW_LINE);
 		for (int i = 0; i < mTimeline.length; i++)
 		{
@@ -107,7 +107,7 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
-		return new TrainingSetSingleTimeline(mInputDimension, mOutputDimension, mTimeline.clone());
+		return new TrainingSetSingleSequence(mInputDimension, mOutputDimension, mTimeline.clone());
 	}
 
 	@Override
@@ -122,19 +122,19 @@ public class TrainingSetSingleTimeline implements TrainingSet {
 
 	@Override
 	public void set(int index, TrainingLine element) {
-		mTimeline[index] = ((TrainingLineSingleTimeline) element).mValue;
+		mTimeline[index] = ((TrainingLineSingleSequence) element).mValue;
 	}
 
 	@Override
 	public ArrayList<TrainingLine> getLines() {
 		ArrayList<TrainingLine> list = new ArrayList<TrainingLine>();
 		for (int i = 0; i < mTimeline.length; i++)
-			list.add(new TrainingLineSingleTimeline(mTimeline[i]));
+			list.add(new TrainingLineSingleSequence(mTimeline[i]));
 		return list;
 	}
 	
 	@Override
 	public String getType() {
-		return Csv.TIMELINE;
+		return Csv.SEQUENCE;
 	}
 }

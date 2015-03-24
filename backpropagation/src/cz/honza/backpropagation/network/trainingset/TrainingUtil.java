@@ -159,12 +159,12 @@ public class TrainingUtil {
 	}
 	
 	
-	public static void saveXmlTimeline(TrainingSetSingleTimeline set, Writer writer) throws IOException
+	public static void saveXmlTimeline(TrainingSetSingleSequence set, Writer writer) throws IOException
 	{
 		writer.write(Xml.TAB);
 		writer.write(Xml.TAG_START);
 		writer.write(Xml.TRAINING);
-		writer.write(' ' + Xml.TYPE + " = \"" + Csv.TIMELINE + "\"");
+		writer.write(' ' + Xml.TYPE + " = \"" + Csv.SEQUENCE + "\"");
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 		

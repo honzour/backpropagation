@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.TextView;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
-import cz.honza.backpropagation.network.trainingset.TrainingLineSingleTimeline;
+import cz.honza.backpropagation.network.trainingset.TrainingLineSingleSequence;
 
 public class TrainingLineSingleTimelineActivity extends NetworkActivity {
 	
 	public static final String INTENT_EXTRA_NUMBER = "INTENT_EXTRA_NUMBER";
 	public static final String INTENT_EXTRA_DATA = "INTENT_EXTRA_DATA";
 	
-	protected TrainingLineSingleTimeline mData;
+	protected TrainingLineSingleSequence mData;
 	protected TextView mValue;
 	
 	protected void fillData()
@@ -48,11 +48,11 @@ public class TrainingLineSingleTimelineActivity extends NetworkActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training_item_single_timeline);
 		mValue = (TextView) findViewById(R.id.item_value);
-		mData = (TrainingLineSingleTimeline)getLastNonConfigurationInstance();
+		mData = (TrainingLineSingleSequence)getLastNonConfigurationInstance();
 		if (mData == null)
 		{
 			Object o = getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
-			mData = (TrainingLineSingleTimeline)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
+			mData = (TrainingLineSingleSequence)getIntent().getSerializableExtra(INTENT_EXTRA_DATA);
 		}
 		fillData();
 	}

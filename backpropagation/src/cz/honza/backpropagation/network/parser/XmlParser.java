@@ -18,7 +18,7 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
-import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
+import cz.honza.backpropagation.network.trainingset.TrainingSetSingleSequence;
 
 public class XmlParser {
 	public static void parseXml(InputStream is, ParserResultHandler handler)
@@ -147,7 +147,7 @@ public class XmlParser {
 		{
 			timeline[i++] = d;
 		}
-		return new TrainingSetSingleTimeline(inputDimension, outputDimension, timeline);
+		return new TrainingSetSingleSequence(inputDimension, outputDimension, timeline);
 	}
 
 	protected static TrainingSet parseTraining(Node network, int inputDimension, int outputDimension, ParserResultHandler handler) {
@@ -168,15 +168,15 @@ public class XmlParser {
 				String typeString = node.getNodeValue();
 				if (typeString != null)
 				{
-					if (typeString.equals(Csv.TIMELINE))
-						type = Csv.TIMELINE_CODE;
+					if (typeString.equals(Csv.SEQUENCE))
+						type = Csv.SEQUENCE_CODE;
 				}
 			}
 		}
 		
 		if (type == Csv.SIMPLE_CODE)
 			return parseSimpleTrainingSet(trainingNode, handler);
-		if (type == Csv.TIMELINE_CODE)
+		if (type == Csv.SEQUENCE_CODE)
 			return parseTimelineTrainingSet(trainingNode, inputDimension, outputDimension, handler);
 		handler.onError(R.string.unknown_training_set_type);
 		return null;

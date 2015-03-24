@@ -12,7 +12,7 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 import cz.honza.backpropagation.network.trainingset.TrainingSetBase;
-import cz.honza.backpropagation.network.trainingset.TrainingSetSingleTimeline;
+import cz.honza.backpropagation.network.trainingset.TrainingSetSingleSequence;
 
 public class CsvParser {
 	protected static int[] line2ints(String line, int lineNumber, ParserResultHandler handler)
@@ -79,7 +79,7 @@ public class CsvParser {
 		final double[] elements = line2doubles(line, -1, in.getLine(), handler);
 		if (elements == null)
 			return null;
-		return new TrainingSetSingleTimeline(anatomy[0], anatomy[anatomy.length - 1], elements);
+		return new TrainingSetSingleSequence(anatomy[0], anatomy[anatomy.length - 1], elements);
 	}
 	
 	protected static TrainingSet parseBaseTrainingSet(int[] anatomy, CsvBufferedReader in, ParserResultHandler handler) throws IOException
@@ -165,9 +165,9 @@ public class CsvParser {
 					handler.onError(R.string.no_training_set_type);
 					return;
 				}
-				if (line.equals(Csv.TIMELINE))
+				if (line.equals(Csv.SEQUENCE))
 				{
-					type = Csv.TIMELINE_CODE;
+					type = Csv.SEQUENCE_CODE;
 				}
 				
 			}
@@ -180,7 +180,7 @@ public class CsvParser {
 			case Csv.SIMPLE_CODE:
 				trainingSet = parseBaseTrainingSet(anatomy, in, handler);
 				break;
-			case Csv.TIMELINE_CODE:
+			case Csv.SEQUENCE_CODE:
 				trainingSet = parseTimelineTrainingSet(anatomy, in, handler);
 				break;
 			default:

@@ -54,7 +54,7 @@ public class TrainingAdapter extends ArrayAdapter<TrainingLine> {
 				}
 				else
 				{
-					if (line.getEditorType().equals(Csv.TIMELINE))
+					if (line.getEditorType().equals(Csv.SEQUENCE))
 					{
 						c = TrainingLineSingleTimelineActivity.class;
 					}

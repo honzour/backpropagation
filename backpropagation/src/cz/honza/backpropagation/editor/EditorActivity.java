@@ -132,7 +132,7 @@ public class EditorActivity extends NetworkActivity {
 			mLayers.add(1);
 		}
 		
-		if (mTraining == null)
+		if (mTraining == null || mTraining.length() == 0)
 		{
 			mTraining = new TrainingSetBase();
 		}
