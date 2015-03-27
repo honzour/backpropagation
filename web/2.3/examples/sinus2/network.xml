@@ -3,27 +3,33 @@
 	<layers>
 		<layer>
 			<neuron>
-				<weight>-4.977895142164868</weight>
-				<weight>2.076181121889787</weight>
-				<weight>-6.249269237940387</weight>
+				<weight>-0.28845514110092674</weight>
+				<weight>-1.0953756812942437</weight>
+				<weight>1.8234088671253434</weight>
 			</neuron>
 			<neuron>
-				<weight>-0.263504365428621</weight>
-				<weight>1.5153648507323234</weight>
-				<weight>-2.6146882553542667</weight>
+				<weight>-3.18577964112029</weight>
+				<weight>5.399063397042448</weight>
+				<weight>-7.299444871379968</weight>
 			</neuron>
 			<neuron>
-				<weight>-4.802883545199546</weight>
-				<weight>-2.3419235951388115</weight>
-				<weight>6.390466872876476</weight>
+				<weight>-7.695660617503035</weight>
+				<weight>3.514302058179318</weight>
+				<weight>-9.719891141314593</weight>
+			</neuron>
+			<neuron>
+				<weight>-5.027166215206616</weight>
+				<weight>-8.00775822511402</weight>
+				<weight>11.812467994125448</weight>
 			</neuron>
 		</layer>
 		<layer>
 			<neuron>
-				<weight>2.191038978275006</weight>
-				<weight>-7.415774582871658</weight>
-				<weight>-5.06292203540894</weight>
-				<weight>7.715255440665768</weight>
+				<weight>-1.7448595504946063</weight>
+				<weight>4.780158556612575</weight>
+				<weight>-9.00214932711264</weight>
+				<weight>-6.699439298520383</weight>
+				<weight>10.63693268747511</weight>
 			</neuron>
 		</layer>
 	</layers>
