@@ -9,7 +9,7 @@ include 'google.php'
 ?>
 <H2>Training set detail</H2>
 <P>
-Edit the training set element here, enter real numbers as expected network output for the input. Pres 'Delete' if you want to remove this element from the training set.
+Edit the training set element here, enter real numbers as expected network output for the input in case of a simple format or a single value in case of sequence. Pres 'Delete' if you want to remove this element from the training set.
 </P>
 <?
 include 'links.php'
