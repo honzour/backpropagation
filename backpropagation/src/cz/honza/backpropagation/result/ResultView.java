@@ -2,6 +2,7 @@ package cz.honza.backpropagation.result;
 
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.Network;
+import cz.honza.backpropagation.network.parser.Csv;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -178,6 +179,21 @@ public class ResultView extends View {
 		}
  	}
  	
+ 	protected void onDrawSequence(Canvas canvas, Network n, int width, int height) {
+		if (mBmp == null || mBmp.getWidth() != width || mBmp.getHeight() != height)
+		{
+			mBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+			mDrawBitmap = false;
+			
+			mThread.start(mBmp, this, 0, 0, 0, 0);
+		}
+		else
+		{
+			if (mDrawBitmap)
+				canvas.drawBitmap(mBmp, 0, 0, mPaint);
+		}
+ 	}
+ 	
  	protected void onDraw1d(Canvas canvas, Network n, int width, int height, int radius) {
  		final double delta = 0.01;
 		
@@ -297,12 +313,17 @@ public class ResultView extends View {
 			mPaint = new Paint();
 		mPaint.setTextSize(radius);
 
-		
-		if (n.getInputDimension() > 1)
-			onDraw2d(canvas, n, width, height, radius);
+		if (n.mTrainingSet.getType().equals(Csv.SEQUENCE))
+		{
+			onDrawSequence(canvas, n, width, height);
+		}
 		else
-			onDraw1d(canvas, n, width, height, radius);
-		
+		{
+			if (n.getInputDimension() > 1)
+				onDraw2d(canvas, n, width, height, radius);
+			else
+				onDraw1d(canvas, n, width, height, radius);
+		}
 	}
 	
 	public void bitmapValid()
