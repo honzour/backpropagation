@@ -14,7 +14,7 @@ public class TrainingSetSingleSequence implements TrainingSet {
 	
 	protected int mInputDimension;
 	protected int mOutputDimension;
-	protected double[] mTimeline;
+	public double[] mTimeline;
 	
 	public TrainingSetSingleSequence(int inputDimension, int outputDimension, double[] timeline)
 	{
