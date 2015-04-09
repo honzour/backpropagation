@@ -2,9 +2,7 @@ package cz.honza.backpropagation.result;
 
 import cz.honza.backpropagation.NetworkApplication;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 
 public class DrawResultThread2D extends DrawResultThread {
 	
@@ -44,9 +42,5 @@ public class DrawResultThread2D extends DrawResultThread {
 				bmp.setPixel(i, j, Color.argb(255, (int)(255 * output[2] + 0.5), (int)(255 * output[0] + 0.5), (int)(255 * output[1] + 0.5)));
 			}
 		}
-		Canvas c = new Canvas(bmp);
-		c.drawRGB(255, 255, 255);
-		Paint p = new Paint();
-		c.drawLine(1, 1, c.getWidth() - 1, c.getHeight() - 1, p);
  	}
 }
