@@ -48,9 +48,18 @@ public class DrawResultThreadSequence extends DrawResultThread {
 		Paint p = new Paint();
 		
 		final float xCoef = (c.getWidth() - 1) / (float)data.length;
-		final float yCoef = (c.getHeight() - 1) / (float)(max - min);
+		final float yCoef = (c.getHeight() - 1) / (float)(max - min) * 2f / 3f;
+		final float yAdd = c.getHeight() * 5 / 6f;
 		
 		for (int i = 0; i < data.length - 1;  i++)
-			c.drawLine(i * xCoef, (float) (data[i] - min) * yCoef, (i + 1) * xCoef, (float) (data[i + 1] - min) * yCoef, p);
+		{
+			if (i >= data.length / 2 - 1)
+				p.setARGB(255, 255, 0, 0);
+			c.drawLine(i * xCoef, 
+					- (float) (data[i] - min) * yCoef + yAdd,
+					(i + 1) * xCoef,
+					- (float) (data[i + 1] - min) * yCoef + yAdd,
+					p);
+		}
  	}
 }
