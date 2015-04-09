@@ -3,6 +3,8 @@ package cz.honza.backpropagation.result;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.network.trainingset.TrainingSetSingleSequence;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
 public class DrawResultThreadSequence extends DrawResultThread {
 	
@@ -29,6 +31,10 @@ public class DrawResultThreadSequence extends DrawResultThread {
 			NetworkApplication.sNetwork.calculate(input, output, true);
 			data[i] = output[0];
 		}
+		
+		Canvas c = new Canvas(bmp);
+		c.drawRGB(255, 255, 255);
+		Paint p = new Paint();
+		c.drawLine(0, 0, c.getWidth(), c.getHeight(), p);
  	}
-	
 }
