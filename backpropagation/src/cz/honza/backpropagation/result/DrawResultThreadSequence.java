@@ -32,9 +32,25 @@ public class DrawResultThreadSequence extends DrawResultThread {
 			data[i] = output[0];
 		}
 		
+		double max = data[0];
+		double min = data[0];
+		
+		for (int i = 0; i < data.length; i++)
+		{
+			if (data[i] < min)
+				min = data[i];
+			if (data[i] > max)
+				max = data[i];
+		}
+		
 		Canvas c = new Canvas(bmp);
 		c.drawRGB(255, 255, 255);
 		Paint p = new Paint();
-		c.drawLine(0, 0, c.getWidth(), c.getHeight(), p);
+		
+		final float xCoef = (c.getWidth() - 1) / (float)data.length;
+		final float yCoef = (c.getHeight() - 1) / (float)(max - min);
+		
+		for (int i = 0; i < data.length - 1;  i++)
+			c.drawLine(i * xCoef, (float) (data[i] - min) * yCoef, (i + 1) * xCoef, (float) (data[i + 1] - min) * yCoef, p);
  	}
 }
