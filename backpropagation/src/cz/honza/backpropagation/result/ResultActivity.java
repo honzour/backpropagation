@@ -5,6 +5,7 @@ import android.view.View;
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
+import cz.honza.backpropagation.network.parser.Csv;
 
 public class ResultActivity extends NetworkActivity {
 	
@@ -28,12 +29,17 @@ public class ResultActivity extends NetworkActivity {
 			}
 		};
 		
-		
-		if (NetworkApplication.sNetwork.getInputDimension() > 1)
-			mThread = new DrawResultThread2D(r);
+		if (NetworkApplication.sNetwork.mTrainingSet.getType().equals(Csv.SEQUENCE))
+		{
+			mThread = new DrawResultThreadSequence(r);
+		}
 		else
-			mThread = new DrawResultThread1D(r);
-			
+		{
+			if (NetworkApplication.sNetwork.getInputDimension() > 1)
+				mThread = new DrawResultThread2D(r);
+			else
+				mThread = new DrawResultThread1D(r);
+		}
 		mResultView.setThread(mThread);
 	}
 	
