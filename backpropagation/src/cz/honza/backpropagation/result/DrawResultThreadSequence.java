@@ -24,7 +24,7 @@ public class DrawResultThreadSequence extends DrawResultThread {
 		double[] input = new double[NetworkApplication.sNetwork.getInputDimension()];
 		double[] output = new double[NetworkApplication.sNetwork.getOutputDimension()];
 		
-		System.arraycopy(ts.mTimeline, 0, data, 0, ts.length());
+		System.arraycopy(ts.mTimeline, 0, data, 0, ts.mTimeline.length);
 		for (int i = ts.mTimeline.length; i < length; i++)
 		{
 			System.arraycopy(data, i - input.length, input, 0, input.length);
