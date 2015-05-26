@@ -3,33 +3,61 @@
 	<layers>
 		<layer>
 			<neuron>
-				<weight>-0.28845514110092674</weight>
-				<weight>-1.0953756812942437</weight>
-				<weight>1.8234088671253434</weight>
+				<weight>0.11077395814198582</weight>
+				<weight>-0.8068003564745333</weight>
+				<weight>-0.5641114334536802</weight>
+				<weight>-0.3141211241960951</weight>
+				<weight>0.02292003495743645</weight>
+				<weight>0.2366666646014778</weight>
+				<weight>0.4665404807295059</weight>
+				<weight>0.6007508046819503</weight>
+				<weight>0.8334663085272157</weight>
+				<weight>1.1022465868658422</weight>
 			</neuron>
 			<neuron>
-				<weight>-3.18577964112029</weight>
-				<weight>5.399063397042448</weight>
-				<weight>-7.299444871379968</weight>
+				<weight>-0.042705156515910954</weight>
+				<weight>2.8647289834227307</weight>
+				<weight>2.1687430377961743</weight>
+				<weight>1.5231592801739349</weight>
+				<weight>0.765387509631469</weight>
+				<weight>0.06721802338663535</weight>
+				<weight>-0.5216359264634186</weight>
+				<weight>-1.3499736556018946</weight>
+				<weight>-1.9410767469323287</weight>
+				<weight>-2.572560210832219</weight>
 			</neuron>
 			<neuron>
-				<weight>-7.695660617503035</weight>
-				<weight>3.514302058179318</weight>
-				<weight>-9.719891141314593</weight>
+				<weight>0.09563193217075272</weight>
+				<weight>1.257264318567959</weight>
+				<weight>1.1002829074022393</weight>
+				<weight>0.7581744208063034</weight>
+				<weight>0.49722373989943663</weight>
+				<weight>0.2566067704684343</weight>
+				<weight>0.10060710236429575</weight>
+				<weight>-0.3045514462238534</weight>
+				<weight>-0.45188228440042777</weight>
+				<weight>-0.6696078532419026</weight>
 			</neuron>
 			<neuron>
-				<weight>-5.027166215206616</weight>
-				<weight>-8.00775822511402</weight>
-				<weight>11.812467994125448</weight>
+				<weight>-0.01210481463724383</weight>
+				<weight>-2.0056520219061236</weight>
+				<weight>-1.617155743271944</weight>
+				<weight>-1.2316776787325614</weight>
+				<weight>-0.7895088117203903</weight>
+				<weight>-0.5250757096096443</weight>
+				<weight>0.05130504186550462</weight>
+				<weight>0.44273604933570193</weight>
+				<weight>0.7745022201210021</weight>
+				<weight>1.2999478746821458</weight>
 			</neuron>
 		</layer>
 		<layer>
 			<neuron>
-				<weight>-1.7448595504946063</weight>
-				<weight>4.780158556612575</weight>
-				<weight>-9.00214932711264</weight>
-				<weight>-6.699439298520383</weight>
-				<weight>10.63693268747511</weight>
+				<weight>0.6594591483919339</weight>
+				<weight>3.2582660771363483</weight>
+				<weight>-4.651232184314819</weight>
+				<weight>2.611809743068976</weight>
+				<weight>-2.7498510318951785</weight>
 			</neuron>
 		</layer>
 	</layers>
