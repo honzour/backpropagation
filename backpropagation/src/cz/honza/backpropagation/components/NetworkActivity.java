@@ -1,14 +1,19 @@
 package cz.honza.backpropagation.components;
 
+import org.apache.http.entity.FileEntity;
+
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 public class NetworkActivity extends Activity {
 	protected void setStartActivity(int resource, final Class<?> clazz)
@@ -67,6 +72,13 @@ public class NetworkActivity extends Activity {
 			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		if (Integer.valueOf(Build.VERSION.SDK).intValue() >= 11)
+			requestWindowFeature(/*Window.FEATURE_ACTION_BAR*/ 8);
+		super.onCreate(savedInstanceState);
 	}
 	
 	
