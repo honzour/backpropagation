@@ -11,8 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
 
 public class NetworkActivity extends Activity {
 	protected void setStartActivity(int resource, final Class<?> clazz)
@@ -33,7 +31,6 @@ public class NetworkActivity extends Activity {
 	{
 		NetworkApplication.sInstance.savePref(key, value);
 	}
-	
 	
 	protected String loadPref(String key, String defaultVaule)
 	{
@@ -79,7 +76,7 @@ public class NetworkActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home)
 		{
-			Toast.makeText(this, "Neklikej", Toast.LENGTH_LONG).show();
+			openOptionsMenu();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
