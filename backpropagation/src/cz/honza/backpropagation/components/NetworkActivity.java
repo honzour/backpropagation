@@ -1,7 +1,5 @@
 package cz.honza.backpropagation.components;
 
-import org.apache.http.entity.FileEntity;
-
 import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import android.app.Activity;
@@ -14,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 public class NetworkActivity extends Activity {
 	protected void setStartActivity(int resource, final Class<?> clazz)
@@ -73,11 +72,25 @@ public class NetworkActivity extends Activity {
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
+	
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home)
+		{
+			Toast.makeText(this, "Neklikej", Toast.LENGTH_LONG).show();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (Integer.valueOf(Build.VERSION.SDK).intValue() >= 11)
-			requestWindowFeature(/*Window.FEATURE_ACTION_BAR*/ 8);
+		{
+			requestWindowFeature(8/*Window.FEATURE_ACTION_BAR */);
+		}
 		super.onCreate(savedInstanceState);
 	}
 	
