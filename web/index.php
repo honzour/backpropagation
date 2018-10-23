@@ -1,6 +1,7 @@
 <HTML>
 <HEAD>
 <META charset="utf-8">
+<meta http-equiv="refresh" content="4;url=http://backpropagation.wz.cz/2.3/">
 <TITLE>Backpropagation</TITLE>
 </HEAD>
 <BODY>
