@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Backprop</string>
+    <string name="full_name">Backpropagation</string>
+    
+    <!-- main -->
+    <string name="learning">Učení</string>
+    <string name="network_visualisation">Zobrazení sítě</string>
+    <string name="result_visualisation">Zobrazení výsledku</string>
+    <string name="import_string">Import</string>
+    <string name="export">Export</string>
+    <string name="export_xml">Export do XML</string>
+    <string name="export_csv">Export do CSV</string>
+    <string name="new_task">Nový úkol</string>
+    <string name="result_for_input">Výsledek pro vstup</string>
+    
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+    
+    
+    <string-array name="functions">
+        <item>Identita</item>
+        <item>Ne</item>
+        <item>A</item>
+        <item>Nebo</item>
+        <item>XOR</item>
+        <item>Výjimka</item>
+        <item>Šachovnice</item>
+        <item>Výstup 3D</item>
+    </string-array>
+    
+    <!-- learning -->
+    <string name="start">Start</string>
+    <string name="stop">Zastavit</string>
+    <string name="iteration">Iterace:</string>
+    <string name="error">Chyba:</string>
+    <string name="no_progress">Nepostupuje?</string>
+    <string name="restart_learning">Spustit znovu</string>
+    <string name="restart_neuron">Zmutovat neuron</string>
+    <string name="alpha">Alfa:</string>
+    <string name="autoalpha">Automatická změna alfy</string>
+    
+    <!-- export -->
+    <string name="mail">E-mail</string>
+    <string name="save">Ulož</string>
+    <string name="save_to_public_memory">Exportovat neuronovou síť do souboru ve veřejné paměti (SD karta)?</string>
+    <string name="cannot_export">Nemohu uložit síť do</string>
+    <string name="file_saved">Soubor uložen</string>
+    <string name="network_xml">sit.xml</string>
+    <string name="network_csv">sit.csv</string>
+    <string name="send_mail">Poslat email&#8230;</string>
+    <string name="neural_network_xml">Neuronová síť - XML</string>
+    <string name="neural_network_csv">Neuronová síť - CSV</string>
+
+    <!-- import -->
+    <string name="import_csv">Import csv</string>
+    <string name="import_xml">Import xml</string>
+    <string name="load_example">Načti příklad</string>
+    <string name="load_file">Načti soubor</string>
+    <string name="read_from_www">Načti z webu</string>
+    <string name="enter_filename_first">Nejprve zadejte jméno souboru</string>
+    <string name="enter_url_first">Nejprve zadejte url</string>
+    <string name="www_example">Otevři www prohlížeč a načti jedním klikem některý z okomentovaných příkladů z našich www stránek:</string>
+    <string name="predefined_example">Načti interní příklad, není třeba připojení k Internetu:</string>
+    <string name="load_xml_data">Načti xml data ze souboru:</string>
+    <string name="load_xml_www">Nebo načti xml data z webu:</string>
+    <string name="www_hint_xml">http://nejaky.server.cz/sit.xml</string>
+    <string name="load_csv_data">Načti csv data ze souboru:</string>
+    <string name="load_csv_www">Nebo načti csv data z webu:</string>
+    <string name="www_hint_csv">http://nejaky.server.cz/sit.csv</string>
+    <string name="missing_tag">Chybí %1 tag</string>
+    <string name="null_elements">Zadejte vrstvy a tréninkovou množinu se vstupy a výstupy</string>
+    <string name="layers_missing">Zadejte aspoň jednu vrstvu</string>
+    <string name="neurons_missing">V každé vrstvě musí být aspoň jeden neuron</string>
+    <string name="weights_count">Špatný počet vah</string>
+    <string name="input_output_count">Tréninková musí mít stejně vstupů jako výstupů</string>
+    <string name="empty_training_set">Prázdná tréninková množina</string>
+    <string name="input_example_dimension">Špatná dimenze vstupu v tréninkové množině</string>
+    <string name="output_example_dimension">Špatná dimenze výstupu v tréninkové množině</string>
+    <string name="beginners">Pro začátečníky:</string>
+    <string name="experts">Pro experty:</string>
+    <string name="advanced">Pro pokročilé:</string>
+    <string name="enter_layers">Zadej počet vrstev, počet neuronů v každé vrstvě a tréninkovou množinu. Výchozí stav editoru je současná síť.</string>
+    <string name="run_editor">Spustit editor</string>
+    <string name="load_from_www">Načti z webu</string>
+    
+    <!-- csv parsing -->
+    <string name="empty_file">Prázdný soubor</string>
+    <string name="parser_error_convert" formatted="false">Chyba, řádek %d, \'%s\', nemůžu zkonvertovat \'%s\'</string>
+    <string name="parser_error_missing_space" formatted="false">Chyba, řádek %d, \'%s\', chybí místo mezi vstupem a výstupem, \'%s\' nalezeno</string>
+    <string name="not_enough_layers">Málo vrstev</string>
+    <string name="negative_layer_size">Velikost vrstvy musí být kladné číslo</string>
+    <string name="missing_format_description">Chybí popis formátu</string>
+    <string name="unknown_format">Neznámý formát</string>
+    <string name="missing_anatomy">Chybí anatomie</string>
+    <string name="missing_training_set">Chybí tréninková množina</string>
+    <string name="no_training_set_type">Chybí typ tréninkové množiny</string>
+    <string name="unknown_training_set_type">Neznámý typ tréninkové množiny</string>
+    <string name="sequence_to_short">Moc krátká posloupnost</string>
+    <string name="cannot_parse_layers">Nemůžu načíst vrstvy sítě</string>
+    
+    <!-- result input -->
+    <string name="input">Vstup:</string>
+    <string name="output">Výstup:</string>
+    <string name="input_error">Chyba vstupu</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Editor sítě</string>
+    <string name="ok">Budiž</string>
+    <string name="cancel">Zrušit</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="delete">Smazat</string>
+    <string name="add_layer">Přidat vrstvu</string>
+    <string name="add_training">Přidat prvek</string>
+    <string name="training_set">Tréninková množina</string>
+    <string name="network_anatomy">Anatomie sítě</string>
+    <string name="input_dimension">Dimenze vstupu</string>
+    <string name="hidden_layers">Počty neuronů ve skrytých vrstvách</string>
+    <string name="output_layer">Počet neuronů ve výstupní vrstvě</string>
+    <string name="edit_anatomy">Edituj anatomii</string>
+    <string name="edit_training">Edituj tréninkovou množinu</string>
+    <string name="value">Hodnota</string>
+    <string-array name="training_formats">
+        <item>Jednoduchá množina</item>
+        <item>Posloupnost</item>
+    </string-array>
+    
+    <!-- components -->
+    <string name="help">Nápověda</string>
+</resources>

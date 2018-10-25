@@ -1,3 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Backpropagation</string>
+    <string name="app_name">Backprop</string>
+    <string name="full_name">Backpropagation</string>
+    
+    <!-- main -->
+    <string name="learning">Learning</string>
+    <string name="network_visualisation">Network visualisation</string>
+    <string name="result_visualisation">Result visualisation</string>
+    <string name="export">Export</string>
+    <string name="import_string">Import</string>
+    <string name="export_xml">Export to XML</string>
+    <string name="export_csv">Export to CSV</string>
+    <string name="new_task">New task</string>
+    <string name="result_for_input">Result for input</string>
+    
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+    
+    <string-array name="functions">
+        <item>Identity</item>
+        <item>NOT</item>
+        <item>AND</item>
+        <item>OR</item>
+        <item>XOR</item>
+        <item>Exception</item>
+        <item>Chess board</item>
+        <item>Output 3D</item>
+    </string-array>
+    
+    <!-- learning -->
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="iteration">Iteration:</string>
+    <string name="error">Error:</string>
+    <string name="no_progress">No progress?</string>
+    <string name="restart_learning">Restart learning</string>
+    <string name="restart_neuron">Restart neuron</string>
+    <string name="alpha">Alpha:</string>
+    <string name="autoalpha">Automatic alpha update</string>
+    
+    <!-- export -->
+    <string name="mail">E-mail</string>
+    <string name="save">Save</string>
+    <string name="save_to_public_memory">Export neural network as a file to public memory (sdcard)?</string>
+    <string name="cannot_export">Cannot export network to</string>
+    <string name="file_saved">File saved</string>
+    <string name="network_xml">network.xml</string>
+    <string name="network_csv">network.csv</string>
+    <string name="send_mail">Send email&#8230;</string>
+    <string name="neural_network_xml">Neural network xml</string>
+    <string name="neural_network_csv">Neural network csv</string>
+    
+    <!-- import -->
+    <string name="import_csv">Import csv</string>
+    <string name="import_xml">Import xml</string>
+    <string name="load_example">Load example</string>
+    <string name="load_file">Load file</string>
+    <string name="read_from_www">Read from www</string>
+    <string name="enter_filename_first">Enter file name first</string>
+    <string name="enter_url_first">Enter url name first</string>
+    <string name="www_example">Open a www browser and choose any of commented examples from our www pages:</string>
+    <string name="predefined_example">Choose internal example, no Internet connection needed:</string>
+    <string name="load_xml_data">Load xml data from a file:</string>
+    <string name="load_xml_www">Or load xml data from www:</string>
+    <string name="www_hint_xml">http://some.server.net/network.xml</string>
+    <string name="load_csv_data">Load csv data from a file:</string>
+    <string name="load_csv_www">Or load csv data from www:</string>
+    <string name="www_hint_csv">http://some.server.net/network.csv</string>
+    <string name="missing_tag">Missing %1 tag</string>
+    <string name="null_elements">Eneter layers and training set with inputs and outputs</string>
+    <string name="layers_missing">Enter at least one layer</string>
+    <string name="neurons_missing">No neuron in a layer</string>
+    <string name="weights_count">Bad weights count</string>
+    <string name="input_output_count">Training set: inputs.length != outputs.length</string>
+    <string name="empty_training_set">Empty training set</string>
+    <string name="input_example_dimension">Bad training set input example dimension</string>
+    <string name="output_example_dimension">Bad training set ouput example dimension></string>
+    <string name="beginners">For beginners:</string>
+    <string name="experts">For experts:</string>
+    <string name="advanced">For advanced:</string>
+    <string name="enter_layers">Enter layer count, neuron count in each layer and training set. Editor starts with the current network.</string>
+    <string name="run_editor">Run editor</string>
+    <string name="load_from_www">Load from www</string>
+    
+    <!-- csv parsing -->
+    <string name="empty_file">Empty file</string>
+    <string name="parser_error_convert" formatted="false">Parser error, line %d, \'%s\', cannot convert \'%s\'</string>
+    <string name="parser_error_missing_space" formatted="false">Parser error, line %d, \'%s\', missing space between input and output, \'%s\' found</string>
+    <string name="not_enough_layers">Not enough layers</string>
+    <string name="negative_layer_size">Layer size must be a positive number</string>
+    <string name="missing_format_description">Missing format description</string>
+    <string name="unknown_format">Unknown format</string>
+    <string name="missing_anatomy">Missing anatomy</string>
+    <string name="missing_training_set">Missing training set</string>
+    <string name="no_training_set_type">No training set type?</string>
+    <string name="unknown_training_set_type">Unknown training set type</string>
+    <string name="sequence_to_short">Sequence to short</string>
+    <string name="cannot_parse_layers">Cannot parse layers</string>
+    
+    <!-- result input -->
+    <string name="input">Input:</string>
+    <string name="output">Output:</string>
+    <string name="input_error">Input error</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Network editor</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="delete">Delete</string>
+    <string name="add_layer">Add a layer</string>
+    <string name="add_training">Add an element</string>
+    <string name="training_set">Training set</string>
+    <string name="network_anatomy">Network anatomy</string>
+    <string name="input_dimension">Input dimension</string>
+    <string name="hidden_layers">Neuron count in hidden layers</string>
+    <string name="output_layer">Neuron count in output layer</string>
+    <string name="edit_anatomy">Edit anatomy</string>
+    <string name="edit_training">Edit training set</string>
+    <string name="value">Value</string>
+    <string-array name="training_formats">
+        <item>Simple training set</item>
+        <item>Sequence</item>
+    </string-array>
+    
+    <!-- components -->
+    <string name="help">Help</string>
 </resources>

@@ -1,11 +1,68 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.honza.backpropagation">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" />
+         >
+        <activity
+            android:name="cz.honza.backpropagation.main.MainActivity"
+            android:label="@string/full_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data android:scheme="backpropagation" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cz.honza.backpropagation.learning.LearningActivity"
+            android:label="@string/learning" />
+        <activity
+            android:name="cz.honza.backpropagation.network.visualisation.VisualisationActivity"
+            android:label="@string/network_visualisation" />
+        <activity
+            android:name="cz.honza.backpropagation.result.ResultActivity"
+            android:label="@string/result_visualisation" />
+        <activity
+            android:name="cz.honza.backpropagation.result.ResultInputActivity"
+            android:label="@string/result_for_input" />
+        <activity
+            android:name="cz.honza.backpropagation.export.ExportActivity" />
+        <activity
+            android:name="cz.honza.backpropagation.export.ImportDataActivity" />
+        <activity
+            android:name="cz.honza.backpropagation.export.NewTaskActivity"
+            android:label="@string/new_task"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.EditorActivity"
+            android:label="@string/network_editor"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.AnatomyActivity"
+            android:label="@string/network_anatomy"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingSetActivity"
+            android:label="@string/training_set" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingLineBaseActivity"
+            android:label="@string/training_set"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="cz.honza.backpropagation.editor.TrainingLineSingleTimelineActivity"
+            android:label="@string/training_set"
+            android:windowSoftInputMode="stateHidden" />
+        </application>
 </manifest>

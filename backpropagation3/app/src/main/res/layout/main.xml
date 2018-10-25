@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:help="http://schemas.android.com/apk/res/cz.honza.backpropagation"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background">
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_new_task"
+    	android:text="@string/new_task"
+        />
+    <LinearLayout
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+   		android:layout_height="wrap_content"
+   		android:orientation="horizontal" >
+    	<Button
+        	android:layout_width="0px"
+        	android:layout_weight="1"
+    		android:layout_height="wrap_content"
+    		android:id="@+id/main_import"
+    		android:text="@string/import_string" />
+    	<Spinner
+    	    android:id="@+id/main_import_format"
+    	    android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:entries="@array/export_formats" />
+   	</LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+   		android:layout_height="wrap_content"
+   		android:orientation="horizontal" >
+    	<Button
+        	android:layout_width="0px"
+        	android:layout_weight="1"
+    		android:layout_height="wrap_content"
+    		android:id="@+id/main_export"
+    		android:text="@string/export" />
+    	<Spinner
+    	    android:id="@+id/main_export_format"
+    	    android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:entries="@array/export_formats" />
+   	</LinearLayout>
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_learning"
+    	android:text="@string/learning"
+        />
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_network_visualisation"
+    	android:text="@string/network_visualisation"
+        />
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_result_visualisation"
+    	android:text="@string/result_visualisation"
+        />
+    <Button
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/main_result_input"
+    	android:text="@string/result_for_input"
+        />
+
+    <cz.honza.backpropagation.components.HelpButton
+        android:layout_marginTop="@dimen/commonMargin"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	help:link="main.php"
+        />
+    
+</LinearLayout>
+</ScrollView>
