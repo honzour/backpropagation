@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background">
+    >
 
 <LinearLayout 
     android:layout_width="fill_parent"
@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:text="@string/network_anatomy"
-    	android:textColor="@color/text" />
+    	 />
     
     <TextView
         android:id="@+id/editor_anatomy"
@@ -25,7 +25,7 @@
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:textColor="@color/text" />
+    	 />
     
     <Button
         android:layout_marginTop="@dimen/commonMargin"
@@ -40,14 +40,14 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:text="@string/training_set"
-    	android:textColor="@color/text" />
+    	 />
     
     <TextView
         android:id="@+id/edit_training_set"
         android:layout_margin="@dimen/commonMargin"
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:textColor="@color/text" />
+    	 />
     
     <Button
         android:layout_marginTop="@dimen/commonMargin"

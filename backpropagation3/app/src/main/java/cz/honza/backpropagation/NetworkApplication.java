@@ -3,6 +3,7 @@ package cz.honza.backpropagation;
 import java.io.ByteArrayInputStream;
 
 import cz.honza.backpropagation.learning.LearningThread;
+import cz.honza.backpropagation.main.MainActivity;
 import cz.honza.backpropagation.network.Network;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 import cz.honza.backpropagation.network.parser.XmlParser;
@@ -15,6 +16,7 @@ public class NetworkApplication extends Application {
 	public static LearningThread sThread;
 	public volatile static Network sNetwork = null;
 	public static NetworkApplication sInstance = null;
+	public static MainActivity sMainActivity = null;
 	
 	public static final String PREFS = "PREFS";
 	

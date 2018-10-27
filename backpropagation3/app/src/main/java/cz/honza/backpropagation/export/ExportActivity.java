@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +22,27 @@ import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.components.NetworkActivity;
 
 public class ExportActivity extends NetworkActivity {
+
+	// Storage Permissions
+	private static final int REQUEST_EXTERNAL_STORAGE = 1;
+	private static String[] PERMISSIONS_STORAGE = {
+			Manifest.permission.READ_EXTERNAL_STORAGE,
+			Manifest.permission.WRITE_EXTERNAL_STORAGE
+	};
+
+	public static void verifyStoragePermissions() {
+		// Check if we have write permission
+		int permission = ActivityCompat.checkSelfPermission(NetworkApplication.sMainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+		if (permission != PackageManager.PERMISSION_GRANTED) {
+			// We don't have permission so prompt the user
+			ActivityCompat.requestPermissions(
+					NetworkApplication.sMainActivity,
+					PERMISSIONS_STORAGE,
+					REQUEST_EXTERNAL_STORAGE
+			);
+		}
+	}
 	
 	public static final int EXTRA_FORMAT_XML = 1;
 	public static final int EXTRA_FORMAT_CSV = 0;
@@ -58,6 +82,7 @@ public class ExportActivity extends NetworkActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		verifyStoragePermissions();
 		mFormat = getIntent().getIntExtra(EXTRA_FORMAT, EXTRA_FORMAT_CSV);
 		switch (mFormat)
 		{

@@ -5,13 +5,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/background">
+    >
     <EditText
         android:gravity="top"
         android:background="@null"
 		android:editable="false"
 		android:cursorVisible="false"
-        android:textColor="@color/text" 
         android:layout_width="fill_parent"
         android:layout_height="0px"
         android:layout_weight="1"

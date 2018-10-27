@@ -94,6 +94,7 @@ public class ImportDataActivity extends NetworkActivity {
 		mFileButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ExportActivity.verifyStoragePermissions();
 				final String filename = mFileName.getText().toString();
 				savePref(mXml ? NetworkApplication.PREFS_DEFAULT_EXPORT_XML_FILE : NetworkApplication.PREFS_DEFAULT_EXPORT_CSV_FILE, filename);
 				

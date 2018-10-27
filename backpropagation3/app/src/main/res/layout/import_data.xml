@@ -2,7 +2,6 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 <LinearLayout
@@ -16,7 +15,7 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:text="@string/load_csv_data"
-    	android:textColor="@color/text" />
+    	 />
     <EditText
         android:inputType="textVisiblePassword"
         android:layout_margin="@dimen/commonMargin"
@@ -34,7 +33,7 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:text="@string/load_csv_www"
-    	android:textColor="@color/text" />
+    	 />
     <EditText
         android:inputType="textVisiblePassword"
         android:layout_margin="@dimen/commonMargin"

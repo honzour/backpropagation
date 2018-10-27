@@ -27,6 +27,7 @@ public class MainActivity extends NetworkActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		NetworkApplication.sMainActivity = this;
 		setContentView(R.layout.main);
 		setStartActivity(R.id.main_new_task, NewTaskActivity.class);
 		setStartActivity(R.id.main_learning, LearningActivity.class);

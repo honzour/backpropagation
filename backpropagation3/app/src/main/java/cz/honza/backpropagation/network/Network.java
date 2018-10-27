@@ -1,11 +1,16 @@
 package cz.honza.backpropagation.network;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
+import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
@@ -13,7 +18,7 @@ import cz.honza.backpropagation.network.parser.Xml;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
 
 public class Network implements Serializable {
-	
+
 	private static final long serialVersionUID = -6200117127679042346L;
 	
 	public double[][] mInputScale;
