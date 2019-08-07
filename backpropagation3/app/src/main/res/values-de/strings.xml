@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Backprop</string>
+    <string name="full_name">Backpropagation</string>
+    
+    <!-- main -->				<!-- German translation by Fukuro, with kind regards and without claims.  -->
+    <string name="learning">Training</string>
+    <string name="network_visualisation">Netzwerkdarstellung</string>
+    <string name="result_visualisation">Ergebnisdarstellung</string>
+    <string name="export">Export</string>
+    <string name="import_string">Import</string>
+    <string name="export_xml">nach XML exportieren</string>
+    <string name="export_csv">nach CSV exportieren</string>
+    <string name="new_task">neue Aufgabe</string>
+    <string name="result_for_input">Ergebnis als Eingabe</string>
+    
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+    
+    <string-array name="functions">
+        <item>Identity</item>	<!-- Identität -->
+        <item>NOT</item>		<!-- NICHT -->
+        <item>AND</item>		<!-- UND -->
+        <item>OR</item>			<!-- ODER -->
+        <item>XOR</item>		<!-- exklusives ODER / XODER -->
+        <item>Exception</item>	<!-- Ausnahme -->
+        <item>Chess board</item><!-- Schachbrett -->
+        <item>Output 3D</item>	<!-- 3D-Ausgabe -->
+    </string-array>
+    
+    <!-- learning -->
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="iteration">Iteration:</string>
+    <string name="error">Fehler:</string>
+    <string name="no_progress">Kein Fortschritt?</string>
+    <string name="restart_learning">Training neu starten</string>
+    <string name="restart_neuron">Neuron neu starten</string>
+    <string name="alpha">Alpha:</string>
+    <string name="autoalpha">Alpha automatisch aktualisieren</string>
+    
+    <!-- export -->
+    <string name="mail">E-mail</string>
+    <string name="save">Speichern</string>
+    <string name="save_to_public_memory">neuronales Netzwerk in Datei auf öffentlichen Speicher (SD-Karte) exportieren?</string>
+    <string name="cannot_export">Netzwerk konnte nicht exportiert werden nach</string>
+    <string name="file_saved">Datei gespeichert</string>
+    <string name="network_xml">network.xml</string>
+    <string name="network_csv">network.csv</string>
+    <string name="send_mail">Sende E-Mail&#8230;</string>
+    <string name="neural_network_xml">neuronales Netzwerk xml</string>
+    <string name="neural_network_csv">neuronales Netzwerk csv</string>
+    
+    <!-- import -->
+    <string name="import_csv">csv importieren</string>
+    <string name="import_xml">xml importieren</string>
+    <string name="load_example">Beispiel laden</string>
+    <string name="load_file">Datei laden</string>
+    <string name="read_from_www">aus dem Internet einlesen</string>
+    <string name="enter_filename_first">erst Dateinamen eingeben</string>
+    <string name="enter_url_first">erst URL eingeben</string>
+    <string name="www_example">Öffne einen Webbrowser und wähle eines der kommentierten Beispiele von unserer Webseite:</string>
+    <string name="predefined_example">Wähle ein internes Beispiel, hierbei ist keine Internetverbindung erforderlich:</string>
+    <string name="load_xml_data">Lade xml Daten aus einer Datei:</string>
+    <string name="load_xml_www">Oder lade xml Daten aus dem Internet:</string>
+    <string name="www_hint_xml">http://some.server.net/network.xml</string>
+    <string name="load_csv_data">Lade csv Daten aus einer Datei:</string>
+    <string name="load_csv_www">Oder lade csv Daten aus dem Internet:</string>
+    <string name="www_hint_csv">http://some.server.net/network.csv</string>
+    <string name="missing_tag">%1 tag fehlt</string>
+    <string name="null_elements">Füge Schichten und einen Trainingsdatensatz mit Eingaben und Ausgaben ein</string>
+    <string name="layers_missing">Füge wenigstens eine Schicht ein</string>
+    <string name="neurons_missing">Ein Neuron fehlt in einer Schicht</string>
+    <string name="weights_count">fehlerhafte Anzahl der Gewichte</string>
+    <string name="input_output_count">Trainingsdatensatz: inputs.length != outputs.length</string>
+    <string name="empty_training_set">leerer Trainingsdatensatz</string>
+    <string name="input_example_dimension">fehlerhafter Trainingsdatensatz Eingabe Beispiel Dimension</string>
+    <string name="output_example_dimension">fehlerhafter Trainingsdatensatz Ausgabe Beispiel Dimension></string>
+    <string name="beginners">Für Anfänger:</string>
+    <string name="experts">Für Experten:</string>
+    <string name="advanced">Für Fortgeschrittene:</string>
+    <string name="enter_layers">Gib die Anzahl der Schichten, die Anzahl der Neuronen in jeder Schicht und den Trainingsdatensatz ein. Der Editor fängt mit dem aktuellen Netzwerk an.</string>
+    <string name="run_editor">Starte Editor</string>
+    <string name="load_from_www">aus dem Internet laden</string>
+    
+    <!-- csv parsing -->
+    <string name="empty_file">leere Datei</string>
+    <string name="parser_error_convert" formatted="false">Parser Fehler, Zeile %d, \'%s\', kann \'%s\' nicht konvertieren</string>
+    <string name="parser_error_missing_space" formatted="false">Parser Fehler, Zeile %d, \'%s\', fehlendes Leerzeichen zwischen Eingabe und Ausgabe, \'%s\' gefunden</string>
+    <string name="not_enough_layers">nicht genügend Schichten</string>
+    <string name="negative_layer_size">Die Anzahl der Schichten muss eine positive Zahl sein</string>
+    <string name="missing_format_description">fehlende Formatbeschreibung</string>
+    <string name="unknown_format">unbekanntes Format</string>
+    <string name="missing_anatomy">fehlende Anatomie</string>
+    <string name="missing_training_set">fehlender Trainingsdatensatz</string>
+    <string name="no_training_set_type">kein Trainingsdatensatztyp?</string>
+    <string name="unknown_training_set_type">unbekannter Trainingsdatensatztyp</string>
+    <string name="sequence_to_short">Sequenz zu kurz</string>
+    <string name="cannot_parse_layers">kann Schichten nicht parsen</string>
+    
+    <!-- result input -->
+    <string name="input">Eingabe:</string>
+    <string name="output">Ausgabe:</string>
+    <string name="input_error">Eingabe Fehler</string>
+    
+    <!-- editor -->
+    <string name="network_editor">Netzwerk Editor</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbruch</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="delete">löschen</string>
+    <string name="add_layer">eine Schicht hinzufügen</string>
+    <string name="add_training">ein Element hinzufügen</string>
+    <string name="training_set">Trainingsdatensatz</string>
+    <string name="network_anatomy">Netzwerk Anatomie</string>
+    <string name="input_dimension">Eingabedimension</string>
+    <string name="hidden_layers">Neuronanzahl in versteckten Schichten</string>
+    <string name="output_layer">Neuronanzahl in der Augabeschicht</string>
+    <string name="edit_anatomy">Ändere Anatomie</string>
+    <string name="edit_training">Ändere Trainingsdatensatz</string>
+    <string name="value">Wert</string>
+    <string-array name="training_formats">
+        <item>Simple training set</item><!-- einfacher Trainingsdatensatz -->
+        <item>Sequence</item>			<!-- Sequenz -->
+    </string-array>
+    
+    <!-- components -->
+    <string name="help">Hilfe</string>
+</resources>

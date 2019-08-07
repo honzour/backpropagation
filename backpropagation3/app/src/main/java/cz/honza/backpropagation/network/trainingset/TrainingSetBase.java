@@ -82,6 +82,9 @@ public class TrainingSetBase implements TrainingSet {
 	@Override
 	public int getInputDimension()
 	{
+		if (mInputs.length == 0) {
+			return 0;
+		}
 		return mInputs[0].length;
 	}
 	
