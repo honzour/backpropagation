@@ -22,7 +22,7 @@ Do you like this program? And do you want to help me to develop it? There are ma
 	<LI>You are a journalist or an owner of related www pages
 		<UL>
 			<LI>Write an article about it</LI>
-			<LI>Add a link to <A HREF="http://backpropagation.moxo.cz/">http://backpropagation.moxo.cz/</A></LI>
+			<LI>Add a link to <A HREF="http://backpropagation.wz.cz/">http://backpropagation.wz.cz/</A></LI>
 		</UL>
 	</LI>
 	<LI>You are a native English speaker
