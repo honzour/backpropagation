@@ -47,6 +47,7 @@ public class ExportActivity extends NetworkActivity {
 	
 	public static final int EXTRA_FORMAT_XML = 1;
 	public static final int EXTRA_FORMAT_CSV = 0;
+	public static final int EXTRA_FORMAT_JAVA = 2;
 	public static final String EXTRA_FORMAT = "EXTRA_FORMAT";
 	
 	protected int mFormat;
@@ -59,6 +60,13 @@ public class ExportActivity extends NetworkActivity {
 	{
 		final StringWriter writer = new StringWriter();
 		NetworkApplication.sNetwork.saveXml(writer);
+		return writer.getBuffer().toString();
+	}
+
+	private String getJava() throws IOException
+	{
+		final StringWriter writer = new StringWriter();
+		NetworkApplication.sNetwork.saveJava(writer);
 		return writer.getBuffer().toString();
 	}
 	
@@ -75,6 +83,8 @@ public class ExportActivity extends NetworkActivity {
 		{
 		case EXTRA_FORMAT_CSV:
 			return getCsv();
+		case EXTRA_FORMAT_JAVA:
+			return getJava();
 		default:
 			return getXml();
 		}
@@ -89,6 +99,9 @@ public class ExportActivity extends NetworkActivity {
 		{
 		case EXTRA_FORMAT_CSV:
 			setTitle(R.string.export_csv);
+			break;
+		case EXTRA_FORMAT_JAVA:
+			setTitle(R.string.export_java);
 			break;
 		case EXTRA_FORMAT_XML:
 			setTitle(R.string.export_xml);
@@ -135,9 +148,19 @@ public class ExportActivity extends NetworkActivity {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(
-						mFormat == EXTRA_FORMAT_XML ? R.string.neural_network_xml : R.string.neural_network_csv 
-						));
+				int resource = R.string.neural_network_xml;
+				switch (mFormat) {
+					case EXTRA_FORMAT_XML:
+						resource = R.string.neural_network_xml;
+						break;
+					case EXTRA_FORMAT_CSV:
+						resource = R.string.neural_network_csv;
+						break;
+					case EXTRA_FORMAT_JAVA:
+						resource = R.string.neural_network_java;
+						break;
+				}
+				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getText(resource));
 				intent.putExtra(Intent.EXTRA_TEXT, value);
 				Intent chooser = Intent.createChooser(intent, getResources().getText(R.string.send_mail));
 				

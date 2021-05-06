@@ -11,12 +11,20 @@
     <string name="import_string">Import</string>
     <string name="export_xml">Export to XML</string>
     <string name="export_csv">Export to CSV</string>
+    <string name="export_java">Export to Java</string>
     <string name="new_task">New task</string>
     <string name="result_for_input">Result for input</string>
-    
+
+    <string-array name="import_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+
+
     <string-array name="export_formats">
         <item>CSV</item>
         <item>XML</item>
+        <item>Java</item>
     </string-array>
     
     <string-array name="functions">
@@ -52,6 +60,7 @@
     <string name="send_mail">Send email&#8230;</string>
     <string name="neural_network_xml">Neural network xml</string>
     <string name="neural_network_csv">Neural network csv</string>
+    <string name="neural_network_java">Neural network java</string>
     
     <!-- import -->
     <string name="import_csv">Import csv</string>

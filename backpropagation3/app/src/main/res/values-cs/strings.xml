@@ -11,12 +11,20 @@
     <string name="export">Export</string>
     <string name="export_xml">Export do XML</string>
     <string name="export_csv">Export do CSV</string>
+    <string name="export_java">Export do Javy</string>
     <string name="new_task">Nový úkol</string>
     <string name="result_for_input">Výsledek pro vstup</string>
-    
+
+    <string-array name="import_formats">
+        <item>CSV</item>
+        <item>XML</item>
+    </string-array>
+
+
     <string-array name="export_formats">
         <item>CSV</item>
         <item>XML</item>
+        <item>Java</item>
     </string-array>
     
     
@@ -53,6 +61,7 @@
     <string name="send_mail">Poslat email&#8230;</string>
     <string name="neural_network_xml">Neuronová síť - XML</string>
     <string name="neural_network_csv">Neuronová síť - CSV</string>
+    <string name="neural_network_java">Neuronová síť - java</string>
 
     <!-- import -->
     <string name="import_csv">Import csv</string>

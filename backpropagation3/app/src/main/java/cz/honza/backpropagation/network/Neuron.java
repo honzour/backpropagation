@@ -104,4 +104,16 @@ public class Neuron implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
+
+	public void saveJava(int which, Writer writer) throws IOException
+	{
+		writer.write("\t\t// calculate the sum (start with -treshold)...\n");
+		writer.write("\t\tsum = " + weights[0] + ";\n");
+		writer.write("\t\t// ...of weight * input\n");
+		for (int i = 1; i < weights.length; i++)
+		{
+			writer.write("\t\tsum += " + weights[i] + " * prev[" + (i - 1) + "];\n");
+		}
+		writer.write("\t\tnext[" + which + "] = sigma(sum);\n");
+	}
 }

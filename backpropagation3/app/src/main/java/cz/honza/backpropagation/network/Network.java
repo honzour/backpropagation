@@ -1,18 +1,14 @@
 package cz.honza.backpropagation.network;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.List;
 
-import cz.honza.backpropagation.NetworkApplication;
 import cz.honza.backpropagation.R;
 import cz.honza.backpropagation.network.parser.Csv;
+import cz.honza.backpropagation.network.parser.Java;
 import cz.honza.backpropagation.network.parser.ParserResultHandler;
 import cz.honza.backpropagation.network.parser.Xml;
 import cz.honza.backpropagation.network.trainingset.TrainingSet;
@@ -221,7 +217,6 @@ public class Network implements Serializable {
 				if (val > max)
 					max = val;
 			}
-			//final double avg = sum / training.inputs.length;
 			final double diff = max - min;
 			
 			if (diff == 0d)
@@ -420,6 +415,42 @@ public class Network implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
+
+	protected void saveLayersJava(Writer writer) throws IOException
+	{
+		if (mInputScale != null) {
+			writer.write("\t\t// scale the input\n");
+			for (int i = 0; i < mLayers[0].neurons[0].weights.length - 1; i++) {
+				writer.write("\t\tnext[" + i + "] = input[" + i + "] * " + mInputScale[i][0] + " + (" + mInputScale[i][1] + ");\n");
+			}
+		} else {
+			writer.write("\t\t// copy the input\n");
+			for (int i = 0; i < mLayers[0].neurons[0].weights.length - 1; i++) {
+				writer.write("\t\tnext[" + i + "] = input[" + i + "];\n");
+			}
+		}
+
+		writer.write("\t\tprev = next;\n");
+		writer.write("\t\tdouble sum;\n");
+		for (int i = 0; i < mLayers.length; i++) {
+			mLayers[i].saveJava(writer);
+			writer.write("\t\tprev = next;\n");
+		}
+
+		if (mOutputScale != null) {
+			writer.write("\t\t// scale the output\n");
+			writer.write("\t\tdouble[] output = new double[next.length];\n");
+			for (int i = 0; i < mLayers[mLayers.length - 1].neurons.length; i++) {
+				writer.write("\t\toutput[" + i + "] = next[" + i + "] * " + mOutputScale[i][0] + " + (" + mOutputScale[i][1] + ");\n");
+			}
+		} else {
+			writer.write("\t\t// copy the output\n");
+			for (int i = 0; i < mLayers[0].neurons[0].weights.length; i++) {
+				writer.write("\t\tprev[" + i + "] = input[" + i + "];\n");
+			}
+		}
+
+	}
 	
 	
 	public void saveXml(Writer writer) throws IOException
@@ -438,6 +469,15 @@ public class Network implements Serializable {
 		writer.write(Xml.NETWORK);
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
+	}
+
+	public void saveJava(Writer writer) throws IOException
+	{
+		writer.write(Java.HEADER);
+
+		saveLayersJava(writer);
+
+		writer.write(Java.FOOTER);
 	}
 	
 	public void saveXml(String filename) throws IOException

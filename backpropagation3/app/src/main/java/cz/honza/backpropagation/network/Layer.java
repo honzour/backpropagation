@@ -44,4 +44,16 @@ public class Layer implements Serializable {
 		writer.write(Xml.TAG_END);
 		writer.write(Xml.NEW_LINE);
 	}
+
+	public void saveJava(Writer writer) throws IOException
+	{
+
+		writer.write("\t\t// the next layer\n");
+		writer.write("\t\tnext = new double[" + neurons.length + "];\n");
+		for (int i = 0; i < neurons.length; i++) {
+			neurons[i].saveJava(i, writer);
+		}
+
+	}
+
 }

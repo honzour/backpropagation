@@ -33,7 +33,7 @@
     	    android:id="@+id/main_import_format"
     	    android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
-    		android:entries="@array/export_formats" />
+    		android:entries="@array/import_formats" />
    	</LinearLayout>
     <LinearLayout
         android:layout_marginTop="@dimen/commonMargin"
