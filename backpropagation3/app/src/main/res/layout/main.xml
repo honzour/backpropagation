@@ -87,6 +87,14 @@
     	android:layout_height="wrap_content"
     	help:link="main.php"
         />
+
+	<cz.honza.backpropagation.components.HelpButton
+		android:layout_marginTop="@dimen/commonMargin"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/adds"
+		help:link="adds.php"
+		/>
     
 </LinearLayout>
 </ScrollView>

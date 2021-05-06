@@ -14,6 +14,7 @@
     <string name="export_java">Export to Java</string>
     <string name="new_task">New task</string>
     <string name="result_for_input">Result for input</string>
+    <string name="adds">Adds</string>
 
     <string-array name="import_formats">
         <item>CSV</item>

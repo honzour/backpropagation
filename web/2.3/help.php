@@ -57,6 +57,7 @@ Do you like this program? And do you want to help me to develop it? There are ma
 			<LI>Send me some money for creating a sponsor screen in the app with your name at the first line.</LI>
 			<LI>Send me some money for your add in this app.</LI>
 			<LI>Send me some money for implementing some feature in the <A HREF="todo.php">TODO list</A> or some another.</LI>
+                        <LI>Invest money into bitcoin or p2p/p2b lending marketplaces and use me as a referal  <A HREF="add.php">details here</A>.</LI>
 		</UL>
 		The program has (according to Google Play) slightly more than 100 active users and I am sure most of them are very smart people.
 	</LI>
