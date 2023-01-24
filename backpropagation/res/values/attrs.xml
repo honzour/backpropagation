@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="help">
-        <attr name="url" format="string"/>
-        <attr name="link" format="string"/>
-    </declare-styleable>
-</resources>
