@@ -1,21 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cz.honza.backpropagation">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="cz.honza.backpropagation.NetworkApplication"
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
+        android:allowBackup="true"
         android:supportsRtl="true"
-         >
+        tools:targetApi="31">
         <activity
+            android:exported="true"
             android:name="cz.honza.backpropagation.main.MainActivity"
             android:label="@string/full_name" >
             <intent-filter>
@@ -68,5 +68,6 @@
             android:name="cz.honza.backpropagation.editor.TrainingLineSingleTimelineActivity"
             android:label="@string/training_set"
             android:windowSoftInputMode="stateHidden" />
-        </application>
+    </application>
+
 </manifest>

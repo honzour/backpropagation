@@ -27,14 +27,11 @@ public class HelpButton extends Button {
 				for (int i = 0; i < count; ++i)
 				{
 				    int attr = a.getIndex(i);
-				    switch (attr)
-				    {
-				        case R.styleable.help_url:
-				            mUrl = a.getString(attr);
-				            break;
-				        case R.styleable.help_link:
+				    if (attr == R.styleable.help_url) {
+						mUrl = a.getString(attr);
+					}
+					if (attr == R.styleable.help_link) {
 				            mUrl = NetworkApplication.HELP_URL_ROOT + a.getString(attr);
-				            break;
 				    }
 				}
 				a.recycle();
