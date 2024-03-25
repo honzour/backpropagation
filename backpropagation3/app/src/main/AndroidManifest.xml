@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/ic_launcher"
         android:allowBackup="true"
         android:supportsRtl="true"
-        tools:targetApi="33">
+        tools:targetApi="34">
         <activity
             android:exported="true"
             android:name="cz.honza.backpropagation.main.MainActivity"
